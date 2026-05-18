@@ -42,7 +42,7 @@ export function vimReducer(state: VimState, action: VimAction): VimState {
     case "BUFFER_LOADED": {
       const buffers = { ...state.buffers, [action.key]: action.data };
       const s: VimState = { ...state, buffers };
-      if (!state.currentBuffer) {
+      if (!state.currentBuffer || state.currentBuffer !== action.key) {
         s.currentBuffer = action.key;
         s.cursor = { line: 0, col: 0 };
         s.topLine = 0;
