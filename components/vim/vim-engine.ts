@@ -149,6 +149,12 @@ function handleNormalMode(state: VimState, key: string, ctrl: boolean): VimState
       return { ...state, cursor: { ...state.cursor, col: state.cursor.col + 1 } };
     }
 
+    // Tab switching
+    case "J":
+      return switchBuffer(state, {}, 1);
+    case "L":
+      return switchBuffer(state, {}, -1);
+
     // Word movement (simplified: move by line for HTML content)
     case "w": {
       const line = Math.min(state.cursor.line + 1, totalLines - 1);
