@@ -82,12 +82,14 @@ body {
 
 .wiki-content a {
   color: var(--color-primary);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--color-primary);
+  transition: border-bottom-style 0.15s, color 0.15s;
 }
 
 .wiki-content a:hover {
-  opacity: 0.8;
+  border-bottom-style: solid;
+  color: #1558b0;
 }
 
 .wiki-content blockquote {
@@ -182,4 +184,16 @@ body {
   color: var(--color-primary);
   border-left-color: var(--color-primary);
   font-weight: 500;
+}
+
+/* Search highlight */
+mark.search-highlight {
+  background: #fef08a;
+  padding: 1px 2px;
+  border-radius: 2px;
+  transition: background 1s ease;
+}
+
+mark.search-highlight.search-highlight-fade {
+  background: transparent;
 }

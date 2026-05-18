@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\coding\\\\hdu-sheep2goat\\\\HDUER-FROM-SHEEP-TO-GOAT\\\\HDUER-FROM-SHEEP-TO-GOAT\\\\articles\" -Recurse -File)",
+      "Bash(Select-Object FullName, Length)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(npx next *)",
+      "Bash(node -e \"console.log\\(require\\('./package.json'\\).dependencies.next\\)\")",
+      "Bash(ls node_modules/.package-lock.json)",
+      "Bash(ls node_modules/next/package.json)",
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:3000)",
+      "PowerShell(Stop-Process *)"
+    ]
+  }
+}

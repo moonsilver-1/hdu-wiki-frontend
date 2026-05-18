@@ -18,7 +18,9 @@ export interface ArticleMeta {
   title: string;
   category: string;
   tags: string[];
-  description: string;
+  excerpt: string;
+  date: string;
+  author: string;
   slug: string;
 }
 
@@ -89,7 +91,9 @@ export async function getArticle(
     title: data.title || slug,
     category: data.category || category,
     tags: data.tags || [],
-    description: data.description || "",
+    excerpt: data.excerpt || "",
+    date: data.date || "",
+    author: data.author || "",
     slug,
     contentHtml,
     toc,
@@ -119,7 +123,9 @@ export function getArticleMeta(
     title: data.title || slug,
     category: data.category || category,
     tags: data.tags || [],
-    description: data.description || "",
+    excerpt: data.excerpt || "",
+    date: data.date || "",
+    author: data.author || "",
     slug,
   };
 }
@@ -150,7 +156,7 @@ export function getSearchIndexData(): {
   slug: string;
   category: string;
   title: string;
-  description: string;
+  excerpt: string;
   tags: string[];
   content: string;
 }[] {
@@ -159,7 +165,7 @@ export function getSearchIndexData(): {
     slug: string;
     category: string;
     title: string;
-    description: string;
+    excerpt: string;
     tags: string[];
     content: string;
   }[] = [];
@@ -174,7 +180,7 @@ export function getSearchIndexData(): {
         slug,
         category: cat,
         title: frontmatter.title || slug,
-        description: frontmatter.description || "",
+        excerpt: frontmatter.excerpt || "",
         tags: frontmatter.tags || [],
         content: content.replace(/[#*`\[\]()]/g, "").slice(0, 500),
       });

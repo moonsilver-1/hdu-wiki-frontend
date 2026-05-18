@@ -78,7 +78,7 @@ export default function Home() {
                 {article.title}
               </h3>
               <p className="text-xs text-[var(--color-muted)] mt-1 line-clamp-2">
-                {article.description}
+                {article.excerpt}
               </p>
               <div className="flex gap-1 mt-2 flex-wrap">
                 {article.tags.slice(0, 3).map((tag) => (

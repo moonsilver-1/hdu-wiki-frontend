@@ -68,7 +68,7 @@ export default async function CategoryPage({
                   {article.title}
                 </h2>
                 <p className="text-sm text-[var(--color-muted)] mt-1">
-                  {article.description}
+                  {article.excerpt}
                 </p>
                 <div className="flex gap-1.5 mt-3 flex-wrap">
                   {article.tags.map((tag) => (

@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getArticle, getArticleSlugs, getCategoryName } from "@/lib/content";
 import Sidebar from "@/components/Sidebar";
 import Toc from "@/components/Toc";
+import SearchHighlight from "@/components/SearchHighlight";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -26,7 +28,7 @@ export async function generateMetadata({
   if (!article) return { title: "未找到" };
   return {
     title: article.title,
-    description: article.description,
+    description: article.excerpt,
   };
 }
 
@@ -62,9 +64,23 @@ export default async function ArticlePage({
           <span className="text-[var(--color-foreground)]">{article.title}</span>
         </nav>
 
+        {/* Article meta */}
+        <div className="max-w-3xl mb-6 pb-4 border-b border-[var(--color-border)]">
+          <h1 className="text-2xl font-bold mb-2">{article.title}</h1>
+          <div className="flex items-center gap-4 text-sm text-[var(--color-muted)]">
+            {article.author && (
+              <span>作者：{article.author}</span>
+            )}
+            {article.date && (
+              <span>{article.date}</span>
+            )}
+          </div>
+        </div>
+
         {/* Article */}
         <article className="wiki-content max-w-3xl">
           <div dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
+          <Suspense><SearchHighlight /></Suspense>
         </article>
 
         {/* Tags */}

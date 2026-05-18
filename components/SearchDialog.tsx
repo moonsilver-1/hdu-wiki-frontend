@@ -8,7 +8,7 @@ interface SearchItem {
   slug: string;
   category: string;
   title: string;
-  description: string;
+  excerpt: string;
   tags: string[];
 }
 
@@ -44,7 +44,7 @@ export default function SearchDialog({
     const filtered = allData.filter(
       (item) =>
         item.title.toLowerCase().includes(q) ||
-        item.description.toLowerCase().includes(q) ||
+        item.excerpt.toLowerCase().includes(q) ||
         item.tags.some((t) => t.toLowerCase().includes(q))
     );
     setResults(filtered.slice(0, 10));
@@ -54,7 +54,7 @@ export default function SearchDialog({
     (e: React.KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "Enter" && results.length > 0) {
-        router.push(`/${results[0].category}/${results[0].slug}`);
+        router.push(`/${results[0].category}/${results[0].slug}?q=${encodeURIComponent(query.trim())}`);
         onClose();
       }
     },
@@ -104,7 +104,7 @@ export default function SearchDialog({
               results.map((item) => (
                 <Link
                   key={`${item.category}-${item.slug}`}
-                  href={`/${item.category}/${item.slug}`}
+                  href={`/${item.category}/${item.slug}?q=${encodeURIComponent(query.trim())}`}
                   onClick={onClose}
                   className="block px-4 py-3 hover:bg-[var(--color-surface)] transition-colors border-b border-[var(--color-border)] last:border-b-0"
                 >
@@ -112,7 +112,7 @@ export default function SearchDialog({
                     {item.title}
                   </div>
                   <div className="text-xs text-[var(--color-muted)] mt-0.5">
-                    {item.description}
+                    {item.excerpt}
                   </div>
                   <div className="flex gap-1 mt-1">
                     <span className="text-xs text-[var(--color-primary)] bg-[var(--color-primary-light)] px-1.5 py-0.5 rounded">
