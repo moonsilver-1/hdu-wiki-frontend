@@ -18,7 +18,7 @@ export function initialVimState(): VimState {
     fileTree: [],
     expandedDirs: new Set(),
     neoTreeCursor: 0,
-    focusedPanel: "buffer",
+    focusedPanel: "neo-tree",
     searchQuery: "",
     searchDirection: "forward",
     searchMatches: [],
@@ -85,10 +85,20 @@ function handleKeyPress(state: VimState, key: string, ctrl: boolean): VimState {
 // ─── Normal Mode ────────────────────────────────────────────────
 
 function handleNormalMode(state: VimState, key: string, ctrl: boolean): VimState {
-  // Handle pending key (for 'gg')
+  // Handle pending keys (for 'gg' and 'ctrl-w')
   if (state.pendingKey === "g") {
     if (key === "g") {
       return scrollToCursor({ ...state, cursor: { line: 0, col: 0 }, topLine: 0, pendingKey: null });
+    }
+    return { ...state, pendingKey: null };
+  }
+  if (state.pendingKey === "ctrl-w") {
+    if (key === "w") {
+      return {
+        ...state,
+        pendingKey: null,
+        focusedPanel: state.focusedPanel === "neo-tree" ? "buffer" : "neo-tree",
+      };
     }
     return { ...state, pendingKey: null };
   }
@@ -132,8 +142,12 @@ function handleNormalMode(state: VimState, key: string, ctrl: boolean): VimState
       }
       return { ...state, cursor: { ...state.cursor, col: Math.max(state.cursor.col - 1, 0) } };
     }
-    case "l":
+    case "l": {
+      if (state.focusedPanel === "neo-tree") {
+        return neoTreeActivate(state);
+      }
       return { ...state, cursor: { ...state.cursor, col: state.cursor.col + 1 } };
+    }
 
     // Word movement (simplified: move by line for HTML content)
     case "w": {
@@ -171,14 +185,7 @@ function handleNormalMode(state: VimState, key: string, ctrl: boolean): VimState
     case "?":
       return { ...state, mode: "search", searchQuery: "?", searchDirection: "backward" };
 
-    // Panel focus
-    case "Tab":
-      return {
-        ...state,
-        focusedPanel: state.focusedPanel === "neo-tree" ? "buffer" : "neo-tree",
-      };
-
-    // NeoTree activate (Enter)
+    // NeoTree activate (Enter or l)
     case "Enter":
       if (state.focusedPanel === "neo-tree") {
         return neoTreeActivate(state);
@@ -195,6 +202,11 @@ function handleNormalMode(state: VimState, key: string, ctrl: boolean): VimState
 }
 
 function handleCtrlKey(state: VimState, key: string): VimState {
+  // Ctrl+w is a prefix for window commands
+  if (key === "w") {
+    return { ...state, pendingKey: "ctrl-w" };
+  }
+
   const totalLines = getCurrentBuffer(state)?.lineCount ?? 1;
   switch (key) {
     case "d": {

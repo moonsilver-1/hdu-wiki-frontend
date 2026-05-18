@@ -171,20 +171,14 @@ function HelpPage() {
       <div><span className="vim-help-key">:help</span> <span className="vim-help-desc">Show this help</span></div>
 
       <div className="vim-help-section">Other</div>
-      <div><span className="vim-help-key">Tab</span> <span className="vim-help-desc">Toggle NeoTree / Buffer focus</span></div>
-      <div><span className="vim-help-key">Enter</span> <span className="vim-help-desc">Open/expand in NeoTree</span></div>
+      <div><span className="vim-help-key">Ctrl+w w</span> <span className="vim-help-desc">Toggle NeoTree / Buffer focus</span></div>
+      <div><span className="vim-help-key">l / Enter</span> <span className="vim-help-desc">Open/expand in NeoTree</span></div>
+      <div><span className="vim-help-key">h</span> <span className="vim-help-desc">Collapse directory in NeoTree</span></div>
       <div><span className="vim-help-key">F1</span> <span className="vim-help-desc">Toggle help</span></div>
       <div><span className="vim-help-key">Esc</span> <span className="vim-help-desc">Cancel / Return to Normal</span></div>
     </div>
   );
 }
-
-const categoryNames: Record<string, string> = {
-  courses: "课程与学术",
-  campus: "校园生活",
-  tech: "技术与项目",
-  community: "社团与活动",
-};
 
 function buildFileTree(articles: { category: string; slug: string; title: string }[]): FileTreeNode[] {
   const dirMap: Record<string, FileTreeNode[]> = {};
@@ -195,7 +189,7 @@ function buildFileTree(articles: { category: string; slug: string; title: string
       type: "file",
       name: a.slug,
       path: `${a.category}/${a.slug}`,
-      label: a.title,
+      label: a.slug,
     });
   }
 
@@ -205,7 +199,7 @@ function buildFileTree(articles: { category: string; slug: string; title: string
       type: "dir" as const,
       name: cat,
       path: cat,
-      label: categoryNames[cat] || cat,
+      label: cat,
       children: files,
     }));
 }
