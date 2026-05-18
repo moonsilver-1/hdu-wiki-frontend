@@ -170,7 +170,8 @@ function HelpPage() {
       <div><span className="vim-help-key">:bn / :bp</span> <span className="vim-help-desc">Next / Previous buffer</span></div>
       <div><span className="vim-help-key">:help</span> <span className="vim-help-desc">Show this help</span></div>
 
-      <div className="vim-help-section">Other</div>
+      <div className="vim-help-section">Buffer / Navigation</div>
+      <div><span className="vim-help-key">Shift+J / Shift+H</span> <span className="vim-help-desc">Next / Previous buffer</span></div>
       <div><span className="vim-help-key">Space w / Space e</span> <span className="vim-help-desc">Toggle NeoTree / Buffer focus</span></div>
       <div><span className="vim-help-key">l / Enter</span> <span className="vim-help-desc">Open/expand in NeoTree</span></div>
       <div><span className="vim-help-key">h</span> <span className="vim-help-desc">Collapse directory in NeoTree</span></div>
