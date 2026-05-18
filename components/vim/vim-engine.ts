@@ -150,7 +150,7 @@ function handleNormalMode(state: VimState, key: string, ctrl: boolean): VimState
     }
 
     // Tab switching
-    case "J":
+    case "L":
       return switchBuffer(state, {}, 1);
     case "H":
       return switchBuffer(state, {}, -1);
