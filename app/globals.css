@@ -18,6 +18,16 @@
   --foreground: #1f2937;
 }
 
+.dark {
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --color-primary: #60a5fa;
+  --color-primary-light: #1e293b;
+  --color-border: #334155;
+  --color-muted: #94a3b8;
+  --color-surface: #1e293b;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -89,7 +99,10 @@ body {
 
 .wiki-content a:hover {
   border-bottom-style: solid;
-  color: #1558b0;
+}
+
+.dark .wiki-content a:hover {
+  color: #93bbfd;
 }
 
 .wiki-content blockquote {
@@ -108,6 +121,10 @@ body {
   font-family: var(--font-mono), monospace;
 }
 
+.dark .wiki-content code {
+  background: #334155;
+}
+
 .wiki-content pre {
   background: #f6f8fa;
   border: 1px solid var(--color-border);
@@ -115,6 +132,10 @@ body {
   padding: 1rem;
   overflow-x: auto;
   margin-bottom: 1rem;
+}
+
+.dark .wiki-content pre {
+  background: #0f172a;
 }
 
 .wiki-content pre code {
@@ -171,6 +192,10 @@ body {
   border-radius: 2px;
 }
 
+.dark .sidebar-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
 /* TOC active indicator */
 .toc-link {
   transition: color 0.15s, border-color 0.15s;
@@ -194,6 +219,36 @@ mark.search-highlight {
   transition: background 1s ease;
 }
 
+.dark mark.search-highlight {
+  background: #854d0e;
+  color: #fef08a;
+}
+
 mark.search-highlight.search-highlight-fade {
   background: transparent;
 }
+
+/* Dark mode code highlighting overrides */
+.dark .wiki-content pre code.hljs {
+  color: #e2e8f0;
+  background: transparent;
+}
+
+.dark .wiki-content pre .hljs-keyword,
+.dark .wiki-content pre .hljs-selector-tag { color: #c792ea; }
+.dark .wiki-content pre .hljs-string,
+.dark .wiki-content pre .hljs-addition { color: #c3e88d; }
+.dark .wiki-content pre .hljs-number,
+.dark .wiki-content pre .hljs-literal { color: #f78c6c; }
+.dark .wiki-content pre .hljs-built_in { color: #82aaff; }
+.dark .wiki-content pre .hljs-comment,
+.dark .wiki-content pre .hljs-quote { color: #676e95; font-style: italic; }
+.dark .wiki-content pre .hljs-function .hljs-title { color: #82aaff; }
+.dark .wiki-content pre .hljs-attr,
+.dark .wiki-content pre .hljs-variable { color: #f07178; }
+.dark .wiki-content pre .hljs-type,
+.dark .wiki-content pre .hljs-class .hljs-title { color: #ffcb6b; }
+.dark .wiki-content pre .hljs-symbol,
+.dark .wiki-content pre .hljs-bullet { color: #89ddff; }
+.dark .wiki-content pre .hljs-meta { color: #ffcb6b; }
+.dark .wiki-content pre .hljs-deletion { color: #f07178; }

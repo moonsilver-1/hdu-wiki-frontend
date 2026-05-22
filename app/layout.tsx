@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,15 +31,25 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("wiki-theme");var d=t==="dark"||(t!=="light"&&(window.matchMedia("(prefers-color-scheme:dark)").matches||(new Date().getHours()>=18||new Date().getHours()<6)));if(d)document.documentElement.classList.add("dark")}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-          <div className="max-w-7xl mx-auto px-4 py-6 text-center text-xs text-[var(--color-muted)]">
-            HDU Wiki — 杭州电子科技大学校园百科
-          </div>
-        </footer>
+        <ThemeProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+            <div className="max-w-7xl mx-auto px-4 py-6 text-center text-xs text-[var(--color-muted)]">
+              HDU Wiki — 杭州电子科技大学校园百科
+            </div>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );
