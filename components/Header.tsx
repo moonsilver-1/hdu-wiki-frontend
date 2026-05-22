@@ -32,6 +32,13 @@ export default function Header() {
               {cat.name}
             </Link>
           ))}
+          <Link
+            href="/vim"
+            className="text-sm text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors font-mono"
+            title="Vim Mode"
+          >
+            Vim
+          </Link>
         </nav>
 
         {/* Mobile menu button */}
@@ -78,6 +85,13 @@ export default function Header() {
               {cat.name}
             </Link>
           ))}
+          <Link
+            href="/vim"
+            className="block px-4 py-3 text-sm text-[var(--color-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-primary)] font-mono"
+            onClick={() => setMenuOpen(false)}
+          >
+            Vim Mode
+          </Link>
         </nav>
       )}
     </header>
