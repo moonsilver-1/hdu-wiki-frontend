@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { Menu, Moon, Sun, TerminalSquare, X } from "lucide-react";
 import { useState } from "react";
+import SearchButton from "./SearchButton";
 import { useTheme } from "./ThemeProvider";
 
 const categories = [
@@ -13,22 +15,20 @@ const categories = [
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
+  const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
 
   return (
     <button
-      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="p-1.5 rounded-md text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface)] transition-colors"
-      aria-label={resolvedTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
-      title={resolvedTheme === "dark" ? "切换到亮色模式" : "切换到暗色模式"}
+      type="button"
+      onClick={() => setTheme(nextTheme)}
+      className="header-icon-button"
+      aria-label={nextTheme === "light" ? "切换到亮色模式" : "切换到暗色模式"}
+      title={nextTheme === "light" ? "亮色模式" : "暗色模式"}
     >
       {resolvedTheme === "dark" ? (
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
+        <Sun aria-hidden="true" size={18} />
       ) : (
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-        </svg>
+        <Moon aria-hidden="true" size={18} />
       )}
     </button>
   );
@@ -38,90 +38,58 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--color-background)] border-b border-[var(--color-border)]">
-      <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-          <span className="text-[var(--color-primary)]">HDU</span>
-          <span>Wiki</span>
+    <header className="site-header">
+      <div className="site-container header-inner">
+        <Link href="/" className="site-brand" onClick={() => setMenuOpen(false)}>
+          <span><strong>HDU</strong> Wiki</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/${cat.slug}`}
-              className="text-sm text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors"
-            >
-              {cat.name}
+        <nav className="desktop-nav" aria-label="主导航">
+          {categories.map((category) => (
+            <Link key={category.slug} href={`/${category.slug}`}>
+              {category.name}
             </Link>
           ))}
-          <Link
-            href="/vim"
-            className="text-sm text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors font-mono"
-            title="Vim Mode"
-          >
+          <Link href="/vim" className="vim-link" title="Vim 阅读模式">
+            <TerminalSquare aria-hidden="true" size={16} />
             Vim
           </Link>
-          <ThemeToggle />
         </nav>
 
-        {/* Mobile menu button */}
-        <div className="md:hidden flex items-center gap-1">
+        <div className="header-actions">
+          <SearchButton variant="compact" />
           <ThemeToggle />
           <button
-            className="p-2 text-[var(--color-muted)]"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="菜单"
+            type="button"
+            className="header-icon-button mobile-menu-button"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
+            aria-expanded={menuOpen}
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {menuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {menuOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <nav className="md:hidden border-t border-[var(--color-border)] bg-[var(--color-background)]">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/${cat.slug}`}
-              className="block px-4 py-3 text-sm text-[var(--color-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-primary)]"
-              onClick={() => setMenuOpen(false)}
-            >
-              {cat.name}
+      {menuOpen ? (
+        <nav className="mobile-nav" aria-label="移动端导航">
+          <div className="site-container">
+            {categories.map((category) => (
+              <Link
+                key={category.slug}
+                href={`/${category.slug}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                {category.name}
+              </Link>
+            ))}
+            <Link href="/vim" onClick={() => setMenuOpen(false)}>
+              <TerminalSquare aria-hidden="true" size={17} />
+              Vim 阅读模式
             </Link>
-          ))}
-          <Link
-            href="/vim"
-            className="block px-4 py-3 text-sm text-[var(--color-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-primary)] font-mono"
-            onClick={() => setMenuOpen(false)}
-          >
-            Vim Mode
-          </Link>
+          </div>
         </nav>
-      )}
+      ) : null}
     </header>
   );
 }

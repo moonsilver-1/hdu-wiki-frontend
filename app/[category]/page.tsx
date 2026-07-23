@@ -1,15 +1,24 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowUpRight, CalendarDays, UserRound } from "lucide-react";
 import {
   getCategories,
   getCategoryName,
   getArticlesByCategory,
 } from "@/lib/content";
+import CategoryIcon from "@/components/CategoryIcon";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 
+const categoryDescriptions: Record<string, string> = {
+  courses: "课程笔记、考试经验与学习资源，帮你更清楚地规划学业。",
+  campus: "从食堂宿舍到体育活动，整理每位 HDUer 都会遇到的校园问题。",
+  tech: "编程、硬件、AI 与工程实践，从工具入门到完整学习路线。",
+  community: "认识校园组织与共建方式，找到志同道合的人。",
+};
+
 export function generateStaticParams() {
-  return getCategories().map((cat) => ({ category: cat.slug }));
+  return getCategories().map((category) => ({ category: category.slug }));
 }
 
 export function generateMetadata({
@@ -17,8 +26,8 @@ export function generateMetadata({
 }: {
   params: Promise<{ category: string }>;
 }): Promise<Metadata> {
-  return params.then((p) => ({
-    title: getCategoryName(p.category),
+  return params.then((resolvedParams) => ({
+    title: getCategoryName(resolvedParams.category),
   }));
 }
 
@@ -30,61 +39,70 @@ export default async function CategoryPage({
   const { category } = await params;
   const categories = getCategories();
 
-  if (!categories.find((c) => c.slug === category)) {
+  if (!categories.some((item) => item.slug === category)) {
     notFound();
   }
 
   const categoryName = getCategoryName(category);
-  const articles = getArticlesByCategory(category);
+  const articles = getArticlesByCategory(category).sort((a, b) =>
+    b.date.localeCompare(a.date)
+  );
 
   return (
-    <div className="max-w-7xl mx-auto flex">
+    <div className="site-container content-layout">
       <Sidebar activeCategory={category} />
-      <div className="flex-1 min-w-0 px-4 py-8">
-        <div className="mb-8">
-          <nav className="text-xs text-[var(--color-muted)] mb-2">
-            <Link href="/" className="hover:text-[var(--color-primary)]">
-              首页
-            </Link>
-            <span className="mx-1">/</span>
-            <span>{categoryName}</span>
-          </nav>
-          <h1 className="text-2xl font-bold">{categoryName}</h1>
-        </div>
+      <main className="page-content">
+        <nav className="breadcrumb" aria-label="面包屑">
+          <Link href="/">首页</Link>
+          <span>/</span>
+          <span aria-current="page">{categoryName}</span>
+        </nav>
+
+        <header className={`category-header category-${category}`}>
+          <span className="category-header-icon">
+            <CategoryIcon category={category} size={28} />
+          </span>
+          <div>
+            <span className="section-kicker">知识分类</span>
+            <h1>{categoryName}</h1>
+            <p>{categoryDescriptions[category]}</p>
+          </div>
+          <strong>{articles.length} 篇</strong>
+        </header>
 
         {articles.length === 0 ? (
-          <div className="text-center py-16 text-[var(--color-muted)]">
-            暂无文章
-          </div>
+          <div className="empty-state">暂无文章</div>
         ) : (
-          <div className="space-y-3">
+          <div className="category-article-grid">
             {articles.map((article) => (
               <Link
                 key={article.slug}
                 href={`/${category}/${article.slug}`}
-                className="group block p-5 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:shadow-sm transition-all"
+                className={`category-article-card category-${category}`}
               >
-                <h2 className="font-semibold group-hover:text-[var(--color-primary)] transition-colors">
-                  {article.title}
-                </h2>
-                <p className="text-sm text-[var(--color-muted)] mt-1">
-                  {article.excerpt}
-                </p>
-                <div className="flex gap-1.5 mt-3 flex-wrap">
-                  {article.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs bg-[var(--color-surface)] text-[var(--color-muted)] px-2 py-0.5 rounded"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                <div className="category-article-topline">
+                  {article.date ? (
+                    <span><CalendarDays aria-hidden="true" size={15} />{article.date}</span>
+                  ) : null}
+                  {article.author ? (
+                    <span><UserRound aria-hidden="true" size={15} />{article.author}</span>
+                  ) : null}
+                </div>
+                <h2>{article.title}</h2>
+                <p>{article.excerpt}</p>
+                <div className="category-article-footer">
+                  <div className="tag-list">
+                    {article.tags.slice(0, 4).map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                  <ArrowUpRight aria-hidden="true" size={18} />
                 </div>
               </Link>
             ))}
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ArrowUpRight, Search, X } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface SearchItem {
   slug: string;
@@ -12,6 +13,13 @@ interface SearchItem {
   tags: string[];
 }
 
+const categoryNames: Record<string, string> = {
+  courses: "课程",
+  campus: "校园",
+  tech: "技术",
+  community: "社团",
+};
+
 export default function SearchDialog({
   open,
   onClose,
@@ -20,116 +28,115 @@ export default function SearchDialog({
   onClose: () => void;
 }) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchItem[]>([]);
   const [allData, setAllData] = useState<SearchItem[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (open && allData.length === 0) {
-      fetch("/api/search").then((r) => r.json()).then(setAllData);
-    }
+    if (!open || allData.length > 0) return;
+
+    const controller = new AbortController();
+    fetch("/api/search", { signal: controller.signal })
+      .then((response) => response.json())
+      .then(setAllData)
+      .catch((error) => {
+        if (error instanceof Error && error.name !== "AbortError") {
+          console.error("Search index failed to load", error);
+        }
+      });
+    return () => controller.abort();
   }, [open, allData.length]);
 
   useEffect(() => {
-    if (open) inputRef.current?.focus();
-  }, [open]);
+    if (!open) return;
 
-  useEffect(() => {
-    if (!query.trim()) {
-      setResults([]);
-      return;
-    }
-    const q = query.toLowerCase();
-    const filtered = allData.filter(
-      (item) =>
-        item.title.toLowerCase().includes(q) ||
-        item.excerpt.toLowerCase().includes(q) ||
-        item.tags.some((t) => t.toLowerCase().includes(q))
-    );
-    setResults(filtered.slice(0, 10));
+    inputRef.current?.focus();
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [open, onClose]);
+
+  const results = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    if (!normalizedQuery) return [];
+
+    return allData
+      .filter(
+        (item) =>
+          item.title.toLowerCase().includes(normalizedQuery) ||
+          item.excerpt.toLowerCase().includes(normalizedQuery) ||
+          item.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery))
+      )
+      .slice(0, 8);
   }, [query, allData]);
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "Enter" && results.length > 0) {
-        router.push(`/${results[0].category}/${results[0].slug}?q=${encodeURIComponent(query.trim())}`);
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter" && results.length > 0) {
+        const firstResult = results[0];
+        router.push(
+          `/${firstResult.category}/${firstResult.slug}?q=${encodeURIComponent(query.trim())}`
+        );
         onClose();
       }
     },
-    [results, router, onClose]
+    [onClose, query, results, router]
   );
 
   if (!open) return null;
 
+  const visibleItems = query.trim() ? results : allData.slice(0, 5);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]">
-      <div className="fixed inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative w-full max-w-lg bg-[var(--color-background)] rounded-xl shadow-2xl border border-[var(--color-border)] overflow-hidden">
-        <div className="flex items-center px-4 border-b border-[var(--color-border)]">
-          <svg
-            className="w-4 h-4 text-[var(--color-muted)] shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
+    <div className="search-dialog-shell" role="dialog" aria-modal="true" aria-label="搜索 Wiki">
+      <button className="search-dialog-backdrop" onClick={onClose} aria-label="关闭搜索" />
+      <div className="search-dialog-panel">
+        <div className="search-dialog-input-row">
+          <Search aria-hidden="true" size={20} />
           <input
             ref={inputRef}
-            type="text"
+            type="search"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(event) => setQuery(event.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="搜索 wiki 内容..."
-            className="flex-1 px-3 py-3 text-sm outline-none bg-transparent"
+            placeholder="搜索标题、摘要或标签"
+            aria-label="搜索标题、摘要或标签"
           />
-          <kbd className="hidden sm:inline-block text-xs text-[var(--color-muted)] bg-[var(--color-surface)] px-1.5 py-0.5 rounded border border-[var(--color-border)]">
-            ESC
-          </kbd>
+          <button type="button" onClick={onClose} className="dialog-close" aria-label="关闭搜索">
+            <X aria-hidden="true" size={18} />
+          </button>
         </div>
-        {query.trim() && (
-          <div className="max-h-80 overflow-y-auto">
-            {results.length === 0 ? (
-              <div className="px-4 py-8 text-center text-sm text-[var(--color-muted)]">
-                未找到相关内容
-              </div>
-            ) : (
-              results.map((item) => (
-                <Link
-                  key={`${item.category}-${item.slug}`}
-                  href={`/${item.category}/${item.slug}?q=${encodeURIComponent(query.trim())}`}
-                  onClick={onClose}
-                  className="block px-4 py-3 hover:bg-[var(--color-surface)] transition-colors border-b border-[var(--color-border)] last:border-b-0"
-                >
-                  <div className="text-sm font-medium text-[var(--color-foreground)]">
-                    {item.title}
-                  </div>
-                  <div className="text-xs text-[var(--color-muted)] mt-0.5">
-                    {item.excerpt}
-                  </div>
-                  <div className="flex gap-1 mt-1">
-                    <span className="text-xs text-[var(--color-primary)] bg-[var(--color-primary-light)] px-1.5 py-0.5 rounded">
-                      {item.category === "courses"
-                        ? "课程"
-                        : item.category === "campus"
-                        ? "校园"
-                        : item.category === "tech"
-                        ? "技术"
-                        : "社团"}
-                    </span>
-                  </div>
-                </Link>
-              ))
-            )}
-          </div>
-        )}
+
+        <div className="search-results-heading">
+          <span>{query.trim() ? "搜索结果" : "最近收录"}</span>
+          {query.trim() ? <span>{results.length} 条</span> : null}
+        </div>
+
+        <div className="search-results">
+          {query.trim() && results.length === 0 ? (
+            <div className="search-empty">未找到相关内容</div>
+          ) : (
+            visibleItems.map((item) => (
+              <Link
+                key={`${item.category}-${item.slug}`}
+                href={`/${item.category}/${item.slug}?q=${encodeURIComponent(query.trim())}`}
+                onClick={onClose}
+                className="search-result"
+              >
+                <span className={`search-result-category category-${item.category}`}>
+                  {categoryNames[item.category] ?? item.category}
+                </span>
+                <span className="search-result-copy">
+                  <strong>{item.title}</strong>
+                  <span>{item.excerpt}</span>
+                </span>
+                <ArrowUpRight aria-hidden="true" size={17} />
+              </Link>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

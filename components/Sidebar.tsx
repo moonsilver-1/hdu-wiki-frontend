@@ -1,48 +1,56 @@
 import Link from "next/link";
-import {
-  getCategories,
-  getArticlesByCategory,
-  getCategoryName,
-} from "@/lib/content";
+import { TerminalSquare } from "lucide-react";
+import { getCategories, getArticlesByCategory } from "@/lib/content";
+import CategoryIcon from "./CategoryIcon";
 
-export default function Sidebar({ activeCategory }: { activeCategory?: string }) {
+export default function Sidebar({
+  activeCategory,
+  activeSlug,
+}: {
+  activeCategory?: string;
+  activeSlug?: string;
+}) {
   const categories = getCategories();
 
   return (
-    <aside className="w-56 shrink-0 hidden lg:block">
-      <nav className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto sidebar-scroll py-6 pr-4">
-        {categories.map((cat) => {
-          const articles = getArticlesByCategory(cat.slug);
-          const isActive = activeCategory === cat.slug;
+    <aside className="wiki-sidebar">
+      <nav className="wiki-sidebar-inner" aria-label="知识分类">
+        <span className="sidebar-label">知识分类</span>
+        {categories.map((category) => {
+          const articles = getArticlesByCategory(category.slug);
+          const isActive = activeCategory === category.slug;
 
           return (
-            <div key={cat.slug} className="mb-4">
+            <div key={category.slug} className="sidebar-group">
               <Link
-                href={`/${cat.slug}`}
-                className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  isActive
-                    ? "bg-[var(--color-primary-light)] text-[var(--color-primary)]"
-                    : "text-[var(--color-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-foreground)]"
-                }`}
+                href={`/${category.slug}`}
+                className={`sidebar-category category-${category.slug} ${isActive ? "is-active" : ""}`}
               >
-                {cat.name}
+                <CategoryIcon category={category.slug} size={18} />
+                <span>{category.name}</span>
+                <small>{articles.length}</small>
               </Link>
-              {isActive && articles.length > 0 && (
-                <div className="ml-3 mt-1 space-y-0.5">
+              {isActive && articles.length > 0 ? (
+                <div className="sidebar-articles">
                   {articles.map((article) => (
                     <Link
                       key={article.slug}
-                      href={`/${cat.slug}/${article.slug}`}
-                      className="block px-3 py-1.5 text-xs text-[var(--color-muted)] hover:text-[var(--color-primary)] truncate"
+                      href={`/${category.slug}/${article.slug}`}
+                      className={article.slug === activeSlug ? "is-current" : ""}
+                      aria-current={article.slug === activeSlug ? "page" : undefined}
                     >
                       {article.title}
                     </Link>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
           );
         })}
+        <Link href="/vim" className="sidebar-vim-link">
+          <TerminalSquare aria-hidden="true" size={17} />
+          Vim 阅读模式
+        </Link>
       </nav>
     </aside>
   );

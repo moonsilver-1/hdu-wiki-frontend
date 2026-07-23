@@ -1,99 +1,239 @@
 import Link from "next/link";
-import { getAllArticles, getCategories, getArticlesByCategory } from "@/lib/content";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BookOpenCheck,
+  GitFork,
+} from "lucide-react";
+import { getAllArticles, getCategories, type ArticleMeta } from "@/lib/content";
+import CategoryIcon from "@/components/CategoryIcon";
 import SearchButton from "@/components/SearchButton";
 
-const categoryInfo: Record<string, { icon: string; desc: string }> = {
-  courses: {
-    icon: "📚",
-    desc: "课程笔记、考试经验、学习资源",
-  },
-  campus: {
-    icon: "🏫",
-    desc: "食堂攻略、宿舍指南、校园设施",
-  },
-  tech: {
-    icon: "💻",
-    desc: "编程教程、竞赛指南、项目经验",
-  },
-  community: {
-    icon: "🎯",
-    desc: "社团介绍、学生组织、校园活动",
-  },
+const categoryInfo: Record<string, { desc: string }> = {
+  courses: { desc: "课程笔记、考试经验与学习资源" },
+  campus: { desc: "校园办事、生活攻略与成长指南" },
+  tech: { desc: "编程、硬件、工具与项目实践" },
+  community: { desc: "社团介绍、学生组织与校园活动" },
 };
+
+const featuredSlugs = ["main-guide", "how-to-use-llm", "how-to-become-a-qualified-developer"];
+
+function sortByDate(articles: ArticleMeta[]) {
+  return [...articles].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function ArticleCard({
+  article,
+  categoryName,
+}: {
+  article: ArticleMeta;
+  categoryName: string;
+}) {
+  return (
+    <Link
+      href={`/${article.category}/${article.slug}`}
+      className={`article-card category-${article.category}`}
+    >
+      <div className="article-card-topline">
+        <span className="article-category">{categoryName}</span>
+        {article.date ? <time dateTime={article.date}>{article.date}</time> : null}
+      </div>
+      <h3>{article.title}</h3>
+      <p>{article.excerpt}</p>
+      <div className="article-card-footer">
+        <span>{article.author || "HDU Wiki"}</span>
+        <ArrowUpRight aria-hidden="true" size={17} />
+      </div>
+    </Link>
+  );
+}
 
 export default function Home() {
   const categories = getCategories();
-  const allArticles = getAllArticles();
+  const sortedArticles = sortByDate(getAllArticles());
+  const categoryNames = new Map(categories.map((category) => [category.slug, category.name]));
+  const categoryCounts = sortedArticles.reduce<Record<string, number>>((counts, article) => {
+    counts[article.category] = (counts[article.category] ?? 0) + 1;
+    return counts;
+  }, {});
+
+  const featuredArticle =
+    featuredSlugs
+      .map((slug) => sortedArticles.find((article) => article.slug === slug))
+      .find((article): article is ArticleMeta => Boolean(article)) ?? sortedArticles[0];
+  const supportingArticles = featuredSlugs
+    .map((slug) => sortedArticles.find((article) => article.slug === slug))
+    .filter((article): article is ArticleMeta => Boolean(article))
+    .filter((article) => article.slug !== featuredArticle?.slug)
+    .slice(0, 2);
+  const joinArticle = sortedArticles.find((article) => article.slug === "how-to-join-us");
+  const popularArticles = ["main-guide", "how-to-use-llm", "how-too-use-github", "how-to-get-job"]
+    .map((slug) => sortedArticles.find((article) => article.slug === slug))
+    .filter((article): article is ArticleMeta => Boolean(article));
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
-      {/* Hero */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-3">
-          <span className="text-[var(--color-primary)]">HDU</span> Wiki
-        </h1>
-        <p className="text-[var(--color-muted)] text-lg mb-6">
-          杭州电子科技大学校园百科
-        </p>
-        <SearchButton />
-      </div>
+    <div className="home-page">
+      <section className="home-hero">
+        <div className="site-container home-hero-content">
+          <h1>HDU Wiki</h1>
+          <p className="hero-lead">我们期待能让杭电变得越来越好！！！</p>
+          <SearchButton variant="hero" listenForShortcut={false} />
 
-      {/* Categories */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-        {categories.map((cat) => {
-          const info = categoryInfo[cat.slug];
-          const articles = getArticlesByCategory(cat.slug);
-          return (
-            <Link
-              key={cat.slug}
-              href={`/${cat.slug}`}
-              className="group block p-5 rounded-lg border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:shadow-md transition-all"
-            >
-              <div className="text-2xl mb-2">{info.icon}</div>
-              <h2 className="font-semibold text-sm group-hover:text-[var(--color-primary)] transition-colors">
-                {cat.name}
-              </h2>
-              <p className="text-xs text-[var(--color-muted)] mt-1">
-                {info.desc}
-              </p>
-              <p className="text-xs text-[var(--color-muted)] mt-2">
-                {articles.length} 篇文章
-              </p>
-            </Link>
-          );
-        })}
-      </div>
+          <div className="hero-popular" aria-label="热门内容">
+            <span>热门</span>
+            {popularArticles.map((article) => (
+              <Link key={article.slug} href={`/${article.category}/${article.slug}`}>
+                {article.tags[0] || article.title}
+              </Link>
+            ))}
+          </div>
 
-      {/* Recent articles */}
-      <div>
-        <h2 className="text-lg font-semibold mb-4">所有文章</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {allArticles.map((article) => (
-            <Link
-              key={`${article.category}-${article.slug}`}
-              href={`/${article.category}/${article.slug}`}
-              className="group block p-4 rounded-lg border border-[var(--color-border)] hover:bg-[var(--color-surface)] transition-colors"
-            >
-              <h3 className="font-medium text-sm group-hover:text-[var(--color-primary)] transition-colors">
-                {article.title}
-              </h3>
-              <p className="text-xs text-[var(--color-muted)] mt-1 line-clamp-2">
-                {article.excerpt}
-              </p>
-              <div className="flex gap-1 mt-2 flex-wrap">
-                {article.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] bg-[var(--color-surface)] text-[var(--color-muted)] px-1.5 py-0.5 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Link>
-          ))}
+          <div className="hero-stats" aria-label="站点内容统计">
+            <div><strong>{sortedArticles.length}</strong><span>篇实用内容</span></div>
+            <div><strong>{categories.length}</strong><span>个知识方向</span></div>
+            <div><strong>2026</strong><span>持续共建中</span></div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <main>
+        <section className="home-section" aria-labelledby="categories-title">
+          <div className="site-container">
+            <div className="section-heading">
+              <div>
+                <span className="section-kicker">探索 Wiki</span>
+                <h2 id="categories-title">从你关心的方向开始</h2>
+                <p>按主题浏览杭电校园里真正用得上的经验。</p>
+              </div>
+            </div>
+
+            <div className="category-grid">
+              {categories.map((category) => (
+                <Link
+                  key={category.slug}
+                  href={`/${category.slug}`}
+                  className={`category-card category-${category.slug}`}
+                >
+                  <span className="category-icon">
+                    <CategoryIcon category={category.slug} size={24} />
+                  </span>
+                  <h3>{category.name}</h3>
+                  <p>{categoryInfo[category.slug]?.desc}</p>
+                  <span className="category-count">
+                    {categoryCounts[category.slug] ?? 0} 篇文章
+                    <ArrowRight aria-hidden="true" size={16} />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {featuredArticle ? (
+          <section className="home-section home-section-muted" aria-labelledby="featured-title">
+            <div className="site-container">
+              <div className="section-heading">
+                <div>
+                  <span className="section-kicker">精选阅读</span>
+                  <h2 id="featured-title">第一次来，从这里读起</h2>
+                </div>
+                <Link href={`/${featuredArticle.category}`} className="section-link">
+                  浏览{categoryNames.get(featuredArticle.category)}
+                  <ArrowRight aria-hidden="true" size={16} />
+                </Link>
+              </div>
+
+              <div className="featured-grid">
+                <Link
+                  href={`/${featuredArticle.category}/${featuredArticle.slug}`}
+                  className={`featured-article category-${featuredArticle.category}`}
+                >
+                  <span className="featured-label">
+                    <BookOpenCheck aria-hidden="true" size={16} />
+                    新生推荐
+                  </span>
+                  <h3>{featuredArticle.title}</h3>
+                  <p>{featuredArticle.excerpt}</p>
+                  <div className="featured-meta">
+                    <span>{featuredArticle.author}</span>
+                    <span>开始阅读 <ArrowRight aria-hidden="true" size={17} /></span>
+                  </div>
+                </Link>
+
+                <div className="supporting-articles">
+                  {supportingArticles.map((article) => (
+                    <Link
+                      key={article.slug}
+                      href={`/${article.category}/${article.slug}`}
+                      className={`supporting-article category-${article.category}`}
+                    >
+                      <span className="supporting-icon">
+                        <CategoryIcon category={article.category} size={21} />
+                      </span>
+                      <div>
+                        <span>{categoryNames.get(article.category)}</span>
+                        <h3>{article.title}</h3>
+                        <p>{article.excerpt}</p>
+                      </div>
+                      <ArrowUpRight className="supporting-arrow" aria-hidden="true" size={18} />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="home-section" aria-labelledby="articles-title">
+          <div className="site-container">
+            <div className="section-heading">
+              <div>
+                <span className="section-kicker">全部内容</span>
+                <h2 id="articles-title">最近值得一读</h2>
+                <p>从新收录到经典指南，按更新时间快速浏览。</p>
+              </div>
+              <span className="article-total">共 {sortedArticles.length} 篇</span>
+            </div>
+
+            <div className="article-grid">
+              {sortedArticles.map((article) => (
+                <ArticleCard
+                  key={`${article.category}-${article.slug}`}
+                  article={article}
+                  categoryName={categoryNames.get(article.category) ?? article.category}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="contribute-section">
+          <div className="site-container contribute-inner">
+            <div>
+              <span className="section-kicker">共同维护</span>
+              <h2>把你的经验，留给下一位 HDUer</h2>
+              <p>补充缺失内容、修正过时信息，或分享一份真正解决问题的校园经验。</p>
+            </div>
+            <div className="contribute-actions">
+              {joinArticle ? (
+                <Link href={`/${joinArticle.category}/${joinArticle.slug}`} className="button button-light">
+                  了解如何加入
+                  <ArrowRight aria-hidden="true" size={17} />
+                </Link>
+              ) : null}
+              <a
+                href="https://github.com/moonsilver-1/hdu-wiki-frontend"
+                target="_blank"
+                rel="noreferrer"
+                className="button button-outline"
+              >
+                <GitFork aria-hidden="true" size={17} />
+                GitHub
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

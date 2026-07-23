@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GitFork } from "lucide-react";
 import "./globals.css";
 import Header from "@/components/Header";
 import ThemeProvider from "@/components/ThemeProvider";
@@ -40,13 +42,27 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body className="app-body">
         <ThemeProvider>
           <Header />
-          <main className="flex-1">{children}</main>
-          <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-            <div className="max-w-7xl mx-auto px-4 py-6 text-center text-xs text-[var(--color-muted)]">
-              HDU Wiki — 杭州电子科技大学校园百科
+          <div className="app-main">{children}</div>
+          <footer className="site-footer">
+            <div className="site-container footer-inner">
+              <div>
+                <Link href="/" className="footer-brand"><strong>HDU</strong> Wiki</Link>
+                <span>杭州电子科技大学校园百科</span>
+              </div>
+              <div className="footer-links">
+                <Link href="/community/how-to-join-us">参与共建</Link>
+                <a
+                  href="https://github.com/moonsilver-1/hdu-wiki-frontend"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="HDU Wiki GitHub 仓库"
+                >
+                  <GitFork aria-hidden="true" size={17} />
+                </a>
+              </div>
             </div>
           </footer>
         </ThemeProvider>

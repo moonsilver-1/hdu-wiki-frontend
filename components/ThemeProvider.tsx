@@ -62,8 +62,10 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   useEffect(() => {
     const saved = localStorage.getItem("wiki-theme") as Theme | null;
     const initial = saved === "light" || saved === "dark" || saved === "system" ? saved : "system";
-    setThemeState(initial);
-    applyTheme(initial);
+    const initialFrame = requestAnimationFrame(() => {
+      setThemeState(initial);
+      applyTheme(initial);
+    });
 
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const onSystemChange = () => {
@@ -80,6 +82,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     }, 60000);
 
     return () => {
+      cancelAnimationFrame(initialFrame);
       mq.removeEventListener("change", onSystemChange);
       clearInterval(interval);
     };
