@@ -1632,6 +1632,18 @@ input:focus-visible {
   border-radius: 8px;
 }
 
+/* KaTeX math formulas */
+.wiki-content .katex-display {
+  margin: 1.6rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+}
+
+.wiki-content .katex {
+  font-size: 1.1em;
+}
+
 /* Search highlight */
 mark.search-highlight {
   padding: 1px 2px;

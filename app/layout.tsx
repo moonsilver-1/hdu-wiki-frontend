@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GitFork } from "lucide-react";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 import Header from "@/components/Header";
 import ThemeProvider from "@/components/ThemeProvider";
 
