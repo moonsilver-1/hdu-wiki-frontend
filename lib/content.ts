@@ -14,6 +14,20 @@ import rehypeStringify from "rehype-stringify";
 
 const contentDir = path.join(process.cwd(), "content");
 
+// Keep the parser configuration in one place so article pages and API consumers
+// produce the same HTML. Math is rendered on the server and is safe to inject
+// because the source is repository-controlled Markdown.
+const markdownProcessor = unified()
+  .use(remarkParse)
+  .use(gfm)
+  .use(remarkMath, { singleDollarTextMath: true })
+  .use(remarkRehype)
+  .use(rehypeSlug)
+  .use(rehypeAutolinkHeadings, { behavior: "wrap" })
+  .use(rehypeHighlight)
+  .use(rehypeKatex, { throwOnError: false, strict: false })
+  .use(rehypeStringify);
+
 export interface ArticleMeta {
   title: string;
   category: string;
@@ -74,17 +88,7 @@ export async function getArticle(
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
-  const result = await unified()
-    .use(remarkParse)
-    .use(gfm)
-    .use(remarkMath)
-    .use(remarkRehype)
-    .use(rehypeKatex)
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, { behavior: "wrap" })
-    .use(rehypeHighlight)
-    .use(rehypeStringify)
-    .process(content);
+  const result = await markdownProcessor.process(content);
 
   const contentHtml = result.toString();
   const toc = extractToc(contentHtml);
