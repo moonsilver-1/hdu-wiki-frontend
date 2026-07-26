@@ -107,8 +107,8 @@ export default async function Home() {
             <div className="section-heading">
               <div>
                 <span className="section-kicker">探索 Wiki</span>
-                <h2 id="categories-title">从你关心的方向开始</h2>
-                <p>按主题浏览杭电校园里真正用得上的经验。</p>
+                <h2 id="categories-title">四大焚决</h2>
+                <p>这里有我们认为比较常见的四个方面的焚决</p>
               </div>
             </div>
 
@@ -140,7 +140,7 @@ export default async function Home() {
               <div className="section-heading">
                 <div>
                   <span className="section-kicker">精选阅读</span>
-                  <h2 id="featured-title">第一次来，从这里读起</h2>
+                  <h2 id="featured-title">从这里开始，到任何地方</h2>
                 </div>
                 <Link href={`/${featuredArticle.category}`} className="section-link">
                   浏览{categoryNames.get(featuredArticle.category)}
@@ -218,7 +218,7 @@ export default async function Home() {
               <div>
                 <span className="section-kicker">共同记录</span>
                 <h2 id="contributors-title">贡献者</h2>
-                <p>感谢每一位把经验写进 HDU Wiki 的作者。</p>
+                <p>感谢每一位把经验写进 HDU Wiki 的作者！！！</p>
               </div>
             </div>
             <div className="contributors-grid">
@@ -241,7 +241,7 @@ export default async function Home() {
             <div>
               <span className="section-kicker">共同维护</span>
               <h2>把你的经验，留给下一位 HDUer</h2>
-              <p>补充缺失内容、修正过时信息，或分享一份真正解决问题的校园经验。</p>
+              <p>让我们一起建设更好的 HDU-Wiki 吧！</p>
             </div>
             <div className="contribute-actions">
               {joinArticle ? (
