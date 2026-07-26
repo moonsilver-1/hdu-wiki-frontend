@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { CalendarDays, UserRound } from "lucide-react";
-import { getArticle, getArticleSlugs, getCategoryName } from "@/lib/content";
+import { getArticle, getArticleSlugs, getAuthorSlug, getCategoryName, splitAuthors } from "@/lib/content";
 import Sidebar from "@/components/Sidebar";
 import Toc from "@/components/Toc";
 import SearchHighlight from "@/components/SearchHighlight";
@@ -65,7 +65,12 @@ export default async function ArticlePage({
           <p>{article.excerpt}</p>
           <div className="article-meta">
             {article.author ? (
-              <span><UserRound aria-hidden="true" size={16} />{article.author}</span>
+              <span><UserRound aria-hidden="true" size={16} />{splitAuthors(article.author).map((author, index) => (
+                <span key={author}>
+                  {index > 0 ? ", " : null}
+                  <Link href={`/authors/${encodeURIComponent(getAuthorSlug(author))}`}>{author}</Link>
+                </span>
+              ))}</span>
             ) : null}
             {article.date ? (
               <time dateTime={article.date}>

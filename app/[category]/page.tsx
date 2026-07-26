@@ -5,6 +5,8 @@ import {
   getCategories,
   getCategoryName,
   getArticlesByCategory,
+  getAuthorSlug,
+  splitAuthors,
 } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
 import Sidebar from "@/components/Sidebar";
@@ -75,9 +77,8 @@ export default async function CategoryPage({
         ) : (
           <div className="category-article-grid">
             {articles.map((article) => (
-              <Link
+              <article
                 key={article.slug}
-                href={`/${category}/${article.slug}`}
                 className={`category-article-card category-${category}`}
               >
                 <div className="category-article-topline">
@@ -85,10 +86,15 @@ export default async function CategoryPage({
                     <span><CalendarDays aria-hidden="true" size={15} />{article.date}</span>
                   ) : null}
                   {article.author ? (
-                    <span><UserRound aria-hidden="true" size={15} />{article.author}</span>
+                    <span><UserRound aria-hidden="true" size={15} />{splitAuthors(article.author).map((author, index) => (
+                      <span key={author}>
+                        {index > 0 ? ", " : null}
+                        <Link href={`/authors/${encodeURIComponent(getAuthorSlug(author))}`}>{author}</Link>
+                      </span>
+                    ))}</span>
                   ) : null}
                 </div>
-                <h2>{article.title}</h2>
+                <h2><Link href={`/${category}/${article.slug}`}>{article.title}</Link></h2>
                 <p>{article.excerpt}</p>
                 <div className="category-article-footer">
                   <div className="tag-list">
@@ -98,7 +104,7 @@ export default async function CategoryPage({
                   </div>
                   <ArrowUpRight aria-hidden="true" size={18} />
                 </div>
-              </Link>
+              </article>
             ))}
           </div>
         )}

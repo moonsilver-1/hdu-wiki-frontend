@@ -935,6 +935,183 @@ input:focus-visible {
   color: var(--category-color);
 }
 
+.article-authors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.article-authors a:hover {
+  color: var(--primary);
+}
+
+.contributors-section {
+  background: var(--surface-muted);
+  border-block: 1px solid var(--border);
+}
+
+.contributors-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.contributor-card {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.contributor-card:hover {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.contributor-avatar,
+.author-avatar {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: #ffffff;
+  background: var(--primary);
+  font-weight: 750;
+}
+
+.contributor-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 15px;
+}
+
+.contributor-info {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.contributor-info strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.contributor-info small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.contributor-card > svg {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--primary);
+}
+
+.author-page {
+  min-height: calc(100vh - 68px);
+  background: var(--surface-muted);
+}
+
+.author-page-inner {
+  max-width: 900px;
+  padding-block: 32px 80px;
+}
+
+.author-back-link {
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+}
+
+.author-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 26px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.author-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  font-size: 28px;
+}
+
+.author-header h1 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.25;
+}
+
+.author-header p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.author-bio {
+  max-width: 760px;
+  padding-top: 34px;
+}
+
+.author-articles {
+  margin-top: 46px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.author-article-list {
+  display: grid;
+  gap: 8px;
+}
+
+.author-article-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.author-article-list a:hover {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+}
+
+.author-article-list a span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.author-article-list a span svg {
+  flex: 0 0 auto;
+  color: var(--primary);
+}
+
+.author-article-list small {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 11px;
+}
+
 .contribute-section {
   padding-block: 58px;
   color: #ffffff;
@@ -1858,7 +2035,8 @@ mark.search-highlight.search-highlight-fade {
   .category-grid,
   .article-grid,
   .category-article-grid,
-  .supporting-articles {
+  .supporting-articles,
+  .contributors-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -1888,6 +2066,10 @@ mark.search-highlight.search-highlight-fade {
     padding-block: 46px;
   }
 
+  .contributors-section {
+    padding-block: 54px;
+  }
+
   .contribute-inner {
     align-items: flex-start;
     flex-direction: column;
@@ -1914,8 +2096,24 @@ mark.search-highlight.search-highlight-fade {
   }
 
   .page-content,
-  .article-page-content {
+  .article-page-content,
+  .author-page-inner {
     padding-block: 28px 56px;
+  }
+
+  .author-header {
+    align-items: flex-start;
+  }
+
+  .author-header h1 {
+    font-size: 28px;
+  }
+
+  .author-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    font-size: 22px;
   }
 
   .breadcrumb {

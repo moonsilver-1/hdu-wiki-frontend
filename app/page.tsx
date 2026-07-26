@@ -5,7 +5,7 @@ import {
   BookOpenCheck,
   GitFork,
 } from "lucide-react";
-import { getAllArticles, getCategories, type ArticleMeta } from "@/lib/content";
+import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors, type ArticleMeta } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
 import SearchButton from "@/components/SearchButton";
 
@@ -30,26 +30,31 @@ function ArticleCard({
   categoryName: string;
 }) {
   return (
-    <Link
-      href={`/${article.category}/${article.slug}`}
-      className={`article-card category-${article.category}`}
-    >
+    <article className={`article-card category-${article.category}`}>
       <div className="article-card-topline">
         <span className="article-category">{categoryName}</span>
         {article.date ? <time dateTime={article.date}>{article.date}</time> : null}
       </div>
-      <h3>{article.title}</h3>
+      <h3><Link href={`/${article.category}/${article.slug}`}>{article.title}</Link></h3>
       <p>{article.excerpt}</p>
       <div className="article-card-footer">
-        <span>{article.author || "HDU Wiki"}</span>
+        <span className="article-authors">
+          {(splitAuthors(article.author).length ? splitAuthors(article.author) : ["HDU Wiki"]).map((author, index) => (
+            <span key={author}>
+              {index > 0 ? ", " : null}
+              <Link href={`/authors/${encodeURIComponent(getAuthorSlug(author))}`}>{author}</Link>
+            </span>
+          ))}
+        </span>
         <ArrowUpRight aria-hidden="true" size={17} />
       </div>
-    </Link>
+    </article>
   );
 }
 
-export default function Home() {
+export default async function Home() {
   const categories = getCategories();
+  const authors = await getAuthors();
   const sortedArticles = sortByDate(getAllArticles());
   const categoryNames = new Map(categories.map((category) => [category.slug, category.name]));
   const categoryCounts = sortedArticles.reduce<Record<string, number>>((counts, article) => {
@@ -202,6 +207,30 @@ export default function Home() {
                   article={article}
                   categoryName={categoryNames.get(article.category) ?? article.category}
                 />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="home-section contributors-section" aria-labelledby="contributors-title">
+          <div className="site-container">
+            <div className="section-heading">
+              <div>
+                <span className="section-kicker">共同记录</span>
+                <h2 id="contributors-title">贡献者</h2>
+                <p>感谢每一位把经验写进 HDU Wiki 的作者。</p>
+              </div>
+            </div>
+            <div className="contributors-grid">
+              {authors.map((author) => (
+                <Link key={author.slug} href={`/authors/${encodeURIComponent(author.slug)}`} className="contributor-card">
+                  <span className="contributor-avatar" aria-hidden="true">{author.name.slice(0, 1)}</span>
+                  <span className="contributor-info">
+                    <strong>{author.name}</strong>
+                    <small>{author.articleCount} 篇内容</small>
+                  </span>
+                  <ArrowUpRight aria-hidden="true" size={17} />
+                </Link>
               ))}
             </div>
           </div>

@@ -43,6 +43,13 @@ export interface Article extends ArticleMeta {
   toc: TocItem[];
 }
 
+export interface Author {
+  name: string;
+  slug: string;
+  bioHtml: string;
+  articleCount: number;
+}
+
 export interface TocItem {
   id: string;
   text: string;
@@ -55,6 +62,23 @@ const categoryMap: Record<string, string> = {
   tech: "技术与项目",
   community: "社团与活动",
 };
+
+const authorsDir = path.join(contentDir, "authors");
+
+export function getAuthorSlug(name: string): string {
+  return name
+    .trim()
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function splitAuthors(value: string): string[] {
+  return value
+    .split(/[,，、]/)
+    .map((author) => author.trim())
+    .filter(Boolean);
+}
 
 export function getCategoryName(slug: string): string {
   return categoryMap[slug] || slug;
@@ -149,6 +173,38 @@ export function getAllArticles(): ArticleMeta[] {
   }
 
   return articles;
+}
+
+export async function getAuthorProfile(name: string): Promise<string> {
+  const slug = getAuthorSlug(name);
+  const filePath = path.join(authorsDir, `${slug}.md`);
+  if (!fs.existsSync(filePath)) {
+    return "<p>作者介绍正在搭建中，欢迎作者补充自己的经历与分享方向。</p>";
+  }
+
+  const { content } = matter(fs.readFileSync(filePath, "utf-8"));
+  const result = await markdownProcessor.process(content);
+  return result.toString();
+}
+
+export async function getAuthors(): Promise<Author[]> {
+  const authorArticles = new Map<string, number>();
+  for (const article of getAllArticles()) {
+    for (const name of splitAuthors(article.author)) {
+      authorArticles.set(name, (authorArticles.get(name) ?? 0) + 1);
+    }
+  }
+
+  return Promise.all(
+    [...authorArticles.entries()]
+      .sort(([nameA], [nameB]) => nameA.localeCompare(nameB, "zh-CN"))
+      .map(async ([name, articleCount]) => ({
+        name,
+        slug: getAuthorSlug(name),
+        bioHtml: await getAuthorProfile(name),
+        articleCount,
+      }))
+  );
 }
 
 export function getArticlesByCategory(category: string): ArticleMeta[] {
