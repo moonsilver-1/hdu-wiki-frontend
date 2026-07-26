@@ -81,6 +81,12 @@ export default async function CategoryPage({
                 key={article.slug}
                 className={`category-article-card category-${category}`}
               >
+                <Link
+                  href={`/${category}/${article.slug}`}
+                  className="category-article-hit-area"
+                  aria-label={`阅读：${article.title}`}
+                  tabIndex={-1}
+                />
                 <div className="category-article-topline">
                   {article.date ? (
                     <span><CalendarDays aria-hidden="true" size={15} />{article.date}</span>
@@ -102,7 +108,13 @@ export default async function CategoryPage({
                       <span key={tag}>{tag}</span>
                     ))}
                   </div>
-                  <ArrowUpRight aria-hidden="true" size={18} />
+                  <Link
+                    href={`/${category}/${article.slug}`}
+                    className="category-article-arrow"
+                    aria-label={`阅读：${article.title}`}
+                  >
+                    <ArrowUpRight aria-hidden="true" size={18} />
+                  </Link>
                 </div>
               </article>
             ))}

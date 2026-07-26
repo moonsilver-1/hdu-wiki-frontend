@@ -2,22 +2,23 @@ import Link from "next/link";
 import { ArrowLeft, BookOpen, UserRound } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllArticles, getAuthorSlug, getAuthors, splitAuthors } from "@/lib/content";
+import { getAllArticles, getAuthorProfile, getAuthorSlug, getAuthors, splitAuthors } from "@/lib/content";
 
 export async function generateStaticParams() {
-  return (await getAuthors()).map((author) => ({ slug: author.slug }));
+  return getAuthors().map((author) => ({ slug: author.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const author = (await getAuthors()).find((item) => item.slug === slug);
+  const author = getAuthors().find((item) => item.slug === slug);
   return { title: author?.name ?? "作者" };
 }
 
 export default async function AuthorPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const author = (await getAuthors()).find((item) => item.slug === slug);
+  const author = getAuthors().find((item) => item.slug === slug);
   if (!author) notFound();
+  const bioHtml = await getAuthorProfile(author.name);
 
   const articles = getAllArticles().filter((article) =>
     splitAuthors(article.author).some((name) => getAuthorSlug(name) === author.slug)
@@ -35,7 +36,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
             <p><UserRound aria-hidden="true" size={15} />参与撰写 {author.articleCount} 篇内容</p>
           </div>
         </header>
-        <article className="wiki-content author-bio" dangerouslySetInnerHTML={{ __html: author.bioHtml }} />
+        <article className="wiki-content author-bio" dangerouslySetInnerHTML={{ __html: bioHtml }} />
         <section className="author-articles" aria-labelledby="author-articles-title">
           <div className="section-heading"><div><span className="section-kicker">贡献内容</span><h2 id="author-articles-title">TA 写过的文章</h2></div></div>
           <div className="author-article-list">

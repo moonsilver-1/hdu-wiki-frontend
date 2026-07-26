@@ -31,6 +31,12 @@ function ArticleCard({
 }) {
   return (
     <article className={`article-card category-${article.category}`}>
+      <Link
+        href={`/${article.category}/${article.slug}`}
+        className="article-card-hit-area"
+        aria-label={`阅读：${article.title}`}
+        tabIndex={-1}
+      />
       <div className="article-card-topline">
         <span className="article-category">{categoryName}</span>
         {article.date ? <time dateTime={article.date}>{article.date}</time> : null}
@@ -46,7 +52,13 @@ function ArticleCard({
             </span>
           ))}
         </span>
-        <ArrowUpRight aria-hidden="true" size={17} />
+        <Link
+          href={`/${article.category}/${article.slug}`}
+          className="article-card-arrow"
+          aria-label={`阅读：${article.title}`}
+        >
+          <ArrowUpRight aria-hidden="true" size={17} />
+        </Link>
       </div>
     </article>
   );
@@ -54,7 +66,7 @@ function ArticleCard({
 
 export default async function Home() {
   const categories = getCategories();
-  const authors = await getAuthors();
+  const authors = getAuthors();
   const sortedArticles = sortByDate(getAllArticles());
   const categoryNames = new Map(categories.map((category) => [category.slug, category.name]));
   const categoryCounts = sortedArticles.reduce<Record<string, number>>((counts, article) => {
@@ -150,6 +162,12 @@ export default async function Home() {
 
               <div className="featured-grid">
                 <article className={`featured-article category-${featuredArticle.category}`}>
+                  <Link
+                    href={`/${featuredArticle.category}/${featuredArticle.slug}`}
+                    className="featured-hit-area"
+                    aria-label={`阅读：${featuredArticle.title}`}
+                    tabIndex={-1}
+                  />
                   <span className="featured-label">
                     <BookOpenCheck aria-hidden="true" size={16} />
                     新生推荐

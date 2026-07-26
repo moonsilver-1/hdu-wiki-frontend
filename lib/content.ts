@@ -187,7 +187,7 @@ export async function getAuthorProfile(name: string): Promise<string> {
   return result.toString();
 }
 
-export async function getAuthors(): Promise<Author[]> {
+export function getAuthors(): Author[] {
   const authorArticles = new Map<string, { articleCount: number; firstSeen: number }>();
   const articles = [...getAllArticles()].sort((articleA, articleB) =>
     articleB.date.localeCompare(articleA.date)
@@ -203,18 +203,16 @@ export async function getAuthors(): Promise<Author[]> {
     }
   }
 
-  return Promise.all(
-    [...authorArticles.entries()]
-      .sort(([, authorA], [, authorB]) =>
-        authorB.articleCount - authorA.articleCount || authorA.firstSeen - authorB.firstSeen
-      )
-      .map(async ([name, contribution]) => ({
-        name,
-        slug: getAuthorSlug(name),
-        bioHtml: await getAuthorProfile(name),
-        articleCount: contribution.articleCount,
-      }))
-  );
+  return [...authorArticles.entries()]
+    .sort(([, authorA], [, authorB]) =>
+      authorB.articleCount - authorA.articleCount || authorA.firstSeen - authorB.firstSeen
+    )
+    .map(([name, contribution]) => ({
+      name,
+      slug: getAuthorSlug(name),
+      bioHtml: "",
+      articleCount: contribution.articleCount,
+    }));
 }
 
 export function getArticlesByCategory(category: string): ArticleMeta[] {

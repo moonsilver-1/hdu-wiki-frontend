@@ -718,6 +718,7 @@ input:focus-visible {
 }
 
 .featured-article {
+  position: relative;
   min-height: 356px;
   display: flex;
   flex-direction: column;
@@ -867,6 +868,7 @@ input:focus-visible {
 }
 
 .article-card {
+  position: relative;
   min-height: 246px;
   display: flex;
   flex-direction: column;
@@ -933,6 +935,41 @@ input:focus-visible {
 
 .article-card-footer svg {
   color: var(--category-color);
+}
+
+.article-card-hit-area,
+.featured-hit-area,
+.category-article-hit-area {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.article-card > *:not(.article-card-hit-area),
+.featured-article > *:not(.featured-hit-area),
+.category-article-card > *:not(.category-article-hit-area) {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.article-card a,
+.featured-article a,
+.category-article-card a {
+  pointer-events: auto;
+}
+
+.article-card-arrow,
+.category-article-arrow {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--category-color);
+}
+
+.article-card-arrow:hover,
+.category-article-arrow:hover {
+  color: var(--primary);
 }
 
 .article-authors {
@@ -1335,6 +1372,7 @@ input:focus-visible {
 }
 
 .category-article-card {
+  position: relative;
   min-height: 250px;
   display: flex;
   flex-direction: column;
@@ -1397,6 +1435,10 @@ input:focus-visible {
 .category-article-footer > svg {
   flex: 0 0 auto;
   color: var(--category-color);
+}
+
+.category-article-arrow {
+  align-items: center;
 }
 
 .tag-list {
