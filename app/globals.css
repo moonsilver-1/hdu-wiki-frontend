@@ -941,8 +941,24 @@ input:focus-visible {
   gap: 3px;
 }
 
-.article-authors a:hover {
+.article-authors a,
+.featured-authors a,
+.category-article-topline a {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.article-authors a:hover,
+.featured-authors a:hover,
+.category-article-topline a:hover {
   color: var(--primary);
+}
+
+.featured-authors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .contributors-section {

@@ -188,21 +188,31 @@ export async function getAuthorProfile(name: string): Promise<string> {
 }
 
 export async function getAuthors(): Promise<Author[]> {
-  const authorArticles = new Map<string, number>();
-  for (const article of getAllArticles()) {
+  const authorArticles = new Map<string, { articleCount: number; firstSeen: number }>();
+  const articles = [...getAllArticles()].sort((articleA, articleB) =>
+    articleB.date.localeCompare(articleA.date)
+  );
+
+  for (const [articleIndex, article] of articles.entries()) {
     for (const name of splitAuthors(article.author)) {
-      authorArticles.set(name, (authorArticles.get(name) ?? 0) + 1);
+      const current = authorArticles.get(name);
+      authorArticles.set(name, {
+        articleCount: (current?.articleCount ?? 0) + 1,
+        firstSeen: current?.firstSeen ?? articleIndex,
+      });
     }
   }
 
   return Promise.all(
     [...authorArticles.entries()]
-      .sort(([nameA], [nameB]) => nameA.localeCompare(nameB, "zh-CN"))
-      .map(async ([name, articleCount]) => ({
+      .sort(([, authorA], [, authorB]) =>
+        authorB.articleCount - authorA.articleCount || authorA.firstSeen - authorB.firstSeen
+      )
+      .map(async ([name, contribution]) => ({
         name,
         slug: getAuthorSlug(name),
         bioHtml: await getAuthorProfile(name),
-        articleCount,
+        articleCount: contribution.articleCount,
       }))
   );
 }

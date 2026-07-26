@@ -149,21 +149,25 @@ export default async function Home() {
               </div>
 
               <div className="featured-grid">
-                <Link
-                  href={`/${featuredArticle.category}/${featuredArticle.slug}`}
-                  className={`featured-article category-${featuredArticle.category}`}
-                >
+                <article className={`featured-article category-${featuredArticle.category}`}>
                   <span className="featured-label">
                     <BookOpenCheck aria-hidden="true" size={16} />
                     新生推荐
                   </span>
-                  <h3>{featuredArticle.title}</h3>
+                  <h3><Link href={`/${featuredArticle.category}/${featuredArticle.slug}`}>{featuredArticle.title}</Link></h3>
                   <p>{featuredArticle.excerpt}</p>
                   <div className="featured-meta">
-                    <span>{featuredArticle.author}</span>
+                    <span className="featured-authors">
+                      {splitAuthors(featuredArticle.author).map((author, index) => (
+                        <span key={author}>
+                          {index > 0 ? ", " : null}
+                          <Link href={`/authors/${encodeURIComponent(getAuthorSlug(author))}`}>{author}</Link>
+                        </span>
+                      ))}
+                    </span>
                     <span>开始阅读 <ArrowRight aria-hidden="true" size={17} /></span>
                   </div>
-                </Link>
+                </article>
 
                 <div className="supporting-articles">
                   {supportingArticles.map((article) => (
