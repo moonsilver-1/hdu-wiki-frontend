@@ -58,8 +58,8 @@ export default async function ArticlePage({
         </nav>
 
         <header className={`article-header category-${category}`}>
-          <Link href={`/${category}`} className="article-category-label">
-            {categoryName}
+          <Link href={`/${category}`} className={`article-category-label${article.featured ? " article-featured-label" : ""}`}>
+            {article.featured ? "必读文章" : categoryName}
           </Link>
           <h1>{article.title}</h1>
           <p>{article.excerpt}</p>

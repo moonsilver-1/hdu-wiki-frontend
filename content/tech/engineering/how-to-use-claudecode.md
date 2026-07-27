@@ -2,6 +2,7 @@
 title: "claudecode基础上手指南"
 date: "2026-07-07"
 author: "moonsilver"
+section: "vibecoding"
 excerpt: "cc基础使用方式教学"
 tags: ["claudecode", "ccswitch", "vibecoding"]
 ---

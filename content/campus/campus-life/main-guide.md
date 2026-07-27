@@ -2,6 +2,7 @@
 title: "HDUER FROM SHEEP TO GOAT"
 date: "2026-05-12"
 author: "moonsilver, 09, 如山"
+featured: true
 excerpt: "教你从什么都不懂的hduer小登变成老油条"
 tags: ["新生指南", "学业", "竞赛", "科研", "实践"]
 ---

@@ -2,6 +2,7 @@
 title: "如何成为一名ROS专家"
 date: "2026-07-23"
 author: "soyorin"
+section: "automation-learning"
 excerpt: "自动化专业嵌入式方向学习路线与建议"
 tags: ["机器人", "ROS", "机器视觉", "Linux", "职业规划"]
 ---

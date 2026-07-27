@@ -5,7 +5,7 @@ import {
   BookOpenCheck,
   GitFork,
 } from "lucide-react";
-import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors, type ArticleMeta } from "@/lib/content";
+import { getAllArticles, getAuthors, getCategories, getAuthorSlug, sortArticles, splitAuthors, type ArticleMeta } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
 import SearchButton from "@/components/SearchButton";
 
@@ -17,10 +17,6 @@ const categoryInfo: Record<string, { desc: string }> = {
 };
 
 const featuredSlugs = ["main-guide", "how-to-use-llm", "how-to-become-a-qualified-developer"];
-
-function sortByDate(articles: ArticleMeta[]) {
-  return [...articles].sort((a, b) => b.date.localeCompare(a.date));
-}
 
 function ArticleCard({
   article,
@@ -64,10 +60,33 @@ function ArticleCard({
   );
 }
 
-export default async function Home() {
+function sortByDate(articles: ArticleMeta[]) {
+  return [...articles].sort((articleA, articleB) =>
+    articleB.date.localeCompare(articleA.date) || articleA.slug.localeCompare(articleB.slug, "en", { numeric: true })
+  );
+}
+
+function formatPeriod(period: string) {
+  const [year, month] = period.split("-");
+  return `${year}年${Number(month)}月`;
+}
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: Promise<{ period?: string }>;
+}) {
   const categories = getCategories();
   const authors = getAuthors();
-  const sortedArticles = sortByDate(getAllArticles());
+  const allArticles = sortArticles(getAllArticles());
+  const availablePeriods = [...new Set(allArticles.map((article) => article.date.slice(0, 7)).filter(Boolean))]
+    .sort((periodA, periodB) => periodB.localeCompare(periodA));
+  const requestedPeriod = (await searchParams)?.period ?? "";
+  const selectedPeriod = availablePeriods.includes(requestedPeriod) ? requestedPeriod : "";
+  const sortedArticles = sortByDate(allArticles);
+  const recentArticles = selectedPeriod
+    ? sortedArticles.filter((article) => article.date.startsWith(selectedPeriod))
+    : sortedArticles;
   const categoryNames = new Map(categories.map((category) => [category.slug, category.name]));
   const categoryCounts = sortedArticles.reduce<Record<string, number>>((counts, article) => {
     counts[article.category] = (counts[article.category] ?? 0) + 1;
@@ -213,24 +232,40 @@ export default async function Home() {
 
         <section className="home-section" aria-labelledby="articles-title">
           <div className="site-container">
-            <div className="section-heading">
+            <div className="section-heading recent-heading">
               <div>
                 <span className="section-kicker">全部内容</span>
                 <h2 id="articles-title">最近值得一读</h2>
                 <p>从新收录到经典指南，按更新时间快速浏览。</p>
               </div>
-              <span className="article-total">共 {sortedArticles.length} 篇</span>
+              <div className="recent-tools">
+                <span className="article-total">共 {recentArticles.length} 篇</span>
+                <form className="article-time-filter" method="get" action="/#articles-title">
+                  <label htmlFor="article-period">按时间</label>
+                  <select id="article-period" name="period" defaultValue={selectedPeriod}>
+                    <option value="">全部时间</option>
+                    {availablePeriods.map((period) => (
+                      <option key={period} value={period}>{formatPeriod(period)}</option>
+                    ))}
+                  </select>
+                  <button type="submit">查找</button>
+                </form>
+              </div>
             </div>
 
-            <div className="article-grid">
-              {sortedArticles.map((article) => (
-                <ArticleCard
-                  key={`${article.category}-${article.slug}`}
-                  article={article}
-                  categoryName={categoryNames.get(article.category) ?? article.category}
-                />
-              ))}
-            </div>
+            {recentArticles.length > 0 ? (
+              <div className="article-grid">
+                {recentArticles.map((article) => (
+                  <ArticleCard
+                    key={`${article.category}-${article.slug}`}
+                    article={article}
+                    categoryName={categoryNames.get(article.category) ?? article.category}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">这个时间段还没有文章</div>
+            )}
           </div>
         </section>
 

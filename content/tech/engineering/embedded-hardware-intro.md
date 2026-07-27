@@ -2,6 +2,7 @@
 title: "嵌入式硬件入门流程梳理"
 date: "2026-05-21"
 author: "sweatyfinch"
+section: "automation-learning"
 excerpt: "简单梳理嵌入式硬件的工作和流程"
 tags: ["嵌入式硬件", "PCB", "实践", "竞赛"]
 ---

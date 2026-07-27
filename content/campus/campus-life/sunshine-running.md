@@ -2,6 +2,7 @@
 title: "阳光乐跑（阴暗蠕动）"
 date: "2026-05-13"
 author: "sweatyfinch"
+section: "forced-business"
 excerpt: "阳光乐跑相关规定、常见问题与申诉指南"
 tags: ["阳光长跑", "体育", "体测", "指南"]
 ---

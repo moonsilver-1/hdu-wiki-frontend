@@ -2,6 +2,7 @@
 title: "软件安装指南"
 date: "2026-05-12"
 author: "如山"
+section: "tool-use"
 excerpt: "各类软件安装方法，包括LaTeX配置和Git安装"
 tags: ["软件", "工具", "LaTeX", "Git", "VSCode"]
 ---

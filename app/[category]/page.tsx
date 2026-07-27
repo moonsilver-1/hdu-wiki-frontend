@@ -1,23 +1,26 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight, CalendarDays, UserRound } from "lucide-react";
+import type { Metadata } from "next";
 import {
+  getArticlesByCategory,
   getCategories,
   getCategoryName,
-  getArticlesByCategory,
-  getAuthorSlug,
-  splitAuthors,
+  getSectionName,
+  sortArticles,
+  type ArticleMeta,
 } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
+import CategoryArticleCard from "@/components/CategoryArticleCard";
 import Sidebar from "@/components/Sidebar";
-import type { Metadata } from "next";
 
 const categoryDescriptions: Record<string, string> = {
   courses: "课程笔记、考试经验与学习资源，帮你更清楚地规划学业。",
-  campus: "从食堂宿舍到体育活动，整理每位 HDUer 都会遇到的校园问题。",
-  tech: "编程、硬件、AI 与工程实践，从工具入门到完整学习路线。",
+  campus: "从食堂宿舍到校园活动，整理每位HDUer都会遇到的校园问题。",
+  tech: "编程、硬件、AI与工程实践，从工具入门到完整学习路线。",
   community: "认识校园组织与共建方式，找到志同道合的人。",
 };
+
+const sectionOrder = ["fundamentals", "deep-learning"];
 
 export function generateStaticParams() {
   return getCategories().map((category) => ({ category: category.slug }));
@@ -33,6 +36,27 @@ export function generateMetadata({
   }));
 }
 
+function groupArticles(articles: ArticleMeta[]) {
+  const groups = new Map<string, ArticleMeta[]>();
+  for (const article of articles) {
+    const current = groups.get(article.section) ?? [];
+    current.push(article);
+    groups.set(article.section, current);
+  }
+
+  return [...groups.entries()].map(([section, sectionArticles]) => [
+    section,
+    sortArticles(sectionArticles),
+  ] as [string, ArticleMeta[]]).sort(([sectionA], [sectionB]) => {
+    const orderA = sectionOrder.indexOf(sectionA);
+    const orderB = sectionOrder.indexOf(sectionB);
+    if (orderA !== -1 || orderB !== -1) {
+      return (orderA === -1 ? 99 : orderA) - (orderB === -1 ? 99 : orderB);
+    }
+    return getSectionName(sectionA).localeCompare(getSectionName(sectionB), "zh-CN");
+  });
+}
+
 export default async function CategoryPage({
   params,
 }: {
@@ -40,15 +64,11 @@ export default async function CategoryPage({
 }) {
   const { category } = await params;
   const categories = getCategories();
-
-  if (!categories.some((item) => item.slug === category)) {
-    notFound();
-  }
+  if (!categories.some((item) => item.slug === category)) notFound();
 
   const categoryName = getCategoryName(category);
-  const articles = getArticlesByCategory(category).sort((a, b) =>
-    b.date.localeCompare(a.date)
-  );
+  const articles = getArticlesByCategory(category);
+  const groups = groupArticles(articles);
 
   return (
     <div className="site-container content-layout">
@@ -69,54 +89,29 @@ export default async function CategoryPage({
             <h1>{categoryName}</h1>
             <p>{categoryDescriptions[category]}</p>
           </div>
-          <strong>{articles.length} 篇</strong>
+          <strong>{articles.length}篇</strong>
         </header>
 
-        {articles.length === 0 ? (
+        {groups.length === 0 ? (
           <div className="empty-state">暂无文章</div>
         ) : (
-          <div className="category-article-grid">
-            {articles.map((article) => (
-              <article
-                key={article.slug}
-                className={`category-article-card category-${category}`}
-              >
-                <Link
-                  href={`/${category}/${article.slug}`}
-                  className="category-article-hit-area"
-                  aria-label={`阅读：${article.title}`}
-                  tabIndex={-1}
-                />
-                <div className="category-article-topline">
-                  {article.date ? (
-                    <span><CalendarDays aria-hidden="true" size={15} />{article.date}</span>
-                  ) : null}
-                  {article.author ? (
-                    <span><UserRound aria-hidden="true" size={15} />{splitAuthors(article.author).map((author, index) => (
-                      <span key={author}>
-                        {index > 0 ? ", " : null}
-                        <Link href={`/authors/${encodeURIComponent(getAuthorSlug(author))}`}>{author}</Link>
-                      </span>
-                    ))}</span>
-                  ) : null}
+          <div className="category-section-grid">
+            {groups.map(([section, sectionArticles]) => (
+              <details key={section} className="category-section-group">
+                <summary>
+                  <span>{getSectionName(section)}</span>
+                  <small>{sectionArticles.length}篇文章</small>
+                </summary>
+                <div className="category-article-grid category-section-articles">
+                  {sectionArticles.map((article) => (
+                    <CategoryArticleCard
+                      key={article.slug}
+                      article={article}
+                      category={category}
+                    />
+                  ))}
                 </div>
-                <h2><Link href={`/${category}/${article.slug}`}>{article.title}</Link></h2>
-                <p>{article.excerpt}</p>
-                <div className="category-article-footer">
-                  <div className="tag-list">
-                    {article.tags.slice(0, 4).map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                  <Link
-                    href={`/${category}/${article.slug}`}
-                    className="category-article-arrow"
-                    aria-label={`阅读：${article.title}`}
-                  >
-                    <ArrowUpRight aria-hidden="true" size={18} />
-                  </Link>
-                </div>
-              </article>
+              </details>
             ))}
           </div>
         )}

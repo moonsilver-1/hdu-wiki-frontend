@@ -2,6 +2,7 @@
 title: "如何使用这个 Wiki 网站"
 date: "2026-05-18"
 author: "HDU Wiki Team"
+featured: true
 excerpt: "一份不太正经的使用指南，教你如何优雅地在这个网站上遨游知识海洋——包括那个看起来很酷但没人逼你用的 Vim 模式"
 tags: ["指南", "Vim", "网站使用"]
 ---

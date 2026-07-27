@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, BookOpen, UserRound } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getAllArticles, getAuthorProfile, getAuthorSlug, getAuthors, splitAuthors } from "@/lib/content";
+import { getAllArticles, getAuthorProfile, getAuthorSlug, getAuthors, sortArticles, splitAuthors } from "@/lib/content";
 
 function findAuthor(slug: string) {
   const decodedSlug = decodeURIComponent(slug);
@@ -25,9 +25,9 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   if (!author) notFound();
   const bioHtml = await getAuthorProfile(author.name);
 
-  const articles = getAllArticles().filter((article) =>
+  const articles = sortArticles(getAllArticles().filter((article) =>
     splitAuthors(article.author).some((name) => getAuthorSlug(name) === author.slug)
-  );
+  ));
 
   return (
     <main className="author-page">

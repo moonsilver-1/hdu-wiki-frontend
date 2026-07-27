@@ -2,6 +2,7 @@
 title: "老吃家带你在杭电吃面食"
 date: "2026-07-07"
 author: "moonsilver"
+section: "life-experience"
 excerpt: "关于杭电和杭电周边的面食"
 tags: ["面食", "老吃家"]
 ---

@@ -7,6 +7,7 @@ import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
@@ -21,7 +22,8 @@ const markdownProcessor = unified()
   .use(remarkParse)
   .use(gfm)
   .use(remarkMath, { singleDollarTextMath: true })
-  .use(remarkRehype)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeRaw)
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, { behavior: "wrap" })
   .use(rehypeHighlight)
@@ -36,6 +38,8 @@ export interface ArticleMeta {
   date: string;
   author: string;
   slug: string;
+  section: string;
+  featured: boolean;
 }
 
 export interface Article extends ArticleMeta {
@@ -65,6 +69,38 @@ const categoryMap: Record<string, string> = {
 
 const authorsDir = path.join(contentDir, "authors");
 
+const sectionMap: Record<string, string> = {
+  "deep-learning": "从零开始学深度学习",
+  fundamentals: "基础课程",
+  "campus-life": "校园生活",
+  "forced-business": "被迫营业",
+  "life-experience": "体验生活",
+  engineering: "工程实践",
+  "automation-learning": "自动化学习",
+  "tool-use": "工具使用",
+  vibecoding: "vibecoding",
+  other: "其他",
+  community: "社团与活动",
+};
+
+const deepLearningOrder = [
+  "deep-learning-math",
+  "linear-neural-network",
+  "multilayer-perceptron",
+  "deep-learning-computation",
+  "convolutional-neural-network",
+  "modern-convolutional-network",
+  "recurrent-neural-network",
+  "gated-recurrent-network",
+  "attention-mechanism",
+  "transformer",
+  "optimization-and-regularization",
+  "training-stability-and-performance",
+  "computer-vision-principles",
+  "nlp-pretraining",
+  "nlp-applications",
+];
+
 export function getAuthorSlug(name: string): string {
   return name
     .trim()
@@ -88,6 +124,10 @@ export function getCategories(): { slug: string; name: string }[] {
   return Object.entries(categoryMap).map(([slug, name]) => ({ slug, name }));
 }
 
+export function getSectionName(slug: string): string {
+  return sectionMap[slug] || slug;
+}
+
 function extractToc(contentHtml: string): TocItem[] {
   const toc: TocItem[] = [];
   const regex = /<h([2-3])[^>]*id="([^"]*)"[^>]*>(?:<a[^>]*>)?([^<]*)(?:<\/a>)?<\/h\1>/g;
@@ -102,12 +142,43 @@ function extractToc(contentHtml: string): TocItem[] {
   return toc;
 }
 
+function getMarkdownFiles(directory: string): string[] {
+  if (!fs.existsSync(directory)) return [];
+
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) return getMarkdownFiles(entryPath);
+    return entry.isFile() && entry.name.endsWith(".md") ? [entryPath] : [];
+  });
+}
+
+function getArticleFile(category: string, slug: string): string | null {
+  return getMarkdownFiles(path.join(contentDir, category)).find(
+    (candidate) => path.basename(candidate, ".md") === slug
+  ) ?? null;
+}
+
+function getArticleSection(category: string, filePath: string): string {
+  const relativePath = path.relative(path.join(contentDir, category), filePath);
+  return relativePath.split(path.sep)[0] || "general";
+}
+
+export function sortArticles(articles: ArticleMeta[]): ArticleMeta[] {
+  return [...articles].sort((articleA, articleB) => {
+    if (articleA.section === "deep-learning" && articleB.section === "deep-learning") {
+      return deepLearningOrder.indexOf(articleA.slug) - deepLearningOrder.indexOf(articleB.slug);
+    }
+
+    return articleA.slug.localeCompare(articleB.slug, "en", { numeric: true });
+  });
+}
+
 export async function getArticle(
   category: string,
   slug: string
 ): Promise<Article | null> {
-  const filePath = path.join(contentDir, category, `${slug}.md`);
-  if (!fs.existsSync(filePath)) return null;
+  const filePath = getArticleFile(category, slug);
+  if (!filePath) return null;
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
@@ -125,6 +196,8 @@ export async function getArticle(
     date: data.date || "",
     author: data.author || "",
     slug,
+    section: data.section || getArticleSection(category, filePath),
+    featured: data.featured === true,
     contentHtml,
     toc,
   };
@@ -132,19 +205,17 @@ export async function getArticle(
 
 export function getArticleSlugs(category: string): string[] {
   const dir = path.join(contentDir, category);
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => f.replace(/\.md$/, ""));
+  return getMarkdownFiles(dir)
+    .map((filePath) => path.basename(filePath, ".md"))
+    .sort((slugA, slugB) => slugA.localeCompare(slugB, "en", { numeric: true }));
 }
 
 export function getArticleMeta(
   category: string,
   slug: string
 ): ArticleMeta | null {
-  const filePath = path.join(contentDir, category, `${slug}.md`);
-  if (!fs.existsSync(filePath)) return null;
+  const filePath = getArticleFile(category, slug);
+  if (!filePath) return null;
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data } = matter(fileContent);
@@ -157,6 +228,8 @@ export function getArticleMeta(
     date: data.date || "",
     author: data.author || "",
     slug,
+    section: data.section || getArticleSection(category, filePath),
+    featured: data.featured === true,
   };
 }
 
@@ -175,6 +248,10 @@ export function getAllArticles(): ArticleMeta[] {
   return articles;
 }
 
+export function getFeaturedArticles(): ArticleMeta[] {
+  return sortArticles(getAllArticles().filter((article) => article.featured));
+}
+
 export async function getAuthorProfile(name: string): Promise<string> {
   const slug = getAuthorSlug(name);
   const filePath = path.join(authorsDir, `${slug}.md`);
@@ -189,9 +266,7 @@ export async function getAuthorProfile(name: string): Promise<string> {
 
 export function getAuthors(): Author[] {
   const authorArticles = new Map<string, { articleCount: number; firstSeen: number }>();
-  const articles = [...getAllArticles()].sort((articleA, articleB) =>
-    articleB.date.localeCompare(articleA.date)
-  );
+  const articles = sortArticles(getAllArticles());
 
   for (const [articleIndex, article] of articles.entries()) {
     for (const name of splitAuthors(article.author)) {
@@ -217,9 +292,11 @@ export function getAuthors(): Author[] {
 
 export function getArticlesByCategory(category: string): ArticleMeta[] {
   const slugs = getArticleSlugs(category);
-  return slugs
+  const articles = slugs
     .map((slug) => getArticleMeta(category, slug))
-    .filter((a): a is ArticleMeta => a !== null);
+    .filter((a): a is ArticleMeta => a !== null && !a.featured);
+
+  return sortArticles(articles);
 }
 
 export function getSearchIndexData(): {
@@ -243,7 +320,8 @@ export function getSearchIndexData(): {
   for (const cat of categories) {
     const slugs = getArticleSlugs(cat);
     for (const slug of slugs) {
-      const filePath = path.join(contentDir, cat, `${slug}.md`);
+      const filePath = getArticleFile(cat, slug);
+      if (!filePath) continue;
       const fileContent = fs.readFileSync(filePath, "utf-8");
       const { data: frontmatter, content } = matter(fileContent);
       data.push({
