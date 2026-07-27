@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GitFork } from "lucide-react";
 import "./globals.css";
@@ -66,6 +67,7 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "flexsearch": "^0.8.212",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
