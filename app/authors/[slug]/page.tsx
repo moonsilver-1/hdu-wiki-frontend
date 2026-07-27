@@ -4,19 +4,24 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllArticles, getAuthorProfile, getAuthorSlug, getAuthors, splitAuthors } from "@/lib/content";
 
+function findAuthor(slug: string) {
+  const decodedSlug = decodeURIComponent(slug);
+  return getAuthors().find((item) => item.slug === getAuthorSlug(decodedSlug));
+}
+
 export async function generateStaticParams() {
   return getAuthors().map((author) => ({ slug: author.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const author = getAuthors().find((item) => item.slug === slug);
+  const author = findAuthor(slug);
   return { title: author?.name ?? "作者" };
 }
 
 export default async function AuthorPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const author = getAuthors().find((item) => item.slug === slug);
+  const author = findAuthor(slug);
   if (!author) notFound();
   const bioHtml = await getAuthorProfile(author.name);
 
