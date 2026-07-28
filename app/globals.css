@@ -1885,6 +1885,109 @@ input:focus-visible {
   border-left: 1px solid var(--border);
 }
 
+/* 课程大标题（如「从零开始学深度学习」）：比普通 section 更突出 */
+.sidebar-course-group {
+  margin-bottom: 6px;
+}
+
+.sidebar-course-group > summary {
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-course-group > summary small {
+  font-weight: 600;
+}
+
+/* 卷子分组容器：整体内缩，与课程大标题形成层级 */
+.sidebar-section-volumes {
+  margin: 2px 0 4px 10px;
+  padding-left: 8px;
+  border-left: 1px solid var(--border);
+}
+
+/* 单个卷：字号略小、字重稍轻，凸显它是课程下的子级 */
+.sidebar-volume-group {
+  margin-bottom: 4px;
+}
+
+.sidebar-volume-group > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--foreground);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  list-style-position: inside;
+}
+
+.sidebar-volume-group > summary::marker {
+  color: var(--primary);
+}
+
+.sidebar-volume-group > summary:hover {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.sidebar-volume-group > summary small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.sidebar-volume-group .sidebar-section-articles {
+  margin: 3px 0 4px 8px;
+}
+
+/* 分类页：卷子分组在课程大区块内纵向排列 */
+.category-volume-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.category-volume-group {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.category-volume-group summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+  color: var(--foreground);
+  font-size: 14px;
+  font-weight: 600;
+  list-style-position: inside;
+}
+
+.category-volume-group summary::marker {
+  color: var(--primary);
+}
+
+.category-volume-group summary small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.category-volume-group .category-article-grid {
+  margin: 12px 16px;
+}
+
 .sidebar-vim-link {
   min-height: 40px;
   margin-top: 18px;
@@ -2303,15 +2406,29 @@ input:focus-visible {
 }
 
 /* KaTeX math formulas */
+/* 注意：KaTeX 自带的 katex.min.css 已经把行间公式居中好了
+   （.katex-display{display:block;text-align:center}），
+   所以这里不要去碰 .katex-display 的 display/text-align/overflow，
+   否则反而会破坏默认居中。我们只调字号和间距。 */
 .wiki-content .katex-display {
-  margin: 1.6rem 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0.5rem 0;
+  margin: 1.8rem 0;
 }
 
+/* 行间公式（$$...$$）放大一点，读起来不吃力 */
+.wiki-content .katex-display > .katex {
+  font-size: 1.25em;
+}
+
+/* 超长公式允许横向滚动，但滚动只在内层生效，不影响外层居中 */
+.wiki-content .katex-display > .katex > .katex-html {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2rem 0;
+}
+
+/* 行内公式（$...$）略大但不破坏文字行距 */
 .wiki-content .katex {
-  font-size: 1.1em;
+  font-size: 1.12em;
 }
 
 /* Search highlight */

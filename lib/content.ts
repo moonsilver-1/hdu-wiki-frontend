@@ -41,6 +41,9 @@ export interface ArticleMeta {
   slug: string;
   section: string;
   featured: boolean;
+  volumeKey: string; // 卷编号 "1"…"9"、"A"（仅深度学习课程有值，其余为空串）
+  volumeLabel: string; // "第一卷 · 数学基础"
+  displayNumber: string; // "1.3"、"A.7"
 }
 
 export interface Article extends ArticleMeta {
@@ -89,86 +92,185 @@ const sectionMap: Record<string, string> = {
   community: "社团与活动",
 };
 
-const deepLearningOrder = [
-  // 数学与通用基础
-  "deep-learning-math",
-  "math-linear-algebra",
-  "math-linear-algebra-2",
-  "math-probability",
-  "math-optimization",
-  "math-analysis",
-  "math-discrete",
-  "math-data-structures",
-  "algo-dfs-bfs",
-  "algo-shortest-path",
-  "algo-genetic",
-  "algo-simulated-annealing",
-  "algo-swarm",
-
-  // 机器学习
-  "ml-linear-regression-regularization",
-  "ml-logistic-regression",
-  "ml-knn",
-  "ml-pca-lda",
-  "ml-naive-bayes",
-  "ml-decision-tree",
-  "ml-random-forest",
-  "ml-xgboost",
-  "ml-lightgbm-catboost",
-  "ml-svm",
-  "ml-clustering",
-  "ml-evaluation",
-  "ml-sklearn-practice",
-
-  // 深度学习基础与模型架构
-  "linear-neural-network",
-  "multilayer-perceptron",
-  "deep-learning-computation",
-  "convolutional-neural-network",
-  "modern-convolutional-network",
-  "recurrent-neural-network",
-  "gated-recurrent-network",
-  "attention-mechanism",
-  "transformer",
-  "optimization-and-regularization",
-  "training-stability-and-performance",
-  "arch-mamba",
-  "arch-moe",
-
-  // 计算机视觉
-  "computer-vision-principles",
-  "cv-classic-cnn",
-  "cv-detection-rcnn",
-  "cv-lightweight",
-  "cv-yolo",
-  "cv-detr",
-  "cv-segmentation",
-  "cv-instance-segmentation",
-  "cv-self-supervised",
-  "cv-clip",
-
-  // 自然语言处理
-  "nlp-pretraining",
-  "nlp-applications",
-  "nlp-embeddings",
-  "nlp-scaling",
-  "nlp-rlhf",
-  "nlp-lora",
-  "nlp-few-shot-prompt",
-  "nlp-rag",
-  "nlp-classic",
-  "nlp-evaluation",
-
-  // 生成式模型
-  "gen-vae",
-  "gen-gan",
-  "gen-diffusion-ddpm",
-  "gen-diffusion-sd",
-  "gen-diffusion-dit",
+// 深度学习课程按「卷」组织：每卷一个 key（决定编号「卷.章」）、一个中文标签、一组 slug。
+// 卷内的顺序既是该卷内的章号，也拼出全局阅读顺序（用于上一章/下一章导航）。
+// 这里预留的 slug（如 GLM、各前沿卷）即使文件尚未创建也占住编号位置，
+// 这样后续补建文件时编号不会错位。新增或重排章节，只需调整这里的 slugs。
+export const deepLearningVolumes: {
+  key: string;
+  label: string;
+  slugs: string[];
+}[] = [
+  {
+    key: "1",
+    label: "第一卷 · 数学基础",
+    slugs: [
+      "deep-learning-math",
+      "math-linear-algebra",
+      "math-linear-algebra-2",
+      "math-probability",
+      "math-optimization",
+      "math-analysis",
+    ],
+  },
+  {
+    key: "2",
+    label: "第二卷 · 机器学习",
+    slugs: [
+      "linear-neural-network",
+      "ml-linear-regression-regularization",
+      "ml-logistic-regression",
+      "ml-generalized-linear-model",
+      "ml-knn",
+      "ml-pca-lda",
+      "ml-naive-bayes",
+      "ml-decision-tree",
+      "ml-random-forest",
+      "ml-xgboost",
+      "ml-lightgbm-catboost",
+      "ml-svm",
+      "ml-clustering",
+      "ml-evaluation",
+      "ml-sklearn-practice",
+    ],
+  },
+  {
+    key: "3",
+    label: "第三卷 · 深度学习架构",
+    slugs: [
+      "multilayer-perceptron",
+      "deep-learning-computation",
+      "convolutional-neural-network",
+      "modern-convolutional-network",
+      "recurrent-neural-network",
+      "gated-recurrent-network",
+      "attention-mechanism",
+      "transformer",
+      "optimization-and-regularization",
+      "training-stability-and-performance",
+      "arch-mamba",
+      "arch-moe",
+    ],
+  },
+  {
+    key: "4",
+    label: "第四卷 · 计算机视觉",
+    slugs: [
+      "computer-vision-principles",
+      "cv-classic-cnn",
+      "cv-detection-rcnn",
+      "cv-lightweight",
+      "cv-yolo",
+      "cv-detr",
+      "cv-segmentation",
+      "cv-instance-segmentation",
+      "cv-self-supervised",
+      "cv-clip",
+    ],
+  },
+  {
+    key: "5",
+    label: "第五卷 · 自然语言处理",
+    slugs: [
+      "nlp-pretraining",
+      "nlp-applications",
+      "nlp-embeddings",
+      "nlp-scaling",
+      "nlp-rlhf",
+      "nlp-lora",
+      "nlp-few-shot-prompt",
+      "nlp-rag",
+      "nlp-classic",
+      "nlp-evaluation",
+    ],
+  },
+  {
+    key: "6",
+    label: "第六卷 · 生成式模型",
+    slugs: [
+      "gen-vae",
+      "gen-gan",
+      "gen-diffusion-ddpm",
+      "gen-diffusion-sd",
+      "gen-diffusion-dit",
+    ],
+  },
+  {
+    key: "7",
+    label: "第七卷 · 前沿架构与高效序列建模",
+    slugs: [
+      "arch-liquid-neural-network",
+      "arch-linear-attention-modern-rnn",
+      "arch-long-context-sparse-attention",
+      "arch-selection-guide",
+    ],
+  },
+  {
+    key: "8",
+    label: "第八卷 · 国产开源大模型剖析",
+    slugs: [
+      "deepseek-architecture",
+      "deepseek-r1-rl",
+      "kimi-series",
+      "qwen-series",
+      "glm-zhipu",
+      "minimax-series",
+    ],
+  },
+  {
+    key: "9",
+    label: "第九卷 · 工程落地与评测",
+    slugs: [
+      "inference-kvcache-vllm",
+      "quantization-efficient-inference",
+      "llm-agent-tool-use",
+      "multi-agent",
+      "llm-evaluation-benchmarks",
+      "llm-safety-alignment",
+    ],
+  },
+  {
+    key: "A",
+    label: "附录卷 · 算法与离散",
+    slugs: [
+      "math-discrete",
+      "math-data-structures",
+      "algo-dfs-bfs",
+      "algo-shortest-path",
+      "algo-genetic",
+      "algo-simulated-annealing",
+      "algo-swarm",
+    ],
+  },
 ];
-const deepLearningOrderIndex = new Map(
-  deepLearningOrder.map((slug, index) => [slug, index])
-);
+
+export interface DeepLearningPlacement {
+  volumeKey: string; // "1"…"9"、"A"
+  volumeLabel: string; // "第一卷 · 数学基础"
+  displayNumber: string; // "1.3"、"A.7"
+  globalIndex: number; // 全局阅读顺序，驱动上一章/下一章导航
+}
+
+// slug -> 该章在课程里的卷归属、显示编号、全局序号。
+export const deepLearningPlacement = new Map<string, DeepLearningPlacement>();
+{
+  let globalIndex = 0;
+  for (const volume of deepLearningVolumes) {
+    volume.slugs.forEach((slug, indexInVolume) => {
+      deepLearningPlacement.set(slug, {
+        volumeKey: volume.key,
+        volumeLabel: volume.label,
+        displayNumber: `${volume.key}.${indexInVolume + 1}`,
+        globalIndex: globalIndex++,
+      });
+    });
+  }
+}
+
+// 取一篇文章的卷归属（slug 不在课程结构里时返回 null，例如其他分类的文章）。
+export function getArticleVolume(slug: string): DeepLearningPlacement | null {
+  return deepLearningPlacement.get(slug) ?? null;
+}
 
 export function getAuthorSlug(name: string): string {
   return name
@@ -243,11 +345,27 @@ function getMarkdownFiles(directory: string): string[] {
   return files;
 }
 
-// 把文件名转成 slug：去掉 .md 后缀，再去掉开头的排序编号前缀（如 "06-"）。
-// 这样给 deep-learning 目录的文件加 "NN-" 编号前缀时，URL、排序、搜索都不受影响。
+// 把文件名转成 slug：去掉 .md 后缀，再去掉开头的编号前缀。
+// 前缀有三种写法：分卷编号 "1.3-"、附录编号 "A.1-"、旧的纯数字 "06-"。
+// strip 之后 slug 保持不变，因此给文件加编号前缀时，URL、搜索都不受影响，
+// 排序与分卷则由下面的 deepLearningVolumes 决定。
 function slugFromFilename(filePath: string): string {
   const base = path.basename(filePath, ".md");
-  return base.replace(/^\d+-/, "");
+  return base.replace(/^(\d+\.\d+|[A-Z]\.\d+|\d+)-/, "");
+}
+
+// 读取 markdown 并把行尾统一成 LF。
+// 读取 markdown 并做两步预处理，保证行间公式能被 remark-math 正确识别：
+// 1. CRLF → LF：Windows 下文件常是 \r\n，会让 remark-math 认不出 display math。
+// 2. 单行 $$...$$ → 多行：remark-math 6 只认 "$$ 单独成行" 的多行格式，
+//    像 `$$A=U\Sigma V^\top$$` 这种单行写法会被当成行内公式（两个 $），
+//    渲染出来缺少外层 .katex-display，无法居中。这里把单行的 $$...$$
+//    展开成多行 `$$\n...\n$$`，统一交给 remark-math 当 display 处理。
+function readMarkdown(filePath: string): string {
+  return fs
+    .readFileSync(filePath, "utf-8")
+    .replace(/\r\n/g, "\n")
+    .replace(/(^|[^$])\$\$([^\n$][^$]*?)\$\$(?!\$)/g, (_, pre, body) => `${pre}$$\n${body.trim()}\n$$`);
 }
 
 function getArticleFile(category: string, slug: string): string | null {
@@ -263,14 +381,84 @@ function getArticleSection(category: string, filePath: string): string {
 
 export function sortArticles(articles: ArticleMeta[]): ArticleMeta[] {
   return [...articles].sort((articleA, articleB) => {
-    if (articleA.section === "deep-learning" && articleB.section === "deep-learning") {
-      const orderA = deepLearningOrderIndex.get(articleA.slug) ?? Number.MAX_SAFE_INTEGER;
-      const orderB = deepLearningOrderIndex.get(articleB.slug) ?? Number.MAX_SAFE_INTEGER;
-      return orderA - orderB || articleA.slug.localeCompare(articleB.slug, "en", { numeric: true });
+    const placeA = deepLearningPlacement.get(articleA.slug);
+    const placeB = deepLearningPlacement.get(articleB.slug);
+    if (placeA && placeB) {
+      return placeA.globalIndex - placeB.globalIndex;
     }
-
     return articleA.slug.localeCompare(articleB.slug, "en", { numeric: true });
   });
+}
+
+// 分组顺序：先按既有的 section 顺序（fundamentals、deep-learning 等）。
+const sidebarSectionOrder = ["fundamentals", "deep-learning"];
+
+export interface ArticleGroup {
+  key: string;
+  label: string;
+  articles: ArticleMeta[];
+}
+
+// 一个分组节点：可以是一级（section/课程大标题），也可以带二级子分组（卷）。
+// articles 为空时，表示这个节点靠 subgroups 展示内容（深度学习课程即如此）。
+export interface ArticleSectionNode {
+  key: string;
+  label: string;
+  articles: ArticleMeta[];
+  subgroups: ArticleGroup[];
+  order: number;
+}
+
+// 把文章分成两级：第一级是 section（深度学习课程归为 "deep-learning" 这个大标题，
+// 名字是「从零开始学深度学习」）；第二级是该 section 内的子分组——深度学习课程的子组是各卷，
+// 其余 section 没有子组，文章直接挂在一级节点上。供侧边栏与分类页共用。
+export function groupArticlesForDisplay(articles: ArticleMeta[]): ArticleSectionNode[] {
+  // 第一级：按 section 收拢
+  const sectionBuckets = new Map<string, ArticleMeta[]>();
+  for (const article of articles) {
+    const current = sectionBuckets.get(article.section) ?? [];
+    current.push(article);
+    sectionBuckets.set(article.section, current);
+  }
+
+  return [...sectionBuckets.entries()]
+    .map(([section, sectionArticles]) => {
+      const sectionIndex = sidebarSectionOrder.indexOf(section);
+      const order = sectionIndex === -1 ? 500 : sectionIndex;
+      const label = getSectionName(section);
+
+      // 深度学习课程：把 section 内的文章再按卷分到二级子分组
+      let subgroups: ArticleGroup[] = [];
+      let topArticles = sortArticles(sectionArticles);
+      if (section === "deep-learning" || sectionArticles.some((a) => a.volumeKey)) {
+        const volumeBuckets = new Map<string, ArticleMeta[]>();
+        for (const article of sectionArticles) {
+          const vk = article.volumeKey || "other";
+          const current = volumeBuckets.get(vk) ?? [];
+          current.push(article);
+          volumeBuckets.set(vk, current);
+        }
+        subgroups = [...volumeBuckets.entries()]
+          .map(([volumeKey, groupArticles]) => {
+            const volumeIndex = deepLearningVolumes.findIndex((v) => v.key === volumeKey);
+            return {
+              key: `vol:${volumeKey}`,
+              label: deepLearningVolumes[volumeIndex]?.label ?? volumeKey,
+              articles: sortArticles(groupArticles),
+            };
+          })
+          .sort((groupA, groupB) => {
+            const ia = deepLearningVolumes.findIndex((v) => v.key === groupA.key.slice(4));
+            const ib = deepLearningVolumes.findIndex((v) => v.key === groupB.key.slice(4));
+            return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+          });
+        // 课程大标题下文章由子分组承载，一级 articles 留空
+        topArticles = [];
+      }
+
+      return { key: `sec:${section}`, label, articles: topArticles, subgroups, order };
+    })
+    .sort((nodeA, nodeB) => nodeA.order - nodeB.order || nodeA.label.localeCompare(nodeB.label, "zh-CN"));
 }
 
 const articleCache = new Map<string, CachedArticle>();
@@ -292,7 +480,7 @@ async function getArticleUncached(
   const cached = articleCache.get(filePath);
   if (cached && cached.mtime === mtime) return cached.article;
 
-  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const fileContent = readMarkdown(filePath);
   const { data, content } = matter(fileContent);
 
   const result = await markdownProcessor.process(content);
@@ -300,8 +488,9 @@ async function getArticleUncached(
   const contentHtml = result.toString();
   const toc = extractToc(contentHtml);
 
+  const placement = getArticleVolume(slug);
   const article: Article = {
-    title: data.title || slug,
+    title: placement ? `${placement.displayNumber} ${data.title || slug}` : (data.title || slug),
     category: data.category || category,
     tags: normalizeTags(data.tags),
     excerpt: data.excerpt || "",
@@ -310,6 +499,9 @@ async function getArticleUncached(
     slug,
     section: data.section || getArticleSection(category, filePath),
     featured: data.featured === true,
+    volumeKey: placement?.volumeKey ?? "",
+    volumeLabel: placement?.volumeLabel ?? "",
+    displayNumber: placement?.displayNumber ?? "",
     contentHtml,
     toc,
   };
@@ -351,11 +543,12 @@ export function getArticleMeta(
   const cached = articleMetaCache.get(filePath);
   if (cached && cached.mtime === mtime) return cached.meta;
 
-  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const fileContent = readMarkdown(filePath);
   const { data } = matter(fileContent);
 
+  const placement = getArticleVolume(slug);
   const meta: ArticleMeta = {
-    title: data.title || slug,
+    title: placement ? `${placement.displayNumber} ${data.title || slug}` : (data.title || slug),
     category: data.category || category,
     tags: normalizeTags(data.tags),
     excerpt: data.excerpt || "",
@@ -364,6 +557,9 @@ export function getArticleMeta(
     slug,
     section: data.section || getArticleSection(category, filePath),
     featured: data.featured === true,
+    volumeKey: placement?.volumeKey ?? "",
+    volumeLabel: placement?.volumeLabel ?? "",
+    displayNumber: placement?.displayNumber ?? "",
   };
 
   articleMetaCache.set(filePath, { mtime, meta });
@@ -396,7 +592,7 @@ export async function getAuthorProfile(name: string): Promise<string> {
     return "<p>作者介绍正在搭建中，欢迎作者补充自己的经历与分享方向。</p>";
   }
 
-  const { content } = matter(fs.readFileSync(filePath, "utf-8"));
+  const { content } = matter(readMarkdown(filePath));
   const result = await markdownProcessor.process(content);
   return result.toString();
 }
@@ -472,7 +668,7 @@ export function getSearchIndexData(): {
     for (const slug of slugs) {
       const filePath = getArticleFile(cat, slug);
       if (!filePath) continue;
-      const fileContent = fs.readFileSync(filePath, "utf-8");
+      const fileContent = readMarkdown(filePath);
       const { data: frontmatter, content } = matter(fileContent);
       data.push({
         slug,
