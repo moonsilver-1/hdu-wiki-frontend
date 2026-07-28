@@ -85,6 +85,10 @@ const sectionMap: Record<string, string> = {
 
 const deepLearningOrder = [
   "deep-learning-math",
+  "math-linear-algebra",
+  "math-linear-algebra-2",
+  "math-probability",
+  "math-optimization",
   "linear-neural-network",
   "multilayer-perceptron",
   "deep-learning-computation",
@@ -99,6 +103,46 @@ const deepLearningOrder = [
   "computer-vision-principles",
   "nlp-pretraining",
   "nlp-applications",
+  "ml-linear-regression-regularization",
+  "ml-logistic-regression",
+  "ml-knn",
+  "ml-pca-lda",
+  "ml-naive-bayes",
+  "ml-decision-tree",
+  "ml-random-forest",
+  "ml-xgboost",
+  "ml-lightgbm-catboost",
+  "ml-svm",
+  "ml-clustering",
+  "ml-evaluation",
+  "ml-sklearn-practice",
+  "algo-dfs-bfs",
+  "algo-shortest-path",
+  "algo-genetic",
+  "algo-simulated-annealing",
+  "algo-swarm",
+  "cv-classic-cnn",
+  "cv-detection-rcnn",
+  "cv-lightweight",
+  "cv-yolo",
+  "cv-detr",
+  "cv-segmentation",
+  "cv-instance-segmentation",
+  "cv-self-supervised",
+  "cv-clip",
+  "nlp-embeddings",
+  "nlp-scaling",
+  "nlp-rlhf",
+  "nlp-lora",
+  "nlp-few-shot-prompt",
+  "nlp-rag",
+  "nlp-classic",
+  "nlp-evaluation",
+  "gen-vae",
+  "gen-gan",
+  "gen-diffusion-ddpm",
+  "gen-diffusion-sd",
+  "gen-diffusion-dit",
 ];
 
 export function getAuthorSlug(name: string): string {
@@ -142,19 +186,38 @@ function extractToc(contentHtml: string): TocItem[] {
   return toc;
 }
 
+// 文件列表缓存：文章一多，侧边栏/分类页/首页每次渲染都会反复 readdir 遍历，
+// 用一个短 TTL 缓存削掉重复遍历，新增文件最多 1 秒后可见。
+const markdownFilesCache = new Map<string, { expires: number; files: string[] }>();
+const MARKDOWN_FILES_TTL_MS = 1000;
+
 function getMarkdownFiles(directory: string): string[] {
   if (!fs.existsSync(directory)) return [];
 
-  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+  const now = Date.now();
+  const cached = markdownFilesCache.get(directory);
+  if (cached && cached.expires > now) return cached.files;
+
+  const files = fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const entryPath = path.join(directory, entry.name);
     if (entry.isDirectory()) return getMarkdownFiles(entryPath);
     return entry.isFile() && entry.name.endsWith(".md") ? [entryPath] : [];
   });
+
+  markdownFilesCache.set(directory, { expires: now + MARKDOWN_FILES_TTL_MS, files });
+  return files;
+}
+
+// 把文件名转成 slug：去掉 .md 后缀，再去掉开头的排序编号前缀（如 "06-"）。
+// 这样给 deep-learning 目录的文件加 "NN-" 编号前缀时，URL、排序、搜索都不受影响。
+function slugFromFilename(filePath: string): string {
+  const base = path.basename(filePath, ".md");
+  return base.replace(/^\d+-/, "");
 }
 
 function getArticleFile(category: string, slug: string): string | null {
   return getMarkdownFiles(path.join(contentDir, category)).find(
-    (candidate) => path.basename(candidate, ".md") === slug
+    (candidate) => slugFromFilename(candidate) === slug
   ) ?? null;
 }
 
@@ -206,9 +269,13 @@ export async function getArticle(
 export function getArticleSlugs(category: string): string[] {
   const dir = path.join(contentDir, category);
   return getMarkdownFiles(dir)
-    .map((filePath) => path.basename(filePath, ".md"))
+    .map((filePath) => slugFromFilename(filePath))
     .sort((slugA, slugB) => slugA.localeCompare(slugB, "en", { numeric: true }));
 }
+
+// 文章元信息缓存：按文件路径缓存解析结果，用 mtime 失效，编辑后立即生效，
+// 这样文章多了之后侧边栏/列表也不用每次都重新读文件、解析 frontmatter。
+const articleMetaCache = new Map<string, { mtime: number; meta: ArticleMeta }>();
 
 export function getArticleMeta(
   category: string,
@@ -217,10 +284,20 @@ export function getArticleMeta(
   const filePath = getArticleFile(category, slug);
   if (!filePath) return null;
 
+  let mtime = 0;
+  try {
+    mtime = fs.statSync(filePath).mtimeMs;
+  } catch {
+    mtime = 0;
+  }
+
+  const cached = articleMetaCache.get(filePath);
+  if (cached && cached.mtime === mtime) return cached.meta;
+
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data } = matter(fileContent);
 
-  return {
+  const meta: ArticleMeta = {
     title: data.title || slug,
     category: data.category || category,
     tags: data.tags || [],
@@ -231,6 +308,9 @@ export function getArticleMeta(
     section: data.section || getArticleSection(category, filePath),
     featured: data.featured === true,
   };
+
+  articleMetaCache.set(filePath, { mtime, meta });
+  return meta;
 }
 
 export function getAllArticles(): ArticleMeta[] {
