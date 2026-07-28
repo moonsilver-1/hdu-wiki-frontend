@@ -160,6 +160,16 @@ export function splitAuthors(value: string): string[] {
     .filter(Boolean);
 }
 
+function normalizeTags(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.filter((tag): tag is string => typeof tag === "string" && Boolean(tag.trim()));
+  }
+
+  return typeof value === "string"
+    ? value.split(/[,，]/).map((tag) => tag.trim()).filter(Boolean)
+    : [];
+}
+
 export function getCategoryName(slug: string): string {
   return categoryMap[slug] || slug;
 }
@@ -254,7 +264,7 @@ export async function getArticle(
   return {
     title: data.title || slug,
     category: data.category || category,
-    tags: data.tags || [],
+    tags: normalizeTags(data.tags),
     excerpt: data.excerpt || "",
     date: data.date || "",
     author: data.author || "",
@@ -300,7 +310,7 @@ export function getArticleMeta(
   const meta: ArticleMeta = {
     title: data.title || slug,
     category: data.category || category,
-    tags: data.tags || [],
+    tags: normalizeTags(data.tags),
     excerpt: data.excerpt || "",
     date: data.date || "",
     author: data.author || "",
@@ -409,7 +419,7 @@ export function getSearchIndexData(): {
         category: cat,
         title: frontmatter.title || slug,
         excerpt: frontmatter.excerpt || "",
-        tags: frontmatter.tags || [],
+        tags: normalizeTags(frontmatter.tags),
         content: content.replace(/[#*`\[\]()]/g, "").slice(0, 500),
       });
     }
