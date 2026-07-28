@@ -9,6 +9,7 @@ import {
   type ArticleMeta,
 } from "@/lib/content";
 import CategoryIcon from "./CategoryIcon";
+import SidebarActiveArticle from "./SidebarActiveArticle";
 
 const sectionOrder = ["fundamentals", "deep-learning"];
 
@@ -25,6 +26,7 @@ export default function Sidebar({
   return (
     <aside className="wiki-sidebar">
       <nav className="wiki-sidebar-inner" aria-label="知识分类">
+        <SidebarActiveArticle slug={activeSlug} />
         {featuredArticles.length > 0 ? (
           <div className="sidebar-group sidebar-featured-group">
             <details className="sidebar-featured-details" open>
@@ -38,6 +40,7 @@ export default function Sidebar({
                   <Link
                     key={article.slug}
                     href={`/${article.category}/${article.slug}`}
+                    prefetch={false}
                     className={article.slug === activeSlug ? "is-current" : ""}
                     aria-current={article.slug === activeSlug ? "page" : undefined}
                   >
@@ -98,6 +101,8 @@ export default function Sidebar({
                             <Link
                               key={article.slug}
                               href={`/${category.slug}/${article.slug}`}
+                              prefetch={false}
+                              data-sidebar-article={article.slug}
                               className={article.slug === activeSlug ? "is-current" : ""}
                               aria-current={article.slug === activeSlug ? "page" : undefined}
                             >

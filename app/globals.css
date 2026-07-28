@@ -1976,6 +1976,53 @@ input:focus-visible {
   border-top: 1px solid var(--border);
 }
 
+.article-pagination {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+
+.article-pagination-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--foreground);
+  background: var(--surface-muted);
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.article-pagination-link:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.article-pagination-link span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.article-pagination-link small {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.article-pagination-next {
+  justify-content: flex-end;
+  text-align: right;
+}
+
 .article-tags > span {
   display: block;
   margin-bottom: 10px;
@@ -2601,6 +2648,10 @@ mark.search-highlight.search-highlight-fade {
 
   .article-header > p {
     font-size: 14px;
+  }
+
+  .article-pagination {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .wiki-content {

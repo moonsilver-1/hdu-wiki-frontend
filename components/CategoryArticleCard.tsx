@@ -13,6 +13,7 @@ export default function CategoryArticleCard({
     <article className={`category-article-card category-${category}`}>
       <Link
         href={`/${category}/${article.slug}`}
+        prefetch={false}
         className="category-article-hit-area"
         aria-label={`阅读：${article.title}`}
         tabIndex={-1}
@@ -30,7 +31,7 @@ export default function CategoryArticleCard({
           ))}</span>
         ) : null}
       </div>
-      <h2><Link href={`/${category}/${article.slug}`}>{article.title}</Link></h2>
+      <h2><Link href={`/${category}/${article.slug}`} prefetch={false}>{article.title}</Link></h2>
       <p>{article.excerpt}</p>
       <div className="category-article-footer">
         <div className="tag-list">
@@ -38,6 +39,7 @@ export default function CategoryArticleCard({
         </div>
         <Link
           href={`/${category}/${article.slug}`}
+          prefetch={false}
           className="category-article-arrow"
           aria-label={`阅读：${article.title}`}
         >

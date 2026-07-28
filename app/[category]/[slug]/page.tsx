@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { CalendarDays, UserRound } from "lucide-react";
-import { getArticle, getArticleSlugs, getAuthorSlug, getCategoryName, splitAuthors } from "@/lib/content";
+import { CalendarDays, ChevronLeft, ChevronRight, UserRound } from "lucide-react";
+import { getAdjacentArticles, getArticle, getArticleSlugs, getAuthorSlug, getCategoryName, splitAuthors } from "@/lib/content";
 import Sidebar from "@/components/Sidebar";
 import Toc from "@/components/Toc";
 import SearchHighlight from "@/components/SearchHighlight";
@@ -44,6 +44,7 @@ export default async function ArticlePage({
   if (!article) notFound();
 
   const categoryName = getCategoryName(category);
+  const { previous, next } = getAdjacentArticles(category, slug);
 
   return (
     <div className="site-container content-layout article-layout">
@@ -92,6 +93,23 @@ export default async function ArticlePage({
               {article.tags.map((tag) => <span key={tag}>{tag}</span>)}
             </div>
           </footer>
+        ) : null}
+
+        {(previous || next) ? (
+          <nav className="article-pagination" aria-label="文章导航">
+            {previous ? (
+              <Link href={`/${category}/${previous.slug}`} prefetch={false} className="article-pagination-link article-pagination-previous">
+                <ChevronLeft aria-hidden="true" size={18} />
+                <span><small>上一篇</small>{previous.title}</span>
+              </Link>
+            ) : <span />}
+            {next ? (
+              <Link href={`/${category}/${next.slug}`} prefetch={false} className="article-pagination-link article-pagination-next">
+                <span><small>下一篇</small>{next.title}</span>
+                <ChevronRight aria-hidden="true" size={18} />
+              </Link>
+            ) : <span />}
+          </nav>
         ) : null}
       </main>
       <Toc items={article.toc} />

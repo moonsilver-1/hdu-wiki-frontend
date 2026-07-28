@@ -12,6 +12,7 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
+import { cache } from "react";
 
 const contentDir = path.join(process.cwd(), "content");
 
@@ -60,6 +61,11 @@ export interface TocItem {
   level: number;
 }
 
+interface CachedArticle {
+  mtime: number;
+  article: Article;
+}
+
 const categoryMap: Record<string, string> = {
   courses: "课程与学术",
   campus: "校园生活",
@@ -84,25 +90,22 @@ const sectionMap: Record<string, string> = {
 };
 
 const deepLearningOrder = [
+  // 数学与通用基础
   "deep-learning-math",
   "math-linear-algebra",
   "math-linear-algebra-2",
   "math-probability",
   "math-optimization",
-  "linear-neural-network",
-  "multilayer-perceptron",
-  "deep-learning-computation",
-  "convolutional-neural-network",
-  "modern-convolutional-network",
-  "recurrent-neural-network",
-  "gated-recurrent-network",
-  "attention-mechanism",
-  "transformer",
-  "optimization-and-regularization",
-  "training-stability-and-performance",
-  "computer-vision-principles",
-  "nlp-pretraining",
-  "nlp-applications",
+  "math-analysis",
+  "math-discrete",
+  "math-data-structures",
+  "algo-dfs-bfs",
+  "algo-shortest-path",
+  "algo-genetic",
+  "algo-simulated-annealing",
+  "algo-swarm",
+
+  // 机器学习
   "ml-linear-regression-regularization",
   "ml-logistic-regression",
   "ml-knn",
@@ -116,11 +119,24 @@ const deepLearningOrder = [
   "ml-clustering",
   "ml-evaluation",
   "ml-sklearn-practice",
-  "algo-dfs-bfs",
-  "algo-shortest-path",
-  "algo-genetic",
-  "algo-simulated-annealing",
-  "algo-swarm",
+
+  // 深度学习基础与模型架构
+  "linear-neural-network",
+  "multilayer-perceptron",
+  "deep-learning-computation",
+  "convolutional-neural-network",
+  "modern-convolutional-network",
+  "recurrent-neural-network",
+  "gated-recurrent-network",
+  "attention-mechanism",
+  "transformer",
+  "optimization-and-regularization",
+  "training-stability-and-performance",
+  "arch-mamba",
+  "arch-moe",
+
+  // 计算机视觉
+  "computer-vision-principles",
   "cv-classic-cnn",
   "cv-detection-rcnn",
   "cv-lightweight",
@@ -130,6 +146,10 @@ const deepLearningOrder = [
   "cv-instance-segmentation",
   "cv-self-supervised",
   "cv-clip",
+
+  // 自然语言处理
+  "nlp-pretraining",
+  "nlp-applications",
   "nlp-embeddings",
   "nlp-scaling",
   "nlp-rlhf",
@@ -138,12 +158,17 @@ const deepLearningOrder = [
   "nlp-rag",
   "nlp-classic",
   "nlp-evaluation",
+
+  // 生成式模型
   "gen-vae",
   "gen-gan",
   "gen-diffusion-ddpm",
   "gen-diffusion-sd",
   "gen-diffusion-dit",
 ];
+const deepLearningOrderIndex = new Map(
+  deepLearningOrder.map((slug, index) => [slug, index])
+);
 
 export function getAuthorSlug(name: string): string {
   return name
@@ -239,19 +264,33 @@ function getArticleSection(category: string, filePath: string): string {
 export function sortArticles(articles: ArticleMeta[]): ArticleMeta[] {
   return [...articles].sort((articleA, articleB) => {
     if (articleA.section === "deep-learning" && articleB.section === "deep-learning") {
-      return deepLearningOrder.indexOf(articleA.slug) - deepLearningOrder.indexOf(articleB.slug);
+      const orderA = deepLearningOrderIndex.get(articleA.slug) ?? Number.MAX_SAFE_INTEGER;
+      const orderB = deepLearningOrderIndex.get(articleB.slug) ?? Number.MAX_SAFE_INTEGER;
+      return orderA - orderB || articleA.slug.localeCompare(articleB.slug, "en", { numeric: true });
     }
 
     return articleA.slug.localeCompare(articleB.slug, "en", { numeric: true });
   });
 }
 
-export async function getArticle(
+const articleCache = new Map<string, CachedArticle>();
+
+async function getArticleUncached(
   category: string,
   slug: string
 ): Promise<Article | null> {
   const filePath = getArticleFile(category, slug);
   if (!filePath) return null;
+
+  let mtime = 0;
+  try {
+    mtime = fs.statSync(filePath).mtimeMs;
+  } catch {
+    return null;
+  }
+
+  const cached = articleCache.get(filePath);
+  if (cached && cached.mtime === mtime) return cached.article;
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
@@ -261,7 +300,7 @@ export async function getArticle(
   const contentHtml = result.toString();
   const toc = extractToc(contentHtml);
 
-  return {
+  const article: Article = {
     title: data.title || slug,
     category: data.category || category,
     tags: normalizeTags(data.tags),
@@ -274,7 +313,15 @@ export async function getArticle(
     contentHtml,
     toc,
   };
+
+  articleCache.set(filePath, { mtime, article });
+  return article;
 }
+
+// Metadata generation and the page render both request the article. React.cache
+// deduplicates that work within a request; articleCache retains parsed HTML until
+// the Markdown source changes.
+export const getArticle = cache(getArticleUncached);
 
 export function getArticleSlugs(category: string): string[] {
   const dir = path.join(contentDir, category);
@@ -387,6 +434,19 @@ export function getArticlesByCategory(category: string): ArticleMeta[] {
     .filter((a): a is ArticleMeta => a !== null && !a.featured);
 
   return sortArticles(articles);
+}
+
+export function getAdjacentArticles(
+  category: string,
+  slug: string
+): { previous: ArticleMeta | null; next: ArticleMeta | null } {
+  const articles = getArticlesByCategory(category);
+  const index = articles.findIndex((article) => article.slug === slug);
+
+  return {
+    previous: index > 0 ? articles[index - 1] : null,
+    next: index !== -1 && index < articles.length - 1 ? articles[index + 1] : null,
+  };
 }
 
 export function getSearchIndexData(): {
