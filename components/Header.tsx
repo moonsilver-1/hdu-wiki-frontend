@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Moon, Sun, TerminalSquare, X } from "lucide-react";
+import { Menu, Moon, PenSquare, Sun, TerminalSquare, X } from "lucide-react";
 import { useState } from "react";
 import SearchButton from "./SearchButton";
 import { useTheme } from "./ThemeProvider";
@@ -54,6 +54,10 @@ export default function Header() {
             <TerminalSquare aria-hidden="true" size={16} />
             Vim
           </Link>
+          <Link href="/contribute" className="contribute-link" title="我要投稿">
+            <PenSquare aria-hidden="true" size={16} />
+            投稿
+          </Link>
         </nav>
 
         <div className="header-actions">
@@ -86,6 +90,10 @@ export default function Header() {
             <Link href="/vim" onClick={() => setMenuOpen(false)}>
               <TerminalSquare aria-hidden="true" size={17} />
               Vim 阅读模式
+            </Link>
+            <Link href="/contribute" onClick={() => setMenuOpen(false)}>
+              <PenSquare aria-hidden="true" size={17} />
+              我要投稿
             </Link>
           </div>
         </nav>

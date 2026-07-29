@@ -25,6 +25,57 @@ export interface ValidationResult {
   error?: string;
 }
 
+// 危险 HTML/脚本模式：渲染管线开启了 allowDangerousHtml + rehype-raw，这些标签
+// 在正文里会被浏览器真正执行（XSS）。用户应该把这类内容放进代码块（```）里，
+// 那样会被转义成纯文本展示。这里只检查代码块外的部分。
+const DANGEROUS_PATTERNS: { regex: RegExp; hint: string }[] = [
+  { regex: /<script[\s>]/i, hint: "正文里检测到 <script> 标签" },
+  { regex: /<iframe[\s>]/i, hint: "正文里检测到 <iframe> 标签" },
+  { regex: /<object[\s>]/i, hint: "正文里检测到 <object> 标签" },
+  { regex: /<embed[\s>]/i, hint: "正文里检测到 <embed> 标签" },
+  { regex: /on\w+\s*=\s*["'`]/i, hint: "正文里检测到事件属性（如 onclick）" },
+  { regex: /javascript:\s*\S/i, hint: "正文里检测到 javascript: 脚本链接" },
+  // 图片：本站没有图片存储，外链图片会破图、可被第三方用于 IP 追踪，
+  // <img> 还可能携带 onerror 注入。统一拦截 markdown 图片语法和 <img> 标签。
+  { regex: /<img[\s>]/i, hint: "正文里检测到 <img> 图片标签（本站不支持图片）" },
+  { regex: /!\[[^\]]*\]\(/, hint: "正文里检测到 markdown 图片语法 ![]()（本站不支持图片）" },
+];
+
+// 把代码块（```...``` 和缩进 4 行的代码）从正文中剔除，只检查剩余文本。
+// 这样允许用户在代码块里讨论/展示这些内容（它们会被转义成文本，不会执行）。
+export function containsDangerousHtml(markdown: string): string | null {
+  const withoutCodeBlocks = markdown
+    // 去掉围栏代码块 ```...```（含语言标识）
+    .replace(/```[\s\S]*?```/g, "")
+    // 去掉行内代码 `...`
+    .replace(/`[^`\n]*`/g, "");
+  for (const { regex, hint } of DANGEROUS_PATTERNS) {
+    if (regex.test(withoutCodeBlocks)) {
+      // 图片类问题给「请改用文字描述」的提示，脚本类给「请放进代码块」的提示。
+      if (hint.includes("不支持图片")) {
+        return `${hint}，请用文字、代码或公式表达内容。`;
+      }
+      return `${hint}。如需展示代码，请用代码块（\`\`\`）包裹。`;
+    }
+  }
+  return null;
+}
+
+// 文件路径护栏：确认路径严格匹配 content/<白名单category>/<白名单section>/<纯ASCII slug>.md，
+// 防止路径穿越（../）或写到非预期位置。
+export function isValidFilePath(
+  filePath: string,
+  category: string,
+  section: string,
+  slug: string
+): boolean {
+  if (!isContributeCategory(category) || !isContributeSection(category, section)) return false;
+  // slug 只允许小写字母、数字、连字符，杜绝 / \ .. 等穿越字符
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return false;
+  const expected = `content/${category}/${section}/${slug}.md`;
+  return filePath === expected;
+}
+
 // 校验投稿内容。字段层面的硬约束在这里，slug 冲突在 generateSlug 里检查。
 export function validateSubmission(input: Partial<ContributeSubmission>): ValidationResult {
   const title = input.title?.trim() ?? "";
@@ -45,6 +96,12 @@ export function validateSubmission(input: Partial<ContributeSubmission>): Valida
   if (body.length < 20) return { ok: false, error: "正文至少 20 个字符" };
   if (body.length > 60000) return { ok: false, error: "正文不要超过 6 万字符" };
 
+  // 危险内容拦截：渲染管线开启了原生 HTML，正文里的 <script>/<iframe>/javascript:
+  // 等会被真正执行。这里扫描「代码块外」的危险模式，命中即拒绝。代码块（```）内的
+  // 同类内容会被渲染器转义成文本不执行，所以放行——提示用户把代码放进代码块。
+  const dangerous = containsDangerousHtml(body);
+  if (dangerous) return { ok: false, error: dangerous };
+
   const email = input.email?.trim() ?? "";
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { ok: false, error: "邮箱格式不正确（如填写）" };
@@ -55,16 +112,18 @@ export function validateSubmission(input: Partial<ContributeSubmission>): Valida
 
 // 把标题转成 kebab-case slug。中文按音译做不到，这里直接保留汉字并
 // 用连字符分隔，最终 URL 形如 /tech/从零开始学vue。
-// 标题里没有可切分的拉丁词时，slug 可能整段是中文，这在站内是允许的。
+// 标题转 slug：只保留 ASCII 小写字母、数字、连字符。
+// 注意：slug 不能用中文！Next.js App Router 对动态路由参数不做百分号解码，
+// 中文 slug 在 URL 里被编码成 %E6%9C%80... 后会与文件名对不上，导致详情页 404。
+// 标题里没有可用的拉丁字符时，回退成 submission-<时间戳>，保证总有合法 slug。
 export function slugifyTitle(title: string): string {
-  return title
+  const slug = title
     .trim()
     .toLowerCase()
-    // 拉丁文：非字母数字全转连字符
-    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-")
-    // 去掉首尾连字符
- .replace(/^-+|-+$/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
     .slice(0, 60);
+  return slug || `submission-${Date.now().toString(36).slice(-6)}`;
 }
 
 // 深度学习保留 slug 黑名单：撞上会触发编号污染（标题被加 "1.3" 前缀、侧边栏错乱）。
@@ -125,7 +184,7 @@ export function buildMarkdownFile(submission: ContributeSubmission, date: string
 }
 
 // 生成分支名：只用纯 ASCII 随机串，保证并发投稿不撞分支，也避免中文转义问题。
-export function generateBranchName(slug: string): string {
+export function generateBranchName(): string {
   const suffix = Math.random().toString(36).slice(2, 10);
   const stamp = Date.now().toString(36).slice(-5);
   return `submission/${stamp}${suffix}`;
@@ -150,8 +209,15 @@ export async function submitArticle(
   const date = new Date().toISOString().slice(0, 10);
   const slug = generateUniqueSlug(submission.title, submission.category);
   const filePath = `content/${submission.category}/${submission.section}/${slug}.md`;
+
+  // 文件路径护栏：即使前面校验被绕过，也确保文件只落到白名单 category/section 下、
+  // slug 纯 ASCII（无路径穿越字符），写不到仓库别处或覆盖系统文件。
+  if (!isValidFilePath(filePath, submission.category, submission.section, slug)) {
+    return { ok: false, error: "生成的文件路径不合法，请检查分类与标题" };
+  }
+
   const markdown = buildMarkdownFile(submission, date);
-  const branch = generateBranchName(slug);
+  const branch = generateBranchName();
 
   if (isDryRun()) {
     return {

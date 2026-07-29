@@ -19,13 +19,24 @@ export function generateStaticParams() {
   return params;
 }
 
+// Next.js App Router 对动态路由参数不做百分号解码：中文 slug 在 URL 里被编码成
+// %E6%9C%80... 后，params.slug 拿到的是编码后的字符串，直接查文件会 404。
+// 这里统一解码一次，保证无论 slug 是否含中文都能正确匹配文件。
+function decodeSlug(slug: string): string {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ category: string; slug: string }>;
 }): Promise<Metadata> {
   const { category, slug } = await params;
-  const article = await getArticle(category, slug);
+  const article = await getArticle(category, decodeSlug(slug));
   if (!article) return { title: "未找到" };
   return {
     title: article.title,
@@ -39,16 +50,17 @@ export default async function ArticlePage({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { category, slug } = await params;
-  const article = await getArticle(category, slug);
+  const decodedSlug = decodeSlug(slug);
+  const article = await getArticle(category, decodedSlug);
 
   if (!article) notFound();
 
   const categoryName = getCategoryName(category);
-  const { previous, next } = getAdjacentArticles(category, slug);
+  const { previous, next } = getAdjacentArticles(category, decodedSlug);
 
   return (
     <div className="site-container content-layout article-layout">
-      <Sidebar activeCategory={category} activeSlug={slug} />
+      <Sidebar activeCategory={category} activeSlug={decodedSlug} />
       <main className="article-page-content">
         <nav className="breadcrumb" aria-label="面包屑">
           <Link href="/">首页</Link>

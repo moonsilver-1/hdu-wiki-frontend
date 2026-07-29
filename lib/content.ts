@@ -102,6 +102,11 @@ export const deepLearningVolumes: {
   slugs: string[];
 }[] = [
   {
+    key: "0",
+    label: "导读",
+    slugs: ["deep-learning-roadmap"],
+  },
+  {
     key: "1",
     label: "第一卷 · 数学基础",
     slugs: [
@@ -257,10 +262,12 @@ export const deepLearningPlacement = new Map<string, DeepLearningPlacement>();
   let globalIndex = 0;
   for (const volume of deepLearningVolumes) {
     volume.slugs.forEach((slug, indexInVolume) => {
+      // 导读卷（key "0"）不加 "0.1" 编号前缀，标题保持原样，避免难看的编号。
+      const displayNumber = volume.key === "0" ? "" : `${volume.key}.${indexInVolume + 1}`;
       deepLearningPlacement.set(slug, {
         volumeKey: volume.key,
         volumeLabel: volume.label,
-        displayNumber: `${volume.key}.${indexInVolume + 1}`,
+        displayNumber,
         globalIndex: globalIndex++,
       });
     });
@@ -490,7 +497,9 @@ async function getArticleUncached(
 
   const placement = getArticleVolume(slug);
   const article: Article = {
-    title: placement ? `${placement.displayNumber} ${data.title || slug}` : (data.title || slug),
+    title: placement?.displayNumber
+      ? `${placement.displayNumber} ${data.title || slug}`
+      : (data.title || slug),
     category: data.category || category,
     tags: normalizeTags(data.tags),
     excerpt: data.excerpt || "",
@@ -548,7 +557,9 @@ export function getArticleMeta(
 
   const placement = getArticleVolume(slug);
   const meta: ArticleMeta = {
-    title: placement ? `${placement.displayNumber} ${data.title || slug}` : (data.title || slug),
+    title: placement?.displayNumber
+      ? `${placement.displayNumber} ${data.title || slug}`
+      : (data.title || slug),
     category: data.category || category,
     tags: normalizeTags(data.tags),
     excerpt: data.excerpt || "",
