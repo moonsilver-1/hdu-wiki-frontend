@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight, Search, X } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 interface SearchItem {
   slug: string;
@@ -11,6 +11,7 @@ interface SearchItem {
   title: string;
   excerpt: string;
   tags: string[];
+  content: string;
 }
 
 const categoryNames: Record<string, string> = {
@@ -19,6 +20,49 @@ const categoryNames: Record<string, string> = {
   tech: "技术",
   community: "社团",
 };
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// 把查询拆成关键词，命中的片段用 <mark> 高亮。空查询原样返回。
+function highlight(text: string, query: string): ReactNode[] {
+  const tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return [text];
+  const pattern = new RegExp(`(${tokens.map(escapeRegExp).join("|")})`, "gi");
+  return text.split(pattern).map((part, index) =>
+    part && tokens.includes(part.toLowerCase()) ? <mark key={index}>{part}</mark> : part
+  );
+}
+
+// 计算单篇文章的相关度分数：标题 > 标签 > 摘要 > 正文，用于结果排序。
+function scoreItem(item: SearchItem, query: string): number {
+  const title = item.title.toLowerCase();
+  let score = 0;
+  if (title === query) score += 220;
+  else if (title.startsWith(query)) score += 160;
+  else if (title.includes(query)) score += 100;
+
+  if (item.tags.some((tag) => tag.toLowerCase().includes(query))) score += 60;
+  if (item.excerpt.toLowerCase().includes(query)) score += 30;
+  if (item.content.toLowerCase().includes(query)) score += 10;
+  return score;
+}
+
+// 优先展示包含关键词的摘要；摘要没命中就从正文里截一段上下文，让正文搜索也能定位。
+function getSnippet(item: SearchItem, query: string): string {
+  if (query && item.excerpt.toLowerCase().includes(query)) return item.excerpt;
+  if (query) {
+    const index = item.content.toLowerCase().indexOf(query);
+    if (index !== -1) {
+      const start = Math.max(0, index - 30);
+      const end = Math.min(item.content.length, index + query.length + 60);
+      const window = item.content.slice(start, end).trim();
+      return `${start > 0 ? "…" : ""}${window}${end < item.content.length ? "…" : ""}`;
+    }
+  }
+  return item.excerpt;
+}
 
 export default function SearchDialog({
   open,
@@ -63,13 +107,11 @@ export default function SearchDialog({
     if (!normalizedQuery) return [];
 
     return allData
-      .filter(
-        (item) =>
-          item.title.toLowerCase().includes(normalizedQuery) ||
-          item.excerpt.toLowerCase().includes(normalizedQuery) ||
-          item.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery))
-      )
-      .slice(0, 8);
+      .map((item) => ({ item, score: scoreItem(item, normalizedQuery) }))
+      .filter((entry) => entry.score > 0)
+      .sort((entryA, entryB) => entryB.score - entryA.score)
+      .slice(0, 12)
+      .map((entry) => entry.item);
   }, [query, allData]);
 
   const handleKeyDown = useCallback(
@@ -101,8 +143,8 @@ export default function SearchDialog({
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="搜索标题、摘要或标签"
-            aria-label="搜索标题、摘要或标签"
+            placeholder="搜索标题、摘要、标签或正文"
+            aria-label="搜索标题、摘要、标签或正文"
           />
           <button type="button" onClick={onClose} className="dialog-close" aria-label="关闭搜索">
             <X aria-hidden="true" size={18} />
@@ -129,8 +171,8 @@ export default function SearchDialog({
                   {categoryNames[item.category] ?? item.category}
                 </span>
                 <span className="search-result-copy">
-                  <strong>{item.title}</strong>
-                  <span>{item.excerpt}</span>
+                  <strong>{highlight(item.title, query)}</strong>
+                  <span>{highlight(getSnippet(item, query.trim().toLowerCase()), query)}</span>
                 </span>
                 <ArrowUpRight aria-hidden="true" size={17} />
               </Link>

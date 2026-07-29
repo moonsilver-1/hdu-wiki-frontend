@@ -19,7 +19,7 @@ const contentDir = path.join(process.cwd(), "content");
 // Keep the parser configuration in one place so article pages and API consumers
 // produce the same HTML. Math is rendered on the server and is safe to inject
 // because the source is repository-controlled Markdown.
-const markdownProcessor = unified()
+export const markdownProcessor = unified()
   .use(remarkParse)
   .use(gfm)
   .use(remarkMath, { singleDollarTextMath: true })

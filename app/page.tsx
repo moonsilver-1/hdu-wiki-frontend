@@ -5,7 +5,7 @@ import {
   BookOpenCheck,
   GitFork,
 } from "lucide-react";
-import { getAllArticles, getAuthors, getCategories, getAuthorSlug, sortArticles, splitAuthors, type ArticleMeta } from "@/lib/content";
+import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors, type ArticleMeta } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
 import SearchButton from "@/components/SearchButton";
 
@@ -62,8 +62,28 @@ function ArticleCard({
 
 function sortByDate(articles: ArticleMeta[]) {
   return [...articles].sort((articleA, articleB) =>
-    articleB.date.localeCompare(articleA.date) || articleA.slug.localeCompare(articleB.slug, "en", { numeric: true })
+    articleB.date.localeCompare(articleA.date) || articleA.slug.localeCompare(articleA.slug, "en", { numeric: true })
   );
+}
+
+// 看「全部」时按分类交错排列：每个分类取最新一篇轮流展示，避免某一类（如深度学习）
+// 的海量文章把顶部全部占满。每个分组内部仍按时间倒序，因此轮到的都是各自最新的内容。
+function interleaveByCategory(articles: ArticleMeta[], categoryOrder: string[]): ArticleMeta[] {
+  const groups = new Map<string, ArticleMeta[]>();
+  for (const category of categoryOrder) groups.set(category, []);
+  for (const article of articles) {
+    groups.get(article.category)?.push(article);
+  }
+
+  const interleaved: ArticleMeta[] = [];
+  const maxGroupLength = Math.max(...[...groups.values()].map((group) => group.length), 0);
+  for (let index = 0; index < maxGroupLength; index += 1) {
+    for (const category of categoryOrder) {
+      const article = groups.get(category)?.[index];
+      if (article) interleaved.push(article);
+    }
+  }
+  return interleaved;
 }
 
 function formatPeriod(period: string) {
@@ -74,24 +94,40 @@ function formatPeriod(period: string) {
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: Promise<{ period?: string }>;
+  searchParams?: Promise<{ period?: string; category?: string }>;
 }) {
   const categories = getCategories();
   const authors = getAuthors();
-  const allArticles = sortArticles(getAllArticles());
-  const availablePeriods = [...new Set(allArticles.map((article) => article.date.slice(0, 7)).filter(Boolean))]
-    .sort((periodA, periodB) => periodB.localeCompare(periodA));
-  const requestedPeriod = (await searchParams)?.period ?? "";
-  const selectedPeriod = availablePeriods.includes(requestedPeriod) ? requestedPeriod : "";
-  const sortedArticles = sortByDate(allArticles);
-  const recentArticles = selectedPeriod
-    ? sortedArticles.filter((article) => article.date.startsWith(selectedPeriod))
-    : sortedArticles;
+  const sortedArticles = sortByDate(getAllArticles());
   const categoryNames = new Map(categories.map((category) => [category.slug, category.name]));
+  const categoryOrder = categories.map((category) => category.slug);
   const categoryCounts = sortedArticles.reduce<Record<string, number>>((counts, article) => {
     counts[article.category] = (counts[article.category] ?? 0) + 1;
     return counts;
   }, {});
+
+  const params = (await searchParams) ?? {};
+  const requestedCategory = params.category ?? "";
+  const selectedCategory = categoryOrder.includes(requestedCategory) ? requestedCategory : "";
+
+  // 先按分类圈定范围，可用时间随选中的分类变化，避免选到该分类下没有的月份。
+  const categoryScoped = selectedCategory
+    ? sortedArticles.filter((article) => article.category === selectedCategory)
+    : sortedArticles;
+  const availablePeriods = [...new Set(categoryScoped.map((article) => article.date.slice(0, 7)).filter(Boolean))]
+    .sort((periodA, periodB) => periodB.localeCompare(periodA));
+
+  const requestedPeriod = params.period ?? "";
+  const selectedPeriod = availablePeriods.includes(requestedPeriod) ? requestedPeriod : "";
+
+  const periodFiltered = selectedPeriod
+    ? categoryScoped.filter((article) => article.date.startsWith(selectedPeriod))
+    : categoryScoped;
+
+  // 选了具体分类就按时间倒序；看「全部」时按分类交错排列，避免深度学习等大类铺满顶部。
+  const recentArticles = selectedCategory
+    ? sortByDate(periodFiltered)
+    : interleaveByCategory(periodFiltered, categoryOrder);
 
   const featuredArticle =
     featuredSlugs
@@ -239,15 +275,25 @@ export default async function Home({
                 <p>从新收录到经典指南，按更新时间快速浏览。</p>
               </div>
               <div className="recent-tools">
-                <span className="article-total">共 {recentArticles.length} 篇</span>
-                <form className="article-time-filter" method="get" action="/#articles-title">
-                  <label htmlFor="article-period">按时间</label>
-                  <select id="article-period" name="period" defaultValue={selectedPeriod}>
-                    <option value="">全部时间</option>
-                    {availablePeriods.map((period) => (
-                      <option key={period} value={period}>{formatPeriod(period)}</option>
-                    ))}
-                  </select>
+                <form className="article-filter" method="get" action="/#articles-title">
+                  <label className="filter-field" htmlFor="article-category">
+                    <span>分类</span>
+                    <select id="article-category" name="category" defaultValue={selectedCategory}>
+                      <option value="">全部分类</option>
+                      {categories.map((category) => (
+                        <option key={category.slug} value={category.slug}>{category.name}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="filter-field" htmlFor="article-period">
+                    <span>时间</span>
+                    <select id="article-period" name="period" defaultValue={selectedPeriod}>
+                      <option value="">全部时间</option>
+                      {availablePeriods.map((period) => (
+                        <option key={period} value={period}>{formatPeriod(period)}</option>
+                      ))}
+                    </select>
+                  </label>
                   <button type="submit">查找</button>
                 </form>
               </div>
@@ -307,6 +353,10 @@ export default async function Home({
                   <ArrowRight aria-hidden="true" size={17} />
                 </Link>
               ) : null}
+              <Link href="/contribute" className="button button-light">
+                投稿写文章
+                <ArrowRight aria-hidden="true" size={17} />
+              </Link>
               <a
                 href="https://github.com/moonsilver-1/hdu-wiki-frontend"
                 target="_blank"
