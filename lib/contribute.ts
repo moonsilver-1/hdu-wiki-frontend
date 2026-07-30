@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { deepLearningVolumes } from "@/lib/content";
+import { courseVolumes } from "@/lib/content";
 import {
   isContributeCategory,
   isContributeSection,
@@ -126,8 +126,13 @@ export function slugifyTitle(title: string): string {
   return slug || `submission-${Date.now().toString(36).slice(-6)}`;
 }
 
-// 深度学习保留 slug 黑名单：撞上会触发编号污染（标题被加 "1.3" 前缀、侧边栏错乱）。
-const reservedSlugs = new Set<string>(deepLearningVolumes.flatMap((volume) => volume.slugs));
+// 已注册卷结构课程的保留 slug 黑名单（深度学习、算法等）：撞上会触发编号污染
+// （标题被加 "1.3" 前缀、侧边栏错乱）。这些课程是作者精排的，不开放投稿。
+const reservedSlugs = new Set<string>(
+  Object.values(courseVolumes).flatMap((volumes) =>
+    volumes.flatMap((volume) => volume.slugs)
+  )
+);
 
 // 扫描某 category 下已存在的 slug，加上保留 slug，组成完整的冲突集合。
 function getTakenSlugs(category: string): Set<string> {

@@ -9,7 +9,7 @@ export interface ContributeCategory {
   sections: { slug: string; name: string }[];
 }
 
-// 四大分类全开；深度学习 section（编号受 deepLearningVolumes 硬编码控制）排除。
+// 四大分类全开；深度学习、算法等精排课程（编号受 courseVolumes 控制）排除。
 export const contributeCategories: ContributeCategory[] = [
   {
     slug: "courses",
