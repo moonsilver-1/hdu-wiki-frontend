@@ -25,6 +25,10 @@
 .DS_Store
 *.pem
 
+/.claude/
+/.zcode/
+/.agents/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
