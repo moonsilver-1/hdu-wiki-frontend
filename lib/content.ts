@@ -91,6 +91,7 @@ const sectionMap: Record<string, string> = {
   vibecoding: "vibecoding",
   other: "其他",
   community: "社团与活动",
+  "science-fiction-contest": "科幻征文",
 };
 
 // 课程按「卷」组织：每卷一个 key（决定编号「卷.章」）、一个中文标签、一组 slug。

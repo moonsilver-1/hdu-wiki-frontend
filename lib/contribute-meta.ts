@@ -39,7 +39,10 @@ export const contributeCategories: ContributeCategory[] = [
   {
     slug: "community",
     name: "社团与活动",
-    sections: [{ slug: "community", name: "社团与活动" }],
+    sections: [
+      { slug: "community", name: "社团与活动" },
+      { slug: "science-fiction-contest", name: "科幻征文" },
+    ],
   },
 ];
 
