@@ -833,7 +833,7 @@ export function getArticlesByCategory(category: string): ArticleMeta[] {
   const slugs = getArticleSlugs(category);
   const articles = slugs
     .map((slug) => getArticleMeta(category, slug))
-    .filter((a): a is ArticleMeta => a !== null);
+    .filter((a): a is ArticleMeta => a !== null && !a.featured);
 
   return sortArticles(articles);
 }
