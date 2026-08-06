@@ -1,0 +1,759 @@
+jina-ai/dev-gpt:README.md: --description "Given an image, return the image with bounding boxes of all animals (https://pjreddie.com/media/files/yolov3.weights, https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg), Example input: https://images.unsplash.com/photo-1444212477490-ca407925329e" \
+jina-ai/dev-gpt:README.md: --description "Create a heatmap from an image and a list of relative coordinates. Example input: https://images.unsplash.com/photo-1574786198875-49f5d09fe2d2, [[0.1, 0.2], [0.3, 0.4], [0.5, 0.6], [0.2, 0.1], [0.7, 0.2], [0.4, 0.2]]" \
+xiumubai/coding:INFO.md: <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Frontend Coding Workspace" width="800"/>
+xiumubai/coding:INFO.md: <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" width="200"/>
+advanced-cropper/react-advanced-cropper:README.md: 'https://images.unsplash.com/photo-1599140849279-1014532882fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80',
+Espresso-Aficionados/website:404.md: ![Spilt Beans Unsplash](https://images.unsplash.com/photo-1587985782610-f114593ea92f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80)
+f3nter/HardBreak:README.md: https://images.unsplash.com/photo-1610878785620-3ab2d3a2ae7b?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw3fHxtaWNyb2NvbnRyb2xsZXJ8ZW58MHx8fHwxNzI4Mzk0NjM3fDA&ixlib=rb-4.0.3&q=85
+asmcss/assembler:README.md: <img x-style="block; max-w:100%; w:100%; h:auto; radius-top:md" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80">
+kousen/java_latest:slides.md: background: https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=1920&h=1080&fit=crop
+sujayadkesar/cybersecurity-resources:README.md: ![Logo](https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGxlYXJuaW5nJTIwcmVzb3VyY2VzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60)
+moldach/project-directory:README.md: <a href="https://images.unsplash.com"><img src="https://images.unsplash.com/photo-1527849214787-c99cd25c2f09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" title="ProjectOrganization" alt="ProjectOrganization"></a>
+thinger-io/Docs:linux.md: https://images.unsplash.com/photo-1610812388300-cd1e9cf28b54?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwxOTcwMjR8MHwxfHNlYXJjaHw3fHxyYXNwYmVycnklMjBwaXxlbnwwfHx8fDE2NzYwMTUwNjU&ixlib=rb-4.0.3&q=80
+caglardurmus/react-native-insta-story:README.md: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+hasinhayder/tyro-login:README.md: TYRO_LOGIN_BACKGROUND_IMAGE=https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920&q=80
+hasinhayder/tyro-login:README.md: TYRO_LOGIN_BACKGROUND_IMAGE=https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920&q=80
+osc-delft/osc-delft.github.io:events.md: image: https://images.unsplash.com/photo-1435527173128-983b87201f4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80
+brunoimbrizi/creative-coding-domestika-2022:README.md: - [Image URL 64x64 portrait](https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=64&q=80)
+brunoimbrizi/creative-coding-domestika-2022:README.md: - [Image URL 64x64 balloon](https://images.unsplash.com/photo-1569041032556-6485fc04aff0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=64&h=64&q=80)
+CarelessCourage/Moonbow:README.md: const imageURL = "https://images.unsplash.com/photo-1642059893618"
+CarelessCourage/Moonbow:README.md: src="https://images.unsplash.com/photo-1642059893618"
+guardianproject/onionmobiledev:index.md: <figure><img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?crop=entropy&#x26;cs=srgb&#x26;fm=jpg&#x26;ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwyfHxzb2Z0d2FyZSUyMGRldmVsb3BlcnxlbnwwfHx8fDE3MTUxODg3NDB8MA&#x26;ixlib=rb-4.0.3&#x26;q=85" alt=""><figcaption></figcaption></figure>
+damienroche/vue-blurhash:README.md: src="https://images.unsplash.com/photo-1545910684-8e7c081be9b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80"
+coopcycle/coopcycle-docs:index.md: src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+coopcycle/coopcycle-docs:index.md: src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+TirendazAcademy/Data-Visualization-with-Python:README.md: ![](https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80)
+Oladayo-Ahmod/laravel-ecommerce:README.md: <p align="center"><a href="https://sleepy-woodland-37644.herokuapp.com/" target="_blank"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" width="400"></a></p>
+pradel/react-google-photo:README.md: 'https://images.unsplash.com/photo-1509420316987-d27b02f81864?dpr=1&auto=format&fit=crop&w=1500&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
+14790897/Jekyll-pages.github.io:index.md: - image_path: https://images.unsplash.com/photo-1593672755342-741a7f868732?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+14790897/Jekyll-pages.github.io:index.md: - image_path: https://images.unsplash.com/photo-1556244573-c3686c0f0e78?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+jeradM/grid-layout:README.md: image: https://images.unsplash.com/photo-1505773278895-5efa7b11679a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0bcc9d09bd4d332b2f25603ee03fa60e&auto=format&fit=crop&w=1436&q=80
+jeradM/grid-layout:README.md: image: https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=900&h=200&fit=crop&ixid=eyJhcHBfaWQiOjF9&s=5cc8b6574a7d9cf7235fd90b9ad21d12
+danijelgrabez/lazy-image:README.md: source="https://images.unsplash.com/photo-1551148552-c19ee5b0c116?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2733&q=80"
+danijelgrabez/lazy-image:README.md: source="https://images.unsplash.com/photo-1551148552-c19ee5b0c116?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2733&q=80"
+modbender/nuxt-splide:README.md: src="https://images.unsplash.com/photo-1460176449511-ff5fc8e64c35?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+modbender/nuxt-splide:README.md: src="https://images.unsplash.com/photo-1561424412-6c2125ecb1cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+rit3zh/expo-ios-visual-blur:README.md: uri: "https://images.unsplash.com/photo-1754638069174-7aa06c176b61?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+5t3ph/eleventy-plugin-lightningcss:index.md: ![test image](https://images.unsplash.com/photo-1677247191557-4abd28b7c387?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80)
+RIP-Network/IGinjector:README.md: [![Demo](https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8eW91dHViZSUyMHRodW1ibmFpbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60)](https://youtu.be/1bTwZ0IuLJY?si=rIK4NMC1rbBE-LAC)
+engr-leonel-calderon/computer_programming_class_2025:README.md: ![Programming Banner](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80)
+engr-leonel-calderon/computer_programming_class_2025:README.md: ![Coding Setup](https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80)
+GopalSaraf/TorrentLeechBot:README.md: <img width=400px height=400px src="https://images.unsplash.com/photo-1562907550-096d3bf9b25c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80" alt="Bot logo"></a>
+shorwood/tailwindcss-unsplash:README.md: - <b>ht<span>tps://images.unsplash.com/photo-`1645036993886-efdfd96ca97f`?ixlib=rb-1.2.1&fit=crop&w=735&q=80</b>
+pism/pism.github.io:team.md: hero_image: https://images.unsplash.com/photo-1609385510105-81ae06198c53
+cnrad/h:README.md: [Example below](https://h.cnrad.dev/?title=Cool%20New%20Tab&pinned=https://raw.githubusercontent.com/cnrad/h.cnrad.dev/master/src/bookmarks.json&background=https://images.unsplash.com/photo-1418513110185-f0ec221e47b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80)
+pism/pism.github.io:index.md: hero_image: img/header_ice_equations.jpg #https://images.unsplash.com/photo-1493329025335-18542a61595f
+engels74/cosmos-guides:README.md: https://images.unsplash.com/photo-1465101162946-4377e57745c3?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwzfHxjb3Ntb3N8ZW58MHx8fHwxNzA4MTc5ODk0fDA&ixlib=rb-4.0.3&q=85
+mrdanielcasper/CoreTex:Home.md: banner: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"
+irfanirawansukirman/kamus-ekstensi-android:README.md: ![alt text](https://images.unsplash.com/photo-1541417904950-b855846fe074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1713&q=80)
+kousen/gemini-training:slides.md: background: https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+kousen/gemini-training:slides.md: image: https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+wordpress-serbia/theme-development-workshop-2018:README.md: <img src="https://images.unsplash.com/photo-1495774539583-885e02cca8c2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b4876c41d5e7585486007cab84b34512">
+seanghay/vue-photo-collage:README.md: "https://images.unsplash.com/photo-1517088455889-bfa75135412c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e5548929376f93d8b1b7a21097df03bd&auto=format&fit=crop&w=749&q=80",
+seanghay/vue-photo-collage:README.md: "https://images.unsplash.com/photo-1526656892012-7b336603ed46?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=31c8e58b58c25dfcc18452ed29b52951&auto=format&fit=crop&w=334&q=80",
+ronan-f/omdb-nextjs-test:README.md: <img alt="browsing movies" src="https://images.unsplash.com/photo-1615986201152-7686a4867f30?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=925&q=80" width="550" height="400" />
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1523719185231-aff40a400361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1523719185231-aff40a400361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+Norbert515/flutter_organized_widgets:README.md: "https://images.unsplash.com/photo-1546072533-675fd58d08e8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"),
+bamlab/nest-rabbit-tasks:README.md: ![rabbit](https://images.unsplash.com/photo-1480554840075-72cbdabbf689?ixlib=rb-1.2.1&auto=format&fit=crop&w=3300&q=80)
+3ls3if/Penetration-Testing-Book:README.md: https://images.unsplash.com/photo-1658388012384-23bc0c66e3ac?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw0fHxjeWJlciUyMHNlY3VyaXR5fGVufDB8fHx8MTcyNzg3MzYwOXww&ixlib=rb-4.0.3&q=85
+axlyaguana11/ecuador-building-analysis-2012:README.md: ![Cotopaxi](https://images.unsplash.com/photo-1606591808963-8fc3c63fa6a2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=691&q=80)
+gxcuizy/markdown:index.md: <img src="https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-0.3.5&s=db802b72adc82f97904d37dde9d0d401&auto=format&fit=crop&w=1189&q=80" width="100%">
+InterfazeAI/jigsawstack-python:README.md: "url": "https://images.unsplash.com/photo-1542931287-023b922fa89b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?t=2024-03-22T09%3A22%3A48.442Z"
+hasinhayder/storyteller-astro:README.md: thumb: "https://images.unsplash.com/photo-example?w=400" # Thumbnail
+hasinhayder/storyteller-astro:README.md: large: "https://images.unsplash.com/photo-example?w=1200" # Large image
+sagarbhure/MlDefender:temp.md: coverImage: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+sagarbhure/MlDefender:temp.md: src={`https://images.unsplash.com/photo-1497633762265-9d179a990aa6?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym9va3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500`}
+
+kcdp/kcdp.github.io:ask.html: <meta itemprop="image" content="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80">
+kcdp/kcdp.github.io:ask.html: <meta name="twitter:image:src" content="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80">
+Rebornian48/rebornian48.github.io:404.html: <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover object-top">
+freestylefly/12306-mcp:yb.html: <div class="bento-card large-card fade-in glow-effect bento-card-with-image" style="background-image: url('https://images.unsplash.com/photo-1598624840525-8bfff4bbfe6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+freestylefly/12306-mcp:yb.html: <div class="food-item" style="background-image: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80');">
+navina20/music:M5.html: background-image: url('https://images.unsplash.com/photo-1573329583073-b8161c267ae0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bG92ZSUyMHNvbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=400&q=60');
+rafiiramii/staticWebsites:it.html: src="https://images.unsplash.com/photo-1553531889-e6cf4d692b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+rafiiramii/staticWebsites:it.html: src="https://images.unsplash.com/photo-1562886889-0d7ec2bc333e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1910&q=80"
+Tareq-Khalil/STEM-October-Astronomy-Club-SOAC-:ex.html: <span class="icon"><br/><a href="#popup1"><img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80" style="height:120px; width:120px; border-radius: 50%; object-fit: cover;"/></a></span>
+Tareq-Khalil/STEM-October-Astronomy-Club-SOAC-:ex.html: <span class="icon"><br/><a href="#popup2"><img src="https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80" style="height:120px; width:120px; border-radius: 50%; object-fit: cover;"/></a></span>
+Ayush2966/Memories:10.html: <div class="card card-wide card-tall" style="background-image:url('https://images.unsplash.com/photo-1583511416766-083ba12de77c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60')">
+Ayush2966/Memories:10.html: <div class="card card-tall" style="background-image:url('https://images.unsplash.com/photo-1583355964351-03849a598923?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60')">
+siggy/nabes.network:hv.html: <img src="https://images.unsplash.com/photo-1542836038-80751c534e12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NDgzMDl8MHwxfHNlYXJjaHwxfHxoYXllcyUyMHZhbGxleSUyMG5laWdoYm9yaG9vZCUyMHNhbiUyMGZyYW5jaXNjb3xlbnwwfHx8fDE2OTAwOTkxMjJ8MA&ixlib=rb-4.0.3&q=80&w=400" alt="red 5-door hatchback beside concrete building">
+siggy/nabes.network:hv.html: <img src="https://images.unsplash.com/photo-1439396087961-98bc12c21176?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NDgzMDl8MHwxfHNlYXJjaHwyfHxoYXllcyUyMHZhbGxleSUyMG5laWdoYm9yaG9vZCUyMHNhbiUyMGZyYW5jaXNjb3xlbnwwfHx8fDE2OTAwOTkxMjJ8MA&ixlib=rb-4.0.3&q=80&w=400" alt="aerial photography of concrete buildings under blue cloudy sky">
+Onlyme426/FOOD-GALLERY.:jd.html: background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080');
+Onlyme426/FOOD-GALLERY.:jd.html: <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600" class="card-img-top" alt="Appetizers">
+itsaxat7479/school-website:aa.html: background:url("https://images.unsplash.com/photo-1588072432836-e10032774350") center/cover;
+itsaxat7479/school-website:aa.html: <div class="col-md-3"><div class="card"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2"><div class="card-body text-center"><strong>Mrs. Anjali Sharma</strong><br>English</div></div></div>
+itsaxat7479/school-website:aa.html: <div class="col-md-3"><div class="card"><img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e"><div class="card-body text-center"><strong>Mr. Rahul Verma</strong><br>Mathematics</div></div></div>
+Onlyme426/Test2:NF.html: background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080');
+Onlyme426/Test2:NF.html: <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600" class="card-img-top" alt="Appetizers">
+krishna-katekhaye-dev/HTML:h.html: <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8c21hcnQlMjB3YXRjaHx8fHx8fDE3MDA1NjcwNTc&ixlib=rb-4.0.3&q=80&w=400" alt="Smart Watch">
+krishna-katekhaye-dev/HTML:h.html: <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8aGVhZHBob25lc3x8fHx8fDE3MDA1NjcxMjc&ixlib=rb-4.0.3&q=80&w=400" alt="Wireless Headphones">
+1998code/ErrorPage-Theme:404.html: <body class="d-flex d-xl-flex flex-column justify-content-center align-items-center justify-content-xl-center align-items-xl-center" style="background: url(&quot;https://images.unsplash.com/photo-1541185934-01b600ea069c?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&quot;) center / cover no-repeat;height: 100vh;backdrop-filter: blur(10px);-webkit-backdrop-filter: blur(10px);">
+danidevlab/dani_ggm_kr-legacy:404.html: background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+tessie-the-messy/Portfolio:old.html: <img class="small-image" src="https://images.unsplash.com/photo-1470165344182-24727c18c317?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80" alt=""></a>
+tessie-the-messy/Portfolio:old.html: <a href="http://lit-castle-55469.herokuapp.com/"><img class="small-image" src="https://images.unsplash.com/photo-1633478062482-790e3b5dd810?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt=""></a>
+tessie-the-messy/Portfolio:old.html: <img class="small-image" src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">
+Mohan-234/DIGIBHEM:end.html: background-image: url('https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bHV4dXJ5JTIwaG90ZWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80');
+harsh98trivedi/Luxury-Car-Solution:faq.html: <img src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f2?q=80&w=2070" class="hero-bg" alt="Airport Terminal Support">
+ragunath-sudo/dog:.html: <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80" alt="Green Tea" />
+ragunath-sudo/dog:.html: <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Black Tea" />
+purab-26/sneaker:.html: { id: 1, name: "Nike Air Max", brand: "Nike", price: 199, image: "https://images.unsplash.com/photo-1600181959237-34c0f81b528d" },
+purab-26/sneaker:.html: { id: 2, name: "Adidas Yeezy Boost", brand: "Adidas", price: 299, image: "https://images.unsplash.com/photo-1580711238963-0f6c2f7e4bcf" },
+purab-26/sneaker:.html: { id: 3, name: "Jordan Retro", brand: "Jordan", price: 250, image: "https://images.unsplash.com/photo-1606813902764-cf21b8e74b1b" },
+purab-26/sneaker:.html: { id: 4, name: "Puma RS-X", brand: "Puma", price: 180, image: "https://images.unsplash.com/photo-1606815480670-1ef4231cf0f9" },
+mistyc1123/metodo2:.html: <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Notas de dinheiro" title="Notas de dinheiro" />
+mistyc1123/metodo2:.html: <img src="https://images.unsplash.com/photo-1506619216599-9be4c7e66b1a?auto=format&fit=crop&w=400&q=80" alt="Pilhas de dinheiro" title="Pilhas de dinheiro" />
+mistyc1123/metodo2:.html: <img src="https://images.unsplash.com/photo-1522202226719-2138e76a0a68?auto=format&fit=crop&w=400&q=80" alt="Dinheiro e riqueza" title="Dinheiro e riqueza" />
+abhishek369852/abhishek369852:2.html: url("https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1600&q=80");
+abhishek369852/abhishek369852:2.html: <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80">
+fatima-Sami55/Muffy:p.html: <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRlc3NlcnR8ZW58MHx8MHx8fDA%3D" alt="Image 2">
+fatima-Sami55/Muffy:p.html: <img src="https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGRlc3NlcnR8ZW58MHx8MHx8fDA%3D" alt="Image 3">
+Vijay-192/SLIDER-GRID:t.html: "https://images.unsplash.com/photo-1496309732348-3627f3f040ee?ixlib=rb-0.3.5&s=4d04f3d5a488db4031d90f5a1fbba42d&auto=format&fit=crop&w=1050&q=80",
+Vijay-192/SLIDER-GRID:t.html: "https://images.unsplash.com/photo-1504271863819-d279190bf871?ixlib=rb-0.3.5&s=7a2b986d405a04b3f9be2e56b2be40dc&auto=format&fit=crop&w=334&q=80",
+Mohammed-Khubaib/WebTechnology:9.html: <img src="https://images.unsplash.com/photo-1591951425328-48c1fe7179cd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGJvb2tzfGVufDB8fDB8fHww" alt="Book 1">
+Mohammed-Khubaib/WebTechnology:9.html: <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Book 2">
+jawahar-prasad/business-portfolio:p.html: <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=600" alt="Classic Oxford">
+jawahar-prasad/business-portfolio:p.html: <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600" alt="Urban Sneaker">
+manhlinh0618/linhrabbit:1.html: src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400"
+manhlinh0618/linhrabbit:1.html: src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400"
+Mohammed-Khubaib/WebTechnology:1.html: <img src=https://images.unsplash.com/photo-1591951425328-48c1fe7179cd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGJvb2tzfGVufDB8fDB8fHww" alt="Book 1">
+Mohammed-Khubaib/WebTechnology:1.html: <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Book 2">
+SeoyeonH/web-study-note:1.html: <img src = "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nfGVufDB8fDB8fHww"
+ristonrodrigues723/algo-visvualizer:c.html: <img class="card-image" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Linked List">
+ristonrodrigues723/algo-visvualizer:c.html: <img class="card-image" src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Binary Tree">
+khushicse44/COLLAGE-WEBSITE:K.HTML: <li><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=50&h=50&fit=crop" alt="Computer Science Icon" class="program-icon">B.Tech in Computer Science and Engineering</li>
+khushicse44/COLLAGE-WEBSITE:K.HTML: <li><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=50&h=50&fit=crop" alt="Mechanical Engineering Icon" class="program-icon">B.Tech in Mechanical Engineering</li>
+khushicse44/COLLAGE-WEBSITE:K.HTML: <li><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=50&h=50&fit=crop" alt="Electrical Engineering Icon" class="program-icon">B.Tech in Electrical Engineering</li>
+khushicse44/COLLAGE-WEBSITE:K.HTML: <li><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=50&h=50&fit=crop" alt="Civil Engineering Icon" class="program-icon">B.Tech in Civil Engineering</li>
+Adarshrawat26/flower-shop-website:9.html: <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3VuZmxvd2Vyc3xlbnwwfHwwfHx8MA%3D%3D" alt="Flower 3">
+Adarshrawat26/flower-shop-website:9.html: <img src="https://images.unsplash.com/photo-1501973931234-5ac2964cd94a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGlseXxlbnwwfHwwfHx8MA%3D%3D" alt="Flower 5">
+Anshika2629/CS-file:9.html: <img src="https://images.unsplash.com/photo-1471649387900-7abe48a02df5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTcxMzExMTg4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080"
+Luansousagit/sitedoces:l.html: <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500');"></div>
+Luansousagit/sitedoces:l.html: <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500');"></div>
+sherwyngoh/iat-2016:1.html: <img src="https://images.unsplash.com/photo-1454678904372-2ca94103eca4?crop=entropy&fit=crop&fm=jpg&h=725&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1450" alt="">
+introvert-rgb/livePage:1.html: <img class="card-image" src="https://images.unsplash.com/photo-1615086169217-83e1c06c9f4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80" alt="">
+introvert-rgb/livePage:1.html: <img class="card-image" src="https://images.unsplash.com/photo-1614291246687-aabc03319323?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="">
+Mesrine88/testsite:6.html: background: url('https://images.unsplash.com/photo-1518770660439-4636190af475') no-repeat center center;
+Mesrine88/testsite:6.html: <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90334" alt="About Us Image" class="rounded-lg shadow-md">
+MudavathSrinu001/practise-html-css:r.html: <img src="https://images.unsplash.com/photo-1663407978077-ca116e36abf0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHJveWFsJTIwZW5maWVsZCUyMGhpbWFsYXlhbnxlbnwwfHwwfHx8MA%3D%3D" alt="Car Image">
+MudavathSrinu001/practise-html-css:r.html: <img src="https://images.unsplash.com/photo-1654618345032-e3f3909750a8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGc2M3xlbnwwfHwwfHx8MA%3D%3D" alt="Car Image">
+SaitejaAerupula/mini:t.html: <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+Adarshrawat26/flower-shop-website:k.html: <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3VuZmxvd2Vyc3xlbnwwfHwwfHx8MA%3D%3D" alt="Flower 3">
+Adarshrawat26/flower-shop-website:k.html: <img src="https://images.unsplash.com/photo-1501973931234-5ac2964cd94a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGlseXxlbnwwfHwwfHx8MA%3D%3D" alt="Flower 5">
+nasta1123456789sa-boop/future-AI:2.html: <img src="https://images.unsplash.com/photo-1507146482234-ad93c0576c3c?auto=format&fit=crop&q=80&w=800" alt="Цифровий мозок" class="page-img">
+progress0407/web1:1.html: src="https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+Shafiquekk70/tm:n.html: <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200" class="d-block w-100">
+Shafiquekk70/tm:n.html: <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200" class="d-block w-100">
+Challa395/smart-irrigation-system:1.html: <body style="background-image: url('https://images.unsplash.com/photo-1592231794169-c56a62d23b5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDN8fGFncmljdWx0dXJlfGVufDB8fHx8MTY0NjY4MTE3NQ&ixlib=rb-1.2.1&q=80&w=1080');">
+Adarshrawat26/flower-shop-website:4.html: <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3VuZmxvd2Vyc3xlbnwwfHwwfHx8MA%3D%3D" alt="Flower 3">
+Adarshrawat26/flower-shop-website:4.html: <img src="https://images.unsplash.com/photo-1501973931234-5ac2964cd94a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGlseXxlbnwwfHwwfHx8MA%3D%3D" alt="Flower 5">
+KUNAL06S/HTML:b.html: <img class="img1" src="https://images.unsplash.com/photo-1611003228941-98852ba62227?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFieSUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D" alt="">
+yashikanshul1326-blip/HOTEL:x.html: <img src="https://images.unsplash.com/photo-1582467459573-6f577cd4975a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Luxury Room Interior 2" class="card-image">
+yashikanshul1326-blip/HOTEL:x.html: <img src="https://images.unsplash.com/photo-1534430662200-3678620a9733?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bar Counter" class="card-image">
+yeongjun1104/yeongjun-s-preservatory:2.html: <img src="https://images.unsplash.com/photo-1553649084-3e42773ff0e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60">
+bertlandalain/test6:6.html: background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1600&q=80');
+bertlandalain/test6:6.html: <img src="https://images.unsplash.com/photo-1600891964310-03b9c1eafdde?auto=format&fit=crop&w=600&q=60" alt="Pizza">
+gokul11122004/ShoesStore:4.html: <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1400&auto=format&fit=crop&crop=faces" class="hero-img" alt="Child Image">
+nasta1123456789sa-boop/future-AI:1.html: <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800" alt="Робот та людина" class="page-img">
+
+waynecz/vue-img-inputer:example/App.vue: imgSrc="https://images.unsplash.com/photo-1543868067-52959e8eef59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80"
+waynecz/vue-img-inputer:example/App.vue: imgSrc="https://images.unsplash.com/photo-1468233748640-b31327627610?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=732&q=80"
+muhammed/interactive-card:src/App.vue: <!-- backgroundImage="https://images.unsplash.com/photo-1572336183013-960c3e1a0b54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" -->
+adamwathan/workcation:src/App.vue: imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+adamwathan/workcation:src/App.vue: imageUrl: 'https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+Equal-UI/Equal:src/App.vue: src="https://images.unsplash.com/photo-1549277513-f1b32fe1f8f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+zernonia/keypress:pages/index.vue: src="https://images.unsplash.com/photo-1665049420194-8f562db50cbd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+Gr33nW33n/nuxtship-template:pages/about.vue: const TeamImg1 = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=480&h=560&fit=crop";
+Gr33nW33n/nuxtship-template:pages/about.vue: const TeamImg2 = "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=580&h=580&fit=crop";
+Gr33nW33n/nuxtship-template:pages/about.vue: const TeamImg3 = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=580&h=580&fit=crop";
+drozhzhin-n-e/vue-pinch-zoom:src/App.vue: <img src="https://images.unsplash.com/photo-1544606402-e522c304b027?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1564&q=80">
+kn0wn/vue-cosha:src/App.vue: src="https://images.unsplash.com/photo-1583542225715-473a32c9b0ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=450&q=60"
+kn0wn/vue-cosha:src/App.vue: src="https://images.unsplash.com/photo-1557939403-1760a0e47505?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=450&q=80"
+merakiuilabs/blog-page-example:src/App.vue: image: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80",
+merakiuilabs/blog-page-example:src/App.vue: image: "https://images.unsplash.com/photo-1464863979621-258859e62245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=333&q=80",
+damienroche/vue-blurhash:src/App.vue: <blur-hash-image width="400" height="300" hash="LdHfL}oJR$WBKnfi%3ofT0kCM{ay" src="https://images.unsplash.com/photo-1545910684-8e7c081be9b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80" alt="green lawn grass during daytime"/>
+Jerga99/vue-meetuper:src/App.vue: background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1531263060782-b024de9b9793?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
+TahaSh/vue-expandable-image:example/App.vue: src="https://images.unsplash.com/photo-1551033453-3d94e6c88561?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2468&q=80"
+devcoderoad/nuxtjs-vuetify-dashboard:layouts/blank.vue: background-image: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1152&h=1152&q=80');
+devcoderoad/nuxtjs-vuetify-dashboard:pages/cards.vue: 'https://images.unsplash.com/photo-1604762525953-2c80447cc4a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
+devcoderoad/nuxtjs-vuetify-dashboard:pages/cards.vue: 'https://images.unsplash.com/photo-1605351720698-6cfec9eb9b5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
+somteacodes/vue3-paystack:dev/serve.vue: src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
+sahkyo/nuxt-transition:pages/index.vue: src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2852&q=80"
+sahkyo/nuxt-transition:pages/index.vue: src="https://images.unsplash.com/photo-1514557718210-26e452f8fab0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+uno0uno/warolabs.com:pages/team.vue: image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
+uno0uno/warolabs.com:pages/team.vue: image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=faces',
+misselliev/dulce-flashcards:src/App.vue: background: url(https://images.unsplash.com/photo-1526280524276-51b1c8a46321?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80);
+drakeaxelrod/webdevelopment-project:client/src/App.vue: 'url(https://images.unsplash.com/photo-1549880181-56a44cf4a9a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80)'
+merakiuilabs/hero-header-template:src/App.vue: src="https://images.unsplash.com/photo-1516131206008-dd041a9764fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+merakiuilabs/hero-header-template:src/App.vue: src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+maoberlehner/lazy-load-vue-components-when-they-become-visible:src/App.vue: src="https://images.unsplash.com/photo-1515074060204-9be35bb919b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&h=400&q=80"
+maoberlehner/lazy-load-vue-components-when-they-become-visible:src/App.vue: src-set="https://images.unsplash.com/photo-1515074060204-9be35bb919b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2560&h=800&q=20 2x"
+maoberlehner/how-to-drastically-reduce-estimated-input-latency-and-time-to-interactive-of-ssr-vue-applications:pages/about.vue: <AppHero src="https://images.unsplash.com/photo-1515074060204-9be35bb919b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&h=400&q=80"/>
+maoberlehner/how-to-drastically-reduce-estimated-input-latency-and-time-to-interactive-of-ssr-vue-applications:pages/index.vue: src="https://images.unsplash.com/photo-1515074060204-9be35bb919b3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&h=400&q=80"
+maoberlehner/how-to-drastically-reduce-estimated-input-latency-and-time-to-interactive-of-ssr-vue-applications:pages/index.vue: src="https://images.unsplash.com/photo-1510151490593-aa277bc49f37?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&h=280&q=80"
+daniel-le97/drizzle-nuxt:pages/about.vue: image: 'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?q=80&w=1447&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+daniel-le97/drizzle-nuxt:pages/about.vue: image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=1170&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+atalek/btc-price:app.vue: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Yml0Y29pbnxlbnwwfHwwfHx8MA%3D%3D',
+atalek/btc-price:app.vue: 'https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Yml0Y29pbnxlbnwwfHwwfHx8MA%3D%3D',
+uzirthapa/instagram-clone:src/App.vue: lazy-src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+uzirthapa/instagram-clone:src/App.vue: src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+JuggleHire/jugglehire.com:pages/index.vue: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80",
+JuggleHire/jugglehire.com:pages/index.vue: "https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80",
+leszekkrol/app-landing-page-nuxt4:pages/index.vue: image="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200"
+leszekkrol/app-landing-page-nuxt4:pages/index.vue: image="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200"
+antonderegt/max30:src/App.vue: ? "https://images.unsplash.com/photo-1531674842274-9563aa15686f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80"
+meetqy/css.ist:templates/t/3.vue: background-image: url('https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc');
+daniel-le97/drizzle-nuxt:pages/contact.vue: <div class="hero " style="background-image: url(https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);">
+daniel-le97/drizzle-nuxt:pages/contact.vue: <img src="https://images.unsplash.com/photo-1610051400050-e03bee86e2ff?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="lg:w-2/3  lg:block hidden">
+Quento-Solutions/Quento:layouts/auth.vue: background-image: url('https://images.unsplash.com/photo-1585792180666-f7347c490ee2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1356&q=80');
+maoberlehner/building-a-simple-content-slider-with-vue:src/App.vue: image: `https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=36540868671b0e7942ab946c0e44503d&auto=format&fit=crop&w=400&h=300&q=80`,
+maoberlehner/building-a-simple-content-slider-with-vue:src/App.vue: image: `https://images.unsplash.com/photo-1483119624769-b1a73c256500?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjExMDk0fQ&s=1f605cd0d214c866787dc3c2924ba07f&auto=format&fit=crop&w=400&h=300&q=80`,
+lotrekagency/sidro-carousel:src/App.vue: <s-slide id="0" src="https://images.unsplash.com/photo-1530484490308-d5f6e103e149?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=db3be4d42ecb40d27750b3e13d05d306&auto=format&fit=crop&w=1950&q=80" ></s-slide>
+lotrekagency/sidro-carousel:src/App.vue: <s-slide id="1" src="https://images.unsplash.com/photo-1530484490308-d5f6e103e149?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=db3be4d42ecb40d27750b3e13d05d306&auto=format&fit=crop&w=1950&q=80" ></s-slide>
+20lives/workcation-nuxt-i18n-rtl:pages/index.vue: imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+20lives/workcation-nuxt-i18n-rtl:pages/index.vue: imageUrl: 'https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+maoberlehner/reusable-functional-vue-components-with-tailwind-css:src/App.vue: src: `https://images.unsplash.com/photo-1572510192261-e24ab8f31042?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&h=400&q=80`,
+maoberlehner/reusable-functional-vue-components-with-tailwind-css:src/App.vue: src: `https://images.unsplash.com/photo-1534337711732-1c9ae62389e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80`,
+merakiuilabs/courses-dashboard-template:src/App.vue: <img class="w-10 h-10 overflow-hidden bg-gray-100 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80">
+merakiuilabs/courses-dashboard-template:src/App.vue: <img class="w-10 h-10 overflow-hidden bg-gray-100 rounded-full object-cover" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80">
+codebender828/instagram-chakra:pages/index.vue: image: 'https://images.unsplash.com/photo-1553621042-f6e147245754?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1225&q=80',
+codebender828/instagram-chakra:pages/index.vue: image: 'https://images.unsplash.com/photo-1611074083671-b09e8717c415?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1502&q=80',
+prabhuignoto/v-slide:src/views/Home.vue: 'https://images.unsplash.com/photo-1581094935665-144e76b36c25?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjc5NjV9&auto=format&fit=crop&w=1950&q=80'
+prabhuignoto/v-slide:src/views/Home.vue: 'https://images.unsplash.com/photo-1581105511979-a8840168a1fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+BayBreezy/grow-admin:pages/index.vue: src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+pablosirera/devmind:pages/index.vue: 'https://images.unsplash.com/photo-1611583040872-eb4d7ea0b2f5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+pablosirera/devmind:pages/index.vue: 'https://images.unsplash.com/photo-1611583040872-eb4d7ea0b2f5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+Office-asoT/Glitter:src/App.vue: { src: 'https://images.unsplash.com/photo-1510279931157-4ca63af8a363',
+Office-asoT/Glitter:src/App.vue: { src: 'https://images.unsplash.com/photo-1500353391678-d7b57979d6d2',
+sahkyo/nuxt-transition:pages/article.vue: <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2852&q=80" alt="paris" />
+hiro05097952/Go-Where:pages/index.vue: background: `url('https://images.unsplash.com/photo-1472212475008-54945bdab411?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1491&q=80')
+hiro05097952/Go-Where:pages/index.vue: background: `url('https://images.unsplash.com/photo-1558976454-3031bc29ec28?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80')
+hiro05097952/Go-Where:pages/about.vue: <img src="https://images.unsplash.com/photo-1469692422776-14abcfa4b525?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="">
+merakiuilabs/botanical-garden-template:src/App.vue: <img class="object-cover w-full h-full rounded-t-full " src="https://images.unsplash.com/photo-1531163859947-fa484f6eacd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="main page" />
+merakiuilabs/botanical-garden-template:src/App.vue: <img class="object-cover w-full lg:w-1/2 lg:mx-6 h-72 lg:h-96" src="https://images.unsplash.com/photo-1598901847919-b95dd0fabbb6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80" alt="">
+wff0325/Domain-Manager:src/views/Home.vue: background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+wff0325/Domain-Manager:src/views/Home.vue: background-image: url('https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+backendpapa/SP02-Disney-Landing-Page:src/App.vue: <v-btn small plain text style="text-transform:none" class="font-head weight-500 white--text"><span class="mb-n1">Profile</span> <v-avatar size="30" class="ml-2"><v-img eager src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"></v-img></v-avatar></v-btn>
+AI-READI/fairhub-portal:pages/about.vue: src="https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+AI-READI/fairhub-portal:pages/about.vue: src="https://images.unsplash.com/photo-1618053448492-2b629c2c912c?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+Lioruby/vue3-parallax:src/App.vue: src1: "https://images.unsplash.com/photo-1527685609591-44b0aef2400b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1791&q=80",
+Lioruby/vue3-parallax:src/App.vue: src2: "https://images.unsplash.com/photo-1545062990-4a95e8e4b96d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80",
+Lioruby/vue3-parallax:src/App.vue: src3: "https://images.unsplash.com/photo-1590880449155-b54f958ce314?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1430&q=80",
+
+4TWIGGERS/swaying-scroll:App.jsx: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=772&q=80",
+Vishwajeet-Londhe/props-project:src/App.jsx: {image: "https://images.unsplash.com/photo-1520454125516-134a66d9bf78?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", SongName:"Aashiq Banaya Aapne", ArtistName:"Himesh Reshammiya" ,added:false},
+Vishwajeet-Londhe/props-project:src/App.jsx: {image: "https://images.unsplash.com/photo-1505282722405-413748d3de7a?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", SongName:"Papa Mera Papa", ArtistName:"Shreya Ghoshal" ,added:false},
+Devalphaspace/CARD-SLIDER-EFFECT:src/App.jsx: "https://images.unsplash.com/photo-1530021232320-687d8e3dba54?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzl8fGdpcmwlMjBiZWF1dGlmdWx8ZW58MHx8MHx8fDA%3D",
+Devalphaspace/CARD-SLIDER-EFFECT:src/App.jsx: "https://images.unsplash.com/photo-1576828831022-ca41d3905fb7?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2lybCUyMGJlYXV0aWZ1bHxlbnwwfHwwfHx8MA%3D%3D",
+MMALI3287/DecorateMyNestFrontend:temp.jsx: src="https://images.unsplash.com/photo-1706354924674-0304751469e8?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+MMALI3287/DecorateMyNestFrontend:temp.jsx: src="https://images.unsplash.com/photo-1706354924674-0304751469e8?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+Waqar-743/Campus-Vibe:data.jsx: sketchbook: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=70",
+Waqar-743/Campus-Vibe:data.jsx: coffee: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=70",
+Waqar-743/Campus-Vibe:data.jsx: flowers: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=70",
+Waqar-743/Campus-Vibe:data.jsx: vinyl: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=800&q=70",
+Waqar-743/Campus-Vibe:data.jsx: sky: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=70",
+Waqar-743/Campus-Vibe:data.jsx: rain: "https://images.unsplash.com/photo-1493314894560-5c412a56c17c?w=800&q=70",
+angaming102734-design/react-class:Crad.jsx: imageUrl = "https://images.unsplash.com/photo-1761839258575-038fef381ee7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyMnx8fGVufDB8fHx8fA%3D%3D",
+JOELNATHAN544/mobile-tab-nav:src/App.jsx: src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
+aliasghar-me/Testing:src/App.jsx: <img src="https://images.unsplash.com/photo-1459802071246-377c0346da93?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BsYXNofGVufDB8fDB8fHww" alt="Lemon In Water" title='Lemon In Water' />
+abidali72/StreamX-Pro:App.jsx: backdrop: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2069&auto=format&fit=crop"
+abidali72/StreamX-Pro:Hero.jsx: src={movie?.backdrop || 'https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop'}
+totebee/framer-filters:Demo.jsx: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+totebee/framer-filters:Demo.jsx: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+totebee/framer-filters:Demo.jsx: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4",
+totebee/framer-filters:Demo.jsx: "https://images.unsplash.com/photo-1518837695005-2083093ee35b"
+Daisy9810/Internship-Project:Hero.jsx: backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")'
+abidali72/StreamX-Pro:Card.jsx: src={movie.thumbnail || 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop'}
+upraneethkumar/Mobile-Doctor:site.jsx: hero1: 'https://images.unsplash.com/photo-1512054502232-10a0a035d672?w=900&q=80&auto=format&fit=crop',
+upraneethkumar/Mobile-Doctor:site.jsx: hero2: 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=900&q=80&auto=format&fit=crop',
+upraneethkumar/Mobile-Doctor:site.jsx: hero3: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=900&q=80&auto=format&fit=crop',
+upraneethkumar/Mobile-Doctor:site.jsx: repair1: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=900&q=80&auto=format&fit=crop',
+sakshamvedi/ProjectStore:sukoon.jsx: <img src='https://images.unsplash.com/photo-1503435824048-a799a3a84bf7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNzg2NTJ8MHwxfHNlYXJjaHw0fHxyYWlufGVufDB8fHx8MTY2ODQ5OTI5Ng&ixlib=rb-4.0.3&q=80&w=1080'></img>
+sakshamvedi/ProjectStore:sukoon.jsx: <img src='https://images.unsplash.com/photo-1548509925-0e7aa59c6bc3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNzg2NTJ8MHwxfHNlYXJjaHw2fHxiaXJkc3xlbnwwfHx8fDE2Njg1MDc4MDY&ixlib=rb-4.0.3&q=80&w=1080'></img>
+BrownEdgar/React-the-best-group:src/App.jsx: image: 'https://images.unsplash.com/photo-1593526492327-b071f3d5333e?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+BrownEdgar/React-the-best-group:src/App.jsx: image: 'https://images.unsplash.com/photo-1560572765-d75742ca1cf0?q=80&w=3872&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+bushblade/React-Touch-Slider:src/App.jsx: 'https://images.unsplash.com/photo-1610047803562-7260ebe516cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+bushblade/React-Touch-Slider:src/App.jsx: 'https://images.unsplash.com/photo-1610047803124-64ddfad66909?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=651&q=80',
+lohithgpbasu/Elearning-website-template:src/App.jsx: image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
+lohithgpbasu/Elearning-website-template:src/App.jsx: image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80',
+Laikaiyong/SharkScan:src/App.jsx: image1: "https://images.unsplash.com/photo-1560275619-4662e36fa65c",
+Laikaiyong/SharkScan:src/App.jsx: image3: "https://images.unsplash.com/photo-1566812201627-d2ebc5b056f9",
+parthsharma17prs/travelco:src/App.jsx: <Route path="/about" element={<GenericPage title="About Us" subtitle="Our Story" image="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2670&auto=format&fit=crop" />} />
+parthsharma17prs/travelco:src/App.jsx: <Route path="/dates" element={<GenericPage title="Availability" subtitle="Plan Your Stay" image="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2673&auto=format&fit=crop" />} />
+justkmr/ui-react:src/App.jsx: img: 'https://images.unsplash.com/photo-1616536864877-49b0f53884ed?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=500',
+justkmr/ui-react:src/App.jsx: img: 'https://images.unsplash.com/photo-1584969405346-5230ae2bc4fc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=500',
+Dracowyn/vegas-react-demo:src/App.jsx: const p1 = 'https://images.unsplash.com/photo-1506744038136-46273834b3fb';
+Dracowyn/vegas-react-demo:src/App.jsx: const p2 = 'https://images.unsplash.com/photo-1741986947217-d1a0ecc39149';
+Jatin-07-developer/UI-PROJECT:src/App.jsx: img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+Jatin-07-developer/UI-PROJECT:src/App.jsx: img: 'https://images.unsplash.com/photo-1498758536662-35b82cd15e29?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+dockusan/React-eShopping:src/App.jsx: <img src="https://images.unsplash.com/photo-1632207691143-643e2a9a9361?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+KyleDunbarDev/KV6014:src/App.jsx: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
+KyleDunbarDev/KV6014:src/App.jsx: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80",
+sahilshingate01/react-01:src/App.jsx: img: "https://images.unsplash.com/photo-1542767352-e98201e84ed8?w=900&auto=format&fit=crop&q=60",
+sahilshingate01/react-01:src/App.jsx: img: "https://images.unsplash.com/photo-1513128034602-7814ccaddd4e?q=80&w=1335&auto=format&fit=crop",
+WivineDev/React-Task-Week-9:src/App.jsx: imageUrl="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d"
+salman-khan03/Community-board:src/App.jsx: image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=80",
+salman-khan03/Community-board:src/App.jsx: image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&auto=format&fit=crop&q=80",
+TarunPatil001/blog-app:src/App.jsx: user_img: "https://images.unsplash.com/photo-1494790108755-2616b6e3ae29?w=100&h=100&fit=crop&crop=face",
+TarunPatil001/blog-app:src/App.jsx: bg_img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop",
+TarunPatil001/blog-app:src/App.jsx: user_img: "https://images.unsplash.com/photo-1494790108755-2616b6e3ae29?w=100&h=100&fit=crop&crop=face",
+TarunPatil001/blog-app:src/App.jsx: bg_img: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=300&fit=crop",
+HAR-TURN/Brew-Haven-Cafe:App.jsx: img: "https://images.unsplash.com/photo-1596952954288-16862d37405b?q=80&w=1974&auto=format&fit=crop",
+HAR-TURN/Brew-Haven-Cafe:App.jsx: img: "https://images.unsplash.com/photo-1621135177072-57c9b6242e7a?q=80&w=1974&auto=format&fit=crop",
+fvandrad/ceu:src/App.jsx: url: 'https://images.unsplash.com/photo-1579033461380-adb47c3eb938',
+fvandrad/ceu:src/App.jsx: url: 'https://images.unsplash.com/photo-1464802686167-b939a6910659',
+Matboua/location:db.jsx: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+Matboua/location:db.jsx: "https://images.unsplash.com/photo-1531682607150-08b2476a545a?q=80&w=2061&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+Cyruss/teichtraume:app.jsx: surface: "https://images.unsplash.com/photo-1533422902779-aff35862e462?w=2400&q=80",
+Cyruss/teichtraume:app.jsx: lily:    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=2400&q=80",
+Cyruss/teichtraume:app.jsx: stream:  "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=2400&q=80",
+capaure385/gooopolo:app.jsx: url: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1800&q=80&auto=format&fit=crop" },
+capaure385/gooopolo:app.jsx: url: "https://images.unsplash.com/photo-1502209524164-acea936639a2?w=1800&q=80&auto=format&fit=crop" },
+Rohitrai18/reactproject:App.jsx: image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop",
+Rohitrai18/reactproject:App.jsx: image: "https://images.unsplash.com/photo-1608256246200-c0c66b6eeaf2?q=80&w=1200&auto=format&fit=crop",
+Diwaspant132/UI-project:App.jsx: img:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8d29ya2luZyUyMHByb2Zlc3Npb25hbHxlbnwwfHwwfHx8MA%3D%3D',
+Diwaspant132/UI-project:App.jsx: img:'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d29ya2luZ3xlbnwwfHwwfHx8MA%3D%3D',
+ByteBranding/Byte-Branding-website:App.jsx: <img src="https://images.unsplash.com/photo-1581092334651-ddf26d9a09b0?q=80&w=800&auto=format&fit=crop" className="rounded-xl shadow-xl" alt="humanoid1"/>
+ByteBranding/Byte-Branding-website:App.jsx: <img src="https://images.unsplash.com/photo-1603791445824-0050bd436b47?q=80&w=800&auto=format&fit=crop" className="rounded-xl shadow-xl" alt="humanoid2"/>
+ByteBranding/Byte-Branding-website:App.jsx: <img src="https://images.unsplash.com/photo-1581091012184-5c7b4aab1c8f?q=80&w=800&auto=format&fit=crop" className="rounded-xl shadow-xl" alt="humanoid3"/>
+willieswheelss-oss/Willies-Wheels:App.jsx: 'https://images.unsplash.com/photo-1517846693594-1567da72af75?q=80&w=1200&auto=format&fit=crop',
+willieswheelss-oss/Willies-Wheels:App.jsx: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop',
+deepak1051/guess-app-rn:App.jsx: uri: 'https://images.unsplash.com/photo-1570303345338-e1f0eddf4946?q=80&w=1971&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+unexpected1912/Online-shopping:App.jsx: image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+unexpected1912/Online-shopping:App.jsx: image: "https://images.unsplash.com/photo-1523473827532-52f0ae91b2a9",
+sapnaharishankar/shri-hiranmayee-properties-vercel.zip:App.jsx: { id: 1, title: 'Villas at just 10 min from KIA Bengaluru', location: 'Bengaluru Airport Area', price: '₹4 Cr', image: 'https://images.unsplash.com/photo-1600585154206-0c4b3f1a1d5f', featured: true, description: 'Luxury living near the airport with world-class amenities.' },
+sapnaharishankar/shri-hiranmayee-properties-vercel.zip:App.jsx: { id: 2, title: 'Farm Land in Bengaluru Outskirts', location: 'Bengaluru Outskirts', price: '₹50 L', image: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae', featured: true, description: 'Perfect investment opportunity surrounded by nature.' }
+jastyramakrishna-stack/supply-chain-roadmap:app.jsx: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=200&fit=crop&q=70&auto=format", // SC Foundations — logistics hub
+jastyramakrishna-stack/supply-chain-roadmap:app.jsx: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&h=200&fit=crop&q=70&auto=format", // Core Planning — operations floor
+jastyramakrishna-stack/supply-chain-roadmap:app.jsx: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=200&fit=crop&q=70&auto=format", // Forecasting Fundamentals — data
+jastyramakrishna-stack/supply-chain-roadmap:app.jsx: "https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?w=800&h=200&fit=crop&q=70&auto=format", // Forecasting Models — forecast trend chart ✓
+candracandra/QuickBites:App.jsx: { id: 1, name: 'Burger Keju', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60' },
+candracandra/QuickBites:App.jsx: { id: 2, name: 'Pizza Pepperoni', image: 'https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGl6emF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60' },
+candracandra/QuickBites:App.jsx: { id: 3, name: 'Sushi Roll', image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3VzaGl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60' },
+Yehorf21/test:App.jsx: "url(https://images.unsplash.com/photo-1460186136353-977e9d6085a1?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+Yehorf21/test:App.jsx: src="https://images.unsplash.com/photo-1446776709462-d6b525c57bd3?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+hemu-07-maker/airbnb-clone:App.jsx: img: "https://images.unsplash.com/photo-1631452180539-96aca7d48617?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGFuZWVyfGVufDB8MHwwfHx8Mg%3D%3D",
+hemu-07-maker/airbnb-clone:App.jsx: img: "https://images.unsplash.com/photo-1630409346824-4f0e7b080087?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmlyaXlhbml8ZW58MHwwfDB8fHwy", // sample direct Unsplash URL
+mohamedsaid4/React-Web-Dev:App.jsx: "https://images.unsplash.com/photo-1562774053-701939374585";
+mohamedsaid4/React-Web-Dev:App.jsx: img: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+PRADEEP07M/portfolio-app:App.jsx: src="https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?w=1600"
+NVfilm/NVFilmstudio:App.jsx: <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800" />
+NVfilm/NVFilmstudio:App.jsx: <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800" />
+NVfilm/NVFilmstudio:App.jsx: <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800" />
+NVfilm/NVFilmstudio:App.jsx: <img src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=800" />
+Vivekkumar-Tiwari/React---2026:App.jsx: image="https://images.unsplash.com/photo-1547721064-da6cfb341d50"
+Vivekkumar-Tiwari/React---2026:App.jsx: image="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d"
+Srijan-chopra/Experiment-3.2:App.jsx: image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
+Srijan-chopra/Experiment-3.2:App.jsx: image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
+
+newline-sandbox/react-native-flatlist-image-carousel:App.tsx: uri: 'https://images.unsplash.com/photo-1607326957431-29d25d2b386f',
+newline-sandbox/react-native-flatlist-image-carousel:App.tsx: uri: 'https://images.unsplash.com/photo-1512238701577-f182d9ef8af7',
+Nexters/AZ-RN:App.tsx: 'https://images.unsplash.com/photo-1594569567351-ad9e90210643?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+lauridskern/skia-scroll-view-shader:App.tsx: url: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+lauridskern/skia-scroll-view-shader:App.tsx: url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+anastely/ReactNative-Parallax-Effect:App.tsx: url: 'https://images.unsplash.com/photo-1491466424936-e304919aada7?w=1920&q=80',
+anastely/ReactNative-Parallax-Effect:App.tsx: url: 'https://images.unsplash.com/photo-1512850183-6d7990f42385?w=1974&q=80',
+ainalem/FilmGrainShader:App.tsx: //   'https://images.unsplash.com/photo-1506784365847-bbad939e9335?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=512', // Unsplash gradient
+ainalem/FilmGrainShader:App.tsx: 'https://images.unsplash.com/photo-1669780080335-0d16efe84b6d?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Smooth rainbow gradient image
+bilalattari/react-js-step-by-step:data.tsx: logo: "https://images.unsplash.com/photo-1639603683079-7398c604497a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmluYW5jZSUyMGxvZ298ZW58MHx8MHx8fDA%3D", // Updated logo
+bilalattari/react-js-step-by-step:data.tsx: image: "https://images.unsplash.com/photo-1640161704729-cbe966a08476?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZmluYW5jZXxlbnwwfHwwfHx8MA%3D%3D", // Updated hero image
+Sumanx16/weather-forecast-app:App.tsx: ? 'https://images.unsplash.com/photo-1601297183305-6df142704ea2?auto=format&fit=crop&w=1920&q=80'
+Sumanx16/weather-forecast-app:App.tsx: ? 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1920&q=80'
+BinaryLeo/react_native_animated_flatlist:App.tsx: "https://images.unsplash.com/photo-1647323968696-0ea09525407c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=363&q=80";
+LMestre14/RN-Challenge-2:App.tsx: 'https://images.unsplash.com/photo-1587895517743-aeb27c849044?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80';
+wcandillon/react-native-image-viewer:App.tsx: uri: "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80",
+wcandillon/react-native-image-viewer:App.tsx: uri: "https://images.unsplash.com/photo-1520351882386-12955ab00908?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80",
+lordthien/react-native-rasa:App.tsx: const botAvatar = "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80"
+lordthien/react-native-rasa:App.tsx: const userAvatar = "https://images.unsplash.com/photo-1483884105135-c06ea81a7a80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80"
+rakshitgoyal0011-source/moodboard:App.tsx: { title: "rainy berlin · november", handle: "@lena_k", views: "1.2k", imgs: ["https://images.unsplash.com/photo-1515694346937-94d85e41e6f0", "https://images.unsplash.com/photo-1542452255191-c85a98f2c5d1", "https://images.unsplash.com/photo-1499856871958-5b9627545d1a", "https://images.unsplash.com/photo-1444464666168-49b626f11c0e"] },
+rakshitgoyal0011-source/moodboard:App.tsx: { title: "sunday morning jazz", handle: "@marcus_v", views: "850", imgs: ["https://images.unsplash.com/photo-1511192336575-5a79af67a629", "https://images.unsplash.com/photo-1507676184212-d0330a1523fe", "https://images.unsplash.com/photo-1501504905252-473c47e087f8", "https://images.unsplash.com/photo-1484723091791-0fee59cb10bd"] },
+rakshitgoyal0011-source/moodboard:App.tsx: { title: "subway rides · 2am", handle: "@chloe.j", views: "3.4k", imgs: ["https://images.unsplash.com/photo-1555955208-8e684067df76", "https://images.unsplash.com/photo-1601005218768-3c6c06b744ea", "https://images.unsplash.com/photo-1520113412501-83d73f1d9356", "https://images.unsplash.com/photo-1463171515643-952cee54d42a"] }
+velascoamo-guillermo/react-native-swiper-reanimated:App.tsx: url: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=1200&fit=crop&crop=entropy&auto=format&q=80",
+velascoamo-guillermo/react-native-swiper-reanimated:App.tsx: url: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&h=1200&fit=crop&crop=entropy&auto=format&q=80",
+ainalem/GlassMorphismApp:App1.tsx: uri: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGZsb3dlcnxlbnwwfHx8fDE2ODgwMzA3NTg&ixlib=rb-4.0.3&q=80&w=1080',
+krishna-katekhaye-dev/perfume:App.tsx: image: "https://images.unsplash.com/photo-1719175936556-dbd05e415913?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBwZXJmdW1lJTIwYm90dGxlfGVufDF8fHx8MTc2MDEwMDE1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+krishna-katekhaye-dev/perfume:App.tsx: image: "https://images.unsplash.com/photo-1758552218469-5abbeedd2b8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMGNvbG9nbmV8ZW58MXx8fHwxNzYwMjA0NTg1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+saddlebackdev/hc-mobile-app-ui:App.tsx: 'https://images.unsplash.com/photo-1614112539959-7b69d4343042?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1576&q=80',
+saddlebackdev/hc-mobile-app-ui:App.tsx: 'https://images.unsplash.com/photo-1614112539959-7b69d4343042?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1576&q=80',
+ForeverTTT/survive_in_germany:App.tsx: const OLD_DEFAULT_MENU_BG = 'https://images.unsplash.com/photo-1546726747-0411da142385?w=1920&q=80';
+ForeverTTT/survive_in_germany:App.tsx: menuBg.includes('images.unsplash.com/photo-1546726747-0411da142385') ||
+CodeByPinar/pinardevstudio:App.tsx: image: "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=2070&auto=format&fit=crop",
+CodeByPinar/pinardevstudio:App.tsx: image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
+VNACI/Mami-Koka:App.tsx: profileImage: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+emmanuelslr/nexus:App.tsx: image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
+emmanuelslr/nexus:App.tsx: image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces",
+rayan1810/unsplash-community-wallpaper-app:App.tsx: url: "https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+rayan1810/unsplash-community-wallpaper-app:App.tsx: url: "https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
+Yuvi-070/IDP-for-Tourism:App.tsx: { name: "Jaipur (Pink City)", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&q=80&w=800" },
+Yuvi-070/IDP-for-Tourism:App.tsx: { name: "Varanasi (Spiritual Capital)", img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80&w=800" },
+Yuvi-070/IDP-for-Tourism:App.tsx: { name: "Ladakh (Moonland)", img: "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&q=80&w=800" },
+Yuvi-070/IDP-for-Tourism:App.tsx: { name: "Kochi (Queen of Arabian Sea)", img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=800" },
+polaristika/The-Faridabad-Taxi-Service-Website:App.tsx: imageUrl: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2070"
+polaristika/The-Faridabad-Taxi-Service-Website:App.tsx: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=800',
+polaristika/The-Faridabad-Taxi-Service-Website:App.tsx: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800',
+Tbone1989/ripped-city-coaching-app:App.tsx: heroImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop',
+Tbone1989/ripped-city-coaching-app:App.tsx: transformationBefore: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop',
+Tbone1989/ripped-city-coaching-app:App.tsx: transformationAfter: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop'
+HopeTheoory/FahadIbrahim93-s-Org:App.tsx: { id: 'p1', name: 'Jamdani Silk Saree', stock: 8, price: 5500, buyingCost: 3200, image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=400' },
+HopeTheoory/FahadIbrahim93-s-Org:App.tsx: { id: 'p2', name: 'Hand-painted Panjabi', stock: 15, price: 2200, buyingCost: 1100, image: 'https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&q=80&w=400' },
+HopeTheoory/FahadIbrahim93-s-Org:App.tsx: { id: 'p3', name: 'Oxidized Choker Set', stock: 42, price: 850, buyingCost: 350, image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=400' },
+HopeTheoory/FahadIbrahim93-s-Org:App.tsx: { id: 'p4', name: 'Clay Wall Hanging', stock: 5, price: 1200, buyingCost: 500, image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&q=80&w=400' },
+himanshu79768/Fake:App.tsx: image: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?w=600&auto=format&fit=crop",
+himanshu79768/Fake:App.tsx: image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&auto=format&fit=crop",
+Shomesh007/zua-future-scent-narrative:App.tsx: { name: "Mint", url: "https://images.unsplash.com/photo-1626469854832-7c38555e09f5?auto=format&fit=crop&w=300&q=80" },
+Shomesh007/zua-future-scent-narrative:App.tsx: { name: "Lavender", url: "https://images.unsplash.com/photo-1471943311424-646960669fbc?auto=format&fit=crop&w=300&q=80" },
+Shomesh007/zua-future-scent-narrative:App.tsx: { name: "Musk", url: "https://images.unsplash.com/photo-1596527582536-1e0e8568e2f8?auto=format&fit=crop&w=300&q=80" }
+thefusionmorph-dotcom/Demo-res:App.tsx: src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&q=80&w=800"
+thefusionmorph-dotcom/Demo-res:App.tsx: 'https://images.unsplash.com/photo-1550966842-2849a2249865?auto=format&fit=crop&q=80&w=400',
+thefusionmorph-dotcom/Demo-res:App.tsx: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80&w=400',
+savagrujic/StavaljskiSirSajt:App.tsx: <div className="py-32 bg-fixed bg-center bg-cover relative flex items-center justify-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1920&q=80')" }}>
+jonsamp/mcr-expo-manifest-image-default-source:App.tsx: uri: 'https://images.unsplash.com/photo-1636919021000-e31484c64449?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1587&q=80',
+BMMrvce/resory2:App.tsx: 'url("https://images.unsplash.com/photo-1542259659-4b79b8f95c4c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")', // Lush forest nature background
+yashas-13/InterioMind:App.tsx: { id: 'furn-1', name: 'Cloud Modular Sofa', category: 'Furniture', style: 'Modern', description: 'Plush white modular sofa with deep seating and soft linen upholstery', imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400' },
+yashas-13/InterioMind:App.tsx: { id: 'furn-2', name: 'Velvet Emerald Armchair', category: 'Furniture', style: 'Modern', description: 'Deep emerald green velvet armchair with gold-tipped tapered legs and vertical tufting', imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=400' },
+yashas-13/InterioMind:App.tsx: { id: 'furn-3', name: 'Brutalist Concrete Table', category: 'Furniture', style: 'Industrial', description: 'Low-profile circular coffee table made of raw grey concrete with smooth finish', imageUrl: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&q=80&w=400' },
+yashas-13/InterioMind:App.tsx: { id: 'furn-4', name: 'Noguchi Style Table', category: 'Furniture', style: 'Mid-Century', description: 'Iconic sculptural coffee table with a heavy glass top and balanced wooden base', imageUrl: 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?auto=format&fit=crop&q=80&w=400' },
+bimolas/Product_cart:App.tsx: image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop',
+bimolas/Product_cart:App.tsx: image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400&h=400&fit=crop',
+iblame-rahulll/ClothingBrand:App.tsx: src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80"
+iblame-rahulll/ClothingBrand:App.tsx: src="https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&q=80"
+Justinthomas2003/Aura_Pulse:App.tsx: [ActivityCategory.WORK]: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=400',
+Justinthomas2003/Aura_Pulse:App.tsx: [ActivityCategory.HEALTH]: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400',
+Justinthomas2003/Aura_Pulse:App.tsx: [ActivityCategory.LEISURE]: 'https://images.unsplash.com/photo-1511733334857-e8908ee87821?auto=format&fit=crop&q=80&w=400',
+Justinthomas2003/Aura_Pulse:App.tsx: [ActivityCategory.EDUCATION]: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=400',
+baraamutlaq/hypereall:App.tsx: images: ['https://images.unsplash.com/photo-1507473888900-52e1adad5474?auto=format&fit=crop&q=80&w=800'],
+baraamutlaq/hypereall:App.tsx: textureMap: 'https://images.unsplash.com/photo-1507473888900-52e1adad5474?auto=format&fit=crop&q=80&w=800', // Using image as texture for demo
+qianchenyimeng/veo3prompt:App.tsx: { id: 'Majestic lion', name: 'Lion', imageUrl: 'https://i.ai.dev/https://images.unsplash.com/photo-1614027164847-1b28accfb6cc?w=200&auto=format&fit=crop', description: "The central character. A majestic lion establishes a powerful, wild tone for the video." },
+qianchenyimeng/veo3prompt:App.tsx: { id: 'Futuristic robot', name: 'Robot', imageUrl: 'https://i.ai.dev/https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=200&auto=format&fit=crop', description: "The central character. A futuristic robot suggests themes of technology, sci-fi, or artificial intelligence." },
+qianchenyimeng/veo3prompt:App.tsx: { id: 'Ancient dragon', name: 'Dragon', imageUrl: 'https://i.ai.dev/https://images.unsplash.com/photo-1629811545591-135f212b3c10?w=200&auto=format&fit=crop', description: "The central character. An ancient dragon introduces elements of fantasy, myth, and immense scale." },
+qianchenyimeng/veo3prompt:App.tsx: { id: 'Stealthy ninja', name: 'Ninja', imageUrl: 'https://i.ai.dev/https://images.unsplash.com/photo-1600179524149-b3659e355745?w=200&auto=format&fit=crop', description: "The central character. A stealthy ninja implies action, mystery, and agility in the scene." },
+shaunmichaelkukard/shaunmichaelkukard-ShaunGeminiProject1:App.tsx: url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200',
+shaunmichaelkukard/shaunmichaelkukard-ShaunGeminiProject1:App.tsx: url: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&q=80&w=1200',
+a7351220/Gastritis-Health-Guide-E-Book:App.tsx: <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10 blur-sm pointer-events-none" />
+Oladizz/MOODNFT1:App.tsx: imageUrl: 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=800&auto=format&fit=crop',
+Oladizz/MOODNFT1:App.tsx: imageUrl: 'https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?q=80&w=800&auto=format&fit=crop',
+yuvi-crypto/prompt-to-prototype:App.tsx: imageSrc="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?q=80&w=600&auto=format&fit=crop"
+yuvi-crypto/prompt-to-prototype:App.tsx: imageSrc="https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=600&auto=format&fit=crop"
+ysaurabh1/green:App.tsx: productImage: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&h=200&fit=crop',
+ysaurabh1/green:App.tsx: productImage: 'https://images.unsplash.com/photo-1609592806596-68bb6c4c5eb5?w=300&h=200&fit=crop',
+DimbikeY/brickswaplace_v2:App.tsx: "https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?auto=format&fit=crop&q=80&w=400",
+DimbikeY/brickswaplace_v2:App.tsx: "https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&q=80&w=400",
+DimbikeY/brickswaplace_v2:App.tsx: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400"
+phamnhutnpx/slide-app-image:App.tsx: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+phamnhutnpx/slide-app-image:App.tsx: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop',
+phamnhutnpx/slide-app-image:App.tsx: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop',
+phamnhutnpx/slide-app-image:App.tsx: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop',
+fleektyre/Skycast:App.tsx: clear: "https://images.unsplash.com/photo-1506126279646-a697353d3166?auto=format&fit=crop&w=2400&q=90",
+fleektyre/Skycast:App.tsx: clouds: "https://images.unsplash.com/photo-1534088568595-a066f7104211?auto=format&fit=crop&w=2400&q=90",
+fleektyre/Skycast:App.tsx: rain: "https://images.unsplash.com/photo-1519692938311-58ba5324884b?auto=format&fit=crop&w=2400&q=90",
+fleektyre/Skycast:App.tsx: snow: "https://images.unsplash.com/photo-1491002052546-bf38f186af56?auto=format&fit=crop&w=2400&q=90",
+andreipara744-design/festin-acasa-concept:App.tsx: style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=2000&auto=format&fit=crop")' }}
+andreipara744-design/festin-acasa-concept:App.tsx: style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?q=80&w=2000&auto=format&fit=crop")' }}
+huyqtrieu/merry-christmas-tree:App.tsx: 'https://images.unsplash.com/photo-1543589077-47d81606c1ad?auto=format&fit=crop&q=80&w=600',
+huyqtrieu/merry-christmas-tree:App.tsx: 'https://images.unsplash.com/photo-1512470876302-972fad2aa9dd?auto=format&fit=crop&q=80&w=600',
+huyqtrieu/merry-christmas-tree:App.tsx: 'https://images.unsplash.com/photo-1482517967863-00e15c9b44be?auto=format&fit=crop&q=80&w=600',
+huyqtrieu/merry-christmas-tree:App.tsx: 'https://images.unsplash.com/photo-1544273677-c433136021d4?auto=format&fit=crop&q=80&w=600'
+Netnook2025/-:App.tsx: imageUrl: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=400&h=300&fit=crop&ixlib=rb-4.0.3',
+Netnook2025/-:App.tsx: imageUrl: 'https://images.unsplash.com/photo-1589943313659-a29d63635a82?q=80&w=400&h=300&fit=crop&ixlib=rb-4.0.3',
+woldaanto/Portafoliobox:App.tsx: { id: '1', title: "L'Espace Vide", category: "EDITORIAL", image: "https://images.unsplash.com/photo-1514306191717-452ec28c7814?w=800", description: "Exploración del vacío en la arquitectura moderna.", letter: "A", type: 'image' },
+woldaanto/Portafoliobox:App.tsx: { id: '2', title: "Mouvement", category: "FILM", image: "https://images.unsplash.com/photo-1554080353-a576cf803bda?w=800", description: "Estudio cinemático del movimiento humano.", letter: "M", type: 'video', videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-white-sand-on-a-beach-in-slow-motion-3450-large.mp4" },
+woldaanto/Portafoliobox:App.tsx: { id: '3', title: "Lumière", category: "FOTO", image: "https://images.unsplash.com/photo-1492691523569-7379e4004211?w=800", description: "La luz como elemento estructural.", letter: "J", type: 'image' },
+woldaanto/Portafoliobox:App.tsx: { id: '4', title: "Silhouettes", category: "FOTO", image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800", description: "Contraste y forma en el retrato minimalista.", letter: "B", type: 'image' },
+TrisTheKitten/OutfitMaxxing-:App.tsx: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=400&fit=crop',
+TrisTheKitten/OutfitMaxxing-:App.tsx: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&fit=crop',
+TrisTheKitten/OutfitMaxxing-:App.tsx: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=400&h=400&fit=crop',
+TrisTheKitten/OutfitMaxxing-:App.tsx: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&fit=crop',
+
+stisla/stisla:templates/meridian/html/_partials/_topbar.njk: <img class="avatar__image" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2.5&w=80&h=80&q=80" alt="" />
+stisla/stisla:templates/meridian/html/_partials/_topbar.njk: <img class="avatar__image" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=2.5&w=80&h=80&q=80" alt="" />
+stisla/stisla:templates/meridian/html/pages/profile.njk: <img class="card__image aspect-[4/1] object-cover" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&h=400&q=80" alt=""
+stisla/stisla:templates/meridian/html/pages/profile.njk: <img class="avatar__image" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=2.5&w=192&h=192&q=80" alt="" />
+stisla/stisla:templates/meridian/html/pages/settings.njk: <img class="avatar__image" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=2.5&w=160&h=160&q=80" alt="" />
+5t3ph/smolcss:src/snippets/smol-card-component.njk: <img src='https://images.unsplash.com/photo-1607274227313-08146c819e6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHw&ixlib=rb-1.2.1&q=80&w=400' alt=''>
+5t3ph/smolcss:src/snippets/smol-card-component.njk: <img src='https://images.unsplash.com/photo-1607274227313-08146c819e6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHw&ixlib=rb-1.2.1&q=80&w=400' alt=''>
+11ty/docs:src/_includes/snippets/image/intro.njk: let src = "https://images.unsplash.com/photo-1608178398319-48f814d0750c";
+11ty/docs:src/_includes/snippets/image/intro.njk: let src = "https://images.unsplash.com/photo-1608178398319-48f814d0750c";
+5t3ph/smolcss:src/snippets/smol-aspect-ratio-gallery.njk: src="https://images.unsplash.com/photo-1596401463492-1ca39cdf7575?ixlib=rb-1.2.1&q=45&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&w=350"
+5t3ph/smolcss:src/snippets/smol-aspect-ratio-gallery.njk: src="https://images.unsplash.com/photo-1591756985756-6e231184528b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=350&q=45"
+11ty/docs:src/_includes/snippets/image/intro-html.njk: let src = "https://images.unsplash.com/photo-1608178398319-48f814d0750c";
+11ty/docs:src/_includes/snippets/image/intro-html.njk: let src = "https://images.unsplash.com/photo-1608178398319-48f814d0750c";
+shoelace-style/webawesome:packages/webawesome/docs/examples/themes/showcase.njk: <img src="https://images.unsplash.com/photo-1667514627762-521b1c815a89?q=20" alt="Album art" />
+shoelace-style/webawesome:packages/webawesome/docs/examples/themes/showcase.njk: image="https://images.unsplash.com/photo-1633268335280-a41fbde58707?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+riipandi/v60:src/about.njk: srcset="https://images.unsplash.com/photo-1640951613773-54706e06851d?&amp;fit=crop&amp;w=280"
+riipandi/v60:src/about.njk: src="https://images.unsplash.com/photo-1640951613773-54706e06851d?&amp;fit=crop&amp;w=280"
+webpixels/bootstrap-dashboard-kit:src/includes/partials/sidebar.njk: <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" class="avatar avatar- rounded-circle">
+disjfa/eleventy-encore:_site/index.njk: <img src="https://images.unsplash.com/photo-1562089501-5215229b367a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&h=500&q=80" alt="" class="img-fluid rounded">
+jant-me/jant:references/basecoat/docs/src/components/card.njk: https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80&w=640&q=75 1x,
+jant-me/jant:references/basecoat/docs/src/components/card.njk: https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80&w=1080&q=75 2x
+jant-me/jant:references/basecoat/docs/src/components/card.njk: src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80&w=1080&q=75"
+stevenwoodson/11ty-design-system:src/_includes/components/_Compositions/stack/stack.njk: <img src="https://images.unsplash.com/photo-1688494929970-433dd6cab0dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" />
+riipandi/v60:src/_includes/postslist.njk: srcset=" https://images.unsplash.com/photo-1627163439134-7a8c47e08208?&amp;fit=crop&amp;w=430&amp;h=240"
+riipandi/v60:src/_includes/postslist.njk: src="https://images.unsplash.com/photo-1627163439134-7a8c47e08208?&amp;fit=crop&amp;w=430&amp;h=240"
+webpixels/bootstrap-dashboard-kit:src/pages/account.njk: <img alt="..." src="https://images.unsplash.com/photo-1579463148228-138296ac3b98?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80">
+lucas-felinto/myBooks:app/views/new_book.njk: <section class="side-image" style="background: url('https://images.unsplash.com/photo-1482953049121-a32d321c2000?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60') no-repeat center / cover"></section>
+jant-me/jant:references/basecoat/docs/src/_includes/partials/kitchen-sink/card.njk: https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80&w=640&q=75 1x,
+jant-me/jant:references/basecoat/docs/src/_includes/partials/kitchen-sink/card.njk: https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80&w=1080&q=75 2x
+jant-me/jant:references/basecoat/docs/src/_includes/partials/kitchen-sink/card.njk: src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80&w=1080&q=75"
+fritztwo/fritz2:www/src/index.njk: {#                                     src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"#}
+fritztwo/fritz2:www/src/index.njk: {#                                     src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80"#}
+riipandi/v60:src/layouts/post.njk: src="https://images.unsplash.com/photo-1608889175123-8ee362201f81?&amp;fit=crop&amp;w=3280"
+seattleinfinity/simc-site:src/events/index.njk: 'https://images.unsplash.com/photo-1606326608802-164e734c2fd9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+seattleinfinity/simc-site:src/events/index.njk: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+fatichar/FreedomLand:src/blog.njk: <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=800&h=600&fit=crop');"></div>
+fatichar/FreedomLand:src/blog.njk: <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop');"></div>
+app-generator/eleventy-tailwind-starter:src/site/profile.njk: style='background-image: url("https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80");'
+sledua/showcase:src/about.njk: src="https://images.unsplash.com/photo-1559163304-2bd8f8600164?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+sdelon/11ty-stripe:src/index.njk: <img class="hero__img" loading="lazy" src="https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9">
+2fdh/sharepay:views/login.njk: background-image: url(https://images.unsplash.com/photo-1459257831348-f0cdd359235f?auto=format&fit=crop&w=1050&q=80);
+Expansive-Labs-LLC/Expansive-Labs-LLC.github.io:src/pages/blog/categories.njk: <div class="page-header section-height-50" style="background-image: url('https://images.unsplash.com/photo-1489769002049-ccd828976a6c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=3314&q=80')">
+Expansive-Labs-LLC/Expansive-Labs-LLC.github.io:src/pages/blog/categories.njk: <img src="https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=2250&q=80" alt="img-blur-shadow-blog-2" class="img-fluid border-radius-lg">
+thepolicylab/covid-forms:src/components/card/_card--basic.njk: src="https://images.unsplash.com/photo-1579800070193-abe62433f737?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=610&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+2fdh/sharepay:views/signup.njk: background-image: url(https://images.unsplash.com/photo-1459257831348-f0cdd359235f?auto=format&fit=crop&w=1050&q=80);
+app-generator/eleventy-tailwind-starter:src/site/index.njk: style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'
+app-generator/eleventy-tailwind-starter:src/site/index.njk: src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1051&amp;q=80"
+thepolicylab/covid-forms:src/components/card/card--compare.njk: <img src="https://images.unsplash.com/photo-1579800070193-abe62433f737?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=610&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="A placeholder image">
+thepolicylab/covid-forms:src/components/card/card--compare.njk: <img src="https://images.unsplash.com/photo-1579800070193-abe62433f737?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=610&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ" alt="A placeholder image">
+
+auth0/auth0-cli:internal/cli/data/branding/image-template.liquid: background-image: url("https://images.unsplash.com/photo-1643916861364-02e63ce3e52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2255&q=80");
+blueset/trmnl-recipes:is-it-down/src/quadrant.liquid: <div class="w--full h--full image image--dither p--4 flex flex--col flex--between" style="background-image: url('https://images.unsplash.com/photo-1527998257557-0c18b22fa4cc'); background-position: bottom center; background-size: cover;">
+willianantunes/tutorials:2022/06/auth0-liquid-tester/views/new_universal_login_box_image.liquid: background-image: url("https://images.unsplash.com/photo-1592450865877-e3a318ec3522?ixlib=rb-1.2.1&auto=format&fit=crop&w=2255&q=80");
+bluemwhitew/bluemwhitew.photography:src/index.liquid: src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&h=1080&q=80&w=1920"
+bluemwhitew/bluemwhitew.photography:src/index.liquid: https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&h=800&q=80&w=640 640w,
+bluemwhitew/bluemwhitew.photography:src/index.liquid: https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&h=768&q=80&w=1024 1024w,
+blueset/trmnl-recipes:is-it-down/src/full.liquid: <div class="w--full h--full image image--dither p--4 flex flex--col flex--between" style="background-image: url('https://images.unsplash.com/photo-1527998257557-0c18b22fa4cc'); background-position: bottom center; background-size: cover;">
+blueset/trmnl-recipes:is-it-down/src/half_vertical.liquid: <div class="w--full h--full image image--dither p--4 flex flex--col flex--between" style="background-image: url('https://images.unsplash.com/photo-1527998257557-0c18b22fa4cc'); background-position: bottom center; background-size: cover;">
+blueset/trmnl-recipes:is-it-down/src/half_horizontal.liquid: <div class="w--full h--full image image--dither p--4 flex flex--col flex--between" style="background-image: url('https://images.unsplash.com/photo-1527998257557-0c18b22fa4cc'); background-position: bottom center; background-size: cover;">
+garrettbland/img-alt-tag-check:example/index.liquid: <img alt="beach" src="https://images.unsplash.com/photo-1622663254182-0e5cbde0aed6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2037&q=80" />
+tanmer/cms-portal:snippets/_slider1.liquid: <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80" alt="">
+tanmer/cms-portal:snippets/_slider1.liquid: <img class="h-48 w-full object-cover" src="https://images.unsplash.com/photo-1598951092651-653c21f5d0b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="">
+joshcorby28/new-theme:sections/grid-motion.liquid: <img src="https://images.unsplash.com/photo-1463100099107-aa0980c362e6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="" />
+joshcorby28/new-theme:sections/grid-motion.liquid: <img src="https://images.unsplash.com/photo-1556304044-0699e31c6a34?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTJ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D" alt="" />
+pxmstudio/ggb-theme:snippets/wishlist-item.liquid: src="https://images.unsplash.com/photo-1732629075605-4b63ab3a26cf?q=80&w=1907&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+supermx1/BUGC:src/admin/delivery.liquid: src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
+supermx1/BUGC:src/admin/delivery.liquid: src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
+garrettbland/lazy-load-images:example/index.liquid: <img alt="beach" src="https://images.unsplash.com/photo-1622663254182-0e5cbde0aed6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2037&q=80" />
+BilalSubhani/custom-shopify-theme:sections/home.liquid: <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
+BilalSubhani/custom-shopify-theme:sections/home.liquid: <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
+valdezallanvincent/avtheme:sections/av-product-grid.liquid: {%- assign fallback_images = 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab,https://images.unsplash.com/photo-1596755094514-f87e34085b2c,https://images.unsplash.com/photo-1620799140408-edc6dcb6d633,https://images.unsplash.com/photo-1618354691373-d851c5c3a990,https://images.unsplash.com/photo-1576566588028-4147f3842f27,https://images.unsplash.com/photo-1593030761757-71fae45fa0e7,https://images.unsplash.com/photo-1622445275576-721325763afe,https://images.unsplash.com/photo-1558769132-cb1aea458c5e' | split: ',' -%}
+mrJay188/phytofreak:sections/pf-testimonials.liquid: assign fallback_images = 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=600&h=400&fit=crop&q=80|https://images.unsplash.com/photo-1633205719979-e47958ff6d93?w=600&h=400&fit=crop&q=80|https://images.unsplash.com/photo-HYHYGLs-Rp8?w=600&h=400&fit=crop&q=80|https://images.unsplash.com/photo-9ByCv8zGaCA?w=600&h=400&fit=crop&q=80|https://images.unsplash.com/photo-yc39doh37lM?w=600&h=400&fit=crop&q=80' | split: '|'
+mrJay188/phytofreak:sections/pf-testimonials.liquid: assign fallback_mobile = 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=600&h=200&fit=crop&q=80|https://images.unsplash.com/photo-1633205719979-e47958ff6d93?w=600&h=200&fit=crop&q=80|https://images.unsplash.com/photo-HYHYGLs-Rp8?w=600&h=200&fit=crop&q=80|https://images.unsplash.com/photo-9ByCv8zGaCA?w=600&h=200&fit=crop&q=80|https://images.unsplash.com/photo-yc39doh37lM?w=600&h=200&fit=crop&q=80' | split: '|'
+bitgeese/11ty-tailwind-alpine-blog:about.liquid: "https://images.unsplash.com/photo-1628373791626-fe21d99fbd58?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
+supermx1/BUGC:src/customer/delivery.liquid: src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
+supermx1/BUGC:src/customer/delivery.liquid: src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
+kotaiteam/kotaiteam.github.io:src/_layouts/home.liquid: {% render "split_section", badge: "Architecture Excellence", heading: "Web & Mobile Development", body: "We design and build high-quality web and mobile products that are fast, scalable, and built to last. From consumer apps to enterprise SaaS platforms, we engineer solutions that users love and businesses rely on.", checklist: "Custom web applications and SaaS platforms|Responsive iOS and Android mobile apps|API design, architecture, and integrations", image_url: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80", image_alt: "Team collaborating on web and mobile development", dot_color: "slate", bg_class: "bg-fafafa" %}
+kotaiteam/kotaiteam.github.io:src/_layouts/home.liquid: {% render "split_section", badge: "Artificial Intelligence", heading: "AI & Automation at Scale", body: "We help businesses adopt AI where it matters most — embedding intelligent agents, agentic workflows, and knowledge systems directly into your operations to drive efficiency and unlock new capabilities.", checklist: "AI Chat & Agents|Agentic AI workflow automation|RAG & Knowledge bases", image_url: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&q=80", image_alt: "AI and automation dashboard", dot_color: "peach", reverse: "true", bg_class: "bg-white" %}
+valdezallanvincent/avtheme:sections/av-collection-hero.liquid: {%- assign ctx_image = 'https://images.unsplash.com/photo-1551028719-00167b16eac5' -%}
+valdezallanvincent/avtheme:sections/av-collection-hero.liquid: {%- assign ctx_image = 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf' -%}
+ibrahimahmed/ashlyn-concepts-shopify-theme:sections/design-service-art.liquid: src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80"
+ibrahimahmed/ashlyn-concepts-shopify-theme:sections/design-service-banner.liquid: {%- if image_count == 1 -%}https://images.unsplash.com/photo-1600210492493-0946911123ea?w=400&q=80
+ibrahimahmed/ashlyn-concepts-shopify-theme:sections/design-service-banner.liquid: {%- elsif image_count == 2 -%}https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=400&q=80
+ibrahimahmed/ashlyn-concepts-shopify-theme:sections/design-service-banner.liquid: {%- else -%}https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80
+Ahmed-ITCS/ShopifyTheme:sections/hero-banner.liquid: "image": "https://images.unsplash.com/photo-1589987601954-8288c59a2b61?auto=format&fit=crop&w=600&q=80"
+Ahmed-ITCS/ShopifyTheme:sections/hero-banner.liquid: "image": "https://images.unsplash.com/photo-1598970434795-0c54fe7c0642?auto=format&fit=crop&w=600&q=80"
+offstack/sledge-demo-store:liquid/sections/page.liquid: src="https://images.unsplash.com/photo-1581084324492-c8076f130f86?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+mustafa-sarwari/shopify-theme:templates/page.about.liquid: <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&h=500&fit=crop" alt="Sarah Chen">
+mustafa-sarwari/shopify-theme:templates/page.about.liquid: <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&h=500&fit=crop" alt="Marcus Lee">
+bitgeese/11ty-tailwind-alpine-blog:work/index.liquid: "https://images.unsplash.com/photo-1628688841268-53d0fff13617?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80"
+bitgeese/11ty-tailwind-alpine-blog:blog/index.liquid: "https://images.unsplash.com/photo-1628607292260-9195108b03b7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1502&q=80"
+seberslinux/qalm:sections/hero.liquid: src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+t-simeongordon/frontendShopifyThemeDevelopmentBlogPosts:sections/page-portfolio-display.liquid: <div class="panel active" style="background-image: url('https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+t-simeongordon/frontendShopifyThemeDevelopmentBlogPosts:sections/page-portfolio-display.liquid: <div class="panel" style="background-image: url('https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')">
+mustafa-sarwari/shopify-theme:snippets/testimonials.liquid: <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=160&q=80" alt="Photo of Sarah K" loading="lazy">
+mustafa-sarwari/shopify-theme:snippets/testimonials.liquid: <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=160&q=80" alt="Photo of Mike R" loading="lazy">
+
+Railly/one-hunter-vscode:demos/astro.astro: src: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+zouzonghao/Astro-theme-Cactus-zh_CN:src/pages/404.astro: /* background: url(https://images.unsplash.com/photo-1729824346255-52a8f898fe84?w=1400) 50%/cover #212121; */
+eAntillon/void-astro:src/pages/index.astro: src="https://images.unsplash.com/photo-1635627408144-6bf36d28fb98"
+KBVE/old.kbve.com:src/pages/index.astro: <Widget img="https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" skeleton={false}>
+KBVE/old.kbve.com:src/pages/index.astro: <img src="https://images.unsplash.com/photo-1692607431253-8225c0e89f7d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=360&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY5Mzk1MjQ3Nw&ixlib=rb-4.0.3&q=80&w=480" alt="" class="object-cover w-full rounded-3xl xl:col-span-3 bg-gray-500 bg-blend-color-burn">
+rot1024/astrotion:src/pages/demo.astro: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=450&fit=crop",
+rot1024/astrotion:src/pages/demo.astro: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=450&fit=crop",
+Astrodevil/resource-gallery:src/pages/about.astro: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?&fit=crop&w=280";
+Astrodevil/resource-gallery:src/pages/about.astro: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?&fit=crop&w=280";
+airdb/airdb.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+airdb/airdb.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+airdb/airdb.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+airdb/airdb.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Joviisaus/MeshHub.pages.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Joviisaus/MeshHub.pages.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Joviisaus/MeshHub.pages.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+Joviisaus/MeshHub.pages.github.io:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Famdesc/Famdesc-UI:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Famdesc/Famdesc-UI:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Famdesc/Famdesc-UI:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+Famdesc/Famdesc-UI:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+CovalenceNetwork/covalence.info:src/pages/about.astro: src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+Joviisaus/GeoHub:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Joviisaus/GeoHub:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+Joviisaus/GeoHub:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+Joviisaus/GeoHub:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+tieppt/tiepptwind:src/pages/about.astro: src: 'https://images.unsplash.com/photo-1561152820-340780bc049e?q=80&w=3280&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+aruncs31s/es_lms_gcek:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+aruncs31s/es_lms_gcek:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+aruncs31s/es_lms_gcek:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+aruncs31s/es_lms_gcek:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+helmibamualim/Kantong-Aplikasi-Tema-Astro-Js:src/pages/index.astro: image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=500&h=500&fit=crop',
+helmibamualim/Kantong-Aplikasi-Tema-Astro-Js:src/pages/index.astro: image: 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=500&h=500&fit=crop',
+olavea/olavea:src/pages/demo.astro: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGNhdHxlbnwwfHwwfHx8MA%3D%3",
+olavea/olavea:src/pages/demo.astro: "https://images.unsplash.com/photo-1721467259168-395c2c08d8bf?q=80&w=2726&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+Kilo-Org/share.kilo.love:src/pages/demo.astro: bodyHTML: "<p>Built a comprehensive dashboard using React and integrated with OpenAI API for intelligent data analysis.</p><img src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' alt='Dashboard screenshot' />",
+Kilo-Org/share.kilo.love:src/pages/demo.astro: avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+markmywordsmedia/mmwm-nelify:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+markmywordsmedia/mmwm-nelify:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+markmywordsmedia/mmwm-nelify:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+markmywordsmedia/mmwm-nelify:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+evanharmon1/evanharmon-com:src/pages/memex.astro: src: 'https://images.unsplash.com/photo-1558803116-c1b4ac867b31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+santvaz/swifly:src/pages/about.astro: src="https://images.unsplash.com/photo-1572177812156-58036aae439c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+santvaz/swifly:src/pages/about.astro: src="https://images.unsplash.com/photo-1620325867502-221cfb5faa5f?q=80&w=2057&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+platohedro/web3wasi-web:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+platohedro/web3wasi-web:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+platohedro/web3wasi-web:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+platohedro/web3wasi-web:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+DanielSuarezDev/clone-gogo-lading:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+DanielSuarezDev/clone-gogo-lading:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+DanielSuarezDev/clone-gogo-lading:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+DanielSuarezDev/clone-gogo-lading:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+sanjayguwaju/agency-template:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+sanjayguwaju/agency-template:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+sanjayguwaju/agency-template:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+sanjayguwaju/agency-template:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+ajimaulana123/official-HOFE-website:src/pages/index.astro: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+ajimaulana123/official-HOFE-website:src/pages/index.astro: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+ajimaulana123/official-HOFE-website:src/pages/index.astro: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+ajimaulana123/official-HOFE-website:src/pages/index.astro: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+astro-js/astro-theme-portfolio:src/pages/index.astro: src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=75"
+astro-js/astro-theme-portfolio:src/pages/index.astro: srcSet="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=75 800w,
+astro-js/astro-theme-portfolio:src/pages/index.astro: https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=75 1200w,
+astro-js/astro-theme-portfolio:src/pages/index.astro: https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=75 1600w,
+softcode-uk/khl:src/pages/about.astro: src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+softcode-uk/khl:src/pages/about.astro: src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
+Skedr/landing:src/pages/faq.astro: const image = "https://images.unsplash.com/photo-1665789318391-6057c533005e";
+Skedr/landing:src/pages/blog.astro: const image = "https://images.unsplash.com/photo-1517842645767-c639042777db";
+helmisatria/linktree:src/pages/index.astro: src="https://images.unsplash.com/photo-1488161628813-04466f872be2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80"
+ravuthz/blog-astrowind:src/pages/index.astro: // src: 'https://images.unsplash.com/photo-1491349174775-aaafddd81942?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+bolg55/plumbing-site:src/pages/404.astro: src='https://images.unsplash.com/photo-1545972154-9bb223aac798?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3050&q=80&exp=8&con=-15&sat=-75'
+
+N00nDay/stwui:src/routes/+page.svelte: 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+N00nDay/stwui:src/routes/+page.svelte: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+ascorbic/unpic-img:packages/svelte/src/routes/+page.svelte: src="https://images.unsplash.com/photo-1617718295766-0f839c2853e7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTczfHxyYWluZm9yZXN0JTIwYmVhY2h8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60"
+N00nDay/stwui:src/routes/post/+page.svelte: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+N00nDay/stwui:src/routes/post/+page.svelte: src: 'https://images.unsplash.com/photo-1664035350797-f57ecca6fa37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
+N00nDay/stwui:src/routes/media/+page.svelte: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80';
+N00nDay/stwui:src/routes/avatar/+page.svelte: src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+N00nDay/stwui:src/routes/avatar/+page.svelte: src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+N00nDay/stwui:src/routes/avatar-group/+page.svelte: 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+N00nDay/stwui:src/routes/avatar-group/+page.svelte: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+N00nDay/stwui:src/routes/avatar-group/+page.svelte: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80',
+N00nDay/stwui:src/routes/avatar-group/+page.svelte: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+N00nDay/stwui:src/routes/list/+page.svelte: 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+N00nDay/stwui:src/routes/list/+page.svelte: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+creativetimofficial/notus-svelte:src/views/Profile.svelte: background-image: url(https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80);
+N00nDay/stwui:src/routes/chip/+page.svelte: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80';
+learn-awesome/learndb:src/RoadmapList.svelte: <img class="w-72 h-48 object-cover" src="https://images.unsplash.com/photo-1642367340318-96fdbc5d30f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z29sYW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="">
+creativetimofficial/notus-svelte:src/views/Landing.svelte: background-image: url(https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80);
+creativetimofficial/notus-svelte:src/views/Landing.svelte: src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
+N00nDay/stwui:src/routes/feed/+page.svelte: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+creativetimofficial/notus-svelte:src/views/Index.svelte: src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+N00nDay/stwui:src/routes/file-preview/+page.svelte: src: 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+N00nDay/stwui:src/routes/file-preview/+page.svelte: src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+typewriter-editor/typewriter:src/routes/medium-images/+page.svelte: <img src="https://images.unsplash.com/photo-1612392062422-ef19b42f74df?fit=crop&w=600" alt="hotdogs" />
+N00nDay/stwui:src/routes/dropdown/+page.svelte: src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&h=256&q=80"
+dimfeld/ergo:web/src/routes/_Nav.svelte: src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+dimfeld/ergo:web/src/routes/_Nav.svelte: src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+Posandu/svelte-ripple-action:src/routes/Examples.svelte: src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Yml0Y29pbnxlbnwwfHwwfHx8MA%3D%3D"
+iDempiere-micro/erpjs:clients/admin/src/Nav.svelte: src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+iDempiere-micro/erpjs:clients/admin/src/Nav.svelte: src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+Tozaburo/liquid-glass-svelte:src/routes/+page.svelte: src="https://images.unsplash.com/photo-1734607947797-2a61b996fd5d?q=80&w=4500&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+huntabyte/purple:src/routes/(auth)/auth-page.svelte: url(https://images.unsplash.com/photo-1534515538060-80212d73acb6?q=80&auto=format&fit=crop&w=1376&q=80);"
+engageintellect/sveltekit-landing-daisy:src/lib/components/Hero.svelte: style="background-image: url('https://images.unsplash.com/photo-1644325349124-d1756b79dd42?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2675&q=80');"
+engageintellect/sveltekit-landing-daisy:src/lib/components/Chat.svelte: src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+engageintellect/sveltekit-landing-daisy:src/lib/components/Chat.svelte: src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+pixeluidev/pixelui-kits:card-flip/card-flip.svelte: 'https://images.unsplash.com/photo-1632733711679-529326f6db12?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+pixeluidev/pixelui-kits:card-flip/card-flip.svelte: 'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+engageintellect/sveltekit-landing-daisy:src/lib/components/HeroCards.svelte: src="https://images.unsplash.com/photo-1586543354240-2187898bb2e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fGNvbGxhYm9yYXRpb258ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60"
+engageintellect/sveltekit-landing-daisy:src/lib/components/HeroCards.svelte: src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29sbGFib3JhdGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60"
+khang-nd/browser-extension-svelte:src/App.svelte: "https://images.unsplash.com/photo-1586074299757-dc655f18518c?fit=crop&w=1268&q=80";
+KBVE/old.kbve.com:src/components/Client/Logout.svelte: background="https://images.unsplash.com/photo-1530406472580-81dc39c4babe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80">
+pixeluidev/pixelui-kits:mockup-iphone/mockup-iphone.svelte: src="https://images.unsplash.com/photo-1744074060781-b4765f2ef607?q=80&w=2127&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+zaikinv/t-shop:mfs/product-teaser/src/App.svelte: src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8"
+miloudi9/sveltekit-multi-tenancy:src/routes/(central)/+layout.svelte: background-image: url(https://images.unsplash.com/photo-1637946175491-53bca31c90ba?q=80&w=1527&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+
+jina-ai/dev-gpt:README.md: --description "Given an image, return the image with bounding boxes of all animals (https://pjreddie.com/media/files/yolov3.weights, https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg), Example input: https://images.unsplash.com/photo-1444212477490-ca407925329e" \
+jina-ai/dev-gpt:README.md: --description "Create a heatmap from an image and a list of relative coordinates. Example input: https://images.unsplash.com/photo-1574786198875-49f5d09fe2d2, [[0.1, 0.2], [0.3, 0.4], [0.5, 0.6], [0.2, 0.1], [0.7, 0.2], [0.4, 0.2]]" \
+xiumubai/coding:INFO.md: <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Frontend Coding Workspace" width="800"/>
+xiumubai/coding:INFO.md: <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" width="200"/>
+advanced-cropper/react-advanced-cropper:README.md: 'https://images.unsplash.com/photo-1599140849279-1014532882fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1300&q=80',
+Espresso-Aficionados/website:404.md: ![Spilt Beans Unsplash](https://images.unsplash.com/photo-1587985782610-f114593ea92f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80)
+f3nter/HardBreak:README.md: https://images.unsplash.com/photo-1610878785620-3ab2d3a2ae7b?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw3fHxtaWNyb2NvbnRyb2xsZXJ8ZW58MHx8fHwxNzI4Mzk0NjM3fDA&ixlib=rb-4.0.3&q=85
+asmcss/assembler:README.md: <img x-style="block; max-w:100%; w:100%; h:auto; radius-top:md" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=640&q=80">
+kousen/java_latest:slides.md: background: https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=1920&h=1080&fit=crop
+sujayadkesar/cybersecurity-resources:README.md: ![Logo](https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGxlYXJuaW5nJTIwcmVzb3VyY2VzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60)
+moldach/project-directory:README.md: <a href="https://images.unsplash.com"><img src="https://images.unsplash.com/photo-1527849214787-c99cd25c2f09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60" title="ProjectOrganization" alt="ProjectOrganization"></a>
+thinger-io/Docs:linux.md: https://images.unsplash.com/photo-1610812388300-cd1e9cf28b54?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwxOTcwMjR8MHwxfHNlYXJjaHw3fHxyYXNwYmVycnklMjBwaXxlbnwwfHx8fDE2NzYwMTUwNjU&ixlib=rb-4.0.3&q=80
+caglardurmus/react-native-insta-story:README.md: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+hasinhayder/tyro-login:README.md: TYRO_LOGIN_BACKGROUND_IMAGE=https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920&q=80
+hasinhayder/tyro-login:README.md: TYRO_LOGIN_BACKGROUND_IMAGE=https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920&q=80
+osc-delft/osc-delft.github.io:events.md: image: https://images.unsplash.com/photo-1435527173128-983b87201f4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1047&q=80
+brunoimbrizi/creative-coding-domestika-2022:README.md: - [Image URL 64x64 portrait](https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=64&q=80)
+brunoimbrizi/creative-coding-domestika-2022:README.md: - [Image URL 64x64 balloon](https://images.unsplash.com/photo-1569041032556-6485fc04aff0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=64&h=64&q=80)
+CarelessCourage/Moonbow:README.md: const imageURL = "https://images.unsplash.com/photo-1642059893618"
+CarelessCourage/Moonbow:README.md: src="https://images.unsplash.com/photo-1642059893618"
+guardianproject/onionmobiledev:index.md: <figure><img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?crop=entropy&#x26;cs=srgb&#x26;fm=jpg&#x26;ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwyfHxzb2Z0d2FyZSUyMGRldmVsb3BlcnxlbnwwfHx8fDE3MTUxODg3NDB8MA&#x26;ixlib=rb-4.0.3&#x26;q=85" alt=""><figcaption></figcaption></figure>
+damienroche/vue-blurhash:README.md: src="https://images.unsplash.com/photo-1545910684-8e7c081be9b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80"
+coopcycle/coopcycle-docs:index.md: src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+coopcycle/coopcycle-docs:index.md: src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+TirendazAcademy/Data-Visualization-with-Python:README.md: ![](https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80)
+Oladayo-Ahmod/laravel-ecommerce:README.md: <p align="center"><a href="https://sleepy-woodland-37644.herokuapp.com/" target="_blank"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" width="400"></a></p>
+pradel/react-google-photo:README.md: 'https://images.unsplash.com/photo-1509420316987-d27b02f81864?dpr=1&auto=format&fit=crop&w=1500&q=80&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D',
+14790897/Jekyll-pages.github.io:index.md: - image_path: https://images.unsplash.com/photo-1593672755342-741a7f868732?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+14790897/Jekyll-pages.github.io:index.md: - image_path: https://images.unsplash.com/photo-1556244573-c3686c0f0e78?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+jeradM/grid-layout:README.md: image: https://images.unsplash.com/photo-1505773278895-5efa7b11679a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0bcc9d09bd4d332b2f25603ee03fa60e&auto=format&fit=crop&w=1436&q=80
+jeradM/grid-layout:README.md: image: https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=900&h=200&fit=crop&ixid=eyJhcHBfaWQiOjF9&s=5cc8b6574a7d9cf7235fd90b9ad21d12
+danijelgrabez/lazy-image:README.md: source="https://images.unsplash.com/photo-1551148552-c19ee5b0c116?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2733&q=80"
+danijelgrabez/lazy-image:README.md: source="https://images.unsplash.com/photo-1551148552-c19ee5b0c116?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2733&q=80"
+modbender/nuxt-splide:README.md: src="https://images.unsplash.com/photo-1460176449511-ff5fc8e64c35?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+modbender/nuxt-splide:README.md: src="https://images.unsplash.com/photo-1561424412-6c2125ecb1cc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+rit3zh/expo-ios-visual-blur:README.md: uri: "https://images.unsplash.com/photo-1754638069174-7aa06c176b61?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+5t3ph/eleventy-plugin-lightningcss:index.md: ![test image](https://images.unsplash.com/photo-1677247191557-4abd28b7c387?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80)
+RIP-Network/IGinjector:README.md: [![Demo](https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8eW91dHViZSUyMHRodW1ibmFpbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=1200&q=60)](https://youtu.be/1bTwZ0IuLJY?si=rIK4NMC1rbBE-LAC)
+engr-leonel-calderon/computer_programming_class_2025:README.md: ![Programming Banner](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80)
+engr-leonel-calderon/computer_programming_class_2025:README.md: ![Coding Setup](https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80)
+GopalSaraf/TorrentLeechBot:README.md: <img width=400px height=400px src="https://images.unsplash.com/photo-1562907550-096d3bf9b25c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=735&q=80" alt="Bot logo"></a>
+shorwood/tailwindcss-unsplash:README.md: - <b>ht<span>tps://images.unsplash.com/photo-`1645036993886-efdfd96ca97f`?ixlib=rb-1.2.1&fit=crop&w=735&q=80</b>
+pism/pism.github.io:team.md: hero_image: https://images.unsplash.com/photo-1609385510105-81ae06198c53
+cnrad/h:README.md: [Example below](https://h.cnrad.dev/?title=Cool%20New%20Tab&pinned=https://raw.githubusercontent.com/cnrad/h.cnrad.dev/master/src/bookmarks.json&background=https://images.unsplash.com/photo-1418513110185-f0ec221e47b4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80)
+pism/pism.github.io:index.md: hero_image: img/header_ice_equations.jpg #https://images.unsplash.com/photo-1493329025335-18542a61595f
+engels74/cosmos-guides:README.md: https://images.unsplash.com/photo-1465101162946-4377e57745c3?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwzfHxjb3Ntb3N8ZW58MHx8fHwxNzA4MTc5ODk0fDA&ixlib=rb-4.0.3&q=85
+mrdanielcasper/CoreTex:Home.md: banner: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"
+irfanirawansukirman/kamus-ekstensi-android:README.md: ![alt text](https://images.unsplash.com/photo-1541417904950-b855846fe074?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1713&q=80)
+kousen/gemini-training:slides.md: background: https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+kousen/gemini-training:slides.md: image: https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80
+wordpress-serbia/theme-development-workshop-2018:README.md: <img src="https://images.unsplash.com/photo-1495774539583-885e02cca8c2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b4876c41d5e7585486007cab84b34512">
+seanghay/vue-photo-collage:README.md: "https://images.unsplash.com/photo-1517088455889-bfa75135412c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e5548929376f93d8b1b7a21097df03bd&auto=format&fit=crop&w=749&q=80",
+seanghay/vue-photo-collage:README.md: "https://images.unsplash.com/photo-1526656892012-7b336603ed46?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=31c8e58b58c25dfcc18452ed29b52951&auto=format&fit=crop&w=334&q=80",
+ronan-f/omdb-nextjs-test:README.md: <img alt="browsing movies" src="https://images.unsplash.com/photo-1615986201152-7686a4867f30?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=925&q=80" width="550" height="400" />
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1523719185231-aff40a400361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1500100586562-f75ff6540087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+nilay7798/image_gallery:README.md: "https://images.unsplash.com/photo-1523719185231-aff40a400361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+Norbert515/flutter_organized_widgets:README.md: "https://images.unsplash.com/photo-1546072533-675fd58d08e8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80"),
+bamlab/nest-rabbit-tasks:README.md: ![rabbit](https://images.unsplash.com/photo-1480554840075-72cbdabbf689?ixlib=rb-1.2.1&auto=format&fit=crop&w=3300&q=80)
+3ls3if/Penetration-Testing-Book:README.md: https://images.unsplash.com/photo-1658388012384-23bc0c66e3ac?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw0fHxjeWJlciUyMHNlY3VyaXR5fGVufDB8fHx8MTcyNzg3MzYwOXww&ixlib=rb-4.0.3&q=85
+axlyaguana11/ecuador-building-analysis-2012:README.md: ![Cotopaxi](https://images.unsplash.com/photo-1606591808963-8fc3c63fa6a2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=691&q=80)
+gxcuizy/markdown:index.md: <img src="https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-0.3.5&s=db802b72adc82f97904d37dde9d0d401&auto=format&fit=crop&w=1189&q=80" width="100%">
+InterfazeAI/jigsawstack-python:README.md: "url": "https://images.unsplash.com/photo-1542931287-023b922fa89b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?t=2024-03-22T09%3A22%3A48.442Z"
+hasinhayder/storyteller-astro:README.md: thumb: "https://images.unsplash.com/photo-example?w=400" # Thumbnail
+hasinhayder/storyteller-astro:README.md: large: "https://images.unsplash.com/photo-example?w=1200" # Large image
+sagarbhure/MlDefender:temp.md: coverImage: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+sagarbhure/MlDefender:temp.md: src={`https://images.unsplash.com/photo-1497633762265-9d179a990aa6?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym9va3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500`}
+
+HTTP 403: API rate limit exceeded for user ID 218248590. If you reach out to GitHub Support for help, please include the request ID 846C:166CE5:22B31FC:245E0DA:6A731A73 and timestamp 2026-08-05 11:11:47 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/search/code?page=1&per_page=40&q=images.unsplash.com%2Fphoto+extension%3Amdx)
+
+HTTP 403: API rate limit exceeded for user ID 218248590. If you reach out to GitHub Support for help, please include the request ID 846F:146529:256CB11:2715D93:6A731A74 and timestamp 2026-08-05 11:11:48 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/search/code?page=1&per_page=30&q=images.unsplash.com%2Fphoto+extension%3Aerb)
+
+HTTP 403: API rate limit exceeded for user ID 218248590. If you reach out to GitHub Support for help, please include the request ID 8470:130FD6:228CDED:2434F12:6A731A75 and timestamp 2026-08-05 11:11:49 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/search/code?page=1&per_page=40&q=images.unsplash.com%2Fphoto+extension%3Aphp)
+
+HTTP 403: API rate limit exceeded for user ID 218248590. If you reach out to GitHub Support for help, please include the request ID 8471:14CBE4:21D224D:237B6B9:6A731A75 and timestamp 2026-08-05 11:11:49 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (https://api.github.com/search/code?page=1&per_page=30&q=images.unsplash.com%2Fphoto+extension%3Aejs)
+

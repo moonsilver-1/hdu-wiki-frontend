@@ -40,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# agent planning / scratch files (not for publishing)
+task_plan.md
+findings.md
+progress.md
+task.md
+wechat-article/
