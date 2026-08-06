@@ -101,7 +101,10 @@ export default async function Home({
   const sortedArticles = sortByDate(getAllArticles());
   const categoryNames = new Map(categories.map((category) => [category.slug, category.name]));
   const categoryOrder = categories.map((category) => category.slug);
+  // 分类计数不计必读文章：它们单独归入「必读文章」分组展示，不重复算进各分类，
+  // 保证首页计数与分类页（getArticlesByCategory 过滤了 featured）、侧边栏一致。
   const categoryCounts = sortedArticles.reduce<Record<string, number>>((counts, article) => {
+    if (article.featured) return counts;
     counts[article.category] = (counts[article.category] ?? 0) + 1;
     return counts;
   }, {});
