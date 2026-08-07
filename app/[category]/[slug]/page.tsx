@@ -6,6 +6,7 @@ import { getAdjacentArticles, getArticle, getArticleSlugs, getAuthorSlug, getCat
 import Sidebar from "@/components/Sidebar";
 import Toc from "@/components/Toc";
 import SearchHighlight from "@/components/SearchHighlight";
+import ArticleKeyboardNav from "@/components/ArticleKeyboardNav";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -112,17 +113,22 @@ export default async function ArticlePage({
             {previous ? (
               <Link href={`/${category}/${previous.slug}`} prefetch={false} className="article-pagination-link article-pagination-previous">
                 <ChevronLeft aria-hidden="true" size={18} />
-                <span><small>上一篇</small>{previous.title}</span>
+                <span><small>上一篇 <kbd aria-hidden="true">←</kbd></small>{previous.title}</span>
               </Link>
             ) : <span />}
             {next ? (
               <Link href={`/${category}/${next.slug}`} prefetch={false} className="article-pagination-link article-pagination-next">
-                <span><small>下一篇</small>{next.title}</span>
+                <span><small>下一篇 <kbd aria-hidden="true">→</kbd></small>{next.title}</span>
                 <ChevronRight aria-hidden="true" size={18} />
               </Link>
             ) : <span />}
           </nav>
         ) : null}
+
+        <ArticleKeyboardNav
+          previousHref={previous ? `/${category}/${previous.slug}` : null}
+          nextHref={next ? `/${category}/${next.slug}` : null}
+        />
       </main>
       <Toc items={article.toc} />
     </div>

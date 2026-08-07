@@ -2552,6 +2552,21 @@ input:focus-visible {
   font-size: 11px;
 }
 
+.article-pagination-link small kbd {
+  display: inline-block;
+  margin-left: 2px;
+  padding: 0 5px;
+  min-width: 16px;
+  text-align: center;
+  font-family: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
 .article-pagination-next {
   justify-content: flex-end;
   text-align: right;
