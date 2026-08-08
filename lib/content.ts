@@ -7,12 +7,13 @@ import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
-import rehypeRaw from "rehype-raw";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
+import rehypeParse from "rehype-parse";
 import { cache } from "react";
+import { categoryMap, sectionMap } from "@/lib/site-taxonomy";
 
 const contentDir = path.join(process.cwd(), "content");
 
@@ -23,8 +24,7 @@ export const markdownProcessor = unified()
   .use(remarkParse)
   .use(gfm)
   .use(remarkMath, { singleDollarTextMath: true })
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeRaw)
+  .use(remarkRehype)
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, { behavior: "wrap" })
   .use(rehypeHighlight)
@@ -69,30 +69,7 @@ interface CachedArticle {
   article: Article;
 }
 
-const categoryMap: Record<string, string> = {
-  courses: "课程与学术",
-  campus: "校园生活",
-  tech: "技术与项目",
-  community: "社团与活动",
-};
-
 const authorsDir = path.join(contentDir, "authors");
-
-const sectionMap: Record<string, string> = {
-  "deep-learning": "从零开始学深度学习",
-  algorithm: "从零开始学算法",
-  fundamentals: "基础课程",
-  "campus-life": "校园生活",
-  "forced-business": "被迫营业",
-  "life-experience": "体验生活",
-  engineering: "工程实践",
-  "automation-learning": "自动化学习",
-  "tool-use": "工具使用",
-  vibecoding: "vibecoding",
-  other: "其他",
-  community: "社团与活动",
-  "science-fiction-contest": "科幻征文",
-};
 
 // 课程按「卷」组织：每卷一个 key（决定编号「卷.章」）、一个中文标签、一组 slug。
 // 卷内的顺序既是该卷内的章号，也拼出全局阅读顺序（用于上一章/下一章导航）。
@@ -504,16 +481,28 @@ export function getSectionName(slug: string): string {
 }
 
 function extractToc(contentHtml: string): TocItem[] {
+  const root = unified().use(rehypeParse, { fragment: true }).parse(contentHtml) as unknown as {
+    children?: Array<{ type?: string; tagName?: string; properties?: { id?: string }; children?: unknown[] }>;
+  };
   const toc: TocItem[] = [];
-  const regex = /<h([2-3])[^>]*id="([^"]*)"[^>]*>(?:<a[^>]*>)?([^<]*)(?:<\/a>)?<\/h\1>/g;
-  let match;
-  while ((match = regex.exec(contentHtml)) !== null) {
-    toc.push({
-      level: parseInt(match[1]),
-      id: match[2],
-      text: match[3],
-    });
-  }
+  const textOf = (node: unknown): string => {
+    if (!node || typeof node !== "object") return "";
+    const candidate = node as { type?: string; value?: string; children?: unknown[] };
+    if (candidate.type === "text") return candidate.value ?? "";
+    return (candidate.children ?? []).map(textOf).join("");
+  };
+  const visit = (nodes: unknown[]): void => {
+    for (const node of nodes) {
+      if (!node || typeof node !== "object") continue;
+      const heading = node as { tagName?: string; properties?: { id?: string }; children?: unknown[] };
+      const match = /h([23])/.exec(heading.tagName ?? "");
+      if (match && heading.properties?.id) {
+        toc.push({ level: Number(match[1]), id: heading.properties.id, text: textOf(heading) });
+      }
+      visit(heading.children ?? []);
+    }
+  };
+  visit(root.children ?? []);
   return toc;
 }
 
@@ -889,7 +878,12 @@ export function getSearchIndexData(): {
         title: frontmatter.title || slug,
         excerpt: frontmatter.excerpt || "",
         tags: normalizeTags(frontmatter.tags),
-        content: content.replace(/[#*`\[\]()]/g, "").slice(0, 500),
+        content: content
+          .replace(/```[\s\S]*?```/g, " ")
+          .replace(/`([^`]+)`/g, "$1")
+          .replace(/^#{1,6}\s+/gm, "")
+          .replace(/\s+/g, " ")
+          .trim(),
       });
     }
   }

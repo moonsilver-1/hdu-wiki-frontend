@@ -20,6 +20,7 @@ import {
   Table as TableIcon,
 } from "lucide-react";
 import { contributeCategories, getContributeCategory } from "@/lib/contribute-meta";
+import { validateSubmissionFields } from "@/lib/content-validation";
 
 // 客户端版 slug 预览：与 lib/contribute.ts 的 slugifyTitle 保持一致的规则，
 // 让用户实时看到将生成的文章链接。纯中文标题会回退成 submission-xxx，提示明显。
@@ -170,7 +171,6 @@ export default function ContributeEditor() {
   const [category, setCategory] = useState("");
   const [section, setSection] = useState("");
   const [author, setAuthor] = useState("");
-  const [email, setEmail] = useState("");
   const [tags, setTags] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [body, setBody] = useState("");
@@ -190,17 +190,18 @@ export default function ContributeEditor() {
 
   // 客户端即时校验：镜像服务端规则，不满足时禁用提交按钮。
   const clientErrors = useMemo(() => {
-    const errors: string[] = [];
-    if (title.trim().length < 2) errors.push("标题至少 2 个字符");
-    if (author.trim().length < 1) errors.push("请填写作者署名");
-    if (!category) errors.push("请选择分类");
-    if (!section) errors.push("请选择子分类");
-    if (body.trim().length < 20) errors.push("正文至少 20 个字符");
-    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      errors.push("邮箱格式不正确");
-    }
-    return errors;
-  }, [title, author, category, section, body, email]);
+    const issues = validateSubmissionFields({
+      title,
+      category,
+      section,
+      author,
+      excerpt,
+      tags: tags.split(/[,，、]/).map((tag) => tag.trim()).filter(Boolean),
+      body,
+      date: "2026-08-08",
+    });
+    return issues.filter((issue) => issue.level === "error").map((issue) => `${issue.message}${issue.hint ? `：${issue.hint}` : ""}`);
+  }, [title, author, category, section, excerpt, tags, body]);
 
   const canSubmit = clientErrors.length === 0 && status !== "submitting";
   const slugPreview = title.trim() ? previewSlug(title) : "";
@@ -279,7 +280,7 @@ export default function ContributeEditor() {
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, category, section, author, email, excerpt, tags, body }),
+        body: JSON.stringify({ title, category, section, author, excerpt, tags, body }),
       });
       const data = (await res.json()) as SubmitResponse;
       if (res.ok && data.ok) {
@@ -293,7 +294,7 @@ export default function ContributeEditor() {
       setErrorMsg(error instanceof Error ? error.message : "网络错误");
       setStatus("error");
     }
-  }, [title, category, section, author, email, excerpt, tags, body]);
+  }, [title, category, section, author, excerpt, tags, body]);
 
   if (status === "success" && result) {
     return (
@@ -414,16 +415,6 @@ export default function ContributeEditor() {
             />
           </label>
 
-          <label className="contribute-field">
-            <span>联系邮箱（可选）</span>
-            <input
-              className="contribute-input"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="审核需要时联系你"
-            />
-          </label>
         </div>
 
         <label className="contribute-field">
@@ -438,14 +429,14 @@ export default function ContributeEditor() {
         </label>
 
         <label className="contribute-field">
-          <span>摘要（可选）</span>
+          <span>摘要 *（{excerpt.length}/160）</span>
           <input
             className="contribute-input"
             type="text"
             value={excerpt}
             onChange={(event) => setExcerpt(event.target.value)}
-            placeholder="一句话简介，会显示在文章卡片上"
-            maxLength={120}
+            placeholder="20–160 字符，一句话说明文章解决什么问题"
+            maxLength={160}
           />
         </label>
 

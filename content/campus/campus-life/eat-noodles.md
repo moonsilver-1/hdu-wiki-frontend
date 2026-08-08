@@ -3,7 +3,7 @@ title: "老吃家带你在杭电吃面食"
 date: "2026-07-07"
 author: "moonsilver"
 section: "life-experience"
-excerpt: "关于杭电和杭电周边的面食"
+excerpt: "整理杭电校内与周边常见面食的地点、口味和价格，方便新生快速解决一顿饭。"
 tags: ["面食", "老吃家"]
 ---
 

@@ -1,0 +1,12 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { siteTaxonomy } from "../lib/site-taxonomy";
+
+test("taxonomy has unique category and section slugs", () => {
+  const categories = siteTaxonomy.map((category) => category.slug);
+  assert.equal(new Set(categories).size, categories.length);
+  for (const category of siteTaxonomy) {
+    const sections = category.sections.map((section) => section.slug);
+    assert.equal(new Set(sections).size, sections.length, category.slug);
+  }
+});
