@@ -7,9 +7,15 @@ import {
   isContributeSection,
   type ContributeSubmission,
 } from "@/lib/contribute-meta";
+import {
+  dateInShanghai,
+  hasValidationErrors,
+  validateSubmissionFields,
+} from "@/lib/content-validation";
 
 // 投稿相关的环境变量：
-// - GITHUB_TOKEN：fine-grained token，只给目标仓库 Contents: Write 权限
+// - GITHUB_TOKEN：fine-grained token，仅授权 moonsilver-1/hdu-wiki-frontend，
+//   Contents: Read and write + Pull requests: Read and write
 // - GITHUB_OWNER / GITHUB_REPO：默认取本仓库的归属
 // - CONTRIBUTE_DRY_RUN：任意非空值即进入试运行模式（不实际开 PR），本地验证用
 const GITHUB_OWNER = process.env.GITHUB_OWNER ?? "moonsilver-1";
@@ -23,6 +29,7 @@ export function isDryRun(): boolean {
 export interface ValidationResult {
   ok: boolean;
   error?: string;
+  issues?: ReturnType<typeof validateSubmissionFields>;
 }
 
 // 危险 HTML/脚本模式：渲染管线开启了 allowDangerousHtml + rehype-raw，这些标签
@@ -78,36 +85,25 @@ export function isValidFilePath(
 
 // 校验投稿内容。字段层面的硬约束在这里，slug 冲突在 generateSlug 里检查。
 export function validateSubmission(input: Partial<ContributeSubmission>): ValidationResult {
-  const title = input.title?.trim() ?? "";
-  if (title.length < 2) return { ok: false, error: "标题至少 2 个字符" };
-  if (title.length > 80) return { ok: false, error: "标题不要超过 80 个字符" };
-
-  const author = input.author?.trim() ?? "";
-  if (author.length < 1) return { ok: false, error: "请填写作者署名" };
-  if (author.length > 40) return { ok: false, error: "作者署名不要超过 40 个字符" };
-
   const category = input.category ?? "";
   if (!isContributeCategory(category)) return { ok: false, error: "请选择一个有效分类" };
 
   const section = input.section ?? "";
   if (!isContributeSection(category, section)) return { ok: false, error: "请选择一个有效子分类" };
 
-  const body = input.body?.trim() ?? "";
-  if (body.length < 20) return { ok: false, error: "正文至少 20 个字符" };
-  if (body.length > 60000) return { ok: false, error: "正文不要超过 6 万字符" };
+  const issues = validateSubmissionFields({ ...input, date: dateInShanghai() });
+  if (hasValidationErrors(issues)) {
+    const first = issues.find((issue) => issue.level === "error");
+    return { ok: false, error: first ? `${first.message}${first.hint ? `：${first.hint}` : ""}` : "投稿内容未通过校验", issues };
+  }
 
   // 危险内容拦截：渲染管线开启了原生 HTML，正文里的 <script>/<iframe>/javascript:
   // 等会被真正执行。这里扫描「代码块外」的危险模式，命中即拒绝。代码块（```）内的
   // 同类内容会被渲染器转义成文本不执行，所以放行——提示用户把代码放进代码块。
-  const dangerous = containsDangerousHtml(body);
+  const dangerous = containsDangerousHtml(input.body?.trim() ?? "");
   if (dangerous) return { ok: false, error: dangerous };
 
-  const email = input.email?.trim() ?? "";
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return { ok: false, error: "邮箱格式不正确（如填写）" };
-  }
-
-  return { ok: true };
+  return { ok: true, issues };
 }
 
 // 把标题转成 kebab-case slug。中文按音译做不到，这里直接保留汉字并
@@ -179,8 +175,7 @@ export function buildMarkdownFile(submission: ContributeSubmission, date: string
     date,
     author: submission.author.trim(),
   };
-  const excerpt = submission.excerpt.trim();
-  if (excerpt) frontmatter.excerpt = excerpt;
+  frontmatter.excerpt = submission.excerpt.trim();
   if (tags.length > 0) frontmatter.tags = tags;
 
   // gray-matter.stringify(content, data) 会把 data 序列化成 YAML frontmatter，
@@ -202,23 +197,47 @@ export interface SubmitResult {
   filePath?: string;
   branch?: string;
   error?: string;
+  status?: number;
+}
+
+export async function deleteSubmissionBranch(
+  apiBase: string,
+  branch: string,
+  headers: Record<string, string>
+): Promise<void> {
+  try {
+    const response = await fetch(`${apiBase}/git/refs/heads/${encodeURIComponent(branch)}`, {
+      method: "DELETE",
+      headers,
+    });
+    if (!response.ok) {
+      console.warn(JSON.stringify({ event: "submission_branch_cleanup_failed", branch, status: response.status }));
+    }
+  } catch (error) {
+    console.warn(JSON.stringify({
+      event: "submission_branch_cleanup_failed",
+      branch,
+      error: error instanceof Error ? error.message : String(error),
+    }));
+  }
 }
 
 // 主流程：校验 → 生成 md → 提交到 GitHub 新分支 → 开 PR。
 export async function submitArticle(
-  submission: ContributeSubmission
+  submission: ContributeSubmission,
+  options: { now?: Date } = {}
 ): Promise<SubmitResult> {
   const validation = validateSubmission(submission);
-  if (!validation.ok) return { ok: false, error: validation.error };
+  if (!validation.ok) return { ok: false, error: validation.error, status: 400 };
 
-  const date = new Date().toISOString().slice(0, 10);
+  const date = dateInShanghai(options.now ?? new Date());
   const slug = generateUniqueSlug(submission.title, submission.category);
   const filePath = `content/${submission.category}/${submission.section}/${slug}.md`;
 
   // 文件路径护栏：即使前面校验被绕过，也确保文件只落到白名单 category/section 下、
   // slug 纯 ASCII（无路径穿越字符），写不到仓库别处或覆盖系统文件。
   if (!isValidFilePath(filePath, submission.category, submission.section, slug)) {
-    return { ok: false, error: "生成的文件路径不合法，请检查分类与标题" };
+    return { ok: false, error: "生成的文件路径不合法，请检查分类与标题", status: 400 };
   }
 
   const markdown = buildMarkdownFile(submission, date);
@@ -243,12 +262,14 @@ export async function submitArticle(
   };
   const apiBase = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`;
 
+  let branchCreated = false;
+  let completed = false;
   try {
     // 1. 取默认分支的最新 commit SHA，作为新分支的起点。
     const branchInfoRes = await fetch(`${apiBase}/branches/${GITHUB_BASE_BRANCH}`, { headers });
     if (!branchInfoRes.ok) {
-      const detail = await branchInfoRes.text();
-      return { ok: false, error: `读取默认分支失败 (${branchInfoRes.status})：${detail}` };
+    const detail = await branchInfoRes.text();
+      return { ok: false, error: `读取默认分支失败 (${branchInfoRes.status})：${detail}`, status: 502 };
     }
     const branchInfo = (await branchInfoRes.json()) as { commit: { sha: string } };
 
@@ -260,64 +281,72 @@ export async function submitArticle(
     });
     if (!refRes.ok) {
       const detail = await refRes.text();
-      return { ok: false, error: `创建分支失败 (${refRes.status})：${detail}` };
+      return { ok: false, error: `创建分支失败 (${refRes.status})：${detail}`, status: 502 };
     }
+    branchCreated = true;
 
-    // 3. Contents API：在新分支上提交文件（此时分支已存在）。
-    const content = Buffer.from(markdown, "utf-8").toString("base64");
-    const fileRes = await fetch(`${apiBase}/contents/${filePath}`, {
-      method: "PUT",
-      headers,
-      body: JSON.stringify({
-        message: `投稿：${submission.title.trim()}`,
-        content,
-        branch,
-      }),
-    });
-    if (!fileRes.ok) {
-      const detail = await fileRes.text();
-      return { ok: false, error: `提交文件失败 (${fileRes.status})：${detail}` };
-    }
+    try {
+      // 3. Contents API：在新分支上提交文件（此时分支已存在）。
+      const content = Buffer.from(markdown, "utf-8").toString("base64");
+      const fileRes = await fetch(`${apiBase}/contents/${filePath}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify({
+          message: `投稿：${submission.title.trim()}`,
+          content,
+          branch,
+        }),
+      });
+      if (!fileRes.ok) {
+        const detail = await fileRes.text();
+        return { ok: false, error: `提交文件失败 (${fileRes.status})：${detail}`, status: 502 };
+      }
 
-    // 4. 开 PR：head=新分支，base=默认分支。
-    const prRes = await fetch(`${apiBase}/pulls`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        title: `[投稿] ${submission.title.trim()}`,
-        head: branch,
-        base: GITHUB_BASE_BRANCH,
-        body: buildPrBody(submission, filePath, date),
-      }),
-    });
-    if (!prRes.ok) {
-      const detail = await prRes.text();
-      return { ok: false, error: `创建 PR 失败 (${prRes.status})：${detail}` };
+      // 4. 开 PR：head=新分支，base=默认分支。
+      const prRes = await fetch(`${apiBase}/pulls`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          title: `[投稿] ${submission.title.trim()}`,
+          head: branch,
+          base: GITHUB_BASE_BRANCH,
+          body: buildPrBody(submission, filePath, date),
+        }),
+      });
+      if (!prRes.ok) {
+        const detail = await prRes.text();
+        return { ok: false, error: `创建 PR 失败 (${prRes.status})：${detail}`, status: 502 };
+      }
+      const pr = (await prRes.json()) as { html_url?: string };
+      completed = true;
+      return { ok: true, prUrl: pr.html_url, filePath, branch };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      return { ok: false, error: `调用 GitHub API 出错：${message}`, status: 502 };
+    } finally {
+      if (branchCreated && !completed) await deleteSubmissionBranch(apiBase, branch, headers);
     }
-    const pr = (await prRes.json()) as { html_url?: string };
-    return { ok: true, prUrl: pr.html_url, filePath, branch };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    return { ok: false, error: `调用 GitHub API 出错：${message}` };
+    return { ok: false, error: `调用 GitHub API 出错：${message}`, status: 502 };
   }
 }
 
-// PR 描述：给管理员审核用，重点提醒检查 HTML/脚本注入。
+// PR 描述：给管理员审核用。投稿不收集邮箱，正文渲染也不允许 raw HTML。
 function buildPrBody(submission: ContributeSubmission, filePath: string, date: string): string {
   const tags = submission.tags.filter(Boolean).join(", ") || "（无）";
-  const email = submission.email?.trim();
   return [
     `## 投稿信息`,
     `- **标题**：${submission.title.trim()}`,
-    `- **作者**：${submission.author.trim()}${email ? `（联系邮箱：${email}）` : ""}`,
+    `- **作者**：${submission.author.trim()}`,
     `- **分类 / 子分类**：${submission.category} / ${submission.section}`,
     `- **日期**：${date}`,
     `- **标签**：${tags}`,
     `- **文件**：\`${filePath}\``,
     ``,
     `## ⚠️ 审核提醒`,
-    `本投稿来自网页端免登录提交。渲染管线开启了原生 HTML，请务必逐行检查 diff：`,
-    `1. 是否含有 \`<script>\`、\`<iframe>\`、\`on*\` 事件属性等可疑代码；`,
+    `本投稿来自网页端免登录提交。渲染管线只接受标准 Markdown，请务必逐行检查 diff：`,
+    `1. 是否含有脚本、图片、raw HTML 或不必要的外链；`,
     `2. 外链是否指向可信站点；`,
     `3. 内容是否符合社区规范。`,
     ``,

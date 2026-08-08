@@ -22,8 +22,9 @@ export default function ContributePage() {
           <div className="contribute-tips">
             <strong>投稿须知</strong>
             <ol>
-              <li>不支持图片</li>
-              <li>请勿插入 <code>&lt;script&gt;</code> 等脚本或可疑外链</li>
+              <li>摘要必填，长度 20–160 字符；正文长度 20–60,000 字符</li>
+              <li>正文从二级标题开始，不支持图片、raw HTML 或脚本</li>
+              <li>代码示例请放进带语言标记的代码块</li>
             </ol>
           </div>
 

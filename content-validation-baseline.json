@@ -1,0 +1,5 @@
+{
+  "baselineCommit": "c2c6e40",
+  "legacyRules": ["V006", "V012"],
+  "policy": "Only the exact unchanged files that already had these two issues at baseline may warn. New or changed files fail. Security, path, slug and metadata errors are never baselined."
+}

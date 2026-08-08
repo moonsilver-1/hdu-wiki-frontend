@@ -3,13 +3,13 @@ title: "claudecode基础上手指南"
 date: "2026-07-07"
 author: "moonsilver"
 section: "vibecoding"
-excerpt: "cc基础使用方式教学"
+excerpt: "从安装、终端命令到项目协作，整理 Claude Code 的基础上手方式与安全使用习惯。"
 tags: ["claudecode", "ccswitch", "vibecoding"]
 ---
 
 本站焚决千千万，cc入门不一般。
 
-# 1. 安装 Claude Code
+## 1. 安装 Claude Code
 
 ## Windows PowerShell
 
@@ -77,7 +77,7 @@ claude
 
 ---
 
-# 2. 安装 CC Switch
+## 2. 安装 CC Switch
 
 CC Switch 官方地址：
 
@@ -148,7 +148,7 @@ chmod +x CC-Switch-v版本号-Linux-*.AppImage
 
 ---
 
-# 3. 使用 CC Switch 换源
+## 3. 使用 CC Switch 换源
 
 ## 添加服务商
 
@@ -219,7 +219,7 @@ claude
 
 ---
 
-# 4. Claude Code 常用指令
+## 4. Claude Code 常用指令
 
 ## 终端指令
 

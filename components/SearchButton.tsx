@@ -2,7 +2,9 @@
 
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import SearchDialog from "./SearchDialog";
+import dynamic from "next/dynamic";
+
+const SearchDialog = dynamic(() => import("./SearchDialog"), { ssr: false });
 
 type SearchButtonProps = {
   variant?: "compact" | "hero";

@@ -3,7 +3,7 @@ title: "如何成为一名合格的嵌入式工程师"
 date: "2026-05-12"
 author: "soyorin"
 section: "automation-learning"
-excerpt: "自动化专业嵌入式方向学习路线与建议"
+excerpt: "面向自动化专业学生梳理嵌入式方向的学习路线、项目证据、就业岗位与能力准备。"
 tags: ["嵌入式", "硬件", "STM32", "Linux", "职业规划"]
 ---
 

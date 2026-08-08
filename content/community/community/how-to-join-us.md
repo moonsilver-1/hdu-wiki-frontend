@@ -2,7 +2,7 @@
 title: "如何加入hdu-wiki"
 date: "2026-07-07"
 author: "moonsilver"
-excerpt: "加入我们需要做些什么"
+excerpt: "说明加入 HDU-Wiki 所需的基本条件、适合贡献的内容类型以及提交个人材料的方式。"
 tags: ["hdu-wiki", "加入", "准备"]
 ---
 
