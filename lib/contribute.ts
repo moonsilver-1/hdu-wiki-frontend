@@ -32,9 +32,8 @@ export interface ValidationResult {
   issues?: ReturnType<typeof validateSubmissionFields>;
 }
 
-// 危险 HTML/脚本模式：渲染管线开启了 allowDangerousHtml + rehype-raw，这些标签
-// 在正文里会被浏览器真正执行（XSS）。用户应该把这类内容放进代码块（```）里，
-// 那样会被转义成纯文本展示。这里只检查代码块外的部分。
+// 危险 HTML/脚本模式：正文渲染只允许标准 Markdown，但投稿入口仍主动拒绝
+// 脚本、事件属性和图片，避免未来渲染管线变更时留下 XSS 或隐私风险。
 const DANGEROUS_PATTERNS: { regex: RegExp; hint: string }[] = [
   { regex: /<script[\s>]/i, hint: "正文里检测到 <script> 标签" },
   { regex: /<iframe[\s>]/i, hint: "正文里检测到 <iframe> 标签" },
