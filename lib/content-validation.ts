@@ -38,7 +38,7 @@ export function validateArticleDocument(input: ContentDocumentInput, options?: {
   const title = asText(input.title);
   const author = asText(input.author);
   const excerpt = asText(input.excerpt);
-  const body = typeof input.body === "string" ? input.body : "";
+  const body = typeof input.body === "string" ? input.body.replace(/\r\n/g, "\n") : "";
   const tags = Array.isArray(input.tags) ? input.tags : [];
 
   if (!title) issues.push(error("V001", "缺少 title", "Front Matter 必须提供文章标题。"));
