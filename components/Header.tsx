@@ -76,7 +76,7 @@ export default function Header() {
             <Smartphone aria-hidden="true" size={18} />
           </a>
           <a
-            href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.1.0-desktop/hdu-wiki-desktop-setup.exe"
+            href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.2.0-desktop/hdu-wiki-desktop-setup.exe"
             className="header-icon-button"
             target="_blank"
             rel="noreferrer"
@@ -132,7 +132,7 @@ export default function Header() {
               下载安卓 App
             </a>
             <a
-              href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.1.0-desktop/hdu-wiki-desktop-setup.exe"
+              href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.2.0-desktop/hdu-wiki-desktop-setup.exe"
               onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}
               target="_blank"
               rel="noreferrer"
