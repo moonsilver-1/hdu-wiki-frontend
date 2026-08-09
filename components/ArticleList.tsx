@@ -4,11 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import type { ArticleMeta } from "@/lib/content";
-import {
-  ARTICLE_PAGE_SIZE,
-  getInitialArticleCount,
-  getNextArticleCount,
-} from "@/lib/article-list";
+import { getInitialArticleCount, getNextArticleCount } from "@/lib/article-list";
 
 function splitAuthors(value: string): string[] {
   return value
@@ -93,19 +89,27 @@ export default function ArticleList({
       </div>
 
       {articles.length > 0 ? (
-        <div className="recent-tools article-list-controls">
+        <div
+          className="recent-tools article-filter article-list-controls"
+          style={{
+            marginTop: 28,
+            paddingTop: 20,
+            borderTop: "1px solid var(--border)",
+            justifyContent: "center",
+          }}
+        >
           <span className="section-link article-list-count" aria-live="polite">
             已显示 {visibleArticles.length} / {articles.length} 篇
           </span>
           {remainingCount > 0 ? (
             <button
               type="button"
-              className="button button-light article-load-more"
+              className="button article-load-more"
               aria-controls="article-list"
               onClick={() => setVisibleCount((current) => getNextArticleCount(current, articles.length))}
+              style={{ borderRadius: 999, minHeight: 40 }}
             >
               <span>加载更多</span>
-              <small>再看 {Math.min(ARTICLE_PAGE_SIZE, remainingCount)} 篇</small>
               <ChevronDown aria-hidden="true" size={16} />
             </button>
           ) : (
