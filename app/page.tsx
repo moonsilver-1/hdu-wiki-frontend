@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors, type ArticleMeta } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
+import ArticleList from "@/components/ArticleList";
 import SearchButton from "@/components/SearchButton";
 
 const categoryInfo: Record<string, { desc: string }> = {
@@ -17,48 +18,6 @@ const categoryInfo: Record<string, { desc: string }> = {
 };
 
 const featuredSlugs = ["main-guide", "how-to-use-llm", "how-to-become-a-qualified-developer"];
-
-function ArticleCard({
-  article,
-  categoryName,
-}: {
-  article: ArticleMeta;
-  categoryName: string;
-}) {
-  return (
-    <article className={`article-card category-${article.category}`}>
-      <Link
-        href={`/${article.category}/${article.slug}`}
-        className="article-card-hit-area"
-        aria-label={`阅读：${article.title}`}
-        tabIndex={-1}
-      />
-      <div className="article-card-topline">
-        <span className="article-category">{categoryName}</span>
-        {article.date ? <time dateTime={article.date}>{article.date}</time> : null}
-      </div>
-      <h3><Link href={`/${article.category}/${article.slug}`}>{article.title}</Link></h3>
-      <p>{article.excerpt}</p>
-      <div className="article-card-footer">
-        <span className="article-authors">
-          {(splitAuthors(article.author).length ? splitAuthors(article.author) : ["HDU Wiki"]).map((author, index) => (
-            <span key={author}>
-              {index > 0 ? ", " : null}
-              <Link href={`/authors/${encodeURIComponent(getAuthorSlug(author))}`}>{author}</Link>
-            </span>
-          ))}
-        </span>
-        <Link
-          href={`/${article.category}/${article.slug}`}
-          className="article-card-arrow"
-          aria-label={`阅读：${article.title}`}
-        >
-          <ArrowUpRight aria-hidden="true" size={17} />
-        </Link>
-      </div>
-    </article>
-  );
-}
 
 function sortByDate(articles: ArticleMeta[]) {
   return [...articles].sort((articleA, articleB) =>
@@ -303,15 +262,11 @@ export default async function Home({
             </div>
 
             {recentArticles.length > 0 ? (
-              <div className="article-grid">
-                {recentArticles.map((article) => (
-                  <ArticleCard
-                    key={`${article.category}-${article.slug}`}
-                    article={article}
-                    categoryName={categoryNames.get(article.category) ?? article.category}
-                  />
-                ))}
-              </div>
+              <ArticleList
+                key={`${selectedCategory}-${selectedPeriod}`}
+                articles={recentArticles}
+                categoryNames={Object.fromEntries(categoryNames)}
+              />
             ) : (
               <div className="empty-state">这个时间段还没有文章</div>
             )}
