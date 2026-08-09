@@ -47,6 +47,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [readingProgress, setReadingProgress] = useState(0);
   const [isReading, setIsReading] = useState(false);
+  const [isDirectoryOpen, setIsDirectoryOpen] = useState(false);
 
   const updateLayout = useCallback(() => {
     const article = document.getElementById(ARTICLE_CONTENT_ID);
@@ -131,10 +132,34 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    const restoreFocus = () => mobileTriggerRef.current?.focus();
+    const restoreFocus = () => {
+      setIsDirectoryOpen(false);
+      mobileTriggerRef.current?.focus();
+    };
     dialog.addEventListener("close", restoreFocus);
     return () => dialog.removeEventListener("close", restoreFocus);
   }, []);
+
+  useEffect(() => {
+    if (!isDirectoryOpen) return;
+
+    const handleOutsidePointer = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      if (dialogRef.current?.contains(target) || mobileTriggerRef.current?.contains(target)) return;
+      dialogRef.current?.close();
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") dialogRef.current?.close();
+    };
+
+    document.addEventListener("pointerdown", handleOutsidePointer);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("pointerdown", handleOutsidePointer);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isDirectoryOpen]);
 
   if (items.length === 0) return null;
 
@@ -153,7 +178,14 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     if (index >= 0) scrollToHeading(positionedItems[index].id);
   };
 
-  const closeDrawer = () => dialogRef.current?.close();
+  const openDirectory = () => {
+    if (!dialogRef.current?.open) {
+      dialogRef.current?.show();
+      setIsDirectoryOpen(true);
+    }
+  };
+
+  const closeDirectory = () => dialogRef.current?.close();
 
   return (
     <aside className="toc-sidebar" aria-label="文章章节导航">
@@ -191,32 +223,44 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
             </div>
           ) : null}
         </div>
+
+        {isReading ? (
+          <button
+            ref={mobileTriggerRef}
+            className="reading-rail-toggle"
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded={isDirectoryOpen}
+            aria-label={`打开文章目录，当前章节：${activeItem?.text ?? "未开始"}`}
+            title={activeItem?.text ?? "文章目录"}
+            onClick={openDirectory}
+          >
+            <BookOpen aria-hidden="true" size={15} />
+            <span>{Math.round(readingProgress * 100)}</span>
+            <ChevronDown aria-hidden="true" size={13} />
+          </button>
+        ) : null}
       </div>
 
-      {isReading ? (
-        <button
-          ref={mobileTriggerRef}
-          className="reading-mobile-trigger"
-          type="button"
-          aria-haspopup="dialog"
-          aria-label={`打开文章目录，当前章节：${activeItem?.text ?? "未开始"}`}
-          onClick={() => dialogRef.current?.showModal()}
-        >
-          <BookOpen aria-hidden="true" size={16} />
-          <span className="reading-mobile-current">{activeItem?.text ?? "文章目录"}</span>
-          <span className="reading-mobile-progress">{Math.round(readingProgress * 100)}%</span>
-          <ChevronDown aria-hidden="true" size={16} />
-        </button>
-      ) : null}
-
-      <dialog ref={dialogRef} className="reading-mobile-dialog" aria-label="文章目录">
+      <dialog
+        ref={dialogRef}
+        className="reading-mobile-dialog"
+        aria-label="文章目录"
+        onCancel={(event) => {
+          event.preventDefault();
+          closeDirectory();
+        }}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeDirectory();
+        }}
+      >
         <div className="reading-mobile-dialog-inner">
           <header>
             <div>
               <small>文章目录</small>
               <strong>{Math.round(readingProgress * 100)}% 已读</strong>
             </div>
-            <button type="button" className="reading-mobile-close" aria-label="关闭文章目录" onClick={closeDrawer}>
+            <button type="button" className="reading-mobile-close" aria-label="关闭文章目录" onClick={closeDirectory}>
               <X aria-hidden="true" size={18} />
             </button>
           </header>
@@ -229,7 +273,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
                 aria-current={activeIndex === index ? "location" : undefined}
                 onClick={(event) => {
                   event.preventDefault();
-                  closeDrawer();
+                  closeDirectory();
                   scrollToHeading(item.id);
                 }}
               >
