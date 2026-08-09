@@ -55,6 +55,7 @@ export default function ArticleComments({ category, slug, contentId = "article-c
   const storageKey = useMemo(() => getArticleCommentStorageKey(category, slug), [category, slug]);
   const rootRef = useRef<HTMLElement | null>(null);
   const selectionRangeRef = useRef<Range | null>(null);
+  const pointerUpTimerRef = useRef<number | null>(null);
   const hideTimerRef = useRef<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [comments, setComments] = useState<ArticleComment[]>([]);
@@ -72,6 +73,7 @@ export default function ArticleComments({ category, slug, contentId = "article-c
   }, [storageKey]);
 
   useEffect(() => {
+    selectionRangeRef.current = null;
     const loadTimer = window.setTimeout(() => {
       try {
         setComments(parseArticleComments(window.localStorage.getItem(storageKey)));
@@ -81,7 +83,18 @@ export default function ArticleComments({ category, slug, contentId = "article-c
       setPendingSelection(null);
       setActiveComment(null);
     }, 0);
-    return () => window.clearTimeout(loadTimer);
+    return () => {
+      window.clearTimeout(loadTimer);
+      selectionRangeRef.current = null;
+      if (pointerUpTimerRef.current !== null) {
+        window.clearTimeout(pointerUpTimerRef.current);
+        pointerUpTimerRef.current = null;
+      }
+      if (hideTimerRef.current !== null) {
+        window.clearTimeout(hideTimerRef.current);
+        hideTimerRef.current = null;
+      }
+    };
   }, [storageKey]);
 
   useEffect(() => {
@@ -104,7 +117,7 @@ export default function ArticleComments({ category, slug, contentId = "article-c
 
   const showComment = useCallback((mark: HTMLElement) => {
     const id = mark.dataset.commentId;
-    if (!id) return;
+    if (!id || !mark.isConnected || rootRef.current?.contains(mark) !== true) return;
     if (hideTimerRef.current !== null) window.clearTimeout(hideTimerRef.current);
     setActiveComment({ id, position: positionBelow(mark.getBoundingClientRect(), 290, 150) });
   }, []);
@@ -142,11 +155,14 @@ export default function ArticleComments({ category, slug, contentId = "article-c
     };
     const handlePointerUp = (event: PointerEvent) => {
       if (event.target instanceof HTMLElement && event.target.closest(".article-comment-compose, .article-comment-popover")) return;
-      window.setTimeout(() => {
+      if (pointerUpTimerRef.current !== null) window.clearTimeout(pointerUpTimerRef.current);
+      pointerUpTimerRef.current = window.setTimeout(() => {
+        pointerUpTimerRef.current = null;
+        if (rootRef.current !== root || !root.isConnected) return;
         const selection = window.getSelection();
         if (!selection || selection.rangeCount === 0 || selection.isCollapsed) return;
         const range = selection.getRangeAt(0).cloneRange();
-        if (!root.contains(range.commonAncestorContainer)) return;
+        if (!root.contains(range.commonAncestorContainer) || !root.contains(range.startContainer) || !root.contains(range.endContainer)) return;
         const quote = range.toString();
         if (quote.trim().length < 2 || quote.length > 2000 || rangeTouchesArticleComment(root, range)) return;
         const rect = range.getBoundingClientRect();
@@ -170,6 +186,10 @@ export default function ArticleComments({ category, slug, contentId = "article-c
       root.removeEventListener("focusin", handleFocusIn);
       root.removeEventListener("click", handleClick);
       root.removeEventListener("pointerup", handlePointerUp);
+      if (pointerUpTimerRef.current !== null) {
+        window.clearTimeout(pointerUpTimerRef.current);
+        pointerUpTimerRef.current = null;
+      }
       if (hideTimerRef.current !== null) window.clearTimeout(hideTimerRef.current);
     };
   }, [scheduleHideComment, showComment, contentId, comments.length]);
@@ -194,8 +214,20 @@ export default function ArticleComments({ category, slug, contentId = "article-c
       return;
     }
 
-    const articleText = getArticleText(root);
-    const startOffset = getArticleTextOffset(root, range.startContainer, range.startOffset);
+    if (!root.isConnected || !root.contains(range.startContainer) || !root.contains(range.endContainer)) {
+      setComposeError("这段文字已经离开当前文章，请重新选择后再试。");
+      return;
+    }
+
+    let articleText: string;
+    let startOffset: number;
+    try {
+      articleText = getArticleText(root);
+      startOffset = getArticleTextOffset(root, range.startContainer, range.startOffset);
+    } catch {
+      setComposeError("这段文字刚刚发生了变化，请重新选择后再试。");
+      return;
+    }
     const comment: ArticleComment = {
       id: makeCommentId(),
       quote: pendingSelection.quote,
@@ -203,7 +235,13 @@ export default function ArticleComments({ category, slug, contentId = "article-c
       note: trimmedNote,
       createdAt: new Date().toISOString(),
     };
-    if (!wrapArticleCommentRange(root, range, comment.id)) {
+    let wrapped = false;
+    try {
+      wrapped = wrapArticleCommentRange(root, range, comment.id);
+    } catch {
+      wrapped = false;
+    }
+    if (!wrapped) {
       setComposeError("这段文字刚刚发生了变化，请重新选择后再试。");
       return;
     }

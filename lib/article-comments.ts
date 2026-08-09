@@ -111,39 +111,43 @@ export function rangeTouchesArticleComment(root: HTMLElement, range: Range): boo
 }
 
 export function wrapArticleCommentRange(root: HTMLElement, range: Range, commentId: string): boolean {
-  const nodes = articleTextNodes(root).filter((node) => {
-    try {
-      return range.intersectsNode(node);
-    } catch {
-      return false;
+  try {
+    const nodes = articleTextNodes(root).filter((node) => {
+      try {
+        return range.intersectsNode(node);
+      } catch {
+        return false;
+      }
+    });
+    if (nodes.length === 0 || rangeTouchesArticleComment(root, range)) return false;
+
+    for (const node of nodes) {
+      if (node.parentElement?.closest("mark.article-comment-highlight")) return false;
     }
-  });
-  if (nodes.length === 0 || rangeTouchesArticleComment(root, range)) return false;
 
-  for (const node of nodes) {
-    if (node.parentElement?.closest("mark.article-comment-highlight")) return false;
+    const document = root.ownerDocument;
+    for (const node of nodes) {
+      const length = node.nodeValue?.length ?? 0;
+      let start = 0;
+      let end = length;
+      if (node === range.startContainer) start = range.startOffset;
+      if (node === range.endContainer) end = range.endOffset;
+      if (end <= start) continue;
+
+      const part = document.createRange();
+      part.setStart(node, start);
+      part.setEnd(node, end);
+      const mark = document.createElement("mark");
+      mark.className = "article-comment-highlight";
+      mark.dataset.commentId = commentId;
+      mark.tabIndex = 0;
+      mark.appendChild(part.extractContents());
+      part.insertNode(mark);
+    }
+    return true;
+  } catch {
+    return false;
   }
-
-  const document = root.ownerDocument;
-  for (const node of nodes) {
-    const length = node.nodeValue?.length ?? 0;
-    let start = 0;
-    let end = length;
-    if (node === range.startContainer) start = range.startOffset;
-    if (node === range.endContainer) end = range.endOffset;
-    if (end <= start) continue;
-
-    const part = document.createRange();
-    part.setStart(node, start);
-    part.setEnd(node, end);
-    const mark = document.createElement("mark");
-    mark.className = "article-comment-highlight";
-    mark.dataset.commentId = commentId;
-    mark.tabIndex = 0;
-    mark.appendChild(part.extractContents());
-    part.insertNode(mark);
-  }
-  return true;
 }
 
 export function removeArticleCommentHighlights(root: HTMLElement, commentId: string): void {

@@ -108,7 +108,7 @@ export default async function ArticlePage({
         <article id="article-content" className="wiki-content">
           <div id="article-content-body" dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
           <Suspense><SearchHighlight /></Suspense>
-          <ArticleComments category={category} slug={decodedSlug} />
+          <ArticleComments key={`${category}/${decodedSlug}`} category={category} slug={decodedSlug} />
         </article>
 
         {article.tags.length > 0 ? (
