@@ -418,9 +418,9 @@ input:focus-visible {
 
 .search-results-heading {
   height: 43px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   padding: 0 20px;
   color: var(--muted);
   background: var(--surface-muted);
@@ -1193,9 +1193,9 @@ input:focus-visible {
 
 .category-count {
   margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   padding-top: 20px;
   color: var(--category-color);
   font-size: 12px;
@@ -1261,9 +1261,9 @@ input:focus-visible {
 
 .featured-meta {
   margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 20px;
   padding-top: 30px;
   color: #9fb0cb;
@@ -1368,9 +1368,9 @@ input:focus-visible {
 }
 
 .article-card-topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 12px;
   color: var(--muted);
   font-size: 11px;
@@ -1404,9 +1404,9 @@ input:focus-visible {
 
 .article-card-footer {
   margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 12px;
   padding-top: 22px;
   color: var(--muted);
@@ -1612,9 +1612,9 @@ input:focus-visible {
 }
 
 .author-article-list a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 16px;
   padding: 14px 16px;
   border: 1px solid var(--border);
@@ -1653,9 +1653,9 @@ input:focus-visible {
 }
 
 .contribute-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 36px;
 }
 
@@ -1715,9 +1715,9 @@ input:focus-visible {
 
 .footer-inner {
   min-height: 86px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 24px;
 }
 
@@ -1934,9 +1934,9 @@ input:focus-visible {
 }
 
 .category-series-group > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 12px;
   padding: 16px 20px;
   cursor: pointer;
@@ -1983,9 +1983,9 @@ input:focus-visible {
 }
 
 .category-subseries-group > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 10px;
   padding: 11px 14px;
   cursor: pointer;
@@ -2169,9 +2169,9 @@ input:focus-visible {
 
 .category-course-article-link {
   min-height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 12px;
   padding: 14px 12px;
   border-top: 1px solid var(--border);
@@ -2354,9 +2354,9 @@ input:focus-visible {
 }
 
 .sidebar-course-group summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   padding: 7px;
   border-radius: 6px;
@@ -2387,9 +2387,9 @@ input:focus-visible {
 }
 
 .sidebar-section-group summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   padding: 7px;
   border-radius: 6px;
@@ -2412,21 +2412,6 @@ input:focus-visible {
 .sidebar-section-group summary small {
   color: var(--muted);
   font-size: 10px;
-}
-
-/* 统一所有侧边栏分组里的篇数标记：柔和胶囊，跟分类名视觉分离 */
-.sidebar-course-group summary small,
-.sidebar-volume-group summary small,
-.sidebar-section-group summary small {
-  flex-shrink: 0;
-  min-width: 20px;
-  padding: 1px 7px;
-  border-radius: 999px;
-  background: var(--surface-muted);
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 600;
-  text-align: center;
 }
 
 .sidebar-section-articles {
@@ -2463,9 +2448,9 @@ input:focus-visible {
 }
 
 .sidebar-volume-group > summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   padding: 6px 7px;
   border-radius: 6px;
@@ -2511,9 +2496,9 @@ input:focus-visible {
 }
 
 .category-volume-group summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 10px;
   padding: 12px 16px;
   cursor: pointer;
@@ -3273,9 +3258,9 @@ mark.search-highlight.search-highlight-fade {
   }
 
   .reading-mobile-dialog header {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
     gap: 16px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
@@ -3320,9 +3305,9 @@ mark.search-highlight.search-highlight-fade {
   }
 
   .reading-mobile-link {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
     gap: 12px;
     min-height: 42px;
     padding: 8px 10px;
@@ -3918,9 +3903,9 @@ mark.search-highlight.search-highlight-fade {
 
 .article-comment-compose header,
 .article-comment-popover header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
   gap: 8px;
 }
 
