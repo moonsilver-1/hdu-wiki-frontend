@@ -92,6 +92,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
   }, [positionedItems]);
 
   const openDirectory = () => {
+    // Keep this toggle outside React state: pointer-up must return before any layout work.
     const dialog = dialogRef.current;
     const trigger = mobileTriggerRef.current;
     if (!dialog || dialog.dataset.open === "true") return;
