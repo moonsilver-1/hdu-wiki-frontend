@@ -2,7 +2,7 @@
 title: "Cursor 从零开始：安装、规则、模式与项目协作"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "cursor-getting-started"
 excerpt: "从安装、规则、Ask/Manual/Agent 模式到前后端项目协作，整理 Cursor 的新手路径。"
 tags: ["Cursor", "AI编程", "Rules", "Agent"]
 ---

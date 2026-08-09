@@ -2,7 +2,7 @@
 title: "AI 编程模型评测：版本与产品线历史样本（三）"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "ai-model-evaluation"
 excerpt: "整理模型评测资料中的后续版本与综合对比，所有排名和能力描述均为历史样本。"
 tags: ["AI编程", "模型评测", "大模型", "历史资料"]
 ---

@@ -2,7 +2,7 @@
 title: "其他 AI 编程工具：Kiro、Windsurf、AugmentCode、Qoder 与 Antigravity"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "other-ai-tools"
 excerpt: "整理 Kiro、Windsurf、AugmentCode、Qoder 和 Antigravity 的安装、模式、Rules、Skills 与使用建议。"
 tags: ["Kiro","Windsurf","AugmentCode","Qoder","Antigravity","AI编程"]
 ---

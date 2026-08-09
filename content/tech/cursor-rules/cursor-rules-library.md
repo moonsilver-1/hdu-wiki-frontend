@@ -2,7 +2,7 @@
 title: "Cursor Rules 实战库：把需求、代码风格和检查写进规则"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "cursor-rules"
 excerpt: "汇总常用 Cursor Rules 和准确率优化方法，并提醒哪些规则应该按项目裁剪。"
 tags: ["Cursor", "Rules", "代码规范", "工程实践"]
 ---

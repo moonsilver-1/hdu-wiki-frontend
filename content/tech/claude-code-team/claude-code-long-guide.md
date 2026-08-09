@@ -2,7 +2,7 @@
 title: "Claude Code 长篇参考：大型代码库与团队落地"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "claude-code-team"
 excerpt: "整理大型代码库、团队推广、治理、权限和长期维护方面的长篇参考内容。"
 tags: ["Claude Code", "大型项目", "团队协作", "治理"]
 ---

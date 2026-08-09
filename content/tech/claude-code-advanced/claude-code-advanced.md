@@ -2,7 +2,7 @@
 title: "Claude Code 进阶：模型配置、团队协作与扩展"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "claude-code-advanced"
 excerpt: "补充 Claude Code 的国产模型接入、CLAUDE.md、Skills、插件、Agent Teams、代码库协作和常用技巧。"
 tags: ["Claude Code", "CLAUDE.md", "Agent Teams", "Plugins", "AI编程"]
 ---

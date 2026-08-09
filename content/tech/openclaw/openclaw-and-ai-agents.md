@@ -2,7 +2,7 @@
 title: "OpenClaw 与 AI Agent：安装、飞书对接和日常自动化"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "openclaw"
 excerpt: "整理 OpenClaw、Moltbot、Hermes Agent 的安装、模型、身份文件、飞书与企业协作平台对接方法。"
 tags: ["OpenClaw","Moltbot","Hermes Agent","飞书","AI Agent"]
 ---
