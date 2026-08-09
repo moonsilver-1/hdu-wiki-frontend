@@ -1,7 +1,7 @@
 ---
-title: "HDUER FROM SHEEP TO GOAT（新版）"
+title: "把四年过明白：杭电本科生生存手册"
 date: "2026-08-09"
-author: "moonsilver, 09, 如山, TNHTH"
+author: "TNHTH"
 featured: false
 excerpt: "一份写给杭电本科生的生存指南，聊聊学业、保研、竞赛、科研、就业、选课和校园生活。"
 tags: ["新生指南", "学业", "保研", "竞赛", "科研", "就业", "选课", "校园生活"]
