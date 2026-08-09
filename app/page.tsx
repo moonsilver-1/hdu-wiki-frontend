@@ -337,7 +337,7 @@ export default async function Home({
               <p>Windows 原生应用，随时随地浏览杭电百科</p>
             </div>
             <a
-              href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/latest/download/hdu-wiki-desktop-setup.exe"
+              href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.1.0-desktop/hdu-wiki-desktop-setup.exe"
               target="_blank"
               rel="noreferrer"
               className="button button-primary"
