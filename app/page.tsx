@@ -3,7 +3,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpenCheck,
-  Download,
   GitFork,
 } from "lucide-react";
 import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors, type ArticleMeta } from "@/lib/content";
@@ -326,25 +325,6 @@ export default async function Home({
                 GitHub
               </a>
             </div>
-          </div>
-        </section>
-
-        <section className="home-section download-section">
-          <div className="site-container download-inner">
-            <div>
-              <span className="section-kicker">桌面客户端</span>
-              <h2>下载 HDU Wiki 桌面版</h2>
-              <p>Windows 原生应用，随时随地浏览杭电百科</p>
-            </div>
-            <a
-              href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.1.0-desktop/hdu-wiki-desktop-setup.exe"
-              target="_blank"
-              rel="noreferrer"
-              className="button button-primary"
-            >
-              <Download aria-hidden="true" size={17} />
-              下载 Windows 客户端
-            </a>
           </div>
         </section>
       </main>

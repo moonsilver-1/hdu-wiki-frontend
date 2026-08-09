@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Moon, PenSquare, Smartphone, Sun, TerminalSquare, X } from "lucide-react";
+import { Menu, Monitor, Moon, PenSquare, Smartphone, Sun, TerminalSquare, X } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import SearchButton from "./SearchButton";
@@ -75,6 +75,16 @@ export default function Header() {
           >
             <Smartphone aria-hidden="true" size={18} />
           </a>
+          <a
+            href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.1.0-desktop/hdu-wiki-desktop-setup.exe"
+            className="header-icon-button"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="下载桌面版"
+            title="下载桌面版"
+          >
+            <Monitor aria-hidden="true" size={18} />
+          </a>
           <ThemeToggle />
           <button
             type="button"
@@ -120,6 +130,15 @@ export default function Header() {
             >
               <Smartphone aria-hidden="true" size={17} />
               下载安卓 App
+            </a>
+            <a
+              href="https://github.com/moonsilver-1/hdu-wiki-frontend/releases/download/v0.1.0-desktop/hdu-wiki-desktop-setup.exe"
+              onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Monitor aria-hidden="true" size={17} />
+              下载桌面版
             </a>
           </div>
         </nav>
