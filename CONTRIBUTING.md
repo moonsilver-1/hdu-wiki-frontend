@@ -1,5 +1,7 @@
 # 为 HDU Wiki 贡献内容
 
+项目建设历史和后续记录规范见 [`docs/project-history.md`](docs/project-history.md)。
+
 ## Front Matter
 
 正文文件放在 `content/<category>/<section>/<slug>.md`，使用标准 Markdown Front Matter：
