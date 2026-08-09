@@ -1972,6 +1972,50 @@ input:focus-visible {
   grid-column: 1 / -1;
 }
 
+/* 二级系列（例如「AI 指导」下的 Claude Code、Cursor）：保留父系列的视觉层级，
+   同时让工具系列内部继续使用原来的 section 卡片布局。 */
+.category-subseries-group {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.category-subseries-group > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  color: var(--foreground);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.category-subseries-group > summary:hover {
+  background: var(--primary-light);
+}
+
+.category-subseries-group > summary small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.category-subseries-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.category-subseries-sections .category-section-group[open] {
+  grid-column: 1 / -1;
+}
+
 .category-section-group {
   min-height: 250px;
   display: flex;

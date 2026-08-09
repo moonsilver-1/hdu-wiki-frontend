@@ -608,6 +608,8 @@ const sidebarSectionOrder = [
   "engineering",
   "automation-learning",
   "tool-use",
+  "ai-guidance-general",
+  "ai-guidance-writing",
   "claude-code-getting-started",
   "claude-code-advanced",
   "claude-code-reference",
@@ -650,6 +652,7 @@ export interface ArticleSeriesNode {
   key: string;
   label: string;
   sections: ArticleSectionNode[];
+  children: ArticleSeriesNode[];
   isSeries: boolean;
 }
 
@@ -723,25 +726,59 @@ export function groupArticlesBySeries(articles: ArticleMeta[]): ArticleSeriesNod
   const consumed = new Set<string>();
   const result: ArticleSeriesNode[] = [];
 
+  const sectionByKey = new Map(sectionNodes.map((node) => [node.key.slice(4), node]));
+  const seriesBySlug = new Map(configuredSeries.map((series) => [series.slug, series]));
+  const building = new Set<string>();
+
+  const buildSeries = (seriesSlug: string): ArticleSeriesNode | null => {
+    const series = seriesBySlug.get(seriesSlug);
+    if (!series || building.has(seriesSlug)) return null;
+    building.add(seriesSlug);
+
+    const sections = series.sectionSlugs
+      .map((sectionSlug) => sectionByKey.get(sectionSlug))
+      .filter((section): section is ArticleSectionNode => Boolean(section));
+    for (const section of sections) consumed.add(section.key);
+
+    const children = configuredSeries
+      .filter((candidate) => candidate.parentSlug === series.slug)
+      .map((candidate) => buildSeries(candidate.slug))
+      .filter((child): child is ArticleSeriesNode => Boolean(child));
+
+    building.delete(seriesSlug);
+    if (sections.length === 0 && children.length === 0) return null;
+    return {
+      key: `series:${series.slug}`,
+      label: series.name,
+      sections,
+      children,
+      isSeries: true,
+    };
+  };
+
   for (const series of configuredSeries) {
-    const sections = sectionNodes.filter((node) => {
-      const section = node.key.slice(4);
-      const matches = series.sectionSlugs.includes(section);
-      if (matches) consumed.add(node.key);
-      return matches;
-    });
-    if (sections.length > 0) {
-      result.push({ key: `series:${series.slug}`, label: series.name, sections, isSeries: true });
+    if (!series.parentSlug || !seriesBySlug.has(series.parentSlug)) {
+      const node = buildSeries(series.slug);
+      if (node) result.push(node);
     }
   }
 
   for (const section of sectionNodes) {
     if (!consumed.has(section.key)) {
-      result.push({ key: section.key, label: section.label, sections: [section], isSeries: false });
+      result.push({ key: section.key, label: section.label, sections: [section], children: [], isSeries: false });
     }
   }
 
   return result;
+}
+
+export function countArticlesInSeries(node: ArticleSeriesNode): number {
+  const sectionCount = node.sections.reduce((count, section) => count + (
+    section.subgroups.length > 0
+      ? section.subgroups.reduce((total, subgroup) => total + subgroup.articles.length, 0)
+      : section.articles.length
+  ), 0);
+  return sectionCount + node.children.reduce((count, child) => count + countArticlesInSeries(child), 0);
 }
 
 const articleCache = new Map<string, CachedArticle>();

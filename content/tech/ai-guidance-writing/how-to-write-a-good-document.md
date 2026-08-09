@@ -2,7 +2,7 @@
 title: "如何写一个漂亮的技术文档"
 date: "2026-07-24"
 author: "moonsilver"
-section: "other"
+section: "ai-guidance-writing"
 excerpt: "怎么样用ai写一个看起来不那么人机的技术文档"
 tags: ["技术文档", "word", "latex", "ai写作"]
 ---
