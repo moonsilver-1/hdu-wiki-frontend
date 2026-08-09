@@ -7,6 +7,7 @@ import Sidebar from "@/components/Sidebar";
 import Toc from "@/components/Toc";
 import SearchHighlight from "@/components/SearchHighlight";
 import ArticleKeyboardNav from "@/components/ArticleKeyboardNav";
+import ArticleComments from "@/components/ArticleComments";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -105,8 +106,9 @@ export default async function ArticlePage({
         </header>
 
         <article id="article-content" className="wiki-content">
-          <div dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
+          <div id="article-content-body" dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
           <Suspense><SearchHighlight /></Suspense>
+          <ArticleComments category={category} slug={decodedSlug} />
         </article>
 
         {article.tags.length > 0 ? (
