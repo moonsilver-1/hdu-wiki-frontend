@@ -31,6 +31,11 @@ function scrollToHeading(id: string): void {
   window.history.replaceState(null, "", `#${encodeURIComponent(id)}`);
 }
 
+function scheduleHeadingScroll(id: string): void {
+  // Let the pointer/click event finish before changing scroll position or hash.
+  window.setTimeout(() => scrollToHeading(id), 0);
+}
+
 function chapterLabel(item: PositionedTocItem, index: number, total: number): string {
   const prefix = `${index + 1} / ${total}`;
   return item.parentText && item.level === 3 ? `${prefix} · ${item.parentText} / ${item.text}` : `${prefix} · ${item.text}`;
@@ -181,7 +186,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     if ((event.target as HTMLElement).closest("a")) return;
     const rect = event.currentTarget.getBoundingClientRect();
     const index = nearestReadingTocIndex(ratios, (event.clientY - rect.top) / Math.max(1, rect.height));
-    if (index >= 0) scrollToHeading(positionedItems[index].id);
+    if (index >= 0) scheduleHeadingScroll(positionedItems[index].id);
   };
 
   return (
@@ -208,7 +213,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
                 onBlur={() => setHoveredIndex(null)}
                 onClick={(event) => {
                   event.preventDefault();
-                  scrollToHeading(item.id);
+                  scheduleHeadingScroll(item.id);
                 }}
               />
             ))}
@@ -247,7 +252,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
         aria-modal="false"
         aria-label="文章目录"
         onClick={(event) => {
-          if (event.target === event.currentTarget) closeDirectory();
+          if (event.target === event.currentTarget) window.setTimeout(closeDirectory, 0);
         }}
       >
         <div className="reading-mobile-dialog-inner">
@@ -256,7 +261,12 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
               <small>文章目录</small>
               <strong>{Math.round(readingProgress * 100)}% 已读</strong>
             </div>
-            <button type="button" className="reading-mobile-close" aria-label="关闭文章目录" onClick={closeDirectory}>
+            <button
+              type="button"
+              className="reading-mobile-close"
+              aria-label="关闭文章目录"
+              onClick={() => window.setTimeout(closeDirectory, 0)}
+            >
               <X aria-hidden="true" size={18} />
             </button>
           </header>
@@ -269,8 +279,10 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
                 aria-current={activeIndex === index ? "location" : undefined}
                 onClick={(event) => {
                   event.preventDefault();
-                  closeDirectory();
-                  scrollToHeading(item.id);
+                  window.setTimeout(() => {
+                    closeDirectory();
+                    scrollToHeading(item.id);
+                  }, 0);
                 }}
               >
                 <span>{item.text}</span>
