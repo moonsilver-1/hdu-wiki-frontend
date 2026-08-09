@@ -67,7 +67,7 @@ export default function Header() {
         <div className="header-actions">
           <SearchButton variant="compact" />
           <a
-            href="https://ghproxy.net/https://github.com/moonsilver-1/dudu-app/releases/download/v1.0.2/dudu-release.apk"
+            href="https://github.com/moonsilver-1/dudu-app/releases/download/v1.0.3/dudu-release.apk"
             className="header-icon-button"
             download
             aria-label="下载安卓 App"
@@ -114,7 +114,7 @@ export default function Header() {
               我要投稿
             </Link>
             <a
-              href="https://ghproxy.net/https://github.com/moonsilver-1/dudu-app/releases/download/v1.0.2/dudu-release.apk"
+              href="https://github.com/moonsilver-1/dudu-app/releases/download/v1.0.3/dudu-release.apk"
               onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}
               download
             >
