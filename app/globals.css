@@ -560,6 +560,57 @@ input:focus-visible {
   line-height: 1.8;
 }
 
+/* 首页安卓 App 下载入口 */
+.hero-app-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.hero-app-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffffff, #e8f0ff);
+  color: #10264d;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.hero-app-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+}
+
+.hero-app-btn small {
+  color: #4a6299;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.hero-app-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #b9d1ff;
+  font-size: 13px;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 160ms ease;
+}
+
+.hero-app-source:hover {
+  opacity: 1;
+}
+
 .hero-popular {
   max-width: 680px;
   margin: 15px auto 0;
