@@ -4,7 +4,9 @@ import {
   getArticlesByCategory,
   getCategories,
   getFeaturedArticles,
+  countArticlesInSeries,
   groupArticlesBySeries,
+  type ArticleSeriesNode,
   type ArticleSectionNode,
 } from "@/lib/content";
 import CategoryIcon from "./CategoryIcon";
@@ -129,6 +131,31 @@ export default function Sidebar({
             );
           };
 
+          const seriesHasActiveArticle = (series: ArticleSeriesNode): boolean => (
+            series.sections.some((section) => (
+              section.articles.some((article) => article.slug === activeSlug)
+              || section.subgroups.some((group) => group.articles.some((article) => article.slug === activeSlug))
+            ))
+            || series.children.some(seriesHasActiveArticle)
+          );
+
+          const renderSeries = (series: ArticleSeriesNode, depth = 0): React.ReactNode => (
+            <details
+              key={series.key}
+              className={`sidebar-course-group${depth > 0 ? " sidebar-subseries-group" : ""}`}
+              open={depth === 0 || seriesHasActiveArticle(series)}
+            >
+              <summary>
+                <span>{series.label}</span>
+                <small>{countArticlesInSeries(series)}</small>
+              </summary>
+              <div className="sidebar-section-volumes">
+                {series.children.map((child) => renderSeries(child, depth + 1))}
+                {series.sections.map(renderSection)}
+              </div>
+            </details>
+          );
+
           return (
             <div key={category.slug} className="sidebar-group">
               <Link
@@ -141,19 +168,7 @@ export default function Sidebar({
               </Link>
               {isActive && articles.length > 0 ? (
                 <div className="sidebar-articles">
-                  {groups.map((group) => group.isSeries ? (
-                    <details key={group.key} className="sidebar-course-group" open>
-                      <summary>
-                        <span>{group.label}</span>
-                        <small>{group.sections.reduce((count, section) => count + (section.subgroups.length > 0
-                          ? section.subgroups.reduce((n, volume) => n + volume.articles.length, 0)
-                          : section.articles.length), 0)}</small>
-                      </summary>
-                      <div className="sidebar-section-volumes">
-                        {group.sections.map(renderSection)}
-                      </div>
-                    </details>
-                  ) : renderSection(group.sections[0]))}
+                  {groups.map((group) => group.isSeries ? renderSeries(group) : renderSection(group.sections[0]))}
                 </div>
               ) : null}
             </div>

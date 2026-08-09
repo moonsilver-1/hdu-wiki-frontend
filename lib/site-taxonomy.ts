@@ -9,6 +9,8 @@ export interface SiteSeries {
   slug: string;
   name: string;
   sectionSlugs: string[];
+  /** Optional parent series used to render a two-level taxonomy (for example AI 指导 → Claude Code). */
+  parentSlug?: string;
 }
 
 export interface SiteCategory {
@@ -47,6 +49,8 @@ export const siteTaxonomy: SiteCategory[] = [
       { slug: "engineering", name: "工程实践", contribute: true },
       { slug: "automation-learning", name: "自动化学习", contribute: true },
       { slug: "tool-use", name: "工具使用", contribute: true },
+      { slug: "ai-guidance-general", name: "AI 指导 · 通用方法", contribute: true },
+      { slug: "ai-guidance-writing", name: "AI 指导 · 写作与文档", contribute: true },
       { slug: "claude-code-getting-started", name: "Claude Code · 入门", contribute: true },
       { slug: "claude-code-advanced", name: "Claude Code · 进阶", contribute: true },
       { slug: "claude-code-reference", name: "Claude Code · 参考", contribute: true },
@@ -69,9 +73,11 @@ export const siteTaxonomy: SiteCategory[] = [
       { slug: "other", name: "其他", contribute: true },
     ],
     series: [
+      { slug: "ai-guidance", name: "AI 指导", sectionSlugs: [] },
       {
         slug: "claude-code",
         name: "Claude Code",
+        parentSlug: "ai-guidance",
         sectionSlugs: [
           "claude-code-getting-started",
           "claude-code-advanced",
@@ -79,10 +85,11 @@ export const siteTaxonomy: SiteCategory[] = [
           "claude-code-team",
         ],
       },
-      { slug: "codex", name: "Codex", sectionSlugs: ["codex"] },
+      { slug: "codex", name: "Codex", parentSlug: "ai-guidance", sectionSlugs: ["codex"] },
       {
         slug: "cursor",
         name: "Cursor",
+        parentSlug: "ai-guidance",
         sectionSlugs: [
           "cursor-getting-started",
           "cursor-rules",
@@ -92,18 +99,20 @@ export const siteTaxonomy: SiteCategory[] = [
           "cursor-versions",
         ],
       },
-      { slug: "trae", name: "Trae", sectionSlugs: ["trae"] },
+      { slug: "trae", name: "Trae", parentSlug: "ai-guidance", sectionSlugs: ["trae"] },
       {
         slug: "other-ai-tools",
         name: "其他 AI 工具",
+        parentSlug: "ai-guidance",
         sectionSlugs: ["other-ai-tools", "openclaw"],
       },
       {
-        slug: "ai-programming",
-        name: "通用 AI 编程",
-        sectionSlugs: ["ai-tools-comparison", "ai-workflows", "ai-model-evaluation"],
+        slug: "ai-general",
+        name: "通用 AI 指导",
+        parentSlug: "ai-guidance",
+        sectionSlugs: ["ai-guidance-general", "ai-guidance-writing", "ai-tools-comparison", "ai-workflows", "ai-model-evaluation"],
       },
-      { slug: "zcode", name: "ZCode", sectionSlugs: ["zcode"] },
+      { slug: "zcode", name: "ZCode", parentSlug: "ai-guidance", sectionSlugs: ["zcode"] },
     ],
   },
   {

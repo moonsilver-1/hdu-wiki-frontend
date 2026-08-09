@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import {
+  countArticlesInSeries,
   getArticlesByCategory,
   getCategories,
   getCategoryName,
   groupArticlesBySeries,
+  type ArticleSeriesNode,
   type ArticleSectionNode,
 } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -91,6 +94,23 @@ export default async function CategoryPage({
     </details>
   );
 
+  const renderSeries = (series: ArticleSeriesNode, depth = 0): ReactNode => (
+    <details
+      key={series.key}
+      className={depth === 0 ? "category-series-group" : "category-subseries-group"}
+      open
+    >
+      <summary>
+        <span>{series.label}</span>
+        <small>{countArticlesInSeries(series)}篇文章</small>
+      </summary>
+      <div className={depth === 0 ? "category-series-sections" : "category-subseries-sections"}>
+        {series.children.map((child) => renderSeries(child, depth + 1))}
+        {series.sections.map(renderSection)}
+      </div>
+    </details>
+  );
+
   return (
     <div className="site-container content-layout">
       <Sidebar activeCategory={category} />
@@ -117,19 +137,7 @@ export default async function CategoryPage({
           <div className="empty-state">暂无文章</div>
         ) : (
           <div className="category-section-grid">
-            {groups.map((group) => group.isSeries ? (
-              <details key={group.key} className="category-series-group" open>
-                <summary>
-                  <span>{group.label}</span>
-                  <small>{group.sections.reduce((count, section) => count + (section.subgroups.length > 0
-                    ? section.subgroups.reduce((n, volume) => n + volume.articles.length, 0)
-                    : section.articles.length), 0)}篇文章</small>
-                </summary>
-                <div className="category-series-sections">
-                  {group.sections.map(renderSection)}
-                </div>
-              </details>
-            ) : renderSection(group.sections[0]))}
+            {groups.map((group) => group.isSeries ? renderSeries(group) : renderSection(group.sections[0]))}
           </div>
         )}
       </main>

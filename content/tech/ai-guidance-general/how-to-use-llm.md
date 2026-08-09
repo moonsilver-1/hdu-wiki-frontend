@@ -2,7 +2,7 @@
 title: "AI使用指北"
 date: "2026-05-12"
 author: "09"
-section: "tool-use"
+section: "ai-guidance-general"
 excerpt: "如何高效使用AI工具，基本准则与最佳实践"
 tags: ["AI", "工具", "学习", "效率"]
 ---

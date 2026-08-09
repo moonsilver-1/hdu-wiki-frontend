@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { getArticlesByCategory, groupArticlesBySeries } from "../lib/content";
 import { siteTaxonomy } from "../lib/site-taxonomy";
 
 test("taxonomy has unique category and section slugs", () => {
@@ -26,6 +27,11 @@ test("tech groups AI tutorials by tool series and keeps subcategory order", () =
   assert.ok(tech);
 
   const series = new Map((tech.series ?? []).map((item) => [item.slug, item.sectionSlugs]));
+  assert.deepEqual(series.get("ai-guidance"), []);
+  assert.equal(tech.series?.find((item) => item.slug === "claude-code")?.parentSlug, "ai-guidance");
+  assert.equal(tech.series?.find((item) => item.slug === "codex")?.parentSlug, "ai-guidance");
+  assert.equal(tech.series?.find((item) => item.slug === "cursor")?.parentSlug, "ai-guidance");
+  assert.equal(tech.series?.find((item) => item.slug === "ai-general")?.parentSlug, "ai-guidance");
   assert.deepEqual(series.get("claude-code"), [
     "claude-code-getting-started",
     "claude-code-advanced",
@@ -42,4 +48,20 @@ test("tech groups AI tutorials by tool series and keeps subcategory order", () =
     "cursor-versions",
   ]);
   assert.deepEqual(series.get("trae"), ["trae"]);
+});
+
+test("tech renders one AI guidance parent with tool and general child series", () => {
+  const groups = groupArticlesBySeries(getArticlesByCategory("tech"));
+  const aiGuidance = groups.find((group) => group.key === "series:ai-guidance");
+  assert.ok(aiGuidance);
+  assert.deepEqual(aiGuidance.children.map((child) => child.label), [
+    "Claude Code",
+    "Codex",
+    "Cursor",
+    "Trae",
+    "其他 AI 工具",
+    "通用 AI 指导",
+    "ZCode",
+  ]);
+  assert.equal(aiGuidance.children.reduce((count, child) => count + child.sections.length, 0), 20);
 });
