@@ -40,7 +40,7 @@ const DANGEROUS_PATTERNS: { regex: RegExp; hint: string }[] = [
   { regex: /<object[\s>]/i, hint: "正文里检测到 <object> 标签" },
   { regex: /<embed[\s>]/i, hint: "正文里检测到 <embed> 标签" },
   { regex: /on\w+\s*=\s*["'`]/i, hint: "正文里检测到事件属性（如 onclick）" },
-  { regex: /javascript:\s*\S/i, hint: "正文里检测到 javascript: 脚本链接" },
+  { regex: /(?:javascript|data|vbscript):\s*\S/i, hint: "正文里检测到不安全链接协议" },
   // 图片：本站没有图片存储，外链图片会破图、可被第三方用于 IP 追踪，
   // <img> 还可能携带 onerror 注入。统一拦截 markdown 图片语法和 <img> 标签。
   { regex: /<img[\s>]/i, hint: "正文里检测到 <img> 图片标签（本站不支持图片）" },

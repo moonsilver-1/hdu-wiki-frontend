@@ -1,7 +1,8 @@
 "use client";
 
 import { useReducer, useEffect, useCallback } from "react";
-import type { FileTreeNode, BufferData, VimState } from "./types";
+import { useRouter } from "next/navigation";
+import type { FileTreeNode, BufferData } from "./types";
 import { bufferKey } from "./types";
 import { vimReducer, initialVimState } from "./vim-engine";
 import Tabline from "./Tabline";
@@ -13,21 +14,39 @@ import "./tokyo-night.css";
 
 export default function VimApp() {
   const [state, dispatch] = useReducer(vimReducer, undefined, initialVimState);
+  const router = useRouter();
 
   // Fetch file tree on mount
   useEffect(() => {
-    fetch("/api/search")
-      .then((r) => r.json())
-      .then((data: { category: string; slug: string; title: string }[]) => {
-        const tree = buildFileTree(data);
+    const controller = new AbortController();
+    fetch("/api/articles", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Article index unavailable");
+        return response.json() as Promise<{
+          articles?: { category: string; slug: string; title: string }[];
+        }>;
+      })
+      .then((data) => {
+        if (!Array.isArray(data.articles)) throw new Error("Invalid article index");
+        const tree = buildFileTree(data.articles);
         dispatch({ type: "SET_FILE_TREE", tree });
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error && error.name === "AbortError") return;
+        dispatch({ type: "SET_MESSAGE", message: "E500: Article index unavailable" });
       });
+    return () => controller.abort();
   }, []);
 
   // Handle pending actions (async side effects)
   useEffect(() => {
     const action = state.pendingAction;
     if (!action) return;
+    if (action.type === "EXIT") {
+      router.push("/");
+      return;
+    }
+    const controller = new AbortController();
 
     if (action.type === "OPEN_ARTICLE") {
       const key = bufferKey(action.category, action.slug);
@@ -40,13 +59,15 @@ export default function VimApp() {
       }
 
       fetch(
-        `/api/article?category=${encodeURIComponent(action.category)}&slug=${encodeURIComponent(action.slug)}`
+        `/api/article?category=${encodeURIComponent(action.category)}&slug=${encodeURIComponent(action.slug)}`,
+        { signal: controller.signal }
       )
         .then((r) => {
           if (!r.ok) throw new Error("Not found");
           return r.json();
         })
         .then((data) => {
+          if (controller.signal.aborted) return;
           const bufData: BufferData = {
             category: data.category,
             slug: data.slug,
@@ -58,11 +79,13 @@ export default function VimApp() {
           dispatch({ type: "CLEAR_PENDING_ACTION" });
         })
         .catch(() => {
+          if (controller.signal.aborted) return;
           dispatch({ type: "CLEAR_PENDING_ACTION" });
           dispatch({ type: "SET_MESSAGE", message: `E211: File not found: ${action.category}/${action.slug}` });
         });
     }
-  }, [state.pendingAction]);
+    return () => controller.abort();
+  }, [state.pendingAction, state.buffers, router]);
 
   // Keyboard handler
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -110,9 +133,6 @@ export default function VimApp() {
             <Buffer
               buffer={buffer}
               cursor={state.cursor}
-              topLine={state.topLine}
-              searchMatches={state.searchMatches}
-              currentMatchIndex={state.currentMatchIndex}
               dispatch={dispatch}
             />
           ) : (

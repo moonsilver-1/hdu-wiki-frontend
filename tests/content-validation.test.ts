@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { dateInShanghai, hasValidationErrors, validateArticleDocument, validateSubmissionFields } from "../lib/content-validation";
+import { markdownProcessor } from "../lib/content";
 
 test("new article requires title, date, author and excerpt", () => {
   const issues = validateArticleDocument({ body: "这是一段足够长的正文，用来通过正文长度检查。" });
@@ -23,6 +24,19 @@ test("H1, images and raw HTML are rejected outside fenced code", () => {
   assert.equal(issues.some((issue) => issue.code === "V012"), true);
   assert.equal(issues.some((issue) => issue.code === "V013"), true);
   assert.equal(issues.some((issue) => issue.code === "V014"), true);
+});
+
+test("unsafe link protocols are rejected and stripped by the renderer", async () => {
+  const issues = validateArticleDocument({
+    title: "链接安全测试文章",
+    date: "2026-08-08",
+    author: "TNHTH",
+    excerpt: "这是一个长度合适、用于测试不安全链接协议的文章摘要。",
+    body: "## 链接\n\n[危险链接](javascript:alert(1))\n",
+  });
+  assert.equal(issues.some((issue) => issue.code === "V017"), true);
+  const html = (await markdownProcessor.process("[危险链接](javascript:alert(1))")).toString();
+  assert.doesNotMatch(html, /javascript:/i);
 });
 
 test("Shanghai date uses local calendar day", () => {

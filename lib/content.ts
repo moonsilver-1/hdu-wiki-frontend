@@ -13,9 +13,33 @@ import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeParse from "rehype-parse";
 import { cache } from "react";
-import { categoryMap, sectionMap } from "@/lib/site-taxonomy";
+import { categoryMap, isValidCategory, sectionMap } from "@/lib/site-taxonomy";
 
 const contentDir = path.join(process.cwd(), "content");
+
+function rehypeSafeUrls() {
+  return (tree: unknown) => {
+    const visit = (node: unknown): void => {
+      if (!node || typeof node !== "object") return;
+      const element = node as {
+        type?: string;
+        tagName?: string;
+        properties?: Record<string, unknown>;
+        children?: unknown[];
+      };
+      if (element.type === "element" && element.properties) {
+        for (const property of ["href", "src"]) {
+          const value = element.properties[property];
+          if (typeof value === "string" && /^[\u0000-\u0020]*(?:javascript|data|vbscript):/i.test(value)) {
+            delete element.properties[property];
+          }
+        }
+      }
+      element.children?.forEach(visit);
+    };
+    visit(tree);
+  };
+}
 
 // Keep the parser configuration in one place so article pages and API consumers
 // produce the same HTML. Math is rendered on the server and is safe to inject
@@ -29,6 +53,7 @@ export const markdownProcessor = unified()
   .use(rehypeAutolinkHeadings, { behavior: "wrap" })
   .use(rehypeHighlight)
   .use(rehypeKatex, { throwOnError: false, strict: false })
+  .use(rehypeSafeUrls)
   .use(rehypeStringify);
 
 export interface ArticleMeta {
@@ -552,6 +577,7 @@ function readMarkdown(filePath: string): string {
 }
 
 function getArticleFile(category: string, slug: string): string | null {
+  if (!isValidCategory(category) || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
   return getMarkdownFiles(path.join(contentDir, category)).find(
     (candidate) => slugFromFilename(candidate) === slug
   ) ?? null;
@@ -709,6 +735,7 @@ async function getArticleUncached(
 export const getArticle = cache(getArticleUncached);
 
 export function getArticleSlugs(category: string): string[] {
+  if (!isValidCategory(category)) return [];
   const dir = path.join(contentDir, category);
   return getMarkdownFiles(dir)
     .map((filePath) => slugFromFilename(filePath))

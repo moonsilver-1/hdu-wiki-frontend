@@ -71,7 +71,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
 
   const updateReadingState = useCallback(() => {
     const article = document.getElementById(ARTICLE_CONTENT_ID);
-    if (!article || positionedItems.length === 0) return;
+    if (!article || decoratedItems.length === 0) return;
 
     const articleTop = article.getBoundingClientRect().top + window.scrollY;
     const articleHeight = article.scrollHeight;
@@ -80,7 +80,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     const articleRect = article.getBoundingClientRect();
     let nextActiveIndex = 0;
 
-    positionedItems.forEach((item, index) => {
+    decoratedItems.forEach((item, index) => {
       const heading = document.getElementById(item.id);
       if (!heading) return;
       const headingTop = heading.getBoundingClientRect().top + window.scrollY;
@@ -94,7 +94,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
         articleRect.top < window.innerHeight * 0.88 &&
         progress < 0.995
     );
-  }, [positionedItems]);
+  }, [decoratedItems]);
 
   const openDirectory = () => {
     // Keep this toggle outside React state: pointer-up must return before any layout work.
@@ -120,14 +120,17 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     if (items.length === 0) return;
 
     let frame = 0;
+    let disposed = false;
     const scheduleUpdate = () => {
-      if (frame) return;
+      if (disposed || frame) return;
       frame = window.requestAnimationFrame(() => {
         frame = 0;
+        if (disposed) return;
         updateReadingState();
       });
     };
     const handleResize = () => {
+      if (disposed) return;
       updateLayout();
       scheduleUpdate();
     };
@@ -136,6 +139,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     if (article) resizeObserver?.observe(article);
 
     const initialFrame = window.requestAnimationFrame(() => {
+      if (disposed) return;
       updateLayout();
       scheduleUpdate();
     });
@@ -144,6 +148,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     document.fonts?.ready.then(handleResize).catch(() => undefined);
 
     return () => {
+      disposed = true;
       window.cancelAnimationFrame(initialFrame);
       if (frame) window.cancelAnimationFrame(frame);
       resizeObserver?.disconnect();

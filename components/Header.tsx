@@ -82,16 +82,16 @@ export default function Header() {
               <Link
                 key={category.slug}
                 href={`/${category.slug}`}
-                onClick={() => setMenuOpen(false)}
+                onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}
               >
                 {category.name}
               </Link>
             ))}
-            <Link href="/vim" onClick={() => setMenuOpen(false)}>
+            <Link href="/vim" onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}>
               <TerminalSquare aria-hidden="true" size={17} />
               Vim 阅读模式
             </Link>
-            <Link href="/contribute" onClick={() => setMenuOpen(false)}>
+            <Link href="/contribute" onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}>
               <PenSquare aria-hidden="true" size={17} />
               我要投稿
             </Link>

@@ -324,8 +324,10 @@ export default function ContributeEditor() {
             type="button"
             className="button button-outline"
             onClick={() => {
-              setStatus("idle");
-              setResult(null);
+              window.setTimeout(() => {
+                setStatus("idle");
+                setResult(null);
+              }, 0);
             }}
           >
             再写一篇
@@ -502,6 +504,7 @@ export default function ContributeEditor() {
                 className="contribute-textarea"
                 value={body}
                 onChange={(event) => setBody(event.target.value)}
+                maxLength={60_000}
                 placeholder={"用上方工具栏插入格式、公式、表格……\n右侧会实时显示渲染效果。\n\n例如点「行间公式」插入一个积分模板。"}
                 required
               />

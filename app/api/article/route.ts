@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { getArticle } from "@/lib/content";
+import { isValidCategory } from "@/lib/site-taxonomy";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category");
   const slug = searchParams.get("slug");
 
-  if (!category || !slug) {
+  if (!category || !slug || !isValidCategory(category)) {
     return NextResponse.json({ error: "Missing category or slug" }, { status: 400 });
   }
 

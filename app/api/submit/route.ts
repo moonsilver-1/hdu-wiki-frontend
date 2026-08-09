@@ -1,38 +1,7 @@
 import { NextResponse } from "next/server";
 import { submitArticle, isDryRun } from "@/lib/contribute";
 import type { ContributeSubmission } from "@/lib/contribute-meta";
-
-const MAX_REQUEST_BYTES = 256 * 1024;
-
-async function readJsonBody(request: Request): Promise<Record<string, unknown>> {
-  const declaredLength = request.headers.get("content-length");
-  if (declaredLength && Number(declaredLength) > MAX_REQUEST_BYTES) {
-    throw new Error("REQUEST_TOO_LARGE");
-  }
-  if (request.headers.get("content-type")?.split(";")[0].trim().toLowerCase() !== "application/json") {
-    throw new Error("UNSUPPORTED_MEDIA_TYPE");
-  }
-
-  const reader = request.body?.getReader();
-  if (!reader) throw new Error("INVALID_JSON");
-  const chunks: Uint8Array[] = [];
-  let size = 0;
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      size += value.byteLength;
-      if (size > MAX_REQUEST_BYTES) throw new Error("REQUEST_TOO_LARGE");
-      chunks.push(value);
-    }
-  } finally {
-    reader.releaseLock();
-  }
-  const raw = new TextDecoder().decode(Buffer.concat(chunks.map((chunk) => Buffer.from(chunk))));
-  const parsed: unknown = JSON.parse(raw);
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("INVALID_JSON");
-  return parsed as Record<string, unknown>;
-}
+import { readJsonBody } from "@/lib/request-body";
 
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
