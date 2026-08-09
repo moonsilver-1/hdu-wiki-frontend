@@ -2,7 +2,7 @@
 title: "Claude Code 完整上手教程"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "claude-code-getting-started"
 excerpt: "从安装、模型配置到上下文、记忆、Skill、MCP、子 Agent、Hook 和插件，整理 Claude Code 的完整上手路径。"
 tags: ["Claude Code", "AI编程", "vibecoding", "Skill", "MCP"]
 ---

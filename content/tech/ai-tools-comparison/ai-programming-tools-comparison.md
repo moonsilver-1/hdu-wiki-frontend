@@ -2,7 +2,7 @@
 title: "AI 编程工具怎么选：Cursor、Trae、Claude Code、Codex 与开源工具"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "ai-tools-comparison"
 excerpt: "把多个 AI 编程工具的上手体验、适用场景、模型接入、工作流和历史评测放在一起，帮助你按任务选工具。"
 tags: ["AI编程","Cursor","Trae","Claude Code","Codex","OpenCode"]
 ---

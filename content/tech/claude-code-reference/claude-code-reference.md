@@ -2,7 +2,7 @@
 title: "Claude Code 参考手册：速记、配置与实践"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "claude-code-reference"
 excerpt: "收录 Claude Code 的速记、配置和工程实践参考，方便查命令、查规则、查协作方法。"
 tags: ["Claude Code", "参考", "CLAUDE.md", "AI编程"]
 ---
