@@ -4,8 +4,6 @@ import {
   ArrowUpRight,
   BookOpenCheck,
   GitFork,
-  Smartphone,
-  Download,
 } from "lucide-react";
 import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors, type ArticleMeta } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
@@ -114,28 +112,6 @@ export default async function Home({
           <h1>HDU Wiki</h1>
           <p className="hero-lead">我们期待能让杭电变得越来越好！！！</p>
           <SearchButton variant="hero" listenForShortcut={false} />
-
-          {/* 安卓 App 下载入口（ghproxy 加速，国内下载快） */}
-          <div className="hero-app-download">
-            <a
-              href="https://ghproxy.net/https://github.com/moonsilver-1/dudu-app/releases/download/v1.0.2/dudu-release.apk"
-              className="hero-app-btn"
-              download
-            >
-              <Smartphone aria-hidden="true" size={18} />
-              <span>下载安卓 App</span>
-              <small>41MB · 离线版</small>
-            </a>
-            <a
-              href="https://github.com/moonsilver-1/dudu-app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-app-source"
-            >
-              <Download aria-hidden="true" size={14} />
-              <span>源码 / 备用下载</span>
-            </a>
-          </div>
 
           <div className="hero-popular" aria-label="热门内容">
             <span>热门</span>
