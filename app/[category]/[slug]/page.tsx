@@ -104,7 +104,7 @@ export default async function ArticlePage({
           </div>
         </header>
 
-        <article className="wiki-content">
+        <article id="article-content" className="wiki-content">
           <div dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
           <Suspense><SearchHighlight /></Suspense>
         </article>
