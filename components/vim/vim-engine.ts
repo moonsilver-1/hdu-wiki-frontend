@@ -3,7 +3,6 @@ import {
   type VimAction,
   type SearchMatch,
   type FileTreeNode,
-  bufferKey,
 } from "./types";
 
 const VISIBLE_LINES = 40;
@@ -263,8 +262,7 @@ function executeCommand(state: VimState): VimState {
   const base: Partial<VimState> = { mode: "normal" as const, commandInput: "" };
 
   if (cmd === "q" || cmd === "q!") {
-    window.location.href = "/";
-    return { ...state, ...base };
+    return { ...state, ...base, pendingAction: { type: "EXIT" } };
   }
   if (cmd === "help") {
     return { ...state, ...base, showHelp: true, message: ":help - press F1 to close" };

@@ -70,6 +70,9 @@ export function validateArticleDocument(input: ContentDocumentInput, options?: {
     const withoutInlineCode = line.replace(/`[^`]*`/g, "");
     const htmlTag = /<\/?[A-Za-z][A-Za-z0-9-]*(?:\s[^<>]*)?\s*\/?\s*>/;
     if (htmlTag.test(withoutInlineCode) && !/<https?:\/\/[^>]+>/.test(withoutInlineCode)) issues.push(error("V014", "正文禁止 raw HTML", "改写为标准 Markdown 或代码块。"));
+    if (/\]\(\s*(?:javascript|data|vbscript):/i.test(withoutInlineCode)) {
+      issues.push(error("V017", "正文禁止不安全链接协议", "仅使用 https://、http:// 或站内锚点链接。"));
+    }
     const heading = /^(#{2,6})\s+/.exec(line);
     if (heading) {
       const level = heading[1].length;

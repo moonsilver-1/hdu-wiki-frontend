@@ -28,11 +28,9 @@ export interface SearchMatch {
 export type VimMode = "normal" | "command" | "search";
 export type FocusedPanel = "neo-tree" | "buffer";
 
-export interface PendingAction {
-  type: "OPEN_ARTICLE";
-  category: string;
-  slug: string;
-}
+export type PendingAction =
+  | { type: "OPEN_ARTICLE"; category: string; slug: string }
+  | { type: "EXIT" };
 
 export interface VimState {
   mode: VimMode;

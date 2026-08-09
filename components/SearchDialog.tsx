@@ -96,17 +96,22 @@ export default function SearchDialog({ open, onClose }: { open: boolean; onClose
 
   return (
     <div className="search-dialog-shell" role="dialog" aria-modal="true" aria-label="搜索 Wiki">
-      <button className="search-dialog-backdrop" onClick={onClose} aria-label="关闭搜索" />
+      <button className="search-dialog-backdrop" onClick={() => window.setTimeout(onClose, 0)} aria-label="关闭搜索" />
       <div className="search-dialog-panel">
         <div className="search-dialog-input-row">
           <Search aria-hidden="true" size={20} />
           <input ref={inputRef} type="search" value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={handleKeyDown} placeholder="搜索标题、摘要、标签或正文" aria-label="搜索标题、摘要、标签或正文" />
-          <button type="button" onClick={onClose} className="dialog-close" aria-label="关闭搜索"><X aria-hidden="true" size={18} /></button>
+          <button type="button" onClick={() => window.setTimeout(onClose, 0)} className="dialog-close" aria-label="关闭搜索"><X aria-hidden="true" size={18} /></button>
         </div>
         <div className="search-results-heading"><span>{query.trim() ? "搜索结果" : "最近收录"}</span>{loading ? <span>搜索中…</span> : query.trim() ? <span>{results.length} 条</span> : null}</div>
         <div className="search-results">
           {error ? <div className="search-empty">{error}</div> : !loading && results.length === 0 ? <div className="search-empty">未找到相关内容</div> : results.map((item) => (
-            <Link key={`${item.category}-${item.slug}`} href={`/${item.category}/${item.slug}?q=${encodeURIComponent(query.trim())}`} onClick={onClose} className="search-result">
+            <Link
+              key={`${item.category}-${item.slug}`}
+              href={`/${item.category}/${item.slug}?q=${encodeURIComponent(query.trim())}`}
+              onClick={() => window.setTimeout(onClose, 0)}
+              className="search-result"
+            >
               <span className={`search-result-category category-${item.category}`}>{categoryNames[item.category] ?? item.category}</span>
               <span className="search-result-copy"><strong>{highlight(item.title, query)}</strong><span>{highlight(item.snippet || item.excerpt, query)}</span></span>
               <ArrowUpRight aria-hidden="true" size={17} />

@@ -1,14 +1,11 @@
 "use client";
 
 import { useMemo, useEffect, useRef } from "react";
-import type { BufferData, SearchMatch, VimAction } from "./types";
+import type { BufferData, VimAction } from "./types";
 
 interface BufferProps {
   buffer: BufferData;
   cursor: { line: number; col: number };
-  topLine: number;
-  searchMatches: SearchMatch[];
-  currentMatchIndex: number;
   dispatch: React.Dispatch<VimAction>;
 }
 
@@ -46,7 +43,7 @@ function parseHtmlToLines(html: string): ParsedLine[] {
   return lines;
 }
 
-export default function Buffer({ buffer, cursor, topLine, searchMatches, currentMatchIndex, dispatch }: BufferProps) {
+export default function Buffer({ buffer, cursor, dispatch }: BufferProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -66,17 +63,6 @@ export default function Buffer({ buffer, cursor, topLine, searchMatches, current
       el.scrollIntoView({ block: "center", behavior: "instant" as ScrollBehavior });
     }
   }, [cursor.line]);
-
-  // Build search match lookup
-  const matchLookup = useMemo(() => {
-    const lookup: Record<number, { matches: SearchMatch[]; hasCurrent: boolean }> = {};
-    searchMatches.forEach((m, i) => {
-      if (!lookup[m.line]) lookup[m.line] = { matches: [], hasCurrent: false };
-      lookup[m.line].matches.push(m);
-      if (i === currentMatchIndex) lookup[m.line].hasCurrent = true;
-    });
-    return lookup;
-  }, [searchMatches, currentMatchIndex]);
 
   return (
     <div ref={containerRef} className="vim-buffer vim-scroll flex-1 overflow-y-auto">

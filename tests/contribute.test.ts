@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { buildMarkdownFile, containsDangerousHtml, submitArticle } from "../lib/contribute";
 import { POST as submitRoute } from "../app/api/submit/route";
+import { POST as previewRoute } from "../app/api/preview/route";
+import { GET as articleRoute } from "../app/api/article/route";
 
 const submission = {
   title: "测试投稿文章",
@@ -34,6 +36,20 @@ test("submit API rejects bodies larger than 256 KiB", async () => {
   assert.equal(response.status, 413);
 });
 
+test("preview API rejects oversized markdown before parsing", async () => {
+  const response = await previewRoute(new Request("https://example.test/api/preview", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ body: "x".repeat(60_001) }),
+  }));
+  assert.equal(response.status, 413);
+});
+
+test("article API rejects traversal categories", async () => {
+  const response = await articleRoute(new Request("https://example.test/api/article?category=..%2F..&slug=package"));
+  assert.equal(response.status, 400);
+});
+
 test("dry-run uses Shanghai calendar date", async () => {
   const oldDryRun = process.env.CONTRIBUTE_DRY_RUN;
   const oldToken = process.env.GITHUB_TOKEN;
@@ -57,7 +73,7 @@ async function assertCleanup(sequence: Response[]) {
   const oldDryRun = process.env.CONTRIBUTE_DRY_RUN;
   process.env.GITHUB_TOKEN = "test-token";
   delete process.env.CONTRIBUTE_DRY_RUN;
-  const calls: RequestInfo[] = [];
+  const calls: (RequestInfo | URL)[] = [];
   globalThis.fetch = async (input) => {
     calls.push(input);
     return sequence.shift() ?? new Response("", { status: 500 });
