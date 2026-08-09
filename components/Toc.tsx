@@ -38,7 +38,7 @@ function chapterLabel(item: PositionedTocItem, index: number, total: number): st
 
 export default function Toc({ items }: { items: ReadingTocItem[] }) {
   const decoratedItems = useMemo(() => decorateReadingToc(items), [items]);
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const mobileTriggerRef = useRef<HTMLButtonElement>(null);
   const [positionedItems, setPositionedItems] = useState<PositionedTocItem[]>(() =>
     decoratedItems.map((item, index) => ({ ...item, ratio: getFallbackRatio(index, decoratedItems.length) }))
@@ -47,7 +47,6 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [readingProgress, setReadingProgress] = useState(0);
   const [isReading, setIsReading] = useState(false);
-  const [isDirectoryOpen, setIsDirectoryOpen] = useState(false);
 
   const updateLayout = useCallback(() => {
     const article = document.getElementById(ARTICLE_CONTENT_ID);
@@ -92,6 +91,26 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     );
   }, [positionedItems]);
 
+  const openDirectory = () => {
+    // Keep this toggle outside React state: pointer-up must return before any layout work.
+    const dialog = dialogRef.current;
+    const trigger = mobileTriggerRef.current;
+    if (!dialog || dialog.dataset.open === "true") return;
+    dialog.dataset.open = "true";
+    dialog.setAttribute("aria-hidden", "false");
+    trigger?.setAttribute("aria-expanded", "true");
+  };
+
+  const closeDirectory = () => {
+    const dialog = dialogRef.current;
+    const trigger = mobileTriggerRef.current;
+    if (!dialog || dialog.dataset.open !== "true") return;
+    delete dialog.dataset.open;
+    dialog.setAttribute("aria-hidden", "true");
+    trigger?.setAttribute("aria-expanded", "false");
+    trigger?.focus();
+  };
+
   useEffect(() => {
     if (items.length === 0) return;
 
@@ -129,28 +148,15 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
   }, [items.length, updateLayout, updateReadingState]);
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    const restoreFocus = () => {
-      setIsDirectoryOpen(false);
-      mobileTriggerRef.current?.focus();
-    };
-    dialog.addEventListener("close", restoreFocus);
-    return () => dialog.removeEventListener("close", restoreFocus);
-  }, []);
-
-  useEffect(() => {
-    if (!isDirectoryOpen) return;
-
     const handleOutsidePointer = (event: PointerEvent) => {
+      if (dialogRef.current?.dataset.open !== "true") return;
       const target = event.target as Node | null;
       if (dialogRef.current?.contains(target) || mobileTriggerRef.current?.contains(target)) return;
-      dialogRef.current?.close();
+      closeDirectory();
     };
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") dialogRef.current?.close();
+      if (event.key === "Escape" && dialogRef.current?.dataset.open === "true") closeDirectory();
     };
 
     document.addEventListener("pointerdown", handleOutsidePointer);
@@ -159,7 +165,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
       document.removeEventListener("pointerdown", handleOutsidePointer);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [isDirectoryOpen]);
+  }, []);
 
   if (items.length === 0) return null;
 
@@ -177,15 +183,6 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
     const index = nearestReadingTocIndex(ratios, (event.clientY - rect.top) / Math.max(1, rect.height));
     if (index >= 0) scrollToHeading(positionedItems[index].id);
   };
-
-  const openDirectory = () => {
-    if (!dialogRef.current?.open) {
-      dialogRef.current?.show();
-      setIsDirectoryOpen(true);
-    }
-  };
-
-  const closeDirectory = () => dialogRef.current?.close();
 
   return (
     <aside className="toc-sidebar" aria-label="文章章节导航">
@@ -230,7 +227,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
             className="reading-rail-toggle"
             type="button"
             aria-haspopup="dialog"
-            aria-expanded={isDirectoryOpen}
+            aria-expanded="false"
             aria-label={`打开文章目录，当前章节：${activeItem?.text ?? "未开始"}`}
             title={activeItem?.text ?? "文章目录"}
             onClick={openDirectory}
@@ -242,14 +239,13 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
         ) : null}
       </div>
 
-      <dialog
+      <div
         ref={dialogRef}
         className="reading-mobile-dialog"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="false"
         aria-label="文章目录"
-        onCancel={(event) => {
-          event.preventDefault();
-          closeDirectory();
-        }}
         onClick={(event) => {
           if (event.target === event.currentTarget) closeDirectory();
         }}
@@ -283,7 +279,7 @@ export default function Toc({ items }: { items: ReadingTocItem[] }) {
             ))}
           </nav>
         </div>
-      </dialog>
+      </div>
     </aside>
   );
 }
