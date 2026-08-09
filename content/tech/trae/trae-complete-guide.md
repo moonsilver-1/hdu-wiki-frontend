@@ -2,7 +2,7 @@
 title: "Trae 完整教程：从入门、Rules 到 Solo 与 Skills"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "trae"
 excerpt: "整理 Trae 的安装、Rules、MCP、上下文、Solo、Plan、SubAgents 和 Skills 使用方法。"
 tags: ["Trae","Trae Solo","Rules","Skills","MCP","AI编程"]
 ---

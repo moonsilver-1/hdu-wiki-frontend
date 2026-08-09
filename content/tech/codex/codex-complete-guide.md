@@ -2,7 +2,7 @@
 title: "Codex 完整教程：从安装、工作区到 App、插件与子代理"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "codex"
 excerpt: "整理 Codex 的基础操作、工作区、App、Goal、Subagents、插件和项目实战方法，并区分历史功能与当前版本。"
 tags: ["Codex","OpenAI","AI编程","Subagents","Plugins"]
 ---

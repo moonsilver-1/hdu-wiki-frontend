@@ -2,7 +2,7 @@
 title: "Cursor 小程序实战：从需求到前后端联调"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "cursor-miniprogram"
 excerpt: "整理用 Cursor 开发微信小程序的需求、备案、界面、后端和联调流程。"
 tags: ["Cursor", "微信小程序", "前后端", "项目实战"]
 ---

@@ -2,7 +2,7 @@
 title: "AI 编程工作流：Spec、Rules、GSD、TDD 与持续执行"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "ai-workflows"
 excerpt: "整理规范驱动、Rules、GSD、TDD、Loop Engineering、截图转界面和 Codex Review 等可复用工作流。"
 tags: ["AI编程", "工作流", "Spec", "TDD", "GSD"]
 ---

@@ -2,7 +2,7 @@
 title: "Cursor 版本与功能变化：如何判断要不要升级"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "cursor-versions"
 excerpt: "汇总 Cursor 版本解读、@folders、Composer、Cloud Agents 与功能变化，区分历史信息和当前判断。"
 tags: ["Cursor", "版本", "Cloud Agents", "AI编程"]
 ---

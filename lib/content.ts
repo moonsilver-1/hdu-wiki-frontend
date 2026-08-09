@@ -599,8 +599,36 @@ export function sortArticles(articles: ArticleMeta[]): ArticleMeta[] {
   });
 }
 
-// 分组顺序：先按既有的 section 顺序（fundamentals、deep-learning、algorithm 等）。
-const sidebarSectionOrder = ["fundamentals", "deep-learning", "algorithm"];
+// 分组顺序：课程先按既有的课程入口展示，技术文章再按工具系列展示。
+// 工具系列内部的 section 顺序由 site-taxonomy.ts 中的 sectionSlugs 决定。
+const sidebarSectionOrder = [
+  "fundamentals",
+  "deep-learning",
+  "algorithm",
+  "engineering",
+  "automation-learning",
+  "tool-use",
+  "claude-code-getting-started",
+  "claude-code-advanced",
+  "claude-code-reference",
+  "claude-code-team",
+  "codex",
+  "cursor-getting-started",
+  "cursor-rules",
+  "cursor-framework",
+  "cursor-practice",
+  "cursor-miniprogram",
+  "cursor-versions",
+  "trae",
+  "other-ai-tools",
+  "openclaw",
+  "ai-tools-comparison",
+  "ai-workflows",
+  "ai-model-evaluation",
+  "zcode",
+  "vibecoding",
+  "other",
+];
 
 export interface ArticleGroup {
   key: string;

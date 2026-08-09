@@ -2,7 +2,7 @@
 title: "Cursor 框架规则库：Vue 3、Spring Boot 与项目文档"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "cursor-framework"
 excerpt: "把 Vue 3、Spring Boot 和后端项目文档整理成可直接改写的 Cursor 规则模板。"
 tags: ["Cursor", "Vue", "Spring Boot", "Rules"]
 ---

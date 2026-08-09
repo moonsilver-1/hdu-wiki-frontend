@@ -20,3 +20,26 @@ test("courses exposes one from-zero series containing both learning tracks", () 
     sectionSlugs: ["deep-learning", "algorithm"],
   }]);
 });
+
+test("tech groups AI tutorials by tool series and keeps subcategory order", () => {
+  const tech = siteTaxonomy.find((category) => category.slug === "tech");
+  assert.ok(tech);
+
+  const series = new Map((tech.series ?? []).map((item) => [item.slug, item.sectionSlugs]));
+  assert.deepEqual(series.get("claude-code"), [
+    "claude-code-getting-started",
+    "claude-code-advanced",
+    "claude-code-reference",
+    "claude-code-team",
+  ]);
+  assert.deepEqual(series.get("codex"), ["codex"]);
+  assert.deepEqual(series.get("cursor"), [
+    "cursor-getting-started",
+    "cursor-rules",
+    "cursor-framework",
+    "cursor-practice",
+    "cursor-miniprogram",
+    "cursor-versions",
+  ]);
+  assert.deepEqual(series.get("trae"), ["trae"]);
+});

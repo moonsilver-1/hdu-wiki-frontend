@@ -2,7 +2,7 @@
 title: "Cursor 项目实战：从 0 到 1 的开发方法"
 date: "2026-08-09"
 author: "TNHTH"
-section: "vibecoding"
+section: "cursor-practice"
 excerpt: "整理大型项目、全流程开发、Java 接口、调试和实战案例中的通用方法。"
 tags: ["Cursor", "项目实战", "Java", "工程实践"]
 ---
