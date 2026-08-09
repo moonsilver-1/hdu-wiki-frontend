@@ -51,3 +51,24 @@ findings.md
 progress.md
 task.md
 wechat-article/
+
+# editor / IDE 本地配置
+*.code-workspace
+.idea/
+.vscode/
+*.swp
+
+# 临时/草稿文件
+.unspl_*.txt
+*.tmp
+*.bak
+unsplash-*
+
+# 日志
+*.log
+
+# 操作系统
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
