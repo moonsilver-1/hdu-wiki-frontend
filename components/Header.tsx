@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Menu, Moon, PenSquare, Sun, TerminalSquare, X } from "lucide-react";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import SearchButton from "./SearchButton";
 import { useTheme } from "./ThemeProvider";
 
@@ -36,6 +37,8 @@ function ThemeToggle() {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === null || pathname === "/";
 
   return (
     <header className="site-header">
@@ -45,6 +48,7 @@ export default function Header() {
         </Link>
 
         <nav className="desktop-nav" aria-label="主导航">
+          {!isHome ? <Link href="/" className="home-nav-link">HOME</Link> : null}
           {categories.map((category) => (
             <Link key={category.slug} href={`/${category.slug}`}>
               {category.name}
@@ -78,6 +82,11 @@ export default function Header() {
       {menuOpen ? (
         <nav className="mobile-nav" aria-label="移动端导航">
           <div className="site-container">
+            {!isHome ? (
+              <Link href="/" className="home-nav-link" onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}>
+                HOME
+              </Link>
+            ) : null}
             {categories.map((category) => (
               <Link
                 key={category.slug}

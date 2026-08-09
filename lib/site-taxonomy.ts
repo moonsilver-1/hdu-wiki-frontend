@@ -5,10 +5,17 @@ export interface SiteSection {
   contribute: boolean;
 }
 
+export interface SiteSeries {
+  slug: string;
+  name: string;
+  sectionSlugs: string[];
+}
+
 export interface SiteCategory {
   slug: string;
   name: string;
   sections: SiteSection[];
+  series?: SiteSeries[];
 }
 
 export const siteTaxonomy: SiteCategory[] = [
@@ -19,6 +26,9 @@ export const siteTaxonomy: SiteCategory[] = [
       { slug: "deep-learning", name: "从零开始学深度学习", contribute: false },
       { slug: "algorithm", name: "从零开始学算法", contribute: false },
       { slug: "fundamentals", name: "基础课程", contribute: true },
+    ],
+    series: [
+      { slug: "from-zero", name: "从零开始学", sectionSlugs: ["deep-learning", "algorithm"] },
     ],
   },
   {
@@ -67,6 +77,10 @@ export function getSiteCategory(slug: string): SiteCategory | undefined {
 
 export function getSiteSection(categorySlug: string, sectionSlug: string): SiteSection | undefined {
   return getSiteCategory(categorySlug)?.sections.find((section) => section.slug === sectionSlug);
+}
+
+export function getSiteSeries(categorySlug: string): SiteSeries[] {
+  return getSiteCategory(categorySlug)?.series ?? [];
 }
 
 export function isValidCategory(slug: string): boolean {

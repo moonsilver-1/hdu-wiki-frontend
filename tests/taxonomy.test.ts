@@ -10,3 +10,13 @@ test("taxonomy has unique category and section slugs", () => {
     assert.equal(new Set(sections).size, sections.length, category.slug);
   }
 });
+
+test("courses exposes one from-zero series containing both learning tracks", () => {
+  const courses = siteTaxonomy.find((category) => category.slug === "courses");
+  assert.ok(courses);
+  assert.deepEqual(courses.series, [{
+    slug: "from-zero",
+    name: "从零开始学",
+    sectionSlugs: ["deep-learning", "algorithm"],
+  }]);
+});

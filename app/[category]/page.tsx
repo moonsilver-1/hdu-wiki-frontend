@@ -5,7 +5,8 @@ import {
   getArticlesByCategory,
   getCategories,
   getCategoryName,
-  groupArticlesForDisplay,
+  groupArticlesBySeries,
+  type ArticleSectionNode,
 } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
 import CategoryArticleCard from "@/components/CategoryArticleCard";
@@ -43,7 +44,52 @@ export default async function CategoryPage({
 
   const categoryName = getCategoryName(category);
   const articles = getArticlesByCategory(category);
-  const groups = groupArticlesForDisplay(articles);
+  const groups = groupArticlesBySeries(articles);
+
+  const renderSection = (sectionNode: ArticleSectionNode) => (
+    <details key={sectionNode.key} className="category-section-group">
+      <summary>
+        <span>{sectionNode.label}</span>
+        <small>
+          {(sectionNode.subgroups.length > 0
+            ? sectionNode.subgroups.reduce((n, g) => n + g.articles.length, 0)
+            : sectionNode.articles.length
+          ) + "篇文章"}
+        </small>
+      </summary>
+      {sectionNode.subgroups.length > 0 ? (
+        <div className="category-volume-grid">
+          {sectionNode.subgroups.map((group) => (
+            <details key={group.key} className="category-volume-group">
+              <summary>
+                <span>{group.label}</span>
+                <small>{group.articles.length}篇</small>
+              </summary>
+              <div className="category-article-grid category-section-articles">
+                {group.articles.map((article) => (
+                  <CategoryArticleCard
+                    key={article.slug}
+                    article={article}
+                    category={category}
+                  />
+                ))}
+              </div>
+            </details>
+          ))}
+        </div>
+      ) : (
+        <div className="category-article-grid category-section-articles">
+          {sectionNode.articles.map((article) => (
+            <CategoryArticleCard
+              key={article.slug}
+              article={article}
+              category={category}
+            />
+          ))}
+        </div>
+      )}
+    </details>
+  );
 
   return (
     <div className="site-container content-layout">
@@ -71,50 +117,19 @@ export default async function CategoryPage({
           <div className="empty-state">暂无文章</div>
         ) : (
           <div className="category-section-grid">
-            {groups.map((sectionNode) => (
-              <details key={sectionNode.key} className="category-section-group">
+            {groups.map((group) => group.isSeries ? (
+              <details key={group.key} className="category-series-group" open>
                 <summary>
-                  <span>{sectionNode.label}</span>
-                  <small>
-                    {(sectionNode.subgroups.length > 0
-                      ? sectionNode.subgroups.reduce((n, g) => n + g.articles.length, 0)
-                      : sectionNode.articles.length
-                    ) + "篇文章"}
-                  </small>
+                  <span>{group.label}</span>
+                  <small>{group.sections.reduce((count, section) => count + (section.subgroups.length > 0
+                    ? section.subgroups.reduce((n, volume) => n + volume.articles.length, 0)
+                    : section.articles.length), 0)}篇文章</small>
                 </summary>
-                {sectionNode.subgroups.length > 0 ? (
-                  <div className="category-volume-grid">
-                    {sectionNode.subgroups.map((group) => (
-                      <details key={group.key} className="category-volume-group">
-                        <summary>
-                          <span>{group.label}</span>
-                          <small>{group.articles.length}篇</small>
-                        </summary>
-                        <div className="category-article-grid category-section-articles">
-                          {group.articles.map((article) => (
-                            <CategoryArticleCard
-                              key={article.slug}
-                              article={article}
-                              category={category}
-                            />
-                          ))}
-                        </div>
-                      </details>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="category-article-grid category-section-articles">
-                    {sectionNode.articles.map((article) => (
-                      <CategoryArticleCard
-                        key={article.slug}
-                        article={article}
-                        category={category}
-                      />
-                    ))}
-                  </div>
-                )}
+                <div className="category-series-sections">
+                  {group.sections.map(renderSection)}
+                </div>
               </details>
-            ))}
+            ) : renderSection(group.sections[0]))}
           </div>
         )}
       </main>

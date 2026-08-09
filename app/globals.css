@@ -200,6 +200,14 @@ input:focus-visible {
   background: var(--surface);
 }
 
+.home-nav-link {
+  color: var(--primary) !important;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.06em;
+}
+
 .vim-link {
   font-family: var(--font-geist-mono), monospace;
 }
@@ -1914,6 +1922,54 @@ input:focus-visible {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 15px;
   margin-top: 28px;
+}
+
+/* Course series grouping */
+.category-series-group {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-raised);
+}
+
+.category-series-group > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 760;
+  list-style-position: inside;
+}
+
+.category-series-group > summary:hover {
+  background: var(--primary-light);
+}
+
+.category-series-group > summary small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.category-series-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.category-series-sections .category-section-group {
+  min-height: 220px;
+}
+
+.category-series-sections .category-section-group[open] {
+  grid-column: 1 / -1;
 }
 
 .category-section-group {
@@ -3753,4 +3809,83 @@ mark.search-highlight.search-highlight-fade {
 
 .toc-sidebar {
   pointer-events: auto;
+}
+
+.article-comment-note { color: var(--muted); font-size: 11px; line-height: 1.5; }
+.article-comment-compose textarea {
+  display: block;
+  width: 100%;
+  resize: vertical;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  outline: 0;
+  color: var(--foreground);
+  background: var(--surface);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.article-comment-compose textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-light); }
+.article-comment-compose-footer { display: flex; align-items: center; gap: 7px; padding-top: 8px; }
+.article-comment-compose-footer small { color: var(--muted); font-size: 10px; }
+.article-comment-compose-footer span { color: #c04444; font-size: 10px; }
+.article-comment-compose-footer > button { padding: 5px 11px; border: 0; border-radius: 6px; color: white; background: var(--primary); cursor: pointer; font-size: 11px; font-weight: 700; }
+.article-comment-popover { width: min(290px, calc(100vw - 20px)); pointer-events: auto; }
+.article-comment-note-body { color: var(--foreground); font-size: 13px; line-height: 1.6; }
+.article-comment-popover > small { display: block; overflow: hidden; color: var(--muted); font-size: 10px; line-height: 1.45; text-overflow: ellipsis; white-space: nowrap; }
+
+.article-comment-highlight { background: #ffe58f; cursor: pointer; }
+.article-comment-highlight:hover,
+.article-comment-highlight:focus-visible { outline: 2px solid var(--primary); background: #ffd45c; }
+.dark .article-comment-highlight { background: #6b561b; }
+
+.article-comment-compose,
+.article-comment-popover {
+  position: fixed;
+  z-index: 80;
+  width: min(320px, calc(100vw - 20px));
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--foreground);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-lg);
+}
+
+.article-comment-compose header,
+.article-comment-popover header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.article-comment-compose header strong,
+.article-comment-popover header strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-size: 12px;
+}
+
+.article-comment-compose header button,
+.article-comment-popover header button {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+}
+
+.article-comment-compose header button:hover,
+.article-comment-popover header button:hover {
+  color: var(--primary);
+  background: var(--primary-light);
 }

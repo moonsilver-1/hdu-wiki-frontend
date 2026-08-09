@@ -13,7 +13,7 @@ import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeParse from "rehype-parse";
 import { cache } from "react";
-import { categoryMap, isValidCategory, sectionMap } from "@/lib/site-taxonomy";
+import { categoryMap, getSiteSeries, isValidCategory, sectionMap } from "@/lib/site-taxonomy";
 
 const contentDir = path.join(process.cwd(), "content");
 
@@ -618,6 +618,13 @@ export interface ArticleSectionNode {
   order: number;
 }
 
+export interface ArticleSeriesNode {
+  key: string;
+  label: string;
+  sections: ArticleSectionNode[];
+  isSeries: boolean;
+}
+
 // 把文章分成两级：第一级是 section（深度学习课程归为 "deep-learning" 这个大标题，
 // 名字是「从零开始学深度学习」）；第二级是该 section 内的子分组——深度学习课程的子组是各卷，
 // 其余 section 没有子组，文章直接挂在一级节点上。供侧边栏与分类页共用。
@@ -675,6 +682,38 @@ export function groupArticlesForDisplay(articles: ArticleMeta[]): ArticleSection
       return { key: `sec:${section}`, label, articles: topArticles, subgroups, order };
     })
     .sort((nodeA, nodeB) => nodeA.order - nodeB.order || nodeA.label.localeCompare(nodeB.label, "zh-CN"));
+}
+
+/**
+ * 将 taxonomy 中声明的课程系列显示为一级入口。
+ * 文章仍然保留原来的 section、卷号和 URL，只改变分类页与侧边栏的展示层级。
+ */
+export function groupArticlesBySeries(articles: ArticleMeta[]): ArticleSeriesNode[] {
+  const sectionNodes = groupArticlesForDisplay(articles);
+  const category = articles[0]?.category;
+  const configuredSeries = category ? getSiteSeries(category) : [];
+  const consumed = new Set<string>();
+  const result: ArticleSeriesNode[] = [];
+
+  for (const series of configuredSeries) {
+    const sections = sectionNodes.filter((node) => {
+      const section = node.key.slice(4);
+      const matches = series.sectionSlugs.includes(section);
+      if (matches) consumed.add(node.key);
+      return matches;
+    });
+    if (sections.length > 0) {
+      result.push({ key: `series:${series.slug}`, label: series.name, sections, isSeries: true });
+    }
+  }
+
+  for (const section of sectionNodes) {
+    if (!consumed.has(section.key)) {
+      result.push({ key: section.key, label: section.label, sections: [section], isSeries: false });
+    }
+  }
+
+  return result;
 }
 
 const articleCache = new Map<string, CachedArticle>();
