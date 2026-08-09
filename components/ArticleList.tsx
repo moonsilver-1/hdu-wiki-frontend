@@ -82,7 +82,7 @@ export default function ArticleList({
 
   return (
     <>
-      <div className="article-grid" id="article-list">
+      <div className="article-grid" id="article-list" data-list-mode="progressive">
         {visibleArticles.map((article) => (
           <ArticleCard
             key={`${article.category}-${article.slug}`}
@@ -93,14 +93,14 @@ export default function ArticleList({
       </div>
 
       {articles.length > 0 ? (
-        <div className="article-list-controls">
-          <p className="article-list-count" aria-live="polite">
+        <div className="recent-tools article-list-controls">
+          <span className="section-link article-list-count" aria-live="polite">
             已显示 {visibleArticles.length} / {articles.length} 篇
-          </p>
+          </span>
           {remainingCount > 0 ? (
             <button
               type="button"
-              className="article-load-more"
+              className="button button-light article-load-more"
               aria-controls="article-list"
               onClick={() => setVisibleCount((current) => getNextArticleCount(current, articles.length))}
             >
@@ -109,7 +109,7 @@ export default function ArticleList({
               <ChevronDown aria-hidden="true" size={16} />
             </button>
           ) : (
-            <span className="article-list-complete">已经全部显示</span>
+            <span className="section-link article-list-complete">已经全部显示</span>
           )}
         </div>
       ) : null}

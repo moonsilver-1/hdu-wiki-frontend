@@ -263,6 +263,7 @@ export default async function Home({
 
             {recentArticles.length > 0 ? (
               <ArticleList
+                key={`${selectedCategory}-${selectedPeriod}`}
                 articles={recentArticles}
                 categoryNames={Object.fromEntries(categoryNames)}
               />
