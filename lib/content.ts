@@ -727,7 +727,7 @@ async function getArticleUncached(
 
   let mtime = 0;
   try {
-    mtime = fs.statSync(filePath).mtimeMs;
+    mtime = fs.statSync(/* turbopackIgnore: true */ filePath).mtimeMs;
   } catch {
     return null;
   }
@@ -794,7 +794,7 @@ export function getArticleMeta(
 
   let mtime = 0;
   try {
-    mtime = fs.statSync(filePath).mtimeMs;
+    mtime = fs.statSync(/* turbopackIgnore: true */ filePath).mtimeMs;
   } catch {
     mtime = 0;
   }
