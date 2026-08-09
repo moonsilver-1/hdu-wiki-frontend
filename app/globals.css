@@ -2354,6 +2354,10 @@ input:focus-visible {
 }
 
 .sidebar-course-group summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   padding: 7px;
   border-radius: 6px;
   cursor: pointer;
@@ -2408,6 +2412,21 @@ input:focus-visible {
 .sidebar-section-group summary small {
   color: var(--muted);
   font-size: 10px;
+}
+
+/* 统一所有侧边栏分组里的篇数标记：柔和胶囊，跟分类名视觉分离 */
+.sidebar-course-group summary small,
+.sidebar-volume-group summary small,
+.sidebar-section-group summary small {
+  flex-shrink: 0;
+  min-width: 20px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .sidebar-section-articles {
