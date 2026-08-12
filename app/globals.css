@@ -2367,15 +2367,6 @@ input:focus-visible {
   list-style-position: inside;
 }
 
-.sidebar-course-group summary > span,
-.sidebar-section-group summary > span,
-.sidebar-volume-group > summary > span {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .sidebar-course-group summary::marker {
   color: var(--primary);
 }
@@ -2449,19 +2440,6 @@ input:focus-visible {
   margin: 2px 0 4px 10px;
   padding-left: 8px;
   border-left: 1px solid var(--border);
-}
-
-.sidebar-subseries-group {
-  margin-left: 12px;
-}
-
-.sidebar-subseries-group > summary {
-  padding-left: 9px;
-}
-
-.sidebar-subseries-group > .sidebar-section-volumes {
-  margin-left: 12px;
-  padding-left: 10px;
 }
 
 /* 单个卷：字号略小、字重稍轻，凸显它是课程下的子级 */
