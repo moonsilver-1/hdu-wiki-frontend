@@ -56,77 +56,75 @@ export default function Sidebar({
           const isActive = activeCategory === category.slug;
           const groups = groupArticlesBySeries(articles);
 
-          const renderSection = (sectionNode: ArticleSectionNode) => {
-            const sectionActive = sectionNode.articles.some((a) => a.slug === activeSlug)
-              || sectionNode.subgroups.some((g) => g.articles.some((a) => a.slug === activeSlug));
-
+          const renderSectionBody = (sectionNode: ArticleSectionNode) => {
             if (sectionNode.subgroups.length > 0) {
               return (
-                <details
-                  key={sectionNode.key}
-                  className="sidebar-section-group sidebar-course-group"
-                  open={sectionActive}
-                >
-                  <summary>
-                    <span>{sectionNode.label}</span>
-                    <small>{sectionNode.subgroups.reduce((n, g) => n + g.articles.length, 0)}</small>
-                  </summary>
-                  <div className="sidebar-section-volumes">
-                    {sectionNode.subgroups.map((group) => (
-                      <details
-                        key={group.key}
-                        className="sidebar-volume-group"
-                        open={group.articles.some((a) => a.slug === activeSlug)}
-                      >
-                        <summary>
-                          <span>{group.label}</span>
-                          <small>{group.articles.length}</small>
-                        </summary>
-                        <div className="sidebar-section-articles">
-                          {group.articles.map((article) => (
-                            <Link
-                              key={article.slug}
-                              href={`/${category.slug}/${article.slug}`}
-                              prefetch={false}
-                              data-sidebar-article={article.slug}
-                              className={article.slug === activeSlug ? "is-current" : ""}
-                              aria-current={article.slug === activeSlug ? "page" : undefined}
-                            >
-                              {article.title}
-                            </Link>
-                          ))}
-                        </div>
-                      </details>
-                    ))}
-                  </div>
-                </details>
+                <div className="sidebar-section-volumes">
+                  {sectionNode.subgroups.map((group) => (
+                    <details
+                      key={group.key}
+                      className="sidebar-volume-group"
+                      open={group.articles.some((a) => a.slug === activeSlug)}
+                    >
+                      <summary>
+                        <span>{group.label}</span>
+                        <small>{group.articles.length}</small>
+                      </summary>
+                      <div className="sidebar-section-articles">
+                        {group.articles.map((article) => (
+                          <Link
+                            key={article.slug}
+                            href={`/${category.slug}/${article.slug}`}
+                            prefetch={false}
+                            data-sidebar-article={article.slug}
+                            className={article.slug === activeSlug ? "is-current" : ""}
+                            aria-current={article.slug === activeSlug ? "page" : undefined}
+                          >
+                            {article.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </details>
+                  ))}
+                </div>
               );
             }
 
             return (
+              <div className="sidebar-section-articles">
+                {sectionNode.articles.map((article) => (
+                  <Link
+                    key={article.slug}
+                    href={`/${category.slug}/${article.slug}`}
+                    prefetch={false}
+                    data-sidebar-article={article.slug}
+                    className={article.slug === activeSlug ? "is-current" : ""}
+                    aria-current={article.slug === activeSlug ? "page" : undefined}
+                  >
+                    {article.title}
+                  </Link>
+                ))}
+              </div>
+            );
+          };
+
+          const renderSection = (sectionNode: ArticleSectionNode) => {
+            const sectionActive = sectionNode.articles.some((a) => a.slug === activeSlug)
+              || sectionNode.subgroups.some((g) => g.articles.some((a) => a.slug === activeSlug));
+
+            return (
               <details
                 key={sectionNode.key}
-                className="sidebar-section-group"
+                className="sidebar-section-group sidebar-course-group"
                 open={sectionActive}
               >
                 <summary>
                   <span>{sectionNode.label}</span>
-                  <small>{sectionNode.articles.length}</small>
+                  <small>{sectionNode.subgroups.length > 0
+                    ? sectionNode.subgroups.reduce((n, g) => n + g.articles.length, 0)
+                    : sectionNode.articles.length}</small>
                 </summary>
-                <div className="sidebar-section-articles">
-                  {sectionNode.articles.map((article) => (
-                    <Link
-                      key={article.slug}
-                      href={`/${category.slug}/${article.slug}`}
-                      prefetch={false}
-                      data-sidebar-article={article.slug}
-                      className={article.slug === activeSlug ? "is-current" : ""}
-                      aria-current={article.slug === activeSlug ? "page" : undefined}
-                    >
-                      {article.title}
-                    </Link>
-                  ))}
-                </div>
+                {renderSectionBody(sectionNode)}
               </details>
             );
           };
@@ -151,7 +149,7 @@ export default function Sidebar({
               </summary>
               <div className="sidebar-section-volumes">
                 {series.sections.length === 1 && series.sections[0].key === `sec:${series.key.slice(7)}`
-                  ? renderSection(series.sections[0])
+                  ? renderSectionBody(series.sections[0])
                   : series.sections.map(renderSection)}
                 {series.children.map((child) => renderSeries(child, depth + 1))}
               </div>
