@@ -94,6 +94,46 @@ export default async function CategoryPage({
     </details>
   );
 
+  const renderSectionContent = (sectionNode: ArticleSectionNode) => (
+    sectionNode.subgroups.length > 0 ? (
+      <div className="category-volume-grid">
+        {sectionNode.subgroups.map((group) => (
+          <details key={group.key} className="category-volume-group">
+            <summary>
+              <span>{group.label}</span>
+              <small>{group.articles.length}篇</small>
+            </summary>
+            <div className="category-article-grid category-section-articles">
+              {group.articles.map((article) => (
+                <CategoryArticleCard
+                  key={article.slug}
+                  article={article}
+                  category={category}
+                />
+              ))}
+            </div>
+          </details>
+        ))}
+      </div>
+    ) : (
+      <div className="category-article-grid category-section-articles">
+        {sectionNode.articles.map((article) => (
+          <CategoryArticleCard
+            key={article.slug}
+            article={article}
+            category={category}
+          />
+        ))}
+      </div>
+    )
+  );
+
+  const renderSeriesContent = (series: ArticleSeriesNode) => (
+    series.sections.length === 1 && series.sections[0].key === `sec:${series.key.slice(7)}`
+      ? renderSectionContent(series.sections[0])
+      : series.sections.map(renderSection)
+  );
+
   const renderSeries = (series: ArticleSeriesNode, depth = 0): ReactNode => (
     <details
       key={series.key}
@@ -105,7 +145,7 @@ export default async function CategoryPage({
         <small>{countArticlesInSeries(series)}篇文章</small>
       </summary>
       <div className={depth === 0 ? "category-series-sections" : "category-subseries-sections"}>
-        {series.sections.map(renderSection)}
+        {renderSeriesContent(series)}
         {series.children.map((child) => renderSeries(child, depth + 1))}
       </div>
     </details>

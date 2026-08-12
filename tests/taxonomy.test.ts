@@ -70,6 +70,7 @@ test("community nests development log under the hdu-wiki series", () => {
   const groups = groupArticlesBySeries(getArticlesByCategory("community"));
   const hduWiki = groups.find((group) => group.key === "series:hdu-wiki");
   assert.ok(hduWiki);
+  assert.equal(hduWiki.sections.length, 1);
   assert.deepEqual(hduWiki.sections.map((section) => section.key), ["sec:hdu-wiki"]);
   assert.deepEqual(hduWiki.children.map((child) => child.key), ["series:development-log"]);
   assert.deepEqual(hduWiki.children[0].sections.map((section) => section.key), ["sec:development-log"]);
