@@ -34,6 +34,14 @@ function parseAst(body: string): Node {
   return unified().use(remarkParse).use(gfm).parse(body) as unknown as Node;
 }
 
+function getMarkdownFiles(directory: string): string[] {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) return getMarkdownFiles(entryPath);
+    return entry.isFile() && entry.name.endsWith(".md") ? [entryPath] : [];
+  });
+}
+
 function baselineText(file: string): string | null {
   try {
     return execFileSync("git", ["show", `${baseline.baselineCommit}:${rel(file)}`], { cwd: root, encoding: "utf8" });
@@ -72,20 +80,13 @@ function addWithBaseline(file: string, issue: ContentValidationIssue): void {
 const seenSlugs = new Map<string, string>();
 const markdownFiles = fs.readdirSync(contentRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && entry.name !== "authors")
-  .flatMap((categoryEntry) => {
-    const categoryDir = path.join(contentRoot, categoryEntry.name);
-    return fs.readdirSync(categoryDir, { withFileTypes: true })
-      .filter((sectionEntry) => sectionEntry.isDirectory())
-      .flatMap((sectionEntry) => fs.readdirSync(path.join(categoryDir, sectionEntry.name), { withFileTypes: true })
-        .filter((file) => file.isFile() && file.name.endsWith(".md"))
-        .map((file) => path.join(categoryDir, sectionEntry.name, file.name)));
-  });
+  .flatMap((categoryEntry) => getMarkdownFiles(path.join(contentRoot, categoryEntry.name)));
 
 for (const file of markdownFiles) {
   const relative = rel(file);
   const parts = relative.split("/");
   const category = parts[1];
-  const section = parts[2];
+  const section = [...parts.slice(2, -1)].reverse().find((part) => getSiteSection(category, part)) ?? parts[2];
   if (!categoryMap[category]) add(file, { level: "error", code: "P001", message: `非法 category 路径：${category}`, hint: "使用 lib/site-taxonomy.ts 中的 category。" });
   if (!getSiteSection(category, section)) add(file, { level: "error", code: "P002", message: `非法 section 路径：${category}/${section}`, hint: "使用 taxonomy 中声明的 section。" });
 

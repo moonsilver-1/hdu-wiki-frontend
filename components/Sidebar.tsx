@@ -150,8 +150,8 @@ export default function Sidebar({
                 <small>{countArticlesInSeries(series)}</small>
               </summary>
               <div className="sidebar-section-volumes">
-                {series.children.map((child) => renderSeries(child, depth + 1))}
                 {series.sections.map(renderSection)}
+                {series.children.map((child) => renderSeries(child, depth + 1))}
               </div>
             </details>
           );

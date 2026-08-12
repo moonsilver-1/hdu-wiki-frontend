@@ -65,3 +65,12 @@ test("tech renders one AI guidance parent with tool and general child series", (
   ]);
   assert.equal(aiGuidance.children.reduce((count, child) => count + child.sections.length, 0), 20);
 });
+
+test("community nests development log under the hdu-wiki series", () => {
+  const groups = groupArticlesBySeries(getArticlesByCategory("community"));
+  const hduWiki = groups.find((group) => group.key === "series:hdu-wiki");
+  assert.ok(hduWiki);
+  assert.deepEqual(hduWiki.sections.map((section) => section.key), ["sec:hdu-wiki"]);
+  assert.deepEqual(hduWiki.children.map((child) => child.key), ["series:development-log"]);
+  assert.deepEqual(hduWiki.children[0].sections.map((section) => section.key), ["sec:development-log"]);
+});

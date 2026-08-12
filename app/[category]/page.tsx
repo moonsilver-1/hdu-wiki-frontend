@@ -105,8 +105,8 @@ export default async function CategoryPage({
         <small>{countArticlesInSeries(series)}篇文章</small>
       </summary>
       <div className={depth === 0 ? "category-series-sections" : "category-subseries-sections"}>
-        {series.children.map((child) => renderSeries(child, depth + 1))}
         {series.sections.map(renderSection)}
+        {series.children.map((child) => renderSeries(child, depth + 1))}
       </div>
     </details>
   );

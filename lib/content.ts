@@ -585,7 +585,12 @@ function getArticleFile(category: string, slug: string): string | null {
 
 function getArticleSection(category: string, filePath: string): string {
   const relativePath = path.relative(path.join(contentDir, category), filePath);
-  return relativePath.split(path.sep)[0] || "general";
+  const directories = relativePath.split(path.sep).slice(0, -1);
+  for (let index = directories.length - 1; index >= 0; index -= 1) {
+    const directory = directories[index];
+    if (sectionMap[directory]) return directory;
+  }
+  return directories[0] || "general";
 }
 
 export function sortArticles(articles: ArticleMeta[]): ArticleMeta[] {
@@ -602,6 +607,9 @@ export function sortArticles(articles: ArticleMeta[]): ArticleMeta[] {
 // 分组顺序：课程先按既有的课程入口展示，技术文章再按工具系列展示。
 // 工具系列内部的 section 顺序由 site-taxonomy.ts 中的 sectionSlugs 决定。
 const sidebarSectionOrder = [
+  "hdu-wiki",
+  "development-log",
+  "science-fiction-contest",
   "fundamentals",
   "deep-learning",
   "algorithm",

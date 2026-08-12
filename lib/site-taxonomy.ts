@@ -119,8 +119,22 @@ export const siteTaxonomy: SiteCategory[] = [
     slug: "community",
     name: "社团与活动",
     sections: [
-      { slug: "community", name: "社团与活动", contribute: true },
+      { slug: "hdu-wiki", name: "hdu-wiki", contribute: true },
+      { slug: "development-log", name: "开发日志", contribute: true },
       { slug: "science-fiction-contest", name: "科幻征文", contribute: true },
+    ],
+    series: [
+      {
+        slug: "hdu-wiki",
+        name: "hdu-wiki",
+        sectionSlugs: ["hdu-wiki"],
+      },
+      {
+        slug: "development-log",
+        name: "开发日志",
+        parentSlug: "hdu-wiki",
+        sectionSlugs: ["development-log"],
+      },
     ],
   },
 ];

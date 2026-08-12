@@ -22,6 +22,16 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER ?? "moonsilver-1";
 const GITHUB_REPO = process.env.GITHUB_REPO ?? "hdu-wiki-frontend";
 const GITHUB_BASE_BRANCH = process.env.GITHUB_BASE_BRANCH ?? "main";
 
+const sectionPathOverrides: Record<string, Record<string, string>> = {
+  community: {
+    "development-log": "hdu-wiki/development-log",
+  },
+};
+
+export function getSubmissionSectionPath(category: string, section: string): string {
+  return sectionPathOverrides[category]?.[section] ?? section;
+}
+
 export function isDryRun(): boolean {
   return Boolean(process.env.CONTRIBUTE_DRY_RUN) || !process.env.GITHUB_TOKEN;
 }
@@ -78,7 +88,7 @@ export function isValidFilePath(
   if (!isContributeCategory(category) || !isContributeSection(category, section)) return false;
   // slug 只允许小写字母、数字、连字符，杜绝 / \ .. 等穿越字符
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return false;
-  const expected = `content/${category}/${section}/${slug}.md`;
+  const expected = `content/${category}/${getSubmissionSectionPath(category, section)}/${slug}.md`;
   return filePath === expected;
 }
 
@@ -231,7 +241,8 @@ export async function submitArticle(
 
   const date = dateInShanghai(options.now ?? new Date());
   const slug = generateUniqueSlug(submission.title, submission.category);
-  const filePath = `content/${submission.category}/${submission.section}/${slug}.md`;
+  const sectionPath = getSubmissionSectionPath(submission.category, submission.section);
+  const filePath = `content/${submission.category}/${sectionPath}/${slug}.md`;
 
   // 文件路径护栏：即使前面校验被绕过，也确保文件只落到白名单 category/section 下、
   // slug 纯 ASCII（无路径穿越字符），写不到仓库别处或覆盖系统文件。
