@@ -3883,10 +3883,63 @@ mark.search-highlight.search-highlight-fade {
 .article-comment-note-body { color: var(--foreground); font-size: 13px; line-height: 1.6; }
 .article-comment-popover > small { display: block; overflow: hidden; color: var(--muted); font-size: 10px; line-height: 1.45; text-overflow: ellipsis; white-space: nowrap; }
 
+/* 划词留言总开关：固定在右上角，方便随时关闭以正常复制文字 */
+.article-comment-toggle {
+  position: fixed;
+  top: 80px;
+  right: 16px;
+  z-index: 90;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--primary);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.article-comment-toggle:hover {
+  border-color: color-mix(in srgb, var(--primary) 46%, var(--border));
+  background: var(--primary-light);
+}
+
+.article-comment-toggle.is-off {
+  color: var(--muted);
+  background: var(--surface-muted);
+  opacity: 0.7;
+}
+
+.article-comment-toggle.is-off svg {
+  opacity: 0.5;
+}
+
+@media (max-width: 680px) {
+  .article-comment-toggle {
+    top: 70px;
+    right: 12px;
+  }
+}
+
 .article-comment-highlight { background: #ffe58f; cursor: pointer; }
 .article-comment-highlight:hover,
 .article-comment-highlight:focus-visible { outline: 2px solid var(--primary); background: #ffd45c; }
 .dark .article-comment-highlight { background: #6b561b; }
+
+/* CSS Custom Highlight API：在渲染层画批注背景色，完全不修改 DOM，
+   因此复制选区时不会把 <mark> 节点或属性带进剪贴板。
+   不支持该 API 的旧浏览器会自动回退到上面的 mark 样式。 */
+::highlight(article-comment) {
+  background-color: #ffe58f;
+}
+
+.dark ::highlight(article-comment) {
+  background-color: #6b561b;
+}
 
 .article-comment-compose,
 .article-comment-popover {
