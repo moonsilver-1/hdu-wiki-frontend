@@ -3,6 +3,7 @@ title: "HDU-WIKI 是怎么做出来的"
 date: "2026-08-13"
 author: "paperkite, moonsilver"
 excerpt: "从开发者视角介绍 HDU-WIKI 背后的 TypeScript、JavaScript、Markdown、GitHub 审核流和搜索实现。"
+featured: true
 tags: ["hdu-wiki", "技术说明", "TypeScript", "GitHub"]
 ---
 
