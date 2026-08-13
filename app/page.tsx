@@ -17,7 +17,7 @@ const categoryInfo: Record<string, { desc: string }> = {
   community: { desc: "社团介绍、学生组织与校园活动" },
 };
 
-const featuredSlugs = ["main-guide", "how-to-use-llm", "how-to-become-a-qualified-developer", "2026-08-13-how-hdu-wiki-is-built"];
+const featuredSlugs = ["main-guide", "how-to-use-llm", "how-to-become-a-qualified-developer"];
 
 function sortByDate(articles: ArticleMeta[]) {
   return [...articles].sort((articleA, articleB) =>
