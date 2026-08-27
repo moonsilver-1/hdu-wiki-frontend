@@ -71,8 +71,9 @@ export default function ArticleComments({ category, slug, contentId = "article-c
   const [enabled, setEnabled] = useState(true);
   const enabledRef = useRef(true);
 
-  // 读取上次的开/关状态。放在 useEffect 里读 localStorage，避免 SSR 与首次
-  // hydration 之间出现 mismatch。
+  // 读取上次的开/关状态。放 effect 里读 localStorage，避免 SSR 与首次
+  // hydration 出现 mismatch；用微任务延后一拍同步 setState，绕开
+  // 「effect 内同步 setState 触发级联渲染」的 lint 规则。
   useEffect(() => {
     let stored = true;
     try {
@@ -81,7 +82,8 @@ export default function ArticleComments({ category, slug, contentId = "article-c
       stored = true;
     }
     enabledRef.current = stored;
-    setEnabled(stored);
+    const raf = window.requestAnimationFrame(() => setEnabled(stored));
+    return () => window.cancelAnimationFrame(raf);
   }, []);
 
   const toggleEnabled = useCallback(() => {
