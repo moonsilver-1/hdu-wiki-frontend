@@ -3,7 +3,7 @@ title: "HDUER FROM SHEEP TO GOAT"
 date: "2026-08-09"
 author: "moonsilver, 09, 如山, TNHTH, paperkite"
 featured: true
-excerpt: "你电最权威的新生指南"
+excerpt: "你电最权威的新生指南：学业、保研、竞赛、科研、就业、选课与校园生活，学长学姐的经验一篇讲全。"
 tags: ["新生指南", "学业", "保研", "竞赛", "科研", "就业", "选课", "校园生活"]
 ---
 
