@@ -73,3 +73,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+
+# Welcome preview build outputs
+/.next-welcome/
+/.next-welcome-build/

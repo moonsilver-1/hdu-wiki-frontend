@@ -38,6 +38,7 @@ function ThemeToggle() {
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  if (pathname?.startsWith("/welcome")) return null;
   const isHome = pathname === null || pathname === "/";
 
   return (

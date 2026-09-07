@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { GitFork } from "lucide-react";
 import "./globals.css";
 import "katex/dist/katex.min.css";
 import Header from "@/components/Header";
+import SiteFooter from "@/components/SiteFooter";
 import ThemeProvider from "@/components/ThemeProvider";
 
 const geistSans = Geist({
@@ -57,25 +56,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Header />
           <div className="app-main">{children}</div>
-          <footer className="site-footer">
-            <div className="site-container footer-inner">
-              <div>
-                <Link href="/" className="footer-brand"><strong>HDU</strong> Wiki</Link>
-                <span>杭州电子科技大学校园百科</span>
-              </div>
-              <div className="footer-links">
-                <Link href="/community/how-to-join-us">参与共建</Link>
-                <a
-                  href="https://github.com/moonsilver-1/hdu-wiki-frontend"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="HDU Wiki GitHub 仓库"
-                >
-                  <GitFork aria-hidden="true" size={17} />
-                </a>
-              </div>
-            </div>
-          </footer>
+          <SiteFooter />
           <Analytics />
         </ThemeProvider>
       </body>
