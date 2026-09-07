@@ -77,3 +77,9 @@ $RECYCLE.BIN/
 # Welcome preview build outputs
 /.next-welcome/
 /.next-welcome-build/
+
+# 名单含隐私，不入库
+/同学名单.xlsx
+
+# Excel 锁文件
+~$*

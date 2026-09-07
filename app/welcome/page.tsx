@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import HistoryLetter from "./HistoryLetter";
+import WelcomeCheckin from "./WelcomeCheckin";
 import { spriteStyle } from "@/lib/welcome-sprites";
 import { libraryRoute, type RoomPoint } from "@/lib/welcome-library-path";
 import { campusRoute, type MapPoint } from "@/lib/welcome-path";
@@ -272,6 +273,7 @@ export default function WelcomePage() {
   ].map((item, i) => <a key={item.title} href={item.href} className={"pw-bookcase pw-shelf-" + i} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); openResearch(item.href, i); } }}><span className="pw-books" aria-hidden="true">{Array.from({ length: 18 }, (_, n) => <i key={n} style={{ "--book": n } as CSSProperties} />)}</span><span className="pw-shelf-label"><strong>{item.title} ↗</strong><small>{item.sub}</small></span><span className="pw-shelf-note">{item.note}</span></a>)}</nav><div className="pw-reading-table" aria-hidden="true"><span>▤</span><i /><span>▤</span></div><div className="pw-library-player" ref={libPlayerRef} style={{ left: "50%", bottom: "12%" }}><Player girl={girl} facing="up" /><span>YOU</span></div><button className="pw-library-exit" onClick={exitLibrary}>↓ 回到校园</button></section><p className="pw-vpn-note">文献入口通过杭电 WebVPN 访问，可能需要校园账号登录。</p></main>);
 
   const campusView = (<main key="campus" className="pixel-welcome">
+    <WelcomeCheckin />
     <svg width="0" height="0" className="pw-filter-defs" aria-hidden="true"><defs><filter id="pw-remove-paper" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -10 -10 -10 0 27.4" /><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg>
     {arrival && <div className="pw-arrival" aria-hidden="true" onAnimationEnd={e => { if (e.target === e.currentTarget) setArrival(false); }}><span>初见杭电<small>HELLO, NEW ADVENTURE</small></span></div>}
     <header className="pw-header"><Link href="/" className="pw-brand"><b>H</b> HDU WIKI <span>/ 新生序章</span></Link><span className="pw-edition">AUTUMN 2026 · 新生季</span></header>
@@ -309,7 +311,7 @@ export default function WelcomePage() {
     </div>
     <nav className="pw-shortcuts" aria-label="校园入口">{places.map((p, i) => <a key={p.name} href={p.href} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); travel(i); } }}><span>0{i + 1} / DISCOVER</span><strong>{p.name} ↗</strong><small>{p.note}</small></a>)}</nav>
     {story && <HistoryLetter onClose={() => setStory(false)} />}
-    <footer className="pw-footer"><span>HDU WIKI · 学长学姐留给你的校园指南</span><span>愿你的每一步，都走向热爱。 ✦</span></footer>
+    <footer className="pw-footer"><span>HDU WIKI · 学长学姐留给你的校园指南<button className="pw-bless-link" onClick={() => window.dispatchEvent(new Event("wiki-open-checkin"))}>🎁 领取祝福</button></span><span>愿你的每一步，都走向热爱。 ✦</span></footer>
   </main>);
 
   return (<>

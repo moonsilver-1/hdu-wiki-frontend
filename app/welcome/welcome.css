@@ -60,3 +60,54 @@
 .pw-bgm{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;padding:0 3px;min-height:24px}
 .pw-bgm[aria-pressed="true"]{color:#ffe9a6}
 .pw-bgm:hover{color:#fff4d0}
+/* ===== 祝福环节：报到 / 祝福卡 / 神秘访客 / 生日派对 ===== */
+.pw-checkin-overlay{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:20px;background:#20392d66;backdrop-filter:blur(3px)}
+.pw-checkin-window{width:min(430px,94vw);max-height:86svh;overflow:auto;background:#edf0df;border:1px solid #64775a;box-shadow:7px 7px #344d3526,0 18px 50px #162b2540;animation:pw-enter .3s ease-out}
+.pw-checkin-bar{display:flex;justify-content:space-between;align-items:center;background:#3d5644;color:#eeeeda;padding:12px 16px;font-size:12px;letter-spacing:1px}
+.pw-checkin-close{border:0;background:transparent;color:inherit;font-size:18px;cursor:pointer;line-height:1;padding:0 4px}
+.pw-checkin-body{padding:22px 22px 24px}
+.pw-checkin-title{margin:0 0 6px;font-size:21px;letter-spacing:2px;color:#354d3d;font-weight:600}
+.pw-checkin-lead{margin:0 0 18px;font-size:12px;line-height:1.9;color:#758073}
+.pw-checkin-field{display:block;margin-bottom:14px}
+.pw-checkin-field>span{display:block;font-size:11px;color:#5c6b57;margin-bottom:6px;letter-spacing:1px}
+.pw-checkin-input,.pw-checkin-select{width:100%;padding:11px 12px;font:inherit;font-size:15px;background:#fbf8ee;border:1px solid #a9b295;border-radius:2px;color:#334c3e;outline:none}
+.pw-checkin-input:focus,.pw-checkin-select:focus{border-color:#56714e}
+.pw-checkin-row{display:flex;gap:10px}
+.pw-checkin-actions{display:flex;gap:12px;align-items:center;margin-top:20px}
+.pw-checkin-submit{flex:1;border:0;background:#56714e;color:#faf4df;font:inherit;font-size:14px;letter-spacing:2px;padding:12px;cursor:pointer;box-shadow:3px 3px #b2bb9c}
+.pw-checkin-submit:active{transform:translate(1px,1px);box-shadow:2px 2px #b2bb9c}
+.pw-checkin-skip{border:0;background:transparent;color:#7d8779;font:inherit;font-size:11px;cursor:pointer}
+.pw-checkin-note{margin:14px 0 0;font-size:9px;color:#8b9379;letter-spacing:.5px;line-height:1.8}
+.pw-checkin-error{color:#b0552f;font-size:11px;margin:8px 0 0}
+.pw-shake{animation:pw-shake .4s}
+@keyframes pw-shake{25%{transform:translateX(-5px)}50%{transform:translateX(4px)}75%{transform:translateX(-3px)}}
+.pw-bless-quote{margin:16px 0 18px;padding:18px 18px 20px 22px;background:#fbf8ee;border:1px solid #d8decc;border-left:3px solid #b6402d;position:relative}
+.pw-bless-no{display:block;font-size:9px;letter-spacing:2.5px;color:#a8af98;margin-bottom:12px}
+.pw-bless-text{margin:0;font-size:16px;line-height:2.15;color:#2f463a;letter-spacing:.5px;padding-right:34px;min-height:64px}
+.pw-seal-mini{position:absolute;right:12px;bottom:12px;width:34px;aspect-ratio:1;display:grid;place-items:center;background:#b6402d;color:#f8f3e9;border-radius:3px;font-size:15px;font-weight:600;font-style:normal;transform:rotate(-6deg);box-shadow:0 2px 10px #b6402d40;animation:pw-seal-in .5s cubic-bezier(.3,1.2,.4,1) .25s both}
+@keyframes pw-seal-in{from{opacity:0;transform:scale(1.7) rotate(-14deg)}to{opacity:1;transform:scale(1) rotate(-6deg)}}
+.pw-bless-hidden{margin:14px 0 6px;padding:20px 18px;background:linear-gradient(135deg,#fdf3d1,#f6e4ac);border:1px solid #c9a13f;box-shadow:4px 4px #d9c88a;position:relative;animation:pw-enter .4s .2s ease-out both}
+.pw-bless-hidden::after{content:"隐藏款";position:absolute;right:10px;top:-9px;background:#b6402d;color:#f8f3e9;font-size:9px;letter-spacing:2px;padding:3px 8px;border-radius:2px;transform:rotate(3deg)}
+.pw-bless-hidden-label{margin:0 0 14px;font-size:11px;letter-spacing:2px;color:#8a6a1d;font-weight:600}
+.pw-voice-todo{margin:0;font-size:12px;line-height:1.9;color:#8a6a1d}
+.pw-bless-bday{margin-top:14px;display:block;width:100%;border:1px solid #c9a13f;background:#fff6d8;color:#8a6a1d;font:inherit;font-size:13px;letter-spacing:1px;padding:11px;cursor:pointer}
+.pw-bless-bday:hover{background:#fdf0b8}
+.pw-bless-link{border:0;background:transparent;color:inherit;font:inherit;font-size:9px;cursor:pointer;text-decoration:underline dotted;margin-left:8px;letter-spacing:1px}
+.pw-bash-overlay{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:#1a2536ee;padding:20px;overflow:hidden}
+.pw-confetti{position:absolute;top:-12px;left:var(--cx);width:var(--cs);height:var(--cs);background:var(--cc);animation:pw-confetti-fall var(--cdur) linear var(--cdel) infinite}
+@keyframes pw-confetti-fall{0%{transform:translateY(-4vh) rotate(0)}100%{transform:translateY(108vh) rotate(720deg)}}
+.pw-bash-inner{position:relative;z-index:2;text-align:center;max-width:440px}
+.pw-bash-cake{width:min(190px,52vw);filter:drop-shadow(0 6px 0 #00000030)}
+.pw-candle-flame{animation:pw-flame .9s ease-in-out infinite alternate;transform-origin:center bottom}
+@keyframes pw-flame{from{transform:scaleY(1) translateY(0)}to{transform:scaleY(1.3) translateY(-1px)}}
+.pw-bash-title{color:#ffe9a6;font-size:clamp(24px,6vw,34px);letter-spacing:3px;margin:14px 0 8px;font-weight:600}
+.pw-bash-sub{color:#d8ddb0;font-size:13px;line-height:2;letter-spacing:1px;margin:0 0 12px}
+.pw-bash-bless{color:#f0ead2;font-size:13px;line-height:2;letter-spacing:.5px;max-width:380px;margin:0 auto 8px}
+.pw-bash-close{margin-top:14px;border:0;background:#ffe9a6;color:#5a431a;font:inherit;font-size:13px;letter-spacing:2px;padding:12px 22px;cursor:pointer;box-shadow:0 4px 0 #8a6a1d}
+.pw-bash-close:active{transform:translateY(2px);box-shadow:0 2px 0 #8a6a1d}
+@media(prefers-reduced-motion:reduce){.pw-confetti,.pw-seal-mini,.pw-candle-flame{animation:none}.pw-confetti{display:none}}
+.pw-voice{display:flex;gap:12px;align-items:center;text-align:left}
+.pw-voice-play{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:#b6402d;color:#f8f3e9;font-size:13px;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 10px #b6402d55}
+.pw-voice-play:active{transform:scale(.94)}
+.pw-voice-meta strong{display:block;font-size:12px;letter-spacing:1px;color:#7a5b1c}
+.pw-voice-meta p{margin:4px 0 0;font-size:10.5px;line-height:1.8;color:#8a6a1d}
