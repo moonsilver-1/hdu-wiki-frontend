@@ -34,6 +34,8 @@ export default function WelcomePage() {
   const [facing, setFacing] = useState("down");
   const [chat, setChat] = useState(false);
   const [arrival, setArrival] = useState(true);
+  const [bgmOn, setBgmOn] = useState(false);
+  const bgmRef = useRef<HTMLAudioElement>(null);
 
   const currentPos = useRef<MapPoint>({ x: 50, y: 82 });
   const playerRef = useRef<HTMLDivElement>(null);
@@ -71,6 +73,41 @@ export default function WelcomePage() {
       window.removeEventListener("pageshow", restore);
     };
   }, []);
+
+  // 浏览器要求有用户交互后才能出声：进页面后第一次点按就响起背景音乐（手动关过则不打扰）
+  useEffect(() => {
+    const kick = (e: Event) => {
+      if ((e.target as HTMLElement).closest?.(".pw-bgm")) return;
+      const audio = bgmRef.current;
+      if (!audio || localStorage.getItem("wiki-bgm") === "off") { detach(); return; }
+      audio.volume = 0.45;
+      audio.play().then(() => { setBgmOn(true); detach(); }).catch(() => { /* 手势不被认可时等下一次点击 */ });
+    };
+    const detach = () => {
+      window.removeEventListener("pointerdown", kick);
+      window.removeEventListener("touchend", kick);
+      window.removeEventListener("click", kick);
+    };
+    window.addEventListener("pointerdown", kick);
+    window.addEventListener("touchend", kick);
+    window.addEventListener("click", kick);
+    return detach;
+  }, []);
+
+  function toggleBgm() {
+    const audio = bgmRef.current;
+    if (!audio) return;
+    if (audio.paused) {
+      audio.volume = 0.45;
+      audio.play().catch(() => {});
+      localStorage.setItem("wiki-bgm", "on");
+      setBgmOn(true);
+    } else {
+      audio.pause();
+      localStorage.setItem("wiki-bgm", "off");
+      setBgmOn(false);
+    }
+  }
 
   function walkTo(target: MapPoint, onArrival?: () => void, index: number | null = null) {
     stop();
@@ -225,13 +262,16 @@ export default function WelcomePage() {
     walkTo({ x, y });
   }
 
-  if (library) return <main className="pixel-welcome pw-library-page"><svg width="0" height="0" className="pw-filter-defs" aria-hidden="true"><defs><filter id="pw-remove-paper" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -10 -10 -10 0 27.4" /><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><header className="pw-header"><Link href="/" className="pw-brand"><b>H</b> HDU WIKI</Link><button className="pw-back" onClick={exitLibrary}>← 返回校园</button></header><div className="pw-library-heading"><p className="pw-eyebrow">LEVEL 02 · THE LIBRARY</p><h1>知识，向你敞开。</h1><p>图书馆 · 文献阅览室</p></div><section className="pw-library-room" aria-label="图书馆室内地图" onClick={onLibraryClick}><div className="pw-library-windows" aria-hidden="true"><i /><i /><i /></div><nav className="pw-research" aria-label="文献数据库">{[
+  // BGM：Evan Call - To The Ends of Our World（外部提供的音频文件；公开站点使用请注意版权授权）
+  // 挂在两个视图共用处，进图书馆音乐不中断
+  const bgm = <audio ref={bgmRef} src="/welcome/bgm.mp3" loop preload="none" />;
+  const libraryView = (<main key="library" className="pixel-welcome pw-library-page"><svg width="0" height="0" className="pw-filter-defs" aria-hidden="true"><defs><filter id="pw-remove-paper" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -10 -10 -10 0 27.4" /><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><header className="pw-header"><Link href="/" className="pw-brand"><b>H</b> HDU WIKI</Link><button className="pw-back" onClick={exitLibrary}>← 返回校园</button></header><div className="pw-library-heading"><p className="pw-eyebrow">LEVEL 02 · THE LIBRARY</p><h1>知识，向你敞开。</h1><p>图书馆 · 文献阅览室</p></div><section className="pw-library-room" aria-label="图书馆室内地图" onClick={onLibraryClick}><div className="pw-library-windows" aria-hidden="true"><i /><i /><i /></div><nav className="pw-research" aria-label="文献数据库">{[
     { title: "IEEE", sub: "IEEE Xplore", note: "电子 · 电气 · 计算机", href: "https://webvpn.hdu.edu.cn/_webvpn_/https://ieeexplore.ieee.org/" },
     { title: "Elsevier", sub: "ScienceDirect", note: "科学 · 技术 · 医学", href: "https://webvpn.hdu.edu.cn/_webvpn_/https://www.sciencedirect.com/" },
     { title: "中国知网", sub: "CNKI", note: "中文期刊 · 学位论文", href: "https://webvpn.hdu.edu.cn/_webvpn_/https://www.cnki.net" },
-  ].map((item, i) => <a key={item.title} href={item.href} className={"pw-bookcase pw-shelf-" + i} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); openResearch(item.href, i); } }}><span className="pw-books" aria-hidden="true">{Array.from({ length: 18 }, (_, n) => <i key={n} style={{ "--book": n } as CSSProperties} />)}</span><span className="pw-shelf-label"><strong>{item.title} ↗</strong><small>{item.sub}</small></span><span className="pw-shelf-note">{item.note}</span></a>)}</nav><div className="pw-reading-table" aria-hidden="true"><span>▤</span><i /><span>▤</span></div><div className="pw-library-player" ref={libPlayerRef} style={{ left: "50%", bottom: "12%" }}><Player girl={girl} facing="up" /><span>YOU</span></div><button className="pw-library-exit" onClick={exitLibrary}>↓ 回到校园</button></section><p className="pw-vpn-note">文献入口通过杭电 WebVPN 访问，可能需要校园账号登录。</p></main>;
+  ].map((item, i) => <a key={item.title} href={item.href} className={"pw-bookcase pw-shelf-" + i} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); openResearch(item.href, i); } }}><span className="pw-books" aria-hidden="true">{Array.from({ length: 18 }, (_, n) => <i key={n} style={{ "--book": n } as CSSProperties} />)}</span><span className="pw-shelf-label"><strong>{item.title} ↗</strong><small>{item.sub}</small></span><span className="pw-shelf-note">{item.note}</span></a>)}</nav><div className="pw-reading-table" aria-hidden="true"><span>▤</span><i /><span>▤</span></div><div className="pw-library-player" ref={libPlayerRef} style={{ left: "50%", bottom: "12%" }}><Player girl={girl} facing="up" /><span>YOU</span></div><button className="pw-library-exit" onClick={exitLibrary}>↓ 回到校园</button></section><p className="pw-vpn-note">文献入口通过杭电 WebVPN 访问，可能需要校园账号登录。</p></main>);
 
-  return <main className="pixel-welcome">
+  const campusView = (<main key="campus" className="pixel-welcome">
     <svg width="0" height="0" className="pw-filter-defs" aria-hidden="true"><defs><filter id="pw-remove-paper" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -10 -10 -10 0 27.4" /><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg>
     {arrival && <div className="pw-arrival" aria-hidden="true" onAnimationEnd={e => { if (e.target === e.currentTarget) setArrival(false); }}><span>初见杭电<small>HELLO, NEW ADVENTURE</small></span></div>}
     <header className="pw-header"><Link href="/" className="pw-brand"><b>H</b> HDU WIKI <span>/ 新生序章</span></Link><span className="pw-edition">AUTUMN 2026 · 新生季</span></header>
@@ -249,7 +289,7 @@ export default function WelcomePage() {
         <p className="pw-coordinate">HANGZHOU · CHINA <span>在杭电，遇见可能。</span></p>
       </section>
       <section className={"pw-game " + (night ? "pw-night" : "")} aria-label="交互校园地图">
-        <div className="pw-game-bar"><span>▪ 杭电 · 新生村</span><button className="pw-time" onClick={() => setNight(!night)} aria-label={night ? "切换白天" : "切换夜晚"} aria-pressed={night}>{night ? "☾ 月色 / 宜漫游" : "☀ 晴 / 宜探索"}</button></div>
+        <div className="pw-game-bar"><span>▪ 杭电 · 新生村</span><span className="pw-game-bar-right"><button className="pw-bgm" onClick={toggleBgm} aria-pressed={bgmOn} aria-label={bgmOn ? "关闭背景音乐" : "播放背景音乐"}>{bgmOn ? "♪ 音乐开" : "♪ 音乐关"}</button><button className="pw-time" onClick={() => setNight(!night)} aria-label={night ? "切换白天" : "切换夜晚"} aria-pressed={night}>{night ? "☾ 月色 / 宜漫游" : "☀ 晴 / 宜探索"}</button></span></div>
         <div className="pw-map" onClick={onMapClick}>
           <svg className="pw-terrain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grass" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M1 1h.5v.5H1zM3 3h.3v.3H3z" fill="#94ab7e" opacity=".35" /></pattern></defs><path fill="#b9c99c" d="M0 0h100v100H0z" /><path fill="url(#grass)" d="M0 0h100v100H0z" /><path d="M50 100V23M23 55h54M23 85h54M23 48v7M77 48v7M23 78v7M77 78v7" stroke="#e8dcb7" strokeWidth="6" strokeLinejoin="round" strokeLinecap="square" fill="none" /><path d="M50 100V23M23 55h54M23 85h54M23 48v7M77 48v7M23 78v7M77 78v7" stroke="#e8dcb7" strokeWidth="5" fill="none" /><g transform="translate(0 16)"><path d="M40 8h22v3h5v12h-5v3H39v-4h-4V12h5z" fill="#7ca99d" /><path d="M42 13h9m3 6h8m-23 2h8" stroke="#bad6bd" strokeWidth=".5" /><path d="M47 7h7v22h-7z" fill="#d5bd8c" /><path d="M47 11h7m-7 3h7m-7 3h7m-7 3h7m-7 3h7" stroke="#af9368" strokeWidth=".5" /></g><path d="M46 23h8v21h-8z" fill="#d9b877" /><path d="M46 26h8m-8 4h8m-8 4h8m-8 4h8m-8 4h8" stroke="#a5854e" strokeWidth="1.2" /></svg>
           <div className="pw-motes" aria-hidden="true">{Array.from({ length: 8 }, (_, i) => <i key={i} style={{ "--i": i } as CSSProperties} />)}</div>
@@ -270,7 +310,12 @@ export default function WelcomePage() {
     <nav className="pw-shortcuts" aria-label="校园入口">{places.map((p, i) => <a key={p.name} href={p.href} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); travel(i); } }}><span>0{i + 1} / DISCOVER</span><strong>{p.name} ↗</strong><small>{p.note}</small></a>)}</nav>
     {story && <HistoryLetter onClose={() => setStory(false)} />}
     <footer className="pw-footer"><span>HDU WIKI · 学长学姐留给你的校园指南</span><span>愿你的每一步，都走向热爱。 ✦</span></footer>
-  </main>;
+  </main>);
+
+  return (<>
+    {bgm}
+    {library ? libraryView : campusView}
+  </>);
 }
 
 

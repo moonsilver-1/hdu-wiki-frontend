@@ -55,3 +55,8 @@
 @media(prefers-reduced-motion:reduce){.pw-player.walking .pw-sprite-crop,.pw-library-player.is-walking .pw-sprite-crop{animation:none}}
 .pw-moonsilver>.pw-sprite{inset:auto}
 .pw-library-page .pw-sprite{filter:url(#pw-remove-paper);mix-blend-mode:normal}.pw-library-player{width:54px}
+/* BGM toggle in the game bar; volume taste lives in page.tsx */
+.pw-game-bar-right{display:flex;align-items:center;gap:12px}
+.pw-bgm{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;padding:0 3px;min-height:24px}
+.pw-bgm[aria-pressed="true"]{color:#ffe9a6}
+.pw-bgm:hover{color:#fff4d0}
