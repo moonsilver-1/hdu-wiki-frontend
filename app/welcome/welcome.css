@@ -150,3 +150,67 @@
 /* Both boards preview the same artwork opened in their dialogs. */
 .pw-signpost-map.shaoxing{background-image:url('/welcome/shaoxing-map-v2.png')}.pw-signpost-map.shaoxing:after{content:none}
 .pw-campus-dialog{height:fit-content}
+.pw-chat{display:grid!important;grid-template-columns:96px minmax(0,1fr);align-items:center!important;gap:18px!important}
+.pw-chat-avatar{width:96px!important;height:104px!important;box-sizing:border-box;display:grid!important;place-items:center!important;padding:8px!important;align-self:center!important;justify-self:center!important}
+.pw-chat-avatar .pw-moonsilver-sprite{width:58px!important;height:auto!important;aspect-ratio:150/192!important;margin:0!important}
+.pw-chat-avatar .pw-moonsilver-sprite{transform:translateX(-8px)}
+.pw-player.is-chatting .pw-player-name{opacity:0;pointer-events:none}
+.pw-weather-page{min-height:100svh;position:relative;isolation:isolate;transition:background-color .8s,color .8s}
+.pw-weather-page.is-rainy-night{background:#101e29;color:#d5dcd9;--rain-border:#6f92963d}
+.wpage:has(.is-rainy-night){background:#101e29}
+.pw-rain-scene{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:30}
+.pw-rain-haze{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 40%,#d4ad5420,transparent 40%),linear-gradient(110deg,#698c9815,transparent 55%,#738e9e18)}
+.pw-rain-far,.pw-rain-near{position:absolute;inset:-160px;will-change:transform;background-repeat:repeat;transform:rotate(12deg)}
+.pw-rain-far{opacity:.15;background-image:linear-gradient(transparent 70%,#a7c4d6 71%,transparent 92%);background-size:83px 131px;animation:pw-rain-fall 1.7s linear infinite}
+.pw-rain-near{opacity:.24;background-image:linear-gradient(90deg,transparent 98%,#c0d5df 99%),linear-gradient(transparent 85%,#9abac6 86%,transparent 97%);background-size:167px 113px,109px 173px;mask-image:repeating-linear-gradient(90deg,#000 0 1px,transparent 1px 53px);animation:pw-rain-fall .85s linear infinite}
+@keyframes pw-rain-fall{from{transform:translate3d(20px,-140px,0) rotate(12deg)}to{transform:translate3d(-16px,140px,0) rotate(12deg)}}
+.is-rainy-night .pw-header,.is-rainy-night .pw-shortcuts,.is-rainy-night .pw-shortcuts a{border-color:var(--rain-border)}
+.is-rainy-night .pw-brand,.is-rainy-night .pw-intro h1,.is-rainy-night .pw-shortcuts a{color:#e2e7de}
+.is-rainy-night .pw-intro h1>span{color:#c3ccb2}
+.is-rainy-night :is(.pw-brand span,.pw-eyebrow,.pw-lead,.pw-coordinate,.pw-footer,.pw-motion,.pw-shortcuts small,.pw-shortcuts span){color:#9bafba}
+.is-rainy-night .pw-characters button{background:#21323a;border-color:#52686b;color:#d6ddd2;box-shadow:2px 2px #09161e}
+.is-rainy-night .pw-characters button.selected{background:#34433b;border-color:#bdac78;box-shadow:2px 2px #7b7955}
+.is-rainy-night .pw-game{box-shadow:0 18px 70px #020b1280,0 0 44px #d9b45f12;border-color:#506163}
+.is-rainy-night .pw-game-bar,.is-rainy-night .pw-status{background:#1c3038;color:#ccd7d5}
+.is-rainy-night .pw-building-label{background:#e8d6a8;box-shadow:0 0 15px #efd18b25}
+.is-rainy-night .pw-chat,.is-rainy-night .pw-campus-dialog{background:#20333c;color:#e0dfca;border-color:#607375}
+.is-rainy-night .pw-chat-avatar{background:#35483f}
+.is-rainy-night .pw-chat button{color:#c2c99f}
+.is-rainy-night .pw-library-room{filter:brightness(.72) saturate(.75)}
+.is-rainy-night .pw-library-heading,.is-rainy-night .pw-vpn-note{color:#bfcfcf}
+@media(prefers-reduced-motion:reduce){.pw-rain-far,.pw-rain-near{animation:none}.pw-weather-page{transition:none}}
+/* Paint the terrain itself instead of dimming the entire campus. */
+.is-rainy-night .pw-terrain{filter:none}
+.is-rainy-night .pw-terrain>path:first-of-type{fill:#779f98}
+.is-rainy-night .pw-terrain>path[stroke]{stroke:#d5c8a8}
+.is-rainy-night .pw-terrain>g>path:first-child{fill:#548c9e}
+.is-rainy-night .pw-map{background:#779f98}
+.is-rainy-night .pw-building-art{filter:url(#pw-remove-paper) brightness(1.04);mix-blend-mode:normal}
+.is-rainy-night .pw-library-art{filter:url(#pw-remove-paper) drop-shadow(0 4px 8px #ebd69b25)}
+.is-rainy-night .pw-library-room{filter:none}
+.is-rainy-night .pw-map-gift small{color:#f3ecd2}
+.pw-rain-far{mask-image:repeating-linear-gradient(90deg,#000 0 1px,transparent 1px 71px)}
+/* Night controls carry their own foreground and surface colors. */
+.is-rainy-night .pw-campus-dialog header button{background:#364f59;color:#f4f0dc;border:1px solid #738e95}
+.is-rainy-night .pw-campus-dialog header button:hover{background:#496571;color:#fff}
+.is-rainy-night .pw-campus-dialog header button[aria-pressed=true]{background:#e8d6a8;color:#263e44;border-color:#e8d6a8}
+.is-rainy-night .pw-campus-dialog h2,.is-rainy-night .pw-chat strong{color:#f4f0dc}
+.is-rainy-night .pw-campus-dialog header small,.is-rainy-night .pw-chat small{color:#b9ccd0}
+.is-rainy-night .pw-chat p{color:#e2e9e6}
+.is-rainy-night .pw-chat button:hover{color:#fff3bb}
+.is-rainy-night .pw-characters button small,.is-rainy-night .pw-characters legend small,.is-rainy-night .pw-status>span:last-child{color:#b9ccd0}
+.is-rainy-night .pw-status button{background:#e8d6a8;color:#263e44;border-color:#e8d6a8}
+.is-rainy-night .pw-building-label,.is-rainy-night .pw-building-label small,.is-rainy-night .pw-building-label i{color:#354936}
+.is-rainy-night .pw-back{background:#364f59;color:#f4f0dc;border-color:#738e95}
+.is-rainy-night .pw-letter-sheet,.is-rainy-night .pw-checkin-window{color:#354e40}
+.is-rainy-night :is(button,a,input):focus-visible{outline-color:#f2cf86}
+.pw-chat-avatar .pw-moonsilver-sprite .pw-sprite-body{height:100%!important;background-size:400% 100%!important}
+.pw-moonsilver-sprite{filter:url(#pw-remove-paper)}
+.pw-moonsilver>.pw-moonsilver-sprite{display:block!important;width:100%!important;min-width:0;height:auto!important;aspect-ratio:150/192!important;overflow:hidden!important;margin-inline:auto}
+.pw-moonsilver>.pw-moonsilver-sprite .pw-sprite-body{height:100%!important;background-image:url('/welcome/moonsilver-v2.png')!important;background-size:400% 100%!important;background-position-y:50%!important}
+.pw-moonsilver-sprite .pw-sprite-body{background-image:url('/welcome/moonsilver-v2.png')!important;background-size:400% 100%!important;background-position-y:50%!important}
+.pw-moonsilver-sprite .pw-sprite-body{background-image:url('/welcome/moonsilver.png');background-size:400% 100%;background-position-y:50%;}
+.pw-moonsilver-sprite[data-facing="down"] .pw-sprite-body{background-position-x:0}
+.pw-moonsilver-sprite[data-facing="left"] .pw-sprite-body{background-position-x:33.3333%}
+.pw-moonsilver-sprite[data-facing="right"] .pw-sprite-body{background-position-x:66.6667%}
+.pw-moonsilver-sprite[data-facing="up"] .pw-sprite-body{background-position-x:100%}
