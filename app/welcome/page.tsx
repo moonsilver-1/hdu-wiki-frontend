@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import HistoryLetter from "./HistoryLetter";
 import WelcomeCheckin from "./WelcomeCheckin";
 import CampusMap from "./CampusMap";
@@ -25,6 +26,18 @@ function Player({ girl = false, facing = "down", moon = false }: { girl?: boolea
   return <span className={"pw-sprite" + (moon ? " pw-moonsilver-sprite" : "")} style={spriteStyle(girl, facing, moon)} data-facing={facing} aria-hidden="true"><span className="pw-sprite-crop pw-sprite-body" /></span>;
 }
 export default function WelcomePage() {
+  const router = useRouter();
+
+  // 站内目的地（如 HDU Wiki）走客户端路由；挂载时预取 wiki 首页，点过去不整页重载
+  function goTo(href: string) {
+    if (href.startsWith("/")) router.push(href);
+    else window.location.assign(href);
+  }
+
+  useEffect(() => {
+    router.prefetch("/");
+  }, [router]);
+
   const [girl, setGirl] = useState(false);
   const [playerName, setPlayerName] = useState("");
   const [active, setActive] = useState<number | null>(null);
@@ -205,10 +218,10 @@ export default function WelcomePage() {
 
   function travel(i: number) {
     const destination = places[i];
-    if (quiet) { stop(); window.location.assign(destination.href); return; }
+    if (quiet) { stop(); goTo(destination.href); return; }
     walkTo({ x: destination.x, y: destination.y }, () => {
       setPhase("door");
-      timers.current.push(setTimeout(() => window.location.assign(destination.href), 1000));
+      timers.current.push(setTimeout(() => goTo(destination.href), 1000));
     }, i);
   }
 
