@@ -32,7 +32,7 @@ function todayMd(): string {
   return `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 }
 
-export default function WelcomeCheckin() {
+export default function WelcomeCheckin({ onNameChange }: { onNameChange: (name: string) => void }) {
   const [view, setView] = useState<"closed" | "form" | "result">("closed");
   const [bash, setBash] = useState(false);
   const [name, setName] = useState("");
@@ -43,13 +43,13 @@ export default function WelcomeCheckin() {
   const [voicePlaying, setVoicePlaying] = useState(false);
   const voiceRef = useRef<HTMLAudioElement>(null);
   const [result, setResult] = useState<Result | null>(null);
-  const [hasRecord, setHasRecord] = useState(false);
+
 
   // 挂载 1.4 秒后（等入场动画结束）：首次到访弹报到处；老同学恢复祝福卡；生日当天自动开派对
   useEffect(() => {
     const timer = setTimeout(() => {
       const record = readCheckin();
-      setHasRecord(!!record);
+      onNameChange(record && record !== "skipped" ? record.n : "");
       if (!record) { setView("form"); return; }
       if (record !== "skipped") {
         setResult({ name: record.n, h: fnv1a(record.n), blessing: blessingByIndex(record.b), index: record.b, lucky: record.lucky, mystery: record.mystery, md: record.md });
@@ -57,7 +57,7 @@ export default function WelcomeCheckin() {
       }
     }, 1400);
     return () => clearTimeout(timer);
-  }, []);
+  }, [onNameChange]);
 
   // 页脚「领取祝福」入口
   useEffect(() => {
@@ -85,7 +85,7 @@ export default function WelcomeCheckin() {
     const mystery = !ROSTER_SET.has(h);
     const record: CheckinRecord = { n: cleanName, b: blessingIndexFor(h), lucky: !mystery && LUCKY_SET.has(h), mystery, md: month && day ? `${month.padStart(2, "0")}-${day.padStart(2, "0")}` : "" };
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(record)); } catch {}
-    setHasRecord(true);
+    onNameChange(cleanName);
     setResult({ name: cleanName, h, blessing: blessingFor(h), index: record.b, lucky: record.lucky, mystery, md: record.md });
     setError("");
     setView("result");
@@ -99,13 +99,13 @@ export default function WelcomeCheckin() {
     setMonth("");
     setDay("");
     setError("");
-    setHasRecord(false);
+    onNameChange("");
     setView("form");
   }
 
   function skip() {
     try { localStorage.setItem(STORAGE_KEY, "skipped"); } catch {}
-    setHasRecord(true);
+    onNameChange("");
     setView("closed");
   }
 
@@ -207,20 +207,6 @@ export default function WelcomeCheckin() {
     );
   }
 
-  // 常驻小徽章：报到过 / 跳过的同学随时能回来领祝福
-  if (hasRecord) {
-    return (
-      <button
-        className="pw-bless-fab"
-        onClick={() => window.dispatchEvent(new Event("wiki-open-checkin"))}
-        aria-label="领取我的专属祝福"
-      >
-        <span className="pw-fab-icon" aria-hidden="true">🎁</span>
-        <span>领取祝福</span>
-      </button>
-    );
-  }
-
   return null;
 }
 
@@ -269,3 +255,4 @@ function BirthdayBash({ name, blessing, onClose }: { name: string; blessing: str
     </div>
   );
 }
+

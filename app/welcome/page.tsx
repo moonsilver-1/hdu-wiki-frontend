@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import HistoryLetter from "./HistoryLetter";
 import WelcomeCheckin from "./WelcomeCheckin";
+import CampusMap from "./CampusMap";
 import { spriteStyle } from "@/lib/welcome-sprites";
 import { libraryRoute, type RoomPoint } from "@/lib/welcome-library-path";
 import { campusRoute, type MapPoint } from "@/lib/welcome-path";
@@ -21,10 +22,11 @@ const BRIDGE_HALF = 4;
 const SHELF_X = [17, 50, 83];
 
 function Player({ girl = false, facing = "down", moon = false }: { girl?: boolean; facing?: string; moon?: boolean }) {
-  return <span className="pw-sprite" style={spriteStyle(girl, facing, moon)} aria-hidden="true"><span className="pw-sprite-crop" /></span>;
+  return <span className="pw-sprite" style={spriteStyle(girl, facing, moon)} data-facing={facing} aria-hidden="true"><span className="pw-sprite-crop pw-sprite-body" /></span>;
 }
 export default function WelcomePage() {
   const [girl, setGirl] = useState(false);
+  const [playerName, setPlayerName] = useState("");
   const [active, setActive] = useState<number | null>(null);
   const [phase, setPhase] = useState<"idle" | "walking" | "door">("idle");
   const [quiet, setQuiet] = useState(false);
@@ -34,6 +36,7 @@ export default function WelcomePage() {
   const [ripple, setRipple] = useState(0);
   const [facing, setFacing] = useState("down");
   const [chat, setChat] = useState(false);
+  const [campusMap, setCampusMap] = useState<"xiasha" | "shaoxing" | null>(null);
   const [arrival, setArrival] = useState(true);
   const [bgmOn, setBgmOn] = useState(false);
   const bgmRef = useRef<HTMLAudioElement>(null);
@@ -127,7 +130,7 @@ export default function WelcomePage() {
       const length = Math.max(Math.hypot(to.x - from.x, to.y - from.y), 0.01);
       const heading = to.x > from.x ? "right" : to.x < from.x ? "left" : to.y < from.y ? "up" : "down";
       if (heading !== lastFacing) { lastFacing = heading; setFacing(heading); }
-      progress = Math.min(1, progress + (delta / 1000) * 18 / length);
+      progress = Math.min(1, progress + (delta / 1000) * 7 / length);
       const next = { x: from.x + (to.x - from.x) * progress, y: from.y + (to.y - from.y) * progress };
       currentPos.current = next;
       applyPos(next);
@@ -172,7 +175,7 @@ export default function WelcomePage() {
     cancelAnimationFrame(libFrame.current);
     const el = libPlayerRef.current;
     const sprite = el?.querySelector<HTMLElement>(".pw-sprite");
-    const face = (dir: string) => { if (sprite) Object.entries(spriteStyle(girl, dir)).forEach(([key,value]) => sprite.style.setProperty(key,String(value))); };
+    const face = (dir: string) => { if (sprite) { sprite.dataset.facing = dir; Object.entries(spriteStyle(girl, dir)).forEach(([key,value]) => sprite.style.setProperty(key,String(value))); } };
     const walk = (on: boolean) => { el?.classList.toggle("is-walking", on); };
     
     const from = { ...libPos.current };
@@ -205,7 +208,7 @@ export default function WelcomePage() {
   // 静止时面向某方向（比如走到书架后面向书架）
   const faceLib = useCallback((dir: string) => {
     const sprite = libPlayerRef.current?.querySelector<HTMLElement>(".pw-sprite");
-    if (sprite) Object.entries(spriteStyle(girl, dir)).forEach(([key,value]) => sprite.style.setProperty(key,String(value)));
+    if (sprite) { sprite.dataset.facing = dir; Object.entries(spriteStyle(girl, dir)).forEach(([key,value]) => sprite.style.setProperty(key,String(value))); }
   }, [girl]);
 
   // 进入图书馆：从画面下方的门口走进到书桌前
@@ -228,7 +231,7 @@ export default function WelcomePage() {
       if (segment >= points.length) { libPlayerRef.current?.classList.remove("is-walking"); done?.(); return; }
       const point = points[segment++];
       const distance = Math.hypot(point.x - libPos.current.x, point.b - libPos.current.b);
-      libAnimate(point, distance / 22 * 1000, next);
+      libAnimate(point, distance / 7 * 1000, next);
     };
     next();
   }
@@ -270,7 +273,7 @@ export default function WelcomePage() {
     { title: "IEEE", sub: "IEEE Xplore", note: "电子 · 电气 · 计算机", href: "https://webvpn.hdu.edu.cn/_webvpn_/https://ieeexplore.ieee.org/" },
     { title: "Elsevier", sub: "ScienceDirect", note: "科学 · 技术 · 医学", href: "https://webvpn.hdu.edu.cn/_webvpn_/https://www.sciencedirect.com/" },
     { title: "中国知网", sub: "CNKI", note: "中文期刊 · 学位论文", href: "https://webvpn.hdu.edu.cn/_webvpn_/https://www.cnki.net" },
-  ].map((item, i) => <a key={item.title} href={item.href} className={"pw-bookcase pw-shelf-" + i} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); openResearch(item.href, i); } }}><span className="pw-books" aria-hidden="true">{Array.from({ length: 18 }, (_, n) => <i key={n} style={{ "--book": n } as CSSProperties} />)}</span><span className="pw-shelf-label"><strong>{item.title} ↗</strong><small>{item.sub}</small></span><span className="pw-shelf-note">{item.note}</span></a>)}</nav><div className="pw-reading-table" aria-hidden="true"><span>▤</span><i /><span>▤</span></div><div className="pw-library-player" ref={libPlayerRef} style={{ left: "50%", bottom: "12%" }}><Player girl={girl} facing="up" /><span>YOU</span></div><button className="pw-library-exit" onClick={exitLibrary}>↓ 回到校园</button></section><p className="pw-vpn-note">文献入口通过杭电 WebVPN 访问，可能需要校园账号登录。</p></main>);
+  ].map((item, i) => <a key={item.title} href={item.href} className={"pw-bookcase pw-shelf-" + i} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); openResearch(item.href, i); } }}><span className="pw-books" aria-hidden="true">{Array.from({ length: 18 }, (_, n) => <i key={n} style={{ "--book": n } as CSSProperties} />)}</span><span className="pw-shelf-label"><strong>{item.title} ↗</strong><small>{item.sub}</small></span><span className="pw-shelf-note">{item.note}</span></a>)}</nav><div className="pw-reading-table" aria-hidden="true"><span>▤</span><i /><span>▤</span></div><div className="pw-library-player" ref={libPlayerRef} style={{ left: "50%", bottom: "12%" }}><Player girl={girl} facing="up" /><span title={playerName || "YOU"}>{playerName || "YOU"}</span></div><button className="pw-library-exit" onClick={exitLibrary}>↓ 回到校园</button></section><p className="pw-vpn-note">文献入口通过杭电 WebVPN 访问，可能需要校园账号登录。</p></main>);
 
   const campusView = (<main key="campus" className="pixel-welcome">
     <svg width="0" height="0" className="pw-filter-defs" aria-hidden="true"><defs><filter id="pw-remove-paper" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -10 -10 -10 0 27.4" /><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg>
@@ -295,29 +298,41 @@ export default function WelcomePage() {
           <svg className="pw-terrain" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="grass" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M1 1h.5v.5H1zM3 3h.3v.3H3z" fill="#94ab7e" opacity=".35" /></pattern></defs><path fill="#b9c99c" d="M0 0h100v100H0z" /><path fill="url(#grass)" d="M0 0h100v100H0z" /><path d="M50 100V23M23 55h54M23 85h54M23 48v7M77 48v7M23 78v7M77 78v7" stroke="#e8dcb7" strokeWidth="6" strokeLinejoin="round" strokeLinecap="square" fill="none" /><path d="M50 100V23M23 55h54M23 85h54M23 48v7M77 48v7M23 78v7M77 78v7" stroke="#e8dcb7" strokeWidth="5" fill="none" /><g transform="translate(0 16)"><path d="M40 8h22v3h5v12h-5v3H39v-4h-4V12h5z" fill="#7ca99d" /><path d="M42 13h9m3 6h8m-23 2h8" stroke="#bad6bd" strokeWidth=".5" /><path d="M47 7h7v22h-7z" fill="#d5bd8c" /><path d="M47 11h7m-7 3h7m-7 3h7m-7 3h7m-7 3h7" stroke="#af9368" strokeWidth=".5" /></g><path d="M46 23h8v21h-8z" fill="#d9b877" /><path d="M46 26h8m-8 4h8m-8 4h8m-8 4h8m-8 4h8" stroke="#a5854e" strokeWidth="1.2" /></svg>
           <div className="pw-motes" aria-hidden="true">{Array.from({ length: 8 }, (_, i) => <i key={i} style={{ "--i": i } as CSSProperties} />)}</div>
           <span className="pw-water" aria-hidden="true">{ripple > 0 && <span key={ripple} className="pw-ripple" />}<span className="pw-duck">▰</span></span>
-          {[{ x: 12, y: 16 }, { x: 88, y: 16 }, { x: 5, y: 58 }, { x: 95, y: 58 }, { x: 12, y: 92 }, { x: 88, y: 92 }, { x: 41, y: 67 }, { x: 59, y: 67 }].map((p, i) => <span key={i} className="pw-tree" style={{ left: p.x + "%", top: p.y + "%" }} aria-hidden="true"><svg viewBox="0 0 24 32" shapeRendering="crispEdges"><path fill="#816849" d="M10 21h4v10h-4z" /><path fill="#516c46" d="M6 3h12v3h3v4h2v10h-4v4H5v-4H1V10h2V6h3z" /><path fill="#75925a" d="M6 4h10v3h4v7h-4v5H4v-9h2z" /><path fill="#91a96b" d="M7 5h7v3H7zM4 10h4v5H4z" /></svg></span>)}
+          {[{ x: 12, y: 16 }, { x: 88, y: 16 }, { x: 5, y: 58 }, { x: 95, y: 58 }, { x: 5, y: 92 }, { x: 95, y: 92 }, { x: 41, y: 67 }, { x: 59, y: 67 }].map((p, i) => <span key={i} className="pw-tree" style={{ left: p.x + "%", top: p.y + "%" }} aria-hidden="true"><svg viewBox="0 0 24 32" shapeRendering="crispEdges"><path fill="#816849" d="M10 21h4v10h-4z" /><path fill="#516c46" d="M6 3h12v3h3v4h2v10h-4v4H5v-4H1V10h2V6h3z" /><path fill="#75925a" d="M6 4h10v3h4v7h-4v5H4v-9h2z" /><path fill="#91a96b" d="M7 5h7v3H7zM4 10h4v5H4z" /></svg></span>)}
           {places.map((p, i) => <button key={p.name} className={"pw-building pw-building-" + i + " " + (active === i ? "is-active" : "")} style={{ left: p.x + "%", top: p.y + "%", "--building": i } as CSSProperties} onClick={() => travel(i)} aria-label={"走到" + p.name + "并打开网站"}><span className="pw-building-art" aria-hidden="true" /><span className={"pw-door " + (active === i && phase === "door" ? "open" : "")} aria-hidden="true" /><span className="pw-building-label"><small>0{i + 1}</small>{p.name}<i>↗</i></span></button>)}
           <button className="pw-building pw-library-building" style={{ left: "50%", top: "23%" }} onClick={enterLibrary} aria-label="进入图书馆"><svg className="pw-library-art" viewBox="20 335 395 225" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><defs><clipPath id="pw-library-crop"><rect x="20" y="335" width="395" height="225" /></clipPath></defs><image clipPath="url(#pw-library-crop)" href="/welcome/assets.png" width="1536" height="1024" /></svg><span className="pw-building-label">图书馆 <i>↗</i></span></button>
-          <div className={"pw-player " + phase} ref={playerRef} style={{ left: "50%", top: "82%" }} aria-hidden="true"><span className="pw-player-name">YOU</span><Player girl={girl} facing={facing} /></div>
+          <div className={"pw-player " + phase} ref={playerRef} style={{ left: "50%", top: "82%" }} aria-hidden="true"><span className="pw-player-name" title={playerName || "YOU"}>{playerName || "YOU"}</span><Player girl={girl} facing={facing} /></div>
           <button className="pw-envelope" aria-label="打开杭电校史来信" onClick={() => { stop(); setStory(true); }}><span className="pw-envelope-flap" /><span className="pw-envelope-seal">H</span></button>
-          <button className="pw-moonsilver" onClick={talk} aria-label="走到湖边和 moonsilver 聊天"><span>moonsilver <b>···</b></span><Player moon /></button>
-          <span className="pw-start">从这里出发</span>
-          <span className="pw-map-note">校园意象地图 · 非实地导航</span>
+          <button className="pw-map-gift" aria-label="打开礼物，领取祝福" onClick={() => { stop(); setChat(false); window.dispatchEvent(new Event("wiki-open-checkin")); }}><span aria-hidden="true" /><small>领取祝福</small></button><button className="pw-moonsilver" onClick={talk} aria-label="走到湖边和 moonsilver 聊天"><span>moonsilver <b>···</b></span><Player moon facing={chat ? "left" : "down"} /></button>
+          <div className="pw-signposts">{(["xiasha", "shaoxing"] as const).map(campus => <button key={campus} className="pw-signpost" aria-label={campus === "xiasha" ? "下沙校区地图" : "绍兴校区地图"} onClick={() => { stop(); setChat(false); setCampusMap(campus); }}><span className="pw-signpost-art" aria-hidden="true" /><span className={"pw-signpost-map " + campus} aria-hidden="true" /><svg className="pw-signpost-label" viewBox="0 0 100 100" aria-hidden="true"><text x="50" y="80" textAnchor="middle" dominantBaseline="middle">{campus === "xiasha" ? "下沙校区" : "绍兴校区"}</text></svg></button>)}</div><span className="pw-start">从这里出发</span>
+          
         </div>
         {chat && <div className="pw-chat" role="region" aria-label="与 moonsilver 对话"><div className="pw-chat-avatar"><Player moon /></div><div><strong>moonsilver <small>湖边的学长</small></strong><p>hellohello，欢迎大家来到杭电！</p><button onClick={() => { setChat(false); setFacing("down"); }}>你好呀！继续逛逛 ↗</button></div><button className="pw-chat-close" aria-label="结束对话" onClick={() => setChat(false)}>×</button></div>}
         <div className="pw-status" role="status"><b>✦</b><p>{active === null ? (phase === "walking" ? "漫游中…" : "探索杭电") : phase === "door" ? "即将抵达 · " + places[active].name + "…" : "前往 · " + places[active].name + "…"}</p>{phase !== "idle" ? <button onClick={stop}>取消</button> : <span>点选 · 出发</span>}</div>
       </section>
     </div>
     <nav className="pw-shortcuts" aria-label="校园入口">{places.map((p, i) => <a key={p.name} href={p.href} onClick={e => { if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) { e.preventDefault(); travel(i); } }}><span>0{i + 1} / DISCOVER</span><strong>{p.name} ↗</strong><small>{p.note}</small></a>)}</nav>
+    {campusMap && <CampusMap campus={campusMap} onClose={() => setCampusMap(null)} />}
     {story && <HistoryLetter onClose={() => setStory(false)} />}
-    <footer className="pw-footer"><span>HDU WIKI · 学长学姐留给你的校园指南<button className="pw-bless-link" onClick={() => window.dispatchEvent(new Event("wiki-open-checkin"))}>🎁 领取祝福</button></span><span>愿你的每一步，都走向热爱。 ✦</span></footer>
+    <footer className="pw-footer"><span>HDU WIKI · 学长学姐留给你的校园指南</span><span>愿你的每一步，都走向热爱。 ✦</span></footer>
   </main>);
 
   return (<>
     {bgm}
-    <WelcomeCheckin />
+    <WelcomeCheckin onNameChange={setPlayerName} />
     {library ? libraryView : campusView}
   </>);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -23,12 +23,14 @@ test("floor retargeting starts from the current position and clamps walls",()=>{
   assert.deepEqual(route.at(-1),{x:8,b:44});
 });
 test("all sprite rows contain the measured head and shoe bounds without crossing rows",()=>{
-  const ink=[[13,133],[143,252],[262,370],[381,492],[503,617],[625,733],[743,850],[858,958]];
+  const ink=[[21,214],[229,402],[419,594],[609,788],[805,988],[1001,1174],[1190,1363],[1375,1532]];
   spriteRows.forEach((row,i)=>{
     assert.ok(row.top<=ink[i][0]);
     assert.ok(row.top+row.height>ink[i][1]);
-    assert.ok(row.top+row.height<=960);
+    assert.ok(row.top+row.height<=1537);
     if(i)assert.ok(row.top>ink[i-1][1]);
     if(i<7)assert.ok(row.top+row.height<=ink[i+1][0]);
   });
 });
+
+
