@@ -111,3 +111,10 @@
 .pw-voice-play:active{transform:scale(.94)}
 .pw-voice-meta strong{display:block;font-size:12px;letter-spacing:1px;color:#7a5b1c}
 .pw-voice-meta p{margin:4px 0 0;font-size:10.5px;line-height:1.8;color:#8a6a1d}
+/* 常驻「领取祝福」小徽章：右下角金色礼盒，轻微跳动提醒 */
+.pw-bless-fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:35;display:flex;align-items:center;gap:7px;padding:11px 13px;border:1px solid #8a6a1d;border-radius:4px;background:linear-gradient(135deg,#fdf3d1,#f3dfa4);color:#7a5b1c;font:inherit;font-size:12px;font-weight:600;letter-spacing:1.5px;cursor:pointer;box-shadow:3px 3px #b6402d2e,0 8px 20px #344d3530;animation:pw-fab-bounce 2.6s ease-in-out infinite}
+.pw-bless-fab:hover{filter:brightness(1.04)}
+.pw-bless-fab:active{transform:translateY(1px)}
+.pw-fab-icon{font-size:15px}
+@keyframes pw-fab-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.pw-bless-fab{animation:none}}
