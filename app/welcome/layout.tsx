@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 export default function WelcomeLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  ReactDOM.preload("/welcome/walk-atlas.png", { as: "image" });
+  ReactDOM.preload("/welcome/walk-atlas-v2.png", { as: "image" });
   ReactDOM.preload("/welcome/assets.png", { as: "image" });
   return <div className={`wpage ${serifCN.variable}`}>{children}</div>;
 }
