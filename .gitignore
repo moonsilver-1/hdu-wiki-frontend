@@ -83,3 +83,6 @@ $RECYCLE.BIN/
 
 # Excel 锁文件
 ~$*
+
+# 素材原图备份（本地产物）
+/.welcome-originals/
