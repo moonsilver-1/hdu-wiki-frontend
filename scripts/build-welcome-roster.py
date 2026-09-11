@@ -36,6 +36,11 @@ def main():
     rows = list(ws.iter_rows(min_row=2, values_only=True))
     # 身份哈希：仅姓名（重名同学共享同一份祝福）
     names = sorted({str(r[1]).strip() for r in rows if r[1]})
+    # 合并额外名单（本地文件 .welcome-originals/roster-extra.txt，已 gitignore）
+    extra_path = ".welcome-originals/roster-extra.txt"
+    if os.path.exists(extra_path):
+        extra = [n.strip() for n in open(extra_path, encoding="utf-8") if n.strip()]
+        names = sorted(set(names) | set(extra))
     hashes = sorted({fnv1a_32(n) for n in names})
 
     rng = mulberry32(20260907)
