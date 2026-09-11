@@ -610,6 +610,7 @@ const sidebarSectionOrder = [
   "hdu-wiki",
   "development-log",
   "science-fiction-contest",
+  "hdu-club-intro",
   "fundamentals",
   "deep-learning",
   "algorithm",

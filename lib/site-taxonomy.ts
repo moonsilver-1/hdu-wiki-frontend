@@ -122,6 +122,7 @@ export const siteTaxonomy: SiteCategory[] = [
       { slug: "hdu-wiki", name: "hdu-wiki", contribute: true },
       { slug: "development-log", name: "开发日志", contribute: true },
       { slug: "science-fiction-contest", name: "科幻征文", contribute: true },
+      { slug: "hdu-club-intro", name: "杭电社团简介", contribute: true },
     ],
     series: [
       {
