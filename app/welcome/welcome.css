@@ -219,3 +219,4 @@
 .pw-atlas-loading i{width:22px;height:22px;border:3px solid #c9a13f;border-top-color:transparent;border-radius:50%;animation:pw-atlas-spin 1s linear infinite}
 @keyframes pw-atlas-spin{to{transform:rotate(360deg)}}
 .pw-atlas-scroll img.is-loading{opacity:0}
+.pw-voice-play:disabled{opacity:.4;cursor:default}

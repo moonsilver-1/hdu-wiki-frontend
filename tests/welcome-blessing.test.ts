@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { BLESSINGS, blessingByIndex, blessingFor, blessingIndexFor, fnv1a } from "../lib/welcome-blessings";
-import { LUCKY_HASHES, ROSTER_HASHES } from "../lib/welcome-roster";
+import { ROSTER_HASHES, VOICE_INDEXES } from "../lib/welcome-roster";
+import { VOICES } from "../lib/welcome-voices";
 
 test("祝福语库：恰好 50 段且无空串、无重复", () => {
   assert.equal(BLESSINGS.length, 50);
@@ -24,11 +25,17 @@ test("祝福分布：全名单按哈希均匀落在 50 段里", () => {
   assert.ok(max - min <= 20, `分布应大致均匀：max=${max} min=${min}`);
 });
 
-test("幸运儿：8 位且都在名单里", () => {
-  const roster = new Set(ROSTER_HASHES);
-  assert.equal(LUCKY_HASHES.length, 8);
-  assert.equal(new Set(LUCKY_HASHES).size, 8);
-  for (const h of LUCKY_HASHES) assert.ok(roster.has(h), "幸运儿必须在名单中");
+test("语音分配：23 段语音覆盖全员且严格平均", () => {
+  assert.equal(VOICES.length, 23);
+  assert.equal(VOICE_INDEXES.length, ROSTER_HASHES.length, "分配表应与名单一一对应");
+  const counts = new Array(23).fill(0);
+  for (const v of VOICE_INDEXES) {
+    assert.ok(v >= 0 && v < 23);
+    counts[v]++;
+  }
+  const max = Math.max(...counts);
+  const min = Math.min(...counts);
+  assert.ok(max - min <= 1, `全员分配应严格平均：max=${max} min=${min}`);
 });
 
 test("哈希：确定性且格式正确", () => {

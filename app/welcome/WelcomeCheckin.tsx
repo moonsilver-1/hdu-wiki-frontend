@@ -1,18 +1,24 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { blessingByIndex, blessingFor, blessingIndexFor, fnv1a } from "@/lib/welcome-blessings";
-import { ROSTER_HASHES, LUCKY_HASHES } from "@/lib/welcome-roster";
-import { VOICE_BLESSINGS } from "@/lib/welcome-voices";
+import { ROSTER_HASHES, VOICE_INDEXES } from "@/lib/welcome-roster";
+import { VOICES, voiceByIndex, type VoiceItem } from "@/lib/welcome-voices";
 
 const STORAGE_KEY = "wiki-checkin";
 const ROSTER_SET = new Set(ROSTER_HASHES);
-const LUCKY_SET = new Set(LUCKY_HASHES);
 const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
 const DAYS = Array.from({ length: 31 }, (_, i) => i + 1);
 const CONFETTI_COLORS = ["#f2c14e", "#e26d5c", "#7ca99d", "#f6dc8d", "#fdf6e3", "#8fbf9f"];
 
-type CheckinRecord = { n: string; b: number; lucky: boolean; mystery: boolean; md: string };
-type Result = { name: string; h: string; blessing: string; index: number; lucky: boolean; mystery: boolean; md: string };
+type CheckinRecord = { n: string; b: number; v: number; mystery: boolean; md: string };
+type Result = { name: string; h: string; blessing: string; index: number; v: number; mystery: boolean; md: string };
+
+// 匹配名单的同学：按分配表取语音；神秘访客：随机一段
+function voiceIndexFor(h: string, mystery: boolean): number {
+  if (mystery) return parseInt(h, 16) % VOICES.length;
+  const pos = ROSTER_HASHES.indexOf(h);
+  return VOICE_INDEXES[pos] ?? 0;
+}
 
 function readCheckin(): CheckinRecord | "skipped" | null {
   try {
@@ -40,8 +46,6 @@ export default function WelcomeCheckin({ onNameChange }: { onNameChange: (name: 
   const [day, setDay] = useState("");
   const [error, setError] = useState("");
   const [shake, setShake] = useState(0);
-  const [voicePlaying, setVoicePlaying] = useState(false);
-  const voiceRef = useRef<HTMLAudioElement>(null);
   const [result, setResult] = useState<Result | null>(null);
 
 
@@ -52,7 +56,7 @@ export default function WelcomeCheckin({ onNameChange }: { onNameChange: (name: 
       onNameChange(record && record !== "skipped" ? record.n : "");
       if (!record) { setView("form"); return; }
       if (record !== "skipped") {
-        setResult({ name: record.n, h: fnv1a(record.n), blessing: blessingByIndex(record.b), index: record.b, lucky: record.lucky, mystery: record.mystery, md: record.md });
+        setResult({ name: record.n, h: fnv1a(record.n), blessing: blessingByIndex(record.b), index: record.b, v: record.v ?? 0, mystery: record.mystery, md: record.md });
         if (record.md === todayMd()) setBash(true);
       }
     }, 1400);
@@ -64,7 +68,7 @@ export default function WelcomeCheckin({ onNameChange }: { onNameChange: (name: 
     const open = () => {
       const record = readCheckin();
       if (record && record !== "skipped") {
-        setResult({ name: record.n, h: fnv1a(record.n), blessing: blessingByIndex(record.b), index: record.b, lucky: record.lucky, mystery: record.mystery, md: record.md });
+        setResult({ name: record.n, h: fnv1a(record.n), blessing: blessingByIndex(record.b), index: record.b, v: record.v ?? 0, mystery: record.mystery, md: record.md });
         setView("result");
       } else {
         setView("form");
@@ -83,17 +87,16 @@ export default function WelcomeCheckin({ onNameChange }: { onNameChange: (name: 
     }
     const h = fnv1a(cleanName);
     const mystery = !ROSTER_SET.has(h);
-    const record: CheckinRecord = { n: cleanName, b: blessingIndexFor(h), lucky: !mystery && LUCKY_SET.has(h), mystery, md: month && day ? `${month.padStart(2, "0")}-${day.padStart(2, "0")}` : "" };
+    const record: CheckinRecord = { n: cleanName, b: blessingIndexFor(h), v: voiceIndexFor(h, mystery), mystery, md: month && day ? `${month.padStart(2, "0")}-${day.padStart(2, "0")}` : "" };
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(record)); } catch {}
     onNameChange(cleanName);
-    setResult({ name: cleanName, h, blessing: blessingFor(h), index: record.b, lucky: record.lucky, mystery, md: record.md });
+    setResult({ name: cleanName, h, blessing: blessingFor(h), index: record.b, v: record.v, mystery, md: record.md });
     setError("");
     setView("result");
   }
 
   function logout() {
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
-    setVoicePlaying(false);
     setResult(null);
     setName("");
     setMonth("");
@@ -154,46 +157,20 @@ export default function WelcomeCheckin({ onNameChange }: { onNameChange: (name: 
             <div className="pw-checkin-body">
               {result.mystery ? (
                 <p className="pw-checkin-lead">这位神秘同学：<br />虽然名单里还没有你，但杭电绍兴的风也吹到了你这里——祝你天天开心呀！</p>
-              ) : result.lucky ? (
-                <p className="pw-checkin-lead">你好，{result.name}！报到完成——而且，你抽中了<b>隐藏款祝福</b>！</p>
               ) : (
                 <p className="pw-checkin-lead">你好，{result.name}！报到完成，这是你的专属祝福——</p>
               )}
-              {result.lucky ? (
+              <blockquote className="pw-bless-quote">
+                <span className="pw-bless-no">专属祝福 · NO.{String(result.index + 1).padStart(2, "0")} / 50</span>
+                <p className="pw-bless-text">{blessing}</p>
+                <i className="pw-seal-mini" aria-hidden="true">福</i>
+              </blockquote>
+              {!result.mystery ? (
                 <div className="pw-bless-hidden">
-                  {(() => {
-                    const voice = VOICE_BLESSINGS.find(v => v.h === result.h);
-                    return (
-                      <>
-                        <p className="pw-bless-hidden-label">🎁 隐藏款 · 班助和老师的专属语音祝福</p>
-                        {voice ? (
-                          <div className="pw-voice">
-                            <button className="pw-voice-play" onClick={() => {
-                              const audio = voiceRef.current;
-                              if (!audio) return;
-                              if (audio.paused) { audio.play().catch(() => {}); setVoicePlaying(true); }
-                              else { audio.pause(); setVoicePlaying(false); }
-                            }} aria-label={voicePlaying ? "暂停语音祝福" : "播放语音祝福"}>{voicePlaying ? "❚❚" : "▶"}</button>
-                            <div className="pw-voice-meta">
-                              <strong>来自{voice.from}的语音祝福</strong>
-                              <p>{voice.text}</p>
-                            </div>
-                            <audio ref={voiceRef} src={voice.file} preload="none" onEnded={() => setVoicePlaying(false)} />
-                          </div>
-                        ) : (
-                          <p className="pw-voice-todo">语音祝福正在赶来，明天记得回来打开哦！</p>
-                        )}
-                      </>
-                    );
-                  })()}
+                  <p className="pw-bless-hidden-label">🎁 专属语音祝福 · 来自自动化学院的班助和老师</p>
+                  <VoiceRow voice={voiceByIndex(result.v)} />
                 </div>
-              ) : (
-                <blockquote className="pw-bless-quote">
-                  <span className="pw-bless-no">专属祝福 · NO.{String(result.index + 1).padStart(2, "0")} / 50</span>
-                  <p className="pw-bless-text">{blessing}</p>
-                  <i className="pw-seal-mini" aria-hidden="true">福</i>
-                </blockquote>
-              )}
+              ) : null}
               {isBirthday ? <button className="pw-bless-bday" onClick={() => setBash(true)}>🎂 等等，今天好像还是你的生日？点这里 →</button> : null}
               <div className="pw-checkin-actions">
                 <button className="pw-checkin-submit" onClick={() => setView("closed")}>收下啦，继续逛</button>
@@ -208,6 +185,41 @@ export default function WelcomeCheckin({ onNameChange }: { onNameChange: (name: 
   }
 
   return null;
+}
+
+function VoiceRow({ voice }: { voice: VoiceItem }) {
+  const [playing, setPlaying] = useState(false);
+  // 探测语音文件是否已上传：没有就显示「正在赶来」，不渲染点了没反应的按钮
+  const [ready, setReady] = useState<boolean | null>(null);
+  const ref = useRef<HTMLAudioElement>(null);
+  useEffect(() => {
+    let alive = true;
+    fetch(voice.file, { method: "HEAD" })
+      .then(r => { if (alive) setReady(r.ok); })
+      .catch(() => { if (alive) setReady(false); });
+    return () => { alive = false; };
+  }, [voice.file]);
+  if (ready === false) return <p className="pw-voice-todo">来自{voice.from}的语音祝福正在赶来，记得回来看哦！</p>;
+  return (
+    <div className="pw-voice">
+      <button
+        className="pw-voice-play"
+        disabled={ready === null}
+        onClick={() => {
+          const audio = ref.current;
+          if (!audio) return;
+          if (playing) { audio.pause(); setPlaying(false); }
+          else { audio.play().then(() => setPlaying(true)).catch(() => setReady(false)); }
+        }}
+        aria-label={playing ? "暂停语音祝福" : "播放语音祝福"}
+      >{playing ? "❚❚" : "▶"}</button>
+      <div className="pw-voice-meta">
+        <strong>{voice.from} · {voice.role}</strong>
+        <p>{voice.text}</p>
+      </div>
+      <audio ref={ref} src={voice.file} preload="none" onEnded={() => setPlaying(false)} />
+    </div>
+  );
 }
 
 function BirthdayBash({ name, blessing, onClose }: { name: string; blessing: string; onClose: () => void }) {
