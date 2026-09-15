@@ -19,7 +19,7 @@ export default function CampusMap({ campus, onClose }: { campus: "xiasha" | "sha
       {!loaded && <p className="pw-atlas-loading"><i />手绘地图展开中…</p>}
       <Image
         className={(zoom ? "is-zoomed" : "") + (loaded ? "" : " is-loading")}
-        src={campus === "xiasha" ? "/welcome/xiasha-map-v4.png" : "/welcome/shaoxing-map-v2.png"}
+        src={campus === "xiasha" ? "/welcome/xiasha-map-v5.png" : "/welcome/shaoxing-map-v2.png"}
         alt={`杭州电子科技大学${campus === "xiasha" ? "下沙" : "绍兴"}校区手绘地图，标有教学楼、宿舍、食堂、图书馆及校门`}
         width={campus === "xiasha" ? 1132 : 1536}
         height={campus === "xiasha" ? 1389 : 1024}
