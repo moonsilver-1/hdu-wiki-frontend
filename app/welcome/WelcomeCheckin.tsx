@@ -202,6 +202,13 @@ function VoiceRow({ voice }: { voice: VoiceItem }) {
   if (ready === false) return <p className="pw-voice-todo">来自{voice.from}的语音祝福正在赶来，记得回来看哦！</p>;
   return (
     <div className="pw-voice">
+      <img
+        className="pw-voice-photo"
+        src={voice.file.replace('/voices/', '/voice-photos/').replace('.m4a', '.webp')}
+        alt=""
+        loading="lazy"
+        onError={e => { e.currentTarget.style.display = 'none'; }}
+      />
       <button
         className="pw-voice-play"
         disabled={ready === null}

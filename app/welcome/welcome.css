@@ -220,3 +220,4 @@
 @keyframes pw-atlas-spin{to{transform:rotate(360deg)}}
 .pw-atlas-scroll img.is-loading{opacity:0}
 .pw-voice-play:disabled{opacity:.4;cursor:default}
+.pw-voice-photo{width:46px;height:46px;border-radius:6px;object-fit:cover;flex:none;border:1px solid #a9b295;background:#dfe3d3}
