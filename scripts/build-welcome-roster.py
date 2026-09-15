@@ -1,6 +1,6 @@
 # 从本地名单 xlsx 生成 lib/welcome-roster.ts（只含姓名哈希，不含任何隐私明文）
 # 身份 = 姓名+学号 一起校验（应对重名）；用法: python scripts/build-welcome-roster.py [xlsx路径]
-import sys, glob, json
+import sys, glob, json, os
 import openpyxl
 
 def fnv1a_32(s: str) -> str:
@@ -43,31 +43,29 @@ def main():
         names = sorted(set(names) | set(extra))
     hashes = sorted({fnv1a_32(n) for n in names})
 
-    rng = mulberry32(20260907)
-    pool = list(hashes)
-    for i in range(len(pool) - 1, 0, -1):
-        j = int(rng() * (i + 1))
-        pool[i], pool[j] = pool[j], pool[i]
-    lucky = sorted(pool[:8])
+    # 语音祝福均衡分配：哈希已按字典序排列（相对姓名近似随机），按位置取模严格平均
+    VOICE_COUNT = 23
+    voice_indexes = [i % VOICE_COUNT for i in range(len(hashes))]
 
-    hash_to_student = {fnv1a_32(n): n for n in names}
     out = (
         "// 由 scripts/build-welcome-roster.py 从本地名单 xlsx 生成（姓名哈希，无任何隐私明文）\n"
         f"// 生成时间：{__import__('datetime').datetime.now().isoformat(timespec='seconds')} · 名单人数 {len(names)}\n"
         "export const ROSTER_HASHES: string[] = [\n"
         + "".join(f'  "{h}",\n' for h in hashes)
         + "];\n\n"
-        + "// 抽中「班助 / 老师专属语音祝福」的幸运儿（8 位，种子 20260907，可手工增删）\n"
-        + "export const LUCKY_HASHES: string[] = [\n"
-        + "".join(f'  "{h}",\n' for h in lucky)
+        + "// 语音祝福分配表：与 ROSTER_HASHES 一一对应，值为 0-22 的语音序号（每段约 "
+        + str(len(hashes) // VOICE_COUNT) + "~" + str(len(hashes) // VOICE_COUNT + 1) + " 人）\n"
+        + "export const VOICE_INDEXES: number[] = [\n"
+        + "".join(f"  {v},\n" for v in voice_indexes)
         + "];\n"
     )
     target = "lib/welcome-roster.ts"
     with open(target, "w", encoding="utf-8", newline="\n") as f:
         f.write(out)
-    print(f"OK 写入 {target}：{len(hashes)} 名同学，幸运儿 {len(lucky)} 位")
-    print("幸运儿名单（仅本地打印，用于明天录制语音）：")
-    print(json.dumps({h: hash_to_student[h] for h in lucky}, ensure_ascii=False, indent=2))
+    from collections import Counter
+    dist = Counter(voice_indexes)
+    print(f"OK 写入 {target}：{len(hashes)} 名同学")
+    print("语音分配概览（语音序号: 人数）:", dict(sorted(dist.items())))
 
 if __name__ == "__main__":
     main()
