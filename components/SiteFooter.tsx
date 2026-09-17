@@ -13,7 +13,7 @@ export default function SiteFooter() {
       <div className="site-container footer-inner">
         <div>
           <Link href="/" className="footer-brand"><strong>HDU</strong> Wiki</Link>
-          <span>杭州电子科技大学校园百科</span>
+          <span>用 ❤️ 为杭电er 制作 · 杭州电子科技大学校园百科</span>
         </div>
         <div className="footer-links">
           <Link href="/community/how-to-join-us">参与共建</Link>

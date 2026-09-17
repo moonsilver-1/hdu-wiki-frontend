@@ -6,6 +6,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import SearchButton from "./SearchButton";
 import { useTheme } from "./ThemeProvider";
+import WikiMascot from "./WikiMascot";
 
 const categories = [
   { slug: "courses", name: "课程与学术" },
@@ -45,6 +46,9 @@ export default function Header() {
     <header className="site-header">
       <div className="site-container header-inner">
         <Link href="/" className="site-brand" onClick={() => setMenuOpen(false)}>
+          <span className="brand-avatar" aria-hidden="true">
+            <WikiMascot />
+          </span>
           <span><strong>HDU</strong> Wiki</span>
         </Link>
 

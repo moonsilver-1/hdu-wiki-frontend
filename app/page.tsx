@@ -9,6 +9,8 @@ import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors,
 import CategoryIcon from "@/components/CategoryIcon";
 import ArticleList from "@/components/ArticleList";
 import SearchButton from "@/components/SearchButton";
+import HotChips, { type HotChip } from "@/components/HotChips";
+import WikiMascot, { Sparkle } from "@/components/WikiMascot";
 
 const categoryInfo: Record<string, { desc: string }> = {
   courses: { desc: "课程笔记、考试经验与学习资源" },
@@ -71,7 +73,6 @@ export default async function Home({
   const params = (await searchParams) ?? {};
   const requestedCategory = params.category ?? "";
   const selectedCategory = categoryOrder.includes(requestedCategory) ? requestedCategory : "";
-
   // 先按分类圈定范围，可用时间随选中的分类变化，避免选到该分类下没有的月份。
   const categoryScoped = selectedCategory
     ? sortedArticles.filter((article) => article.category === selectedCategory)
@@ -105,22 +106,46 @@ export default async function Home({
     .map((slug) => sortedArticles.find((article) => article.slug === slug))
     .filter((article): article is ArticleMeta => Boolean(article));
 
+  // 热词胶囊：热门内容置顶，再从最近的更新里补一批，供「换一批」轮换。
+  const chipPool: HotChip[] = [
+    ...popularArticles.map((article) => ({
+      href: `/${article.category}/${article.slug}`,
+      label: article.tags[0] || article.title,
+    })),
+    ...recentArticles
+      .filter((article) => !popularArticles.some((popular) => popular.slug === article.slug))
+      .slice(0, 20)
+      .map((article) => ({
+        href: `/${article.category}/${article.slug}`,
+        label: article.title,
+      })),
+  ];
+
   return (
     <div className="home-page">
       <section className="home-hero">
+        <Sparkle className="hero-sparkle hero-sparkle-left" size={18} />
+        <Sparkle className="hero-sparkle hero-sparkle-right" size={26} />
+        <Sparkle className="hero-sparkle hero-sparkle-bottom" size={14} />
         <div className="site-container home-hero-content">
-          <h1>HDU Wiki</h1>
-          <p className="hero-lead">我们期待能让杭电变得越来越好！！！</p>
+          <div className="hero-mascot" aria-hidden="true">
+            <span className="hero-mascot-ring">
+              <span className="hero-mascot-inner">
+                <WikiMascot />
+              </span>
+              <span className="hero-mascot-sparkle">
+                <Sparkle size={26} />
+              </span>
+            </span>
+          </div>
+          <span className="hero-badge">🎈 杭电人自己的校园百科</span>
+          <h1>
+            <span className="hero-title-gradient">杭电百事通</span>
+          </h1>
+          <p className="hero-lead">课程攻略、生活指南、技术分享——学长学姐踩过的坑，都替你写好啦</p>
           <SearchButton variant="hero" listenForShortcut={false} />
 
-          <div className="hero-popular" aria-label="热门内容">
-            <span>热门</span>
-            {popularArticles.map((article) => (
-              <Link key={article.slug} href={`/${article.category}/${article.slug}`}>
-                {article.tags[0] || article.title}
-              </Link>
-            ))}
-          </div>
+          <HotChips chips={chipPool} />
 
           <div className="hero-stats" aria-label="站点内容统计">
             <div><strong>{sortedArticles.length}</strong><span>篇实用内容</span></div>
@@ -136,8 +161,8 @@ export default async function Home({
             <div className="section-heading">
               <div>
                 <span className="section-kicker">探索 Wiki</span>
-                <h2 id="categories-title">四大焚决</h2>
-                <p>这里有我们认为比较常见的四个方面的焚决</p>
+                <h2 id="categories-title">四大板块</h2>
+                <p>课程、生活、技术、社团——总有一个是你现在就想点开的</p>
               </div>
             </div>
 
@@ -279,7 +304,7 @@ export default async function Home({
               <div>
                 <span className="section-kicker">共同记录</span>
                 <h2 id="contributors-title">贡献者</h2>
-                <p>感谢每一位把经验写进 HDU Wiki 的作者！！！</p>
+                <p>感谢每一位把经验写进 Wiki 的同学 ✨</p>
               </div>
             </div>
             <div className="contributors-grid">
@@ -300,9 +325,9 @@ export default async function Home({
         <section className="contribute-section">
           <div className="site-container contribute-inner">
             <div>
-              <span className="section-kicker">共同维护</span>
+              <span className="section-kicker">一起共建</span>
               <h2>把你的经验，留给下一位 HDUer</h2>
-              <p>让我们一起建设更好的 HDU-Wiki 吧！</p>
+              <p>哪怕是踩过的一个小坑，也可能照亮学弟学妹的一学期 ✨</p>
             </div>
             <div className="contribute-actions">
               {joinArticle ? (
