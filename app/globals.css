@@ -5243,3 +5243,24 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
   font-weight: 600;
   text-align: center;
 }
+
+/* 分类页页头：纯文字排版（无胶囊无图标块） */
+.category-header-top,
+.category-header-count,
+.category-header .section-kicker {
+  display: none;
+}
+
+.category-header-eyebrow {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.category-header-desc {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}

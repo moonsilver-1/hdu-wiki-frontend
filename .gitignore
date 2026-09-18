@@ -97,3 +97,16 @@ $RECYCLE.BIN/
 /祝福/
 /*群收集*.xlsx
 ~$*
+
+# 本地杂物
+.claude/settings.local.json
+.zcode/
+.unspl_*
+work/
+output/
+*.code-workspace
+findings.md
+progress.md
+task_plan.md
+watcha_oauth2接入文档.md
+hdu-wiki-app-wechat-draft.md

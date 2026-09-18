@@ -164,15 +164,9 @@ export default async function CategoryPage({
         </nav>
 
         <header className={`category-header category-${category}`}>
-          <div className="category-header-top">
-            <span className="section-kicker">
-              <CategoryIcon category={category} size={13} />
-              知识分类
-            </span>
-            <span className="category-header-count">共 {articles.length} 篇</span>
-          </div>
+          <p className="category-header-eyebrow">知识分类 · 共 {articles.length} 篇</p>
           <h1>{categoryName}</h1>
-          <p>{categoryDescriptions[category]}</p>
+          <p className="category-header-desc">{categoryDescriptions[category]}</p>
         </header>
 
         {groups.length === 0 ? (
