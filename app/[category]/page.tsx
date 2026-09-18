@@ -12,7 +12,7 @@ import {
   type ArticleSectionNode,
 } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
-import CategoryArticleCard from "@/components/CategoryArticleCard";
+import CategoryArticleRow from "@/components/CategoryArticleRow";
 import Sidebar from "@/components/Sidebar";
 
 const categoryDescriptions: Record<string, string> = {
@@ -68,9 +68,9 @@ export default async function CategoryPage({
                 <span>{group.label}</span>
                 <small>{group.articles.length}篇</small>
               </summary>
-              <div className="category-article-grid category-section-articles">
+              <div className="category-article-list">
                 {group.articles.map((article) => (
-                  <CategoryArticleCard
+                  <CategoryArticleRow
                     key={article.slug}
                     article={article}
                     category={category}
@@ -81,9 +81,9 @@ export default async function CategoryPage({
           ))}
         </div>
       ) : (
-        <div className="category-article-grid category-section-articles">
+        <div className="category-article-list">
           {sectionNode.articles.map((article) => (
-            <CategoryArticleCard
+            <CategoryArticleRow
               key={article.slug}
               article={article}
               category={category}
@@ -103,9 +103,9 @@ export default async function CategoryPage({
               <span>{group.label}</span>
               <small>{group.articles.length}篇</small>
             </summary>
-            <div className="category-article-grid category-section-articles">
+            <div className="category-article-list">
               {group.articles.map((article) => (
-                <CategoryArticleCard
+                <CategoryArticleRow
                   key={article.slug}
                   article={article}
                   category={category}
@@ -116,9 +116,9 @@ export default async function CategoryPage({
         ))}
       </div>
     ) : (
-      <div className="category-article-grid category-section-articles">
+      <div className="category-article-list">
         {sectionNode.articles.map((article) => (
-          <CategoryArticleCard
+          <CategoryArticleRow
             key={article.slug}
             article={article}
             category={category}

@@ -2663,7 +2663,6 @@ input:focus-visible {
   gap: 10px;
   padding: 12px 16px;
   cursor: pointer;
-  background: color-mix(in srgb, var(--primary) 5%, transparent);
   color: var(--foreground);
   font-size: 14px;
   font-weight: 600;
@@ -4754,4 +4753,234 @@ mark.search-highlight.search-highlight-fade {
   .sidebar-subseries-group[open]::details-content {
     block-size: auto;
   }
+}
+
+/* ============================================================
+   分类页折叠重设计：树线风格（无框行 + 左侧竖线 + 缩进层级），
+   与文章页右侧目录的树线观感一致；展开内容为纯标题文章列表。
+   ============================================================ */
+
+/* 系列分组标题：轻量文字行 */
+.category-series-group,
+.category-subseries-group {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.category-series-group > summary,
+.category-subseries-group > summary {
+  padding: 16px 6px 10px;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+
+.category-series-group > summary:hover,
+.category-subseries-group > summary:hover {
+  background: transparent;
+  color: var(--primary-strong);
+}
+
+.category-series-group[open] > summary,
+.category-subseries-group[open] > summary {
+  color: var(--foreground);
+}
+
+/* 折叠行：无框、树线缩进，hover 时整行淡底 */
+.category-section-group,
+.category-volume-group {
+  min-height: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.category-section-group > summary,
+.category-volume-group > summary {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 0;
+  cursor: pointer;
+  color: var(--foreground);
+  font-size: 13.5px;
+  font-weight: 650;
+  list-style: none;
+  border-radius: 9px;
+  /* 覆盖旧规则给 summary 常驻的紫色底：树线风格只在 hover 时出现淡底 */
+  background: transparent;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.category-section-group > summary::-webkit-details-marker,
+.category-volume-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.category-section-group > summary::marker,
+.category-volume-group > summary::marker {
+  content: "";
+}
+
+.category-section-group > summary:hover,
+.category-volume-group > summary:hover {
+  color: var(--primary-strong);
+  background: var(--primary-light);
+}
+
+.dark .category-section-group > summary:hover,
+.dark .category-volume-group > summary:hover {
+  color: var(--primary-strong);
+  background: var(--primary-light);
+}
+
+.category-section-group > summary span,
+.category-volume-group > summary span {
+  min-width: 0;
+  margin-top: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-section-group > summary small,
+.category-volume-group > summary small {
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.category-section-group > summary::after,
+.category-volume-group > summary::after {
+  content: "";
+  flex: 0 0 auto;
+  margin-left: auto;
+  width: 6px;
+  height: 6px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  opacity: 0.65;
+  translate: 0 -1px;
+  rotate: -45deg;
+  transition: rotate 220ms cubic-bezier(0.4, 0, 0.2, 1), translate 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-section-group[open] > summary::after,
+.category-volume-group[open] > summary::after {
+  translate: 0 1px;
+  rotate: 45deg;
+}
+
+/* 展开的内容区：左侧竖线 + 缩进，形成与目录一致的树线 */
+.category-section-group[open],
+.category-volume-group[open] {
+  padding-left: 14px;
+}
+
+.category-section-group[open] > summary,
+.category-volume-group[open] > summary {
+  border-radius: 9px;
+}
+
+.category-section-group > .category-article-list,
+.category-volume-group > .category-article-list,
+.category-section-group > .category-volume-grid,
+.category-volume-group > .category-volume-grid,
+.category-section-group > .category-series-sections,
+.category-volume-group > .category-series-sections {
+  position: relative;
+  margin: 0 0 6px;
+  padding: 2px 0 4px;
+  border-left: 2px solid color-mix(in srgb, var(--border) 88%, transparent);
+}
+
+/* 展开动画：与全站 details 过渡一致 */
+@supports (interpolate-size: allow-keywords) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+
+  .category-section-group::details-content,
+  .category-volume-group::details-content,
+  .category-series-group::details-content,
+  .category-subseries-group::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 300ms cubic-bezier(0.4, 0, 0.2, 1), content-visibility 300ms allow-discrete;
+  }
+
+  .category-section-group[open]::details-content,
+  .category-volume-group[open]::details-content,
+  .category-series-group[open]::details-content,
+  .category-subseries-group[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* 文章行：挂在树线上的叶子 */
+.category-article-list {
+  display: grid;
+  gap: 1px;
+}
+
+.category-article-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  color: color-mix(in srgb, var(--foreground) 88%, var(--muted));
+  font-size: 13px;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.category-article-row:hover {
+  color: var(--primary-strong);
+  background: var(--primary-light);
+}
+
+.category-article-row-title {
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-article-row time {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+}
+
+/* 系列内容容器：单列列表流 */
+.category-series-sections,
+.category-subseries-sections,
+.category-volume-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
+  padding: 0;
+  border-top: 0;
+}
+
+.category-series-sections .category-section-group,
+.category-subseries-sections .category-section-group[open],
+.category-section-group[open] {
+  min-height: 0;
+  grid-column: auto;
+}
+
+.category-section-group[open] > summary {
+  padding-block: 9px 10px;
+}
+
+.category-section-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
 }
