@@ -13,6 +13,23 @@ import {
   validateSubmissionFields,
 } from "@/lib/content-validation";
 
+// 投稿图片约束：单张不超过 1 MiB，最多 9 张，仅常见位图格式。
+// 图片作为文件随投稿一起提交到 PR 分支的 public/uploads/<slug>/ 下，
+// 正文里的 local:N 占位符合并前会被替换成 /uploads/<slug>/img-N.<ext>。
+export const MAX_IMAGES = 9;
+export const MAX_IMAGE_BYTES = 1024 * 1024;
+
+export interface ParsedSubmissionImage {
+  name: string;
+  ext: string;
+  bytes: Buffer;
+}
+
+export interface ParsedImagesResult {
+  images: ParsedSubmissionImage[];
+  error?: string;
+}
+
 // 投稿相关的环境变量：
 // - GITHUB_TOKEN：fine-grained token，仅授权 moonsilver-1/hdu-wiki-frontend，
 //   Contents: Read and write + Pull requests: Read and write
@@ -43,18 +60,16 @@ export interface ValidationResult {
 }
 
 // 危险 HTML/脚本模式：正文渲染只允许标准 Markdown，但投稿入口仍主动拒绝
-// 脚本、事件属性和图片，避免未来渲染管线变更时留下 XSS 或隐私风险。
+// 脚本、事件属性，避免未来渲染管线变更时留下 XSS 风险。图片不再一刀切拦截：
+// local:N 占位符随投稿上传，https 外链图片由管理员在 PR 里审核。
 const DANGEROUS_PATTERNS: { regex: RegExp; hint: string }[] = [
   { regex: /<script[\s>]/i, hint: "正文里检测到 <script> 标签" },
   { regex: /<iframe[\s>]/i, hint: "正文里检测到 <iframe> 标签" },
   { regex: /<object[\s>]/i, hint: "正文里检测到 <object> 标签" },
   { regex: /<embed[\s>]/i, hint: "正文里检测到 <embed> 标签" },
+  { regex: /<img[\s>]/i, hint: "正文里检测到 <img> 标签，请改用 markdown 图片语法 ![]()" },
   { regex: /on\w+\s*=\s*["'`]/i, hint: "正文里检测到事件属性（如 onclick）" },
   { regex: /(?:javascript|data|vbscript):\s*\S/i, hint: "正文里检测到不安全链接协议" },
-  // 图片：本站没有图片存储，外链图片会破图、可被第三方用于 IP 追踪，
-  // <img> 还可能携带 onerror 注入。统一拦截 markdown 图片语法和 <img> 标签。
-  { regex: /<img[\s>]/i, hint: "正文里检测到 <img> 图片标签（本站不支持图片）" },
-  { regex: /!\[[^\]]*\]\(/, hint: "正文里检测到 markdown 图片语法 ![]()（本站不支持图片）" },
 ];
 
 // 把代码块（```...``` 和缩进 4 行的代码）从正文中剔除，只检查剩余文本。
@@ -67,10 +82,6 @@ export function containsDangerousHtml(markdown: string): string | null {
     .replace(/`[^`\n]*`/g, "");
   for (const { regex, hint } of DANGEROUS_PATTERNS) {
     if (regex.test(withoutCodeBlocks)) {
-      // 图片类问题给「请改用文字描述」的提示，脚本类给「请放进代码块」的提示。
-      if (hint.includes("不支持图片")) {
-        return `${hint}，请用文字、代码或公式表达内容。`;
-      }
       return `${hint}。如需展示代码，请用代码块（\`\`\`）包裹。`;
     }
   }
@@ -90,6 +101,58 @@ export function isValidFilePath(
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return false;
   const expected = `content/${category}/${getSubmissionSectionPath(category, section)}/${slug}.md`;
   return filePath === expected;
+}
+
+// 解析投稿图片：dataUrl 必须是 data:image/<允许类型>;base64, 形式。
+// 返回解码后的字节与扩展名；任何一张不合法即整体报错，避免部分提交。
+export function parseSubmissionImages(input: unknown): ParsedImagesResult {
+  if (input === undefined || input === null) return { images: [] };
+  if (!Array.isArray(input)) return { images: [], error: "图片数据格式不正确" };
+  if (input.length > MAX_IMAGES) {
+    return { images: [], error: `图片最多 ${MAX_IMAGES} 张` };
+  }
+
+  const allowedMime: Record<string, string> = {
+    "image/png": "png",
+    "image/jpeg": "jpg",
+    "image/webp": "webp",
+    "image/gif": "gif",
+  };
+
+  const images: ParsedSubmissionImage[] = [];
+  for (const [index, raw] of input.entries()) {
+    if (!raw || typeof raw !== "object") return { images: [], error: `第 ${index + 1} 张图片数据不正确` };
+    const { name, dataUrl } = raw as { name?: unknown; dataUrl?: unknown };
+    if (typeof dataUrl !== "string" || !dataUrl.startsWith("data:image/")) {
+      return { images: [], error: `第 ${index + 1} 张图片格式不正确` };
+    }
+    const match = /^data:(image\/(?:png|jpeg|webp|gif));base64,([A-Za-z0-9+/=\s]+)$/i.exec(dataUrl.trim());
+    if (!match) return { images: [], error: `第 ${index + 1} 张图片只支持 PNG / JPG / WebP / GIF` };
+    const ext = allowedMime[match[1].toLowerCase()];
+    const bytes = Buffer.from(match[2].replace(/\s/g, ""), "base64");
+    if (bytes.length === 0) return { images: [], error: `第 ${index + 1} 张图片内容为空` };
+    if (bytes.length > MAX_IMAGE_BYTES) {
+      return { images: [], error: `第 ${index + 1} 张图片超过 1MB 限制，请压缩后再上传` };
+    }
+    const safeName = typeof name === "string" && name.trim() ? name.trim().slice(0, 80) : `图片 ${index + 1}`;
+    images.push({ name: safeName, ext, bytes });
+  }
+  return { images };
+}
+
+// 把正文里的 local:N 占位符替换成图片的最终站内路径。
+// 没有对应图片的占位符直接移除，避免发布后破图。
+export function replaceImagePlaceholders(
+  body: string,
+  slug: string,
+  images: ParsedSubmissionImage[]
+): string {
+  return body.replace(/!\[([^\]]*)\]\(\s*local:(\d+)\s*\)/g, (whole, alt: string, indexStr: string) => {
+    const index = Number(indexStr);
+    const image = Number.isInteger(index) ? images[index] : undefined;
+    if (!image) return "";
+    return `![${alt}](/uploads/${slug}/img-${index}.${image.ext})`;
+  });
 }
 
 // 校验投稿内容。字段层面的硬约束在这里，slug 冲突在 generateSlug 里检查。
@@ -231,13 +294,25 @@ export async function deleteSubmissionBranch(
   }
 }
 
-// 主流程：校验 → 生成 md → 提交到 GitHub 新分支 → 开 PR。
+// 主流程：校验 → 生成 md → 提交到 GitHub 新分支（正文 + 图片）→ 开 PR。
 export async function submitArticle(
   submission: ContributeSubmission,
-  options: { now?: Date } = {}
+  options: { now?: Date; images?: unknown } = {}
 ): Promise<SubmitResult> {
   const validation = validateSubmission(submission);
   if (!validation.ok) return { ok: false, error: validation.error, status: 400 };
+
+  const parsedImages = parseSubmissionImages(options.images);
+  if (parsedImages.error) return { ok: false, error: parsedImages.error, status: 400 };
+  const images = parsedImages.images;
+
+  // 正文引用了未提供的图片占位符时提前报错，避免合并后破图。
+  const placeholderIndexes = [...submission.body.matchAll(/!\[[^\]]*\]\(\s*local:(\d+)\s*\)/g)]
+    .map((match) => Number(match[1]));
+  const missing = placeholderIndexes.find((index) => !Number.isInteger(index) || index < 0 || index >= images.length);
+  if (missing !== undefined) {
+    return { ok: false, error: `正文里的第 ${missing + 1} 张图片没有上传成功，请重新插入图片`, status: 400 };
+  }
 
   const date = dateInShanghai(options.now ?? new Date());
   const slug = generateUniqueSlug(submission.title, submission.category);
@@ -250,7 +325,9 @@ export async function submitArticle(
     return { ok: false, error: "生成的文件路径不合法，请检查分类与标题", status: 400 };
   }
 
-  const markdown = buildMarkdownFile(submission, date);
+  // local:N 占位符替换成图片最终路径后再写入 markdown。
+  const finalBody = replaceImagePlaceholders(submission.body, slug, images);
+  const markdown = buildMarkdownFile({ ...submission, body: finalBody }, date);
   const branch = generateBranchName();
 
   if (isDryRun()) {
@@ -296,7 +373,7 @@ export async function submitArticle(
     branchCreated = true;
 
     try {
-      // 3. Contents API：在新分支上提交文件（此时分支已存在）。
+      // 3. Contents API：在新分支上提交文章文件（此时分支已存在）。
       const content = Buffer.from(markdown, "utf-8").toString("base64");
       const fileRes = await fetch(`${apiBase}/contents/${filePath}`, {
         method: "PUT",
@@ -312,7 +389,25 @@ export async function submitArticle(
         return { ok: false, error: `提交文件失败 (${fileRes.status})：${detail}`, status: 502 };
       }
 
-      // 4. 开 PR：head=新分支，base=默认分支。
+      // 4. 逐张提交图片到 public/uploads/<slug>/（同一分支，串行避免竞争）。
+      for (const [index, image] of images.entries()) {
+        const imagePath = `public/uploads/${slug}/img-${index}.${image.ext}`;
+        const imageRes = await fetch(`${apiBase}/contents/${imagePath}`, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify({
+            message: `投稿配图 ${index + 1}：${image.name}`,
+            content: image.bytes.toString("base64"),
+            branch,
+          }),
+        });
+        if (!imageRes.ok) {
+          const detail = await imageRes.text();
+          return { ok: false, error: `提交第 ${index + 1} 张图片失败 (${imageRes.status})：${detail}`, status: 502 };
+        }
+      }
+
+      // 5. 开 PR：head=新分支，base=默认分支。
       const prRes = await fetch(`${apiBase}/pulls`, {
         method: "POST",
         headers,
@@ -320,7 +415,7 @@ export async function submitArticle(
           title: `[投稿] ${submission.title.trim()}`,
           head: branch,
           base: GITHUB_BASE_BRANCH,
-          body: buildPrBody(submission, filePath, date),
+          body: buildPrBody(submission, filePath, date, images),
         }),
       });
       if (!prRes.ok) {
@@ -343,8 +438,16 @@ export async function submitArticle(
 }
 
 // PR 描述：给管理员审核用。投稿不收集邮箱，正文渲染也不允许 raw HTML。
-function buildPrBody(submission: ContributeSubmission, filePath: string, date: string): string {
+function buildPrBody(
+  submission: ContributeSubmission,
+  filePath: string,
+  date: string,
+  images: ParsedSubmissionImage[] = []
+): string {
   const tags = submission.tags.filter(Boolean).join(", ") || "（无）";
+  const imageLines = images.length > 0
+    ? images.map((image, index) => `   - img-${index}.${image.ext}（${image.name}）`).join("\n")
+    : "（无）";
   return [
     `## 投稿信息`,
     `- **标题**：${submission.title.trim()}`,
@@ -353,15 +456,22 @@ function buildPrBody(submission: ContributeSubmission, filePath: string, date: s
     `- **日期**：${date}`,
     `- **标签**：${tags}`,
     `- **文件**：\`${filePath}\``,
+    `- **配图**（public/uploads/${slugOf(filePath)}/）：`,
+    imageLines,
     ``,
     `## ⚠️ 审核提醒`,
     `本投稿来自网页端免登录提交。渲染管线只接受标准 Markdown，请务必逐行检查 diff：`,
-    `1. 是否含有脚本、图片、raw HTML 或不必要的外链；`,
-    `2. 外链是否指向可信站点；`,
-    `3. 内容是否符合社区规范。`,
+    `1. 是否含有脚本、raw HTML 或不必要的外链；`,
+    `2. 外链与图片是否指向可信站点（正文图片应位于本站 /uploads/ 或可信图床）；`,
+    `3. 图片内容是否合规；`,
+    `4. 内容是否符合社区规范。`,
     ``,
     `确认无误后再合并，合并后会自动触发部署。`,
   ].join("\n");
+}
+
+function slugOf(filePath: string): string {
+  return filePath.split("/").pop()?.replace(/\.md$/, "") ?? "";
 }
 
 // 客户端预览用：对用户输入的正文做与 readMarkdown 一致的预处理，

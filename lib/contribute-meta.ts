@@ -27,7 +27,13 @@ export function isContributeSection(categorySlug: string, sectionSlug: string): 
   return isTaxonomyContributeSection(categorySlug, sectionSlug);
 }
 
+export interface SubmissionImage {
+  name: string;
+  dataUrl: string;
+}
+
 export interface ContributeSubmission {
+  images?: SubmissionImage[];
   title: string;
   category: string;
   section: string;

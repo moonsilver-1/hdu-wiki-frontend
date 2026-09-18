@@ -9,14 +9,19 @@ function bodyError(reason: JsonBodyError): Error {
   return new Error(reason);
 }
 
-export async function readJsonBody(request: Request): Promise<Record<string, unknown>> {
+export async function readJsonBody(
+  request: Request,
+  options: { limitBytes?: number } = {}
+): Promise<Record<string, unknown>> {
+  const limitBytes = options.limitBytes ?? MAX_JSON_BODY_BYTES;
+
   const mediaType = request.headers.get("content-type")?.split(";", 1)[0].trim().toLowerCase();
   if (mediaType !== "application/json") throw bodyError("UNSUPPORTED_MEDIA_TYPE");
 
   const declaredLength = request.headers.get("content-length");
   if (declaredLength) {
     const length = Number(declaredLength);
-    if (Number.isFinite(length) && length > MAX_JSON_BODY_BYTES) {
+    if (Number.isFinite(length) && length > limitBytes) {
       throw bodyError("REQUEST_TOO_LARGE");
     }
   }
@@ -31,7 +36,7 @@ export async function readJsonBody(request: Request): Promise<Record<string, unk
       const { done, value } = await reader.read();
       if (done) break;
       size += value.byteLength;
-      if (size > MAX_JSON_BODY_BYTES) throw bodyError("REQUEST_TOO_LARGE");
+      if (size > limitBytes) throw bodyError("REQUEST_TOO_LARGE");
       chunks.push(value);
     }
   } catch (error) {

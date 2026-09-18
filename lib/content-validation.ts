@@ -66,7 +66,13 @@ export function validateArticleDocument(input: ContentDocumentInput, options?: {
     }
     if (inFence) continue;
     if (/^\s*#\s+/.test(line)) issues.push(error("V012", "正文禁止 H1", "页面标题由站点模板提供，正文从 H2 开始。"));
-    if (/!\[[^\]]*\]\([^)]*\)/.test(line) || /^\s*<img\b/i.test(line)) issues.push(error("V013", "正文禁止图片节点", "本版本使用纯 Markdown 文本；图片系统另立 V1.2。"));
+    // 图片白名单：src 只允许 local:N（随投稿上传的图片占位符）或 http(s) 外链，
+    // 其余（data:、javascript: 等）拒绝；<img> 标签由下方 raw HTML 规则拦截。
+    for (const match of line.matchAll(/!\[[^\]]*\]\(\s*([^)\s]+)[^)]*\)/g)) {
+      const src = match[1];
+      if (/^(local:\d+|https?:\/\/)/i.test(src)) continue;
+      issues.push(error("V013", "图片链接不受支持", "请上传图片（生成 local: 占位符）或使用 https:// 图片链接。"));
+    }
     const withoutInlineCode = line.replace(/`[^`]*`/g, "");
     const htmlTag = /<\/?[A-Za-z][A-Za-z0-9-]*(?:\s[^<>]*)?\s*\/?\s*>/;
     if (htmlTag.test(withoutInlineCode) && !/<https?:\/\/[^>]+>/.test(withoutInlineCode)) issues.push(error("V014", "正文禁止 raw HTML", "改写为标准 Markdown 或代码块。"));

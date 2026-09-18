@@ -9,6 +9,7 @@ import {
   Eye,
   Heading2,
   Heading3,
+  ImagePlus,
   Italic,
   Link as LinkIcon,
   List,
@@ -18,9 +19,26 @@ import {
   Sigma,
   SquareFunction,
   Table as TableIcon,
+  Trash2,
 } from "lucide-react";
 import { contributeCategories, getContributeCategory } from "@/lib/contribute-meta";
 import { validateSubmissionFields } from "@/lib/content-validation";
+
+// 投稿图片约束（与服务端 lib/contribute.ts 保持一致）。
+const MAX_IMAGES = 9;
+const MAX_IMAGE_BYTES = 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
+
+interface EditorImage {
+  id: number; // 对应正文占位符 local:<id>
+  name: string;
+  dataUrl: string;
+  sizeLabel: string;
+}
+
+function formatBytes(bytes: number): string {
+  return bytes >= 1024 * 1024 ? `${(bytes / 1024 / 1024).toFixed(1)}MB` : `${Math.max(1, Math.round(bytes / 1024))}KB`;
+}
 
 // 客户端版 slug 预览：与 lib/contribute.ts 的 slugifyTitle 保持一致的规则，
 // 让用户实时看到将生成的文章链接。纯中文标题会回退成 submission-xxx，提示明显。
@@ -179,9 +197,18 @@ export default function ContributeEditor() {
   const [errorMsg, setErrorMsg] = useState("");
   const [result, setResult] = useState<SubmitResponse | null>(null);
   const [mathOpen, setMathOpen] = useState(false);
+  const [images, setImages] = useState<EditorImage[]>([]);
+  const [imageNotice, setImageNotice] = useState("");
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const previewAbort = useRef<AbortController | null>(null);
+  const imageIdRef = useRef(0);
+  const imagesRef = useRef<EditorImage[]>([]);
+
+  useEffect(() => {
+    imagesRef.current = images;
+  }, [images]);
 
   const sections = useMemo(
     () => (category ? getContributeCategory(category)?.sections ?? [] : []),
@@ -207,6 +234,7 @@ export default function ContributeEditor() {
   const slugPreview = title.trim() ? previewSlug(title) : "";
 
   // 正文变化时 debounce 后请求预览（双栏常驻显示）。
+  // 预览 HTML 里的 local:id 占位符在本地图替换成 dataURL，预览即可见图片。
   useEffect(() => {
     previewAbort.current?.abort();
     const controller = new AbortController();
@@ -219,7 +247,13 @@ export default function ContributeEditor() {
         signal: controller.signal,
       })
         .then((res) => res.json())
-        .then((data: { html?: string }) => setPreviewHtml(data.html ?? ""))
+        .then((data: { html?: string }) => {
+          let html = data.html ?? "";
+          for (const image of imagesRef.current) {
+            html = html.replaceAll(`src="local:${image.id}"`, `src="${image.dataUrl}"`);
+          }
+          setPreviewHtml(html);
+        })
         .catch((error) => {
           if (error instanceof Error && error.name !== "AbortError") {
             console.error("预览失败", error);
@@ -272,6 +306,76 @@ export default function ContributeEditor() {
     []
   );
 
+  // 在光标处插入一张本地图片：登记到 images，并写占位符 ![名称](local:id)。
+  const insertImageFile = useCallback((file: File) => {
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      setImageNotice(`「${file.name}」不是支持的图片格式（PNG / JPG / WebP / GIF）`);
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      setImageNotice(`「${file.name}」超过 1MB 限制（当前 ${formatBytes(file.size)}），请压缩后再上传`);
+      return;
+    }
+    if (imagesRef.current.length >= MAX_IMAGES) {
+      setImageNotice(`最多插入 ${MAX_IMAGES} 张图片`);
+      return;
+    }
+    setImageNotice("");
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = String(reader.result);
+      const id = imageIdRef.current;
+      imageIdRef.current += 1;
+      const image: EditorImage = {
+        id,
+        name: file.name,
+        dataUrl,
+        sizeLabel: formatBytes(file.size),
+      };
+      setImages((current) => [...current, image]);
+      const textarea = textareaRef.current;
+      if (!textarea) return;
+      const alt = file.name.replace(/\.[a-z0-9]+$/i, "").slice(0, 40) || "配图";
+      const newValue = applyFormat(textarea, textarea.value, {
+        insert: `![${alt}](local:${id})`,
+        block: true,
+      });
+      setBody(newValue);
+      requestAnimationFrame(() => {
+        textarea.focus();
+      });
+    };
+    reader.readAsDataURL(file);
+  }, []);
+
+  // 删除图片：同时清掉正文里的占位符，并把它后面的占位索引整体前移。
+  const removeImage = useCallback((id: number) => {
+    setImages((current) => current.filter((image) => image.id !== id));
+    setBody((current) => {
+      let next = current.replace(new RegExp(`!\\[[^\\]]*\\]\\(\\s*local:${id}\\s*\\)`, "g"), "");
+      next = next.replace(/!\[([^\]]*)\]\(\s*local:(\d+)\s*\)/g, (whole, alt: string, indexStr: string) => {
+        const index = Number(indexStr);
+        return index > id ? `![${alt}](local:${index - 1})` : whole;
+      });
+      return next;
+    });
+    setImageNotice("");
+  }, []);
+
+  // 正文里直接粘贴截图：clipboard 里带图片文件时走同一条上传链路。
+  const handlePaste = useCallback(
+    (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+      const files = [...event.clipboardData.items]
+        .filter((item) => item.kind === "file" && item.type.startsWith("image/"))
+        .map((item) => item.getAsFile())
+        .filter((file): file is File => Boolean(file));
+      if (files.length === 0) return;
+      event.preventDefault();
+      for (const file of files) insertImageFile(file);
+    },
+    [insertImageFile]
+  );
+
   const handleSubmit = useCallback(async () => {
     setStatus("submitting");
     setErrorMsg("");
@@ -280,7 +384,16 @@ export default function ContributeEditor() {
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, category, section, author, excerpt, tags, body }),
+        body: JSON.stringify({
+          title,
+          category,
+          section,
+          author,
+          excerpt,
+          tags,
+          body,
+          images: images.map(({ name, dataUrl }) => ({ name, dataUrl })),
+        }),
       });
       const data = (await res.json()) as SubmitResponse;
       if (res.ok && data.ok) {
@@ -294,7 +407,7 @@ export default function ContributeEditor() {
       setErrorMsg(error instanceof Error ? error.message : "网络错误");
       setStatus("error");
     }
-  }, [title, category, section, author, excerpt, tags, body]);
+  }, [title, category, section, author, excerpt, tags, body, images]);
 
   if (status === "success" && result) {
     return (
@@ -460,6 +573,7 @@ export default function ContributeEditor() {
             <button type="button" title="分割线" onClick={() => handleFormat({ insert: "\n---\n", block: true })}><Minus aria-hidden="true" size={16} /></button>
             <span className="toolbar-divider" />
             <button type="button" title="链接" onClick={() => handleFormat({ prefix: "[", suffix: "](https://)", wrap: true, placeholder: "链接文字" })}><LinkIcon aria-hidden="true" size={16} /></button>
+            <button type="button" title="插入图片（也可直接粘贴截图）" onClick={() => fileInputRef.current?.click()}><ImagePlus aria-hidden="true" size={16} /></button>
             <button type="button" title="代码块" onClick={() => handleFormat({ insert: "\n```\ncode\n```\n", block: true })}><Code2 aria-hidden="true" size={16} /></button>
             <button type="button" title="表格" onClick={() => handleFormat({ insert: "\n| 列1 | 列2 |\n| --- | --- |\n| 内容 | 内容 |\n", block: true })}><TableIcon aria-hidden="true" size={16} /></button>
             <span className="toolbar-divider" />
@@ -467,6 +581,19 @@ export default function ContributeEditor() {
             <button type="button" title="行间公式" onClick={() => handleFormat({ insert: "\n$$\n\\int_0^1 x\\,dx\n$$\n", block: true })}><Sigma aria-hidden="true" size={16} /></button>
             <button type="button" title="公式助手" className={mathOpen ? "active" : ""} onClick={() => setMathOpen((open) => !open)}><Eye aria-hidden="true" size={15} /> 公式</button>
           </div>
+
+          {/* 隐藏的图片选择器：工具栏「插入图片」按钮触发 */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/gif"
+            multiple
+            hidden
+            onChange={(event) => {
+              for (const file of event.target.files ?? []) insertImageFile(file);
+              event.target.value = "";
+            }}
+          />
 
           {/* 公式助手面板 */}
           {mathOpen ? (
@@ -504,8 +631,9 @@ export default function ContributeEditor() {
                 className="contribute-textarea"
                 value={body}
                 onChange={(event) => setBody(event.target.value)}
+                onPaste={handlePaste}
                 maxLength={60_000}
-                placeholder={"用上方工具栏插入格式、公式、表格……\n右侧会实时显示渲染效果。\n\n例如点「行间公式」插入一个积分模板。"}
+                placeholder={"用上方工具栏插入格式、公式、表格、图片……\n支持直接 Ctrl+V 粘贴截图。\n右侧会实时显示渲染效果。"}
                 required
               />
             </div>
@@ -517,6 +645,37 @@ export default function ContributeEditor() {
               />
             </div>
           </div>
+
+          {/* 已插入的图片列表 */}
+          {images.length > 0 || imageNotice ? (
+            <div className="contribute-images" role="region" aria-label="已插入的图片">
+              <span className="contribute-images-title">
+                已插入图片 {images.length}/{MAX_IMAGES}（随文章一起提交，单张 ≤1MB）
+              </span>
+              {imageNotice ? <p className="contribute-images-notice" role="status">{imageNotice}</p> : null}
+              {images.length > 0 ? (
+                <div className="contribute-images-grid">
+                  {images.map((image) => (
+                    <figure key={image.id} className="contribute-image-card">
+                      <img src={image.dataUrl} alt={image.name} />
+                      <figcaption>
+                        <span title={image.name}>{image.name}</span>
+                        <small>{image.sizeLabel}</small>
+                      </figcaption>
+                      <button
+                        type="button"
+                        className="contribute-image-remove"
+                        aria-label={`删除图片 ${image.name}`}
+                        onClick={() => removeImage(image.id)}
+                      >
+                        <Trash2 aria-hidden="true" size={14} />
+                      </button>
+                    </figure>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
 
         {clientErrors.length > 0 && status !== "submitting" ? (

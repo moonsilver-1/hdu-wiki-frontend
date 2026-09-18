@@ -26,8 +26,9 @@ test("generated markdown always contains the required excerpt", () => {
   assert.doesNotMatch(markdown, /email|联系邮箱/i);
 });
 
-test("submit API rejects bodies larger than 256 KiB", async () => {
-  const body = "{" + "\"body\":\"" + "x".repeat(256 * 1024) + "\"}";
+test("submit API rejects bodies larger than 16 MB", async () => {
+  // 投稿支持 base64 图片后限额放宽到 16MB；超过仍然要被 413 拒绝。
+  const body = "{" + "\"body\":\"" + "x".repeat(16 * 1024 * 1024) + "\"}";
   const response = await submitRoute(new Request("https://example.test/api/submit", {
     method: "POST",
     headers: { "content-type": "application/json" },

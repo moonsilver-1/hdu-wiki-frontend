@@ -41,6 +41,27 @@ function rehypeSafeUrls() {
   };
 }
 
+// 文章图片滚动到附近才开始加载，避免长文一次拉满图片造成卡顿。
+function rehypeLazyImages() {
+  return (tree: unknown) => {
+    const visit = (node: unknown): void => {
+      if (!node || typeof node !== "object") return;
+      const element = node as {
+        type?: string;
+        tagName?: string;
+        properties?: Record<string, unknown>;
+        children?: unknown[];
+      };
+      if (element.type === "element" && element.tagName === "img" && element.properties) {
+        element.properties.loading = "lazy";
+        element.properties.decoding = "async";
+      }
+      element.children?.forEach(visit);
+    };
+    visit(tree);
+  };
+}
+
 // Keep the parser configuration in one place so article pages and API consumers
 // produce the same HTML. Math is rendered on the server and is safe to inject
 // because the source is repository-controlled Markdown.
@@ -54,6 +75,7 @@ export const markdownProcessor = unified()
   .use(rehypeHighlight)
   .use(rehypeKatex, { throwOnError: false, strict: false })
   .use(rehypeSafeUrls)
+  .use(rehypeLazyImages)
   .use(rehypeStringify);
 
 export interface ArticleMeta {

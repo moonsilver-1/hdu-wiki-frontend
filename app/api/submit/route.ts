@@ -6,10 +6,13 @@ import { readJsonBody } from "@/lib/request-body";
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
   try {
-    payload = await readJsonBody(request);
+    // 正文 + base64 图片，放宽到 16MB；图片数量/单张大小在 submitArticle 里严格校验。
+    payload = await readJsonBody(request, { limitBytes: 16 * 1024 * 1024 });
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
-    if (reason === "REQUEST_TOO_LARGE") return NextResponse.json({ error: "请求体超过 256 KiB 限制" }, { status: 413 });
+    if (reason === "REQUEST_TOO_LARGE") {
+      return NextResponse.json({ error: "投稿内容（含图片）超过 16MB 限制，请压缩图片" }, { status: 413 });
+    }
     if (reason === "UNSUPPORTED_MEDIA_TYPE") return NextResponse.json({ error: "只接受 application/json" }, { status: 415 });
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
@@ -32,7 +35,7 @@ export async function POST(request: Request) {
     body: asString(payload.body),
   };
 
-  const result = await submitArticle(submission);
+  const result = await submitArticle(submission, { images: payload.images });
   if (!result.ok) {
     return NextResponse.json(
       { ok: false, error: result.error },
