@@ -4654,3 +4654,104 @@ mark.search-highlight.search-highlight-fade {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ============================================================
+   侧栏折叠组：luoluo 式 chevron 旋转 + details 平滑展开动画
+   卡片网格：取消强制等高，内容少的卡片不再空一大块
+   ============================================================ */
+
+/* 卡片高度交给内容：网格行内不强制 246/250px 最小高度 */
+.article-grid,
+.category-article-grid {
+  align-items: start;
+}
+
+.article-card,
+.category-article-card {
+  min-height: 0;
+}
+
+/* 折叠箭头：替代原生 marker，展开时旋转 90° */
+.sidebar-featured-details > summary,
+.sidebar-section-group > summary,
+.sidebar-course-group > summary,
+.sidebar-volume-group > summary,
+.sidebar-subseries-group > summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border-radius: 6px;
+  color: var(--foreground);
+}
+
+.sidebar-featured-details > summary::-webkit-details-marker,
+.sidebar-section-group > summary::-webkit-details-marker,
+.sidebar-course-group > summary::-webkit-details-marker,
+.sidebar-volume-group > summary::-webkit-details-marker,
+.sidebar-subseries-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.sidebar-featured-details > summary::marker,
+.sidebar-section-group > summary::marker,
+.sidebar-course-group > summary::marker,
+.sidebar-volume-group > summary::marker,
+.sidebar-subseries-group > summary::marker {
+  content: "";
+}
+
+.sidebar-featured-details > summary::after,
+.sidebar-section-group > summary::after,
+.sidebar-course-group > summary::after,
+.sidebar-volume-group > summary::after,
+.sidebar-subseries-group > summary::after {
+  content: "";
+  justify-self: end;
+  width: 6px;
+  height: 6px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  opacity: 0.65;
+  translate: 0 -1px;
+  rotate: -45deg;
+  transition: rotate 220ms cubic-bezier(0.4, 0, 0.2, 1), translate 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-featured-details[open] > summary::after,
+.sidebar-section-group[open] > summary::after,
+.sidebar-course-group[open] > summary::after,
+.sidebar-volume-group[open] > summary::after,
+.sidebar-subseries-group[open] > summary::after {
+  translate: 0 1px;
+  rotate: 45deg;
+}
+
+/* 平滑展开动画：details 高度从 0 过渡到 auto（Chromium 131+ 生效；
+   不支持的浏览器没有动画，功能不受影响）。折叠是轻量功能性动效，
+   与大动效不同，不随 prefers-reduced-motion 一刀切关闭。 */
+@supports (interpolate-size: allow-keywords) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+
+  .sidebar-featured-details::details-content,
+  .sidebar-section-group::details-content,
+  .sidebar-course-group::details-content,
+  .sidebar-volume-group::details-content,
+  .sidebar-subseries-group::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 300ms cubic-bezier(0.4, 0, 0.2, 1), content-visibility 300ms allow-discrete;
+  }
+
+  .sidebar-featured-details[open]::details-content,
+  .sidebar-section-group[open]::details-content,
+  .sidebar-course-group[open]::details-content,
+  .sidebar-volume-group[open]::details-content,
+  .sidebar-subseries-group[open]::details-content {
+    block-size: auto;
+  }
+}
