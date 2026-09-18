@@ -1,12 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Monitor, Moon, PenSquare, Smartphone, Sun, TerminalSquare, X } from "lucide-react";
-import { useState } from "react";
+import { LogOut, Menu, Monitor, Moon, PenSquare, Smartphone, Sun, TerminalSquare, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import SearchButton from "./SearchButton";
 import { useTheme } from "./ThemeProvider";
 import WikiMascot from "./WikiMascot";
+
+interface WatchaUser {
+  uid: string;
+  nick: string;
+  avatar: string;
+}
+
+// 登录失败/取消后，观猹回跳会带 login_error 参数：显示一次轻提示。
+// setState 放在 setTimeout 回调里，避免在 effect 内同步触发级联渲染。
+function LoginNotice() {
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const error = new URLSearchParams(window.location.search).get("login_error");
+    if (!error) return;
+    window.history.replaceState(null, "", window.location.pathname);
+    const show = window.setTimeout(
+      () => setMessage(error === "cancelled" ? "已取消登录" : "登录没有成功，请再试一次"),
+      0,
+    );
+    const hide = window.setTimeout(() => setMessage(""), 4200);
+    return () => {
+      window.clearTimeout(show);
+      window.clearTimeout(hide);
+    };
+  }, []);
+
+  if (!message) return null;
+  return <div className="login-notice" role="status">{message}</div>;
+}
 
 const categories = [
   { slug: "courses", name: "课程与学术" },
@@ -39,11 +69,30 @@ function ThemeToggle() {
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [watchaUser, setWatchaUser] = useState<WatchaUser | null>(null);
+  const [watchaLoaded, setWatchaLoaded] = useState(false);
+
+  // 登录态只在客户端拉取：页面保持静态预生成，登录不影响 SSG。
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => res.json())
+      .then((data: { user: WatchaUser | null }) => setWatchaUser(data.user ?? null))
+      .catch(() => undefined)
+      .finally(() => setWatchaLoaded(true));
+  }, []);
+
+  const logout = () => {
+    fetch("/api/auth/logout", { method: "POST" })
+      .then(() => setWatchaUser(null))
+      .catch(() => undefined);
+  };
+
   if (pathname?.startsWith("/welcome")) return null;
   const isHome = pathname === null || pathname === "/";
 
   return (
     <header className="site-header">
+      <LoginNotice />
       <div className="site-container header-inner">
         <Link href="/" className="site-brand" onClick={() => setMenuOpen(false)}>
           <span className="brand-avatar" aria-hidden="true">
@@ -71,6 +120,28 @@ export default function Header() {
 
         <div className="header-actions">
           <SearchButton variant="compact" />
+          {watchaUser ? (
+            <span className="user-chip" title={`观猹用户 ${watchaUser.uid}`}>
+              {watchaUser.avatar ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={watchaUser.avatar} alt="" referrerPolicy="no-referrer" />
+              ) : (
+                <span className="user-chip-fallback">{watchaUser.nick.slice(0, 1)}</span>
+              )}
+              <span className="user-chip-nick">{watchaUser.nick}</span>
+              <button type="button" onClick={logout} aria-label="退出登录" title="退出登录">
+                <LogOut aria-hidden="true" size={14} />
+              </button>
+            </span>
+          ) : watchaLoaded ? (
+            // 跳转到 API 路由再 302 到观猹授权页，必须用原生 <a> 走完整导航
+            // eslint-disable-next-line @next/next/no-html-link-for-pages
+            <a className="watcha-login" href="/api/auth/login" title="使用观猹账号登录">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/watcha-logo.png" alt="" width={16} height={16} />
+              观猹登录
+            </a>
+          ) : null}
           <a
             href="https://github.com/moonsilver-1/dudu-app/releases/latest/download/dudu-release.apk"
             className="header-icon-button"
@@ -136,6 +207,26 @@ export default function Header() {
               <Smartphone aria-hidden="true" size={17} />
               下载安卓 App
             </a>
+            {watchaUser ? (
+              <button
+                type="button"
+                className="mobile-nav-logout"
+                onClick={() => {
+                  logout();
+                  window.setTimeout(() => setMenuOpen(false), 0);
+                }}
+              >
+                <LogOut aria-hidden="true" size={17} />
+                退出登录（{watchaUser.nick}）
+              </button>
+            ) : (
+              // eslint-disable-next-line @next/next/no-html-link-for-pages
+              <a href="/api/auth/login" onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/watcha-logo.png" alt="" width={17} height={17} />
+                观猹登录
+              </a>
+            )}
             <a
               href="https://github.com/moonsilver-1/hdu-wiki-desktop/releases/latest/download/HDU-Wiki-Setup.exe"
               onClick={() => window.setTimeout(() => setMenuOpen(false), 0)}

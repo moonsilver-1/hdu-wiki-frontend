@@ -5127,3 +5127,119 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
 .category-header .category-header-icon {
   display: none;
 }
+
+/* ============================================================
+   观猹登录：Header 登录按钮 + 用户徽章
+   ============================================================ */
+
+.watcha-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 13px;
+  border: 1px solid color-mix(in srgb, var(--primary) 34%, var(--border));
+  border-radius: 999px;
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  font-size: 13px;
+  font-weight: 650;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.watcha-login:hover {
+  color: var(--primary-strong);
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--border));
+  background: var(--primary-light);
+}
+
+.watcha-login img {
+  border-radius: 4px;
+}
+
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 6px 0 4px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+
+.user-chip img,
+.user-chip-fallback {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.user-chip-fallback {
+  display: grid;
+  place-items: center;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, #8b46f6, #d04ae0);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-chip-nick {
+  max-width: 96px;
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-chip button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: color 140ms ease, background 140ms ease;
+}
+
+.user-chip button:hover {
+  color: #d04a6a;
+  background: color-mix(in srgb, #d04a6a 12%, transparent);
+}
+
+.mobile-nav-logout {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mobile-nav-logout:hover {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+/* 登录结果轻提示（拒绝授权/失败时短暂显示） */
+.login-notice {
+  padding: 8px 0;
+  color: var(--primary-strong);
+  background: var(--primary-light);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-align: center;
+}
