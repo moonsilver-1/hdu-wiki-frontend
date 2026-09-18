@@ -8,7 +8,7 @@ import {
 import { getAllArticles, getAuthors, getCategories, getAuthorSlug, splitAuthors, type ArticleMeta } from "@/lib/content";
 import CategoryIcon from "@/components/CategoryIcon";
 import ArticleList from "@/components/ArticleList";
-import SearchButton from "@/components/SearchButton";
+import AskBox from "@/components/AskBox";
 import HotChips, { type HotChip } from "@/components/HotChips";
 import WikiMascot, { Sparkle } from "@/components/WikiMascot";
 
@@ -143,7 +143,7 @@ export default async function Home({
             <span className="hero-title-gradient">杭电百事通</span>
           </h1>
           <p className="hero-lead">课程攻略、生活指南、技术分享——学长学姐踩过的坑，都替你写好啦</p>
-          <SearchButton variant="hero" listenForShortcut={false} />
+          <AskBox />
 
           <HotChips chips={chipPool} />
 
