@@ -73,17 +73,42 @@ export default function Header() {
   const [watchaLoaded, setWatchaLoaded] = useState(false);
 
   // 登录态只在客户端拉取：页面保持静态预生成，登录不影响 SSG。
+  // 结果缓存进 sessionStorage，同一标签页内的后续整页加载不再打 /api/auth/me
+  // （省 Vercel 函数调用；退出登录时会清掉缓存）。
   useEffect(() => {
-    fetch("/api/auth/me")
-      .then((res) => res.json())
-      .then((data: { user: WatchaUser | null }) => setWatchaUser(data.user ?? null))
-      .catch(() => undefined)
-      .finally(() => setWatchaLoaded(true));
+    // setState 全部放进 setTimeout 回调（异步），满足 react-hooks 规则
+    const timer = window.setTimeout(() => {
+      const cacheKey = "wiki-watcha-user";
+      try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) {
+          setWatchaUser(JSON.parse(cached) as WatchaUser);
+          setWatchaLoaded(true);
+          return;
+        }
+      } catch {}
+
+      fetch("/api/auth/me")
+        .then((res) => res.json())
+        .then((data: { user: WatchaUser | null }) => {
+          setWatchaUser(data.user ?? null);
+          try {
+            if (data.user) sessionStorage.setItem(cacheKey, JSON.stringify(data.user));
+            else sessionStorage.removeItem(cacheKey);
+          } catch {}
+        })
+        .catch(() => undefined)
+        .finally(() => setWatchaLoaded(true));
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const logout = () => {
     fetch("/api/auth/logout", { method: "POST" })
-      .then(() => setWatchaUser(null))
+      .then(() => {
+        setWatchaUser(null);
+        try { sessionStorage.removeItem("wiki-watcha-user"); } catch {}
+      })
       .catch(() => undefined);
   };
 
