@@ -5280,6 +5280,16 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
   background: var(--glass-fill);
   backdrop-filter: blur(14px);
   box-shadow: var(--shadow-lg);
+  transition: border-color 160ms ease;
+}
+
+/* 聚焦时边框变色，替代 input 默认的 outline 描边 */
+.ask-box:focus-within {
+  border-color: color-mix(in srgb, var(--primary) 50%, var(--glass-border));
+}
+
+.ask-box-input:focus-visible {
+  outline: none;
 }
 
 .ask-box-input {
