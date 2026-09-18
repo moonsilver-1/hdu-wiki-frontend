@@ -5086,7 +5086,7 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
 
 .category-header {
   display: block;
-  padding: 4px 0 26px;
+  padding: 10px 0 34px;
 }
 
 .category-header-top {
@@ -5117,7 +5117,7 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
 }
 
 .category-header p {
-  margin: 10px 0 0;
+  margin: 14px 0 0;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.7;
@@ -5252,7 +5252,7 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
 }
 
 .category-header-eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 18px;
   color: var(--muted);
   font-size: 13px;
   font-weight: 600;
