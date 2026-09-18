@@ -102,7 +102,13 @@ for (const file of markdownFiles) {
 
   const ast = parseAst(parsed.content);
   walk(ast, (node) => {
-    if (node.type === "image") add(file, { level: "error", code: "A001", message: "AST 检测到图片节点", hint: "改用纯 Markdown 文本。" });
+    // 图片不再一刀切禁止：url 仅允许 local:N（投稿上传占位）、站内绝对路径或 http(s) 外链
+    if (node.type === "image") {
+      const src = String(node.url ?? "");
+      if (!/^(local:\d+|https?:\/\/|\/)/i.test(src)) {
+        add(file, { level: "error", code: "A001", message: "图片链接不受支持", hint: "使用站内路径或 https:// 图片链接。" });
+      }
+    }
     if (node.type === "html") add(file, { level: "error", code: "A002", message: "AST 检测到 raw HTML 节点", hint: "改写为 Markdown 或代码块。" });
     if (node.type === "code" && !node.lang) add(file, { level: "warning", code: "A003", message: "代码块未声明语言", hint: "建议使用 ```text、```ts 等语言标记。" });
   });
