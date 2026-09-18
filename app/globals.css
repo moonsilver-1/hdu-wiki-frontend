@@ -1539,10 +1539,14 @@ input:focus-visible {
 }
 
 .article-card h3 {
+  display: -webkit-box;
   margin: 20px 0 0;
+  overflow: hidden;
   font-size: 18px;
   line-height: 1.45;
   font-weight: 680;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .article-card > p {
@@ -4659,15 +4663,9 @@ mark.search-highlight.search-highlight-fade {
    卡片网格：取消强制等高，内容少的卡片不再空一大块
    ============================================================ */
 
-/* 卡片高度交给内容：网格行内不强制 246/250px 最小高度 */
-.article-grid,
-.category-article-grid {
-  align-items: start;
-}
-
-.article-card,
-.category-article-card {
-  min-height: 0;
+/* 卡片等高：靠标题/摘要双截断 + footer 吸底保证内部不空一大块 */
+.article-card {
+  min-height: 224px;
 }
 
 /* 折叠箭头：替代原生 marker，展开时旋转 90° */
