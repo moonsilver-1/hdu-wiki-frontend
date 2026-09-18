@@ -56,7 +56,7 @@ export default function RootLayout({
       <body className="app-body">
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("wiki-theme");var d=t==="dark"||(t!=="light"&&(window.matchMedia("(prefers-color-scheme:dark)").matches||(new Date().getHours()>=18||new Date().getHours()<6)));if(d)document.documentElement.classList.add("dark")}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("wiki-theme");var d=t==="dark"||(t!=="light"&&(window.matchMedia("(prefers-color-scheme:dark)").matches||(new Date().getHours()>=18||new Date().getHours()<6)));if(d)document.documentElement.classList.add("dark");document.documentElement.dataset.sidebar=localStorage.getItem("wiki-sidebar")==="hidden"?"hidden":"visible"}catch(e){}})()`,
           }}
         />
         <ThemeProvider>

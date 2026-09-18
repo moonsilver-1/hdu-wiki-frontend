@@ -4800,7 +4800,9 @@ mark.search-highlight.search-highlight-fade {
 .category-volume-group > summary {
   min-height: 0;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  text-align: left;
   gap: 10px;
   padding: 9px 12px;
   border: 0;
@@ -4983,4 +4985,145 @@ mark.search-highlight.search-highlight-fade {
 .category-section-grid {
   grid-template-columns: minmax(0, 1fr);
   gap: 2px;
+}
+
+/* ============================================================
+   左侧栏收起/展开：html[data-sidebar=hidden] 驱动，localStorage 记忆
+   ============================================================ */
+
+.sidebar-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 6px;
+}
+
+.sidebar-collapse {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.sidebar-collapse:hover {
+  color: var(--primary-strong);
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+  background: var(--primary-light);
+}
+
+.sidebar-expand {
+  position: fixed;
+  left: 14px;
+  top: 80px;
+  z-index: 30;
+  display: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface-raised) 88%, transparent);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.sidebar-expand:hover {
+  color: var(--primary-strong);
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+  background: var(--primary-light);
+}
+
+html[data-sidebar="hidden"] .sidebar-collapse {
+  display: none;
+}
+
+html[data-sidebar="hidden"] .sidebar-expand {
+  display: grid;
+}
+
+html[data-sidebar="hidden"] .wiki-sidebar {
+  display: none !important;
+}
+
+html[data-sidebar="hidden"] .article-layout {
+  grid-template-columns: minmax(0, 1fr) auto !important;
+}
+
+html[data-sidebar="hidden"] .content-layout:not(.article-layout) {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+/* 侧栏收起后把腾出的宽度还给正文，阅读列放宽并在剩余空间居中 */
+html[data-sidebar="hidden"] .article-page-content {
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+html[data-sidebar="hidden"] .article-page-content .wiki-content {
+  max-width: none;
+}
+
+@media (max-width: 920px) {
+  .sidebar-collapse,
+  .sidebar-expand {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   分类页页头：纯排版（kicker 行 + 大标题 + 描述），去掉图标方块
+   ============================================================ */
+
+.category-header {
+  display: block;
+  padding: 4px 0 26px;
+}
+
+.category-header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.category-header-top .section-kicker {
+  margin-bottom: 0;
+  gap: 7px;
+}
+
+.category-header-count {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.category-header h1 {
+  margin: 0;
+  font-family: var(--font-display), var(--font-geist-sans), "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 42px;
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+  font-weight: 760;
+}
+
+.category-header p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.category-header > strong,
+.category-header .category-header-icon {
+  display: none;
 }

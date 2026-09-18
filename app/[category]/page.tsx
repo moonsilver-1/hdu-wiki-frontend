@@ -14,6 +14,7 @@ import {
 import CategoryIcon from "@/components/CategoryIcon";
 import CategoryArticleRow from "@/components/CategoryArticleRow";
 import Sidebar from "@/components/Sidebar";
+import { SidebarExpandButton } from "@/components/SidebarToggle";
 
 const categoryDescriptions: Record<string, string> = {
   courses: "课程笔记、考试经验与学习资源，帮你更清楚地规划学业。",
@@ -154,6 +155,7 @@ export default async function CategoryPage({
   return (
     <div className="site-container content-layout">
       <Sidebar activeCategory={category} />
+      <SidebarExpandButton />
       <main className="page-content">
         <nav className="breadcrumb" aria-label="面包屑">
           <Link href="/">首页</Link>
@@ -162,15 +164,15 @@ export default async function CategoryPage({
         </nav>
 
         <header className={`category-header category-${category}`}>
-          <span className="category-header-icon">
-            <CategoryIcon category={category} size={28} />
-          </span>
-          <div>
-            <span className="section-kicker">知识分类</span>
-            <h1>{categoryName}</h1>
-            <p>{categoryDescriptions[category]}</p>
+          <div className="category-header-top">
+            <span className="section-kicker">
+              <CategoryIcon category={category} size={13} />
+              知识分类
+            </span>
+            <span className="category-header-count">共 {articles.length} 篇</span>
           </div>
-          <strong>{articles.length}篇</strong>
+          <h1>{categoryName}</h1>
+          <p>{categoryDescriptions[category]}</p>
         </header>
 
         {groups.length === 0 ? (

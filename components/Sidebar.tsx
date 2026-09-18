@@ -11,6 +11,7 @@ import {
 } from "@/lib/content";
 import CategoryIcon from "./CategoryIcon";
 import SidebarActiveArticle from "./SidebarActiveArticle";
+import SidebarCollapseButton from "./SidebarToggle";
 
 export default function Sidebar({
   activeCategory,
@@ -25,6 +26,9 @@ export default function Sidebar({
   return (
     <aside className="wiki-sidebar">
       <nav className="wiki-sidebar-inner" aria-label="知识分类">
+        <div className="sidebar-toolbar">
+          <SidebarCollapseButton />
+        </div>
         <SidebarActiveArticle slug={activeSlug} />
         {featuredArticles.length > 0 ? (
           <div className="sidebar-group sidebar-featured-group">

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CalendarDays, ChevronLeft, ChevronRight, UserRound } from "lucide-react";
 import { getAdjacentArticles, getArticle, getArticleSlugs, getAuthorSlug, getCategoryName, splitAuthors } from "@/lib/content";
 import Sidebar from "@/components/Sidebar";
+import { SidebarExpandButton } from "@/components/SidebarToggle";
 import Toc from "@/components/Toc";
 import SearchHighlight from "@/components/SearchHighlight";
 import ArticleKeyboardNav from "@/components/ArticleKeyboardNav";
@@ -73,6 +74,7 @@ export default async function ArticlePage({
   return (
     <div className="site-container content-layout article-layout">
       <Sidebar activeCategory={category} activeSlug={decodedSlug} />
+      <SidebarExpandButton />
       <main className="article-page-content">
         <nav className="breadcrumb" aria-label="面包屑">
           <Link href="/">首页</Link>
