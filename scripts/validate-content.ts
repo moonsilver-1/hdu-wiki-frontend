@@ -104,7 +104,7 @@ for (const file of markdownFiles) {
   walk(ast, (node) => {
     // 图片不再一刀切禁止：url 仅允许 local:N（投稿上传占位）、站内绝对路径或 http(s) 外链
     if (node.type === "image") {
-      const src = String(node.url ?? "");
+      const src = String((node as { url?: unknown }).url ?? "");
       if (!/^(local:\d+|https?:\/\/|\/)/i.test(src)) {
         add(file, { level: "error", code: "A001", message: "图片链接不受支持", hint: "使用站内路径或 https:// 图片链接。" });
       }
