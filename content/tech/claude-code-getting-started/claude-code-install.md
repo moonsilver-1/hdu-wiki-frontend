@@ -1,9 +1,9 @@
 ---
 title: "安装配置"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* macOS、Linux 或 Windows（原生 Windows 或 WSL 都行）"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 hihi！洛洛来了！

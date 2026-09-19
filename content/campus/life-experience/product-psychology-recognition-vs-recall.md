@@ -1,9 +1,9 @@
 ---
 title: "识别与回忆：空白框把工作交给谁？"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "先把性质讲清楚：这不是某一个实验，而是 NN/g 总结的可用性原则。 Nielsen Norman Group 的《Memory Recognition and Recall in User Interfaces》把认知心理学关于记忆的基本结论翻译成了界面做法，是综述和建议，不是带对照组的研究。这点…"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛要讲一个自己对着电脑发呆十分钟的故事。

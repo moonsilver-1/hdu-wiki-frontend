@@ -1,9 +1,9 @@
 ---
 title: "Codex SDK"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "npm install @openai/codex-sdk"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Codex SDK 让你在自己的服务或脚本里以编程方式启动、续接、监控 Codex 线程。它是对本地 Codex 引擎（app-server）的封装，行为与 CLI 一致，也读同一份 `~/.codex/config.toml`。

@@ -1,9 +1,9 @@
 ---
 title: "AI 辅助写作"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "当你积累了足够多的原子笔记，可以让 Claude 帮你组合成文章："
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Claude Code 可以作为你的写作搭档，帮你在 Obsidian Vault 中起草、润色、扩展和重组内容。

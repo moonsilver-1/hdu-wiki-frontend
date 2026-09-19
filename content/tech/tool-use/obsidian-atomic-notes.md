@@ -1,9 +1,9 @@
 ---
 title: "原子笔记"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 大块笔记 = 一整块预制板 → 只能用在特定位置，无法灵活组合"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **原子笔记（Atomic Notes）** 是 Zettelkasten 方法的核心原则：每张笔记只承载**一个独立的想法**。

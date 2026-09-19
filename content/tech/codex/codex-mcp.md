@@ -1,9 +1,9 @@
 ---
 title: "MCP"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "适合：查文档（Context7、OpenAI Docs）、操作浏览器（Playwright、Chrome DevTools）、读设计稿（Figma）、查错误监控（Sentry）、管 Issue / PR（GitHub、Linear）。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **MCP（Model Context Protocol）** 让 Codex 连接仓库之外的工具和数据：文档库、浏览器、设计稿、Issue 系统、内部 API。Codex 0.147.0 支持 2026-07-28 版协议。

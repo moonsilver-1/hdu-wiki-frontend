@@ -1,9 +1,9 @@
 ---
 title: "零价格效应：免费不只是便宜一点"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Shampanier、Mazar 和 Ariely 2007 年发在《Marketing Science》上的这篇论文，设计得特别聪明：同时降价，但只让其中一个到零。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛在闲鱼上挂过一个 1 块钱的小红书选题表。

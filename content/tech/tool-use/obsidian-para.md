@@ -1,9 +1,9 @@
 ---
 title: "PARA 组织法"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "你需要持续维护的责任领域，没有截止日期。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **PARA** 是 Tiago Forte 提出的数字信息组织方法，把所有信息分为四类：

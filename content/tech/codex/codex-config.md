@@ -1,9 +1,9 @@
 ---
 title: "config.toml 配置详解"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "1. 命令行参数与 -c key=value 临时覆盖"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Codex 的所有行为都能在 TOML 里配。配置文件默认在 `~/.codex/config.toml`（目录可用 `CODEX_HOME` 改）。

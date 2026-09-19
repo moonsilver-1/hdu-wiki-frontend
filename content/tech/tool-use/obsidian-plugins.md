@@ -1,9 +1,9 @@
 ---
 title: "必装插件推荐"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "1. 设置 → 第三方插件 → 开启社区插件（旧版叫「关闭安全模式」，现在官方称为受限模式 Restricted mode）"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Obsidian 的插件生态极其丰富，以下是按类别精选的必装插件。

@@ -1,9 +1,9 @@
 ---
 title: "Clash 使用指南"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 基于 Tauri（Rust + Web），比 Electron 方案更轻量"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Clash 是目前最流行的代理客户端框架之一，支持多种协议和灵活的分流规则。

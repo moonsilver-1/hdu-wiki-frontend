@@ -1,9 +1,9 @@
 ---
 title: "Shadowrocket (iOS)"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Shadowrocket 是付费应用（截至 2026-09-14 美区 App Store 标价 $2.99，以商店页为准），需要非中国区 Apple ID 才能购买。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Shadowrocket**（小火箭）是 iOS 平台最流行的代理客户端，功能强大、操作简单。

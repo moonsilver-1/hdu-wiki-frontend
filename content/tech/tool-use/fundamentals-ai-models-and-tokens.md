@@ -1,9 +1,9 @@
 ---
 title: "AI 模型与 Token"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "LLM = Large Language Model（大语言模型），简单说就是一个训练过的”超大脑”——它读过互联网上数以万亿计的文字，学会了”给定前文，下一个词最可能是什么”的规律。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 什么是 LLM（大语言模型）？

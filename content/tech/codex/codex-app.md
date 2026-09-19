@@ -1,9 +1,9 @@
 ---
 title: "Codex 桌面 App"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 2026-02-02：Codex app for macOS 独立发布（Apple Silicon，macOS 14+）"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Codex 桌面 App 是 CLI 之外最主要的入口。它把 CLI 的全部能力包成图形界面，再加上 CLI 没有的东西：自动 worktree、定时自动化、审阅队列、Computer Use、内置浏览器。

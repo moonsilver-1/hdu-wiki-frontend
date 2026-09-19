@@ -1,9 +1,9 @@
 ---
 title: "搜索技巧"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Cmd/Ctrl + O — 按文件名模糊搜索，最快的找笔记方式。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 快速打开

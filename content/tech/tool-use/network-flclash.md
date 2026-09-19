@@ -1,9 +1,9 @@
 ---
 title: "FlClash 全平台指南"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "从 GitHub Releases 下载 APK："
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **FlClash** 是一款基于 Flutter 开发的全平台代理客户端，内核使用 mihomo（Clash Meta）。一套代码覆盖 Android、Windows、macOS、Linux，安卓手机和电脑可以用同一个应用。截至 2026-09-14，官方 README 与 Releases 只提供这四个平台，最新版本是 v0.8.98（2026-09-14 发布）。

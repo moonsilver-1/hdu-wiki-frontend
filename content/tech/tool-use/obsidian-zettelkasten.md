@@ -1,9 +1,9 @@
 ---
 title: "Zettelkasten 卡片盒笔记法"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 文件夹陷阱 — 笔记被锁在分类目录里，越积越多，再也不看"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Zettelkasten**（德语"卡片盒"）是德国社会学家尼克拉斯·卢曼（Niklas Luhmann）发明的笔记方法。他用这套方法写了 70 本书和 400 多篇论文，全靠一个装了 9 万张卡片的盒子。

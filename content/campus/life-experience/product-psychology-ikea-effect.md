@@ -1,9 +1,9 @@
 ---
 title: "宜家效应：参与完成，更珍惜成果"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Michael Norton、Daniel Mochon 和 Dan Ariely 2012 年发在《Journal of Consumer Psychology》上的论文，标题特别直白：《The IKEA effect: When labor leads to love》（宜家效应：当劳动带来喜爱…"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛刚用 AI 出图的时候，是直接甩一句"画一张温暖的日落风景"，出来什么用什么。

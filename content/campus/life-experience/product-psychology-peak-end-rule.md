@@ -1,9 +1,9 @@
 ---
 title: "峰终效应：最后一步怎样被记住？"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "来自 Daniel Kahneman、Barbara Fredrickson、Charles Schreiber 和 Donald Redelmeier 1993 年发在《Psychological Science》上的论文，题目叫《When More Pain Is Preferred to Le…"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛去年帮社团办过一场线下活动，筹备过程是一团乱麻。

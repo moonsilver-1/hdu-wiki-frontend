@@ -1,9 +1,9 @@
 ---
 title: "Agent SDK"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Claude Agent SDK 把 Claude Code 的 agent loop、内置工具（Read / Edit / Bash 等）和上下文管理打包成一个可嵌入的库。底层会启动 Claude Code 子进程，SDK 自带 CLI 二进制，无需单独安装 Claude Code。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛得先坦白：这一篇是本目录里我最看不懂的一篇。

@@ -1,9 +1,9 @@
 ---
 title: "V2Ray / Xray"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "V2Ray 是功能强大的网络代理工具，支持多种协议。Xray 是 V2Ray 的社区分支，性能更好，支持更多新协议（如 VLESS、Reality、XTLS）。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 简介

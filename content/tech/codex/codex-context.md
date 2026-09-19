@@ -1,9 +1,9 @@
 ---
 title: "上下文与会话管理"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "会显示当前模型、审批策略、可写目录和剩余上下文容量。状态栏也可以常驻显示（[tui].status_line = [”model”, ”context-remaining”, ”git-branch”]）。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Codex 的每次对话都受模型上下文窗口限制。管好上下文，是让长任务不跑偏、不烧额度的关键。

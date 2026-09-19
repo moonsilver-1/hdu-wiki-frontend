@@ -1,9 +1,9 @@
 ---
 title: "响应时间：三个时刻，三种设计"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "图上的来源是 Jakob Nielsen 1993 年的《Response Times: The Three Important Limits》，它把用户对响应时间的感受归纳成三条界限："
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛第一次用 AI 出图工具时干了件特别蠢的事。

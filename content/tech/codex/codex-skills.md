@@ -1,9 +1,9 @@
 ---
 title: "Skills 与 Plugins"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "SKILL.md            # 必需"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Skill** 是一份带说明的可复用工作流：一个目录，里面一份 `SKILL.md`，加上可选的脚本和参考资料。Codex 会根据描述自动挑选合适的 Skill，你也可以用 `$` 显式点名。

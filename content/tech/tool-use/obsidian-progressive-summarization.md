@@ -1,9 +1,9 @@
 ---
 title: "渐进式总结"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "原封不动地保存原始内容。可以是文章摘录、会议记录、读书笔记。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **渐进式总结（Progressive Summarization）** 是 Tiago Forte 提出的笔记提炼方法。核心思想：不要一次性把笔记整理完美，而是**每次使用时逐步提炼**。

@@ -1,9 +1,9 @@
 ---
 title: "行为模型：没行动，究竟卡在哪？"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "这个模型是 BJ Fogg 提出的，他在斯坦福创办了行为设计实验室。2009 年他在 Persuasive Technology 会议上发表了《A Behavior Model for Persuasive Design》，把模型正式写了出来。官方站点 behaviormodel.org 现在用的表…"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛下载过三个记账 App，一个都没用超过两周。

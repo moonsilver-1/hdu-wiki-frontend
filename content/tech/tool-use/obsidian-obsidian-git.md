@@ -1,9 +1,9 @@
 ---
 title: "Obsidian Git 版本管理"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 版本历史 — 每次修改都有记录，可以回滚"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Obsidian Git** 插件让你用 Git 管理 Vault 的版本历史，实现自动备份和多设备同步。

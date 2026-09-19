@@ -1,9 +1,9 @@
 ---
 title: "子代理与并行"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "默认开启（[features].multi_agent = true）。工具名是 spawn_agent，交互界面里 /agent（别名 /subagents）或 Alt+A 打开面板。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Codex 可以在一个会话里派生多个**子代理（subagent）**并行工作，也可以在桌面 App 里用 worktree 隔离多个线程，或者把任务扔到云端并行跑。

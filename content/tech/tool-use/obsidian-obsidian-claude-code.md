@@ -1,9 +1,9 @@
 ---
 title: "Obsidian × Claude Code"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "在 Vault 目录下启动 Claude Code："
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Obsidian Vault 本质上就是一个本地 Markdown 文件夹。而 Claude Code 天然具备读写本地文件的能力。**它们是天生的搭档。**

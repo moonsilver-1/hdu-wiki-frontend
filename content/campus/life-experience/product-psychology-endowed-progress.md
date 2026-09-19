@@ -1,9 +1,9 @@
 ---
 title: "禀赋进度：同样差 8 次，感觉不同"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "先说最实在的：这个结论来自 Joseph Nunes 和 Xavier Drèze 2006 年发在《Journal of Consumer Research》上的论文，实验做在一家洗车店。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 学校后门那家咖啡店，洛洛前后拿过两种集点卡。

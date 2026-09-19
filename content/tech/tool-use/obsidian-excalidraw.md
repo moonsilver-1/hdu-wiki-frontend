@@ -1,9 +1,9 @@
 ---
 title: "Excalidraw 手绘"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "社区插件搜索 ”Excalidraw” → 安装 → 启用。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Excalidraw** 插件让你在 Obsidian 中创建手绘风格的图表和白板，并与笔记双向链接。

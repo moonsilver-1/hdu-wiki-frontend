@@ -1,9 +1,9 @@
 ---
 title: "CLAUDE.md 最佳实践"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Claude 会分析项目结构，自动生成一个初始 CLAUDE.md。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛有过一段特别累的日子。

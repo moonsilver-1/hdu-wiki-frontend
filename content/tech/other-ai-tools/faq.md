@@ -1,9 +1,9 @@
 ---
 title: "常见问题"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "LuoLuo Wiki（洛洛救救我！HELP）是洛洛的知识百科站，提供结构化的文档、全文搜索，以及能检索站内文档来回答问题的洛洛 AI。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## LuoLuo Wiki 是什么？

@@ -1,9 +1,9 @@
 ---
 title: "快速上手"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "前往 obsidian.md 下载对应平台的安装包。支持 Windows、macOS、Linux、iOS、Android。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 下载安装

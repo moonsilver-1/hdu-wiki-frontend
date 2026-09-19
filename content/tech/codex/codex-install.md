@@ -1,9 +1,9 @@
 ---
 title: "安装与登录"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* macOS、Linux 或 Windows（Windows 已支持原生运行，不再强制 WSL2）"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 前提条件

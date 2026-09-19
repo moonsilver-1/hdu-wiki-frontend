@@ -1,9 +1,9 @@
 ---
 title: "图谱视图"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 全局图谱：Cmd/Ctrl + Shift + G 或命令面板搜索 ”Graph view”"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **图谱视图（Graph View）** 把你的所有笔记及其链接关系渲染为一个交互式的力导向图。

@@ -1,9 +1,9 @@
 ---
 title: "MOC 内容地图"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "MOC 本身就是一张普通笔记，但它的内容是其他笔记的链接集合，按照某种逻辑组织。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **MOC（Map of Content，内容地图）** 是 Nick Milo 在 LYT（Linking Your Thinking）框架中提出的概念。当你的笔记多到找不到时，MOC 就是你的导航页。

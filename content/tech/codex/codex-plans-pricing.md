@@ -1,9 +1,9 @@
 ---
 title: "订阅、用量与价格"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "团队采购的注意事项：新的 Business 计划已经买不到 Codex 席位，团队场景请评估 Enterprise / Edu，或者直接用 API key。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Codex **没有独立订阅**，全部挂在 ChatGPT 计划下；也可以用 API key 按 token 付费。本页数字按 2026-08-18 整理，具体额度以你账号里的显示为准——OpenAI 在 2026 年多次调整过用量策略。

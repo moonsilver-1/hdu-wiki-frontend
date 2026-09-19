@@ -1,9 +1,9 @@
 ---
 title: "sing-box"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 统一配置格式 — JSON 配置，结构清晰"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **sing-box** 是由 SagerNet 开发者维护的新一代通用代理平台，定位为 Xray 和 Clash 的统一替代方案。

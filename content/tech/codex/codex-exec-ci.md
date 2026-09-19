@@ -1,9 +1,9 @@
 ---
 title: "非交互模式与 CI"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "codex exec ”总结这个仓库的结构，列出 5 个最有风险的模块”"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 `codex exec`（别名 `codex e`）是 Codex 的非交互入口：跑完一个任务就退出，不弹审批。它是脚本、CI、定时任务和 SDK 的底座。

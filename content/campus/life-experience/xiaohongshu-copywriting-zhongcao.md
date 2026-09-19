@@ -1,9 +1,9 @@
 ---
 title: "种草文案模板"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "经典的 FABE 法则（Feature 特征 → Advantage 优势 → Benefit 利益 → Evidence 证据）在小红书上需要做调整。用户刷小红书时不是在”逛商场”，而是在”看朋友分享”。所以整个文案结构要从”卖货思维”转向”分享思维”。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 种草文案模板

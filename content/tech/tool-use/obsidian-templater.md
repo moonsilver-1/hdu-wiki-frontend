@@ -1,9 +1,9 @@
 ---
 title: "Templater 模板引擎"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "1. 社区插件搜索 ”Templater” → 安装 → 启用"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Templater** 是 Obsidian 最强大的模板插件，支持 JavaScript 脚本、日期函数、文件操作等高级功能。

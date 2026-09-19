@@ -1,9 +1,9 @@
 ---
 title: "Properties 元数据"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "author: Daniel Kahneman"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Properties**（原 Frontmatter）是笔记开头的 YAML 元数据块，给笔记添加标签、日期、状态等结构化信息。

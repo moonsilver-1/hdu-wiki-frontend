@@ -1,9 +1,9 @@
 ---
 title: "GPT-6 Astra 发布：105 万上下文、$10 / $50 定价，网络安全能力首次到 Critical 级"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "OpenAI 在 2026-09-03 发布 GPT-6 Astra，09-04 全面可用。API 模型名 gpt-6-astra，上下文 1,050,000 token，最大输出 128,000 token，知识截止 2026-04-30；价格是输入 $10、输出 $50 每百万 token，是 …"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 按 2026-09-14 的状态整理。规格与价格来自 OpenAI 官方模型页和定价页，发布日期来自 OpenAI API 更新日志和 system card；评测数字是 OpenAI 发布页公布的，但本站抓取官方发布页被拒（403），所以用 the-decoder、DataCamp、Vellum 三家转引的表格交叉核对，只收几家一致的数字。页末附全部来源。

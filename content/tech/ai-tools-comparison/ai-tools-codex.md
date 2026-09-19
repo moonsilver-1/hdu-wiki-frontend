@@ -1,9 +1,9 @@
 ---
 title: "OpenAI Codex 概览"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 开源可审计：CLI 源码公开，沙箱、审批、配置逻辑都能看"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Codex** 是 OpenAI 的 AI 编程代理。它 2025-04 以开源终端工具 **Codex CLI**（Rust 编写，Apache-2.0）起步，如今是一整套产品：终端 CLI、ChatGPT 桌面版里的 Codex 模式、VS Code / JetBrains 扩展、云端任务、GitHub 代码审查、手机远程控制。

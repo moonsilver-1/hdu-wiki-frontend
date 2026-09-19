@@ -1,9 +1,9 @@
 ---
 title: "工具与工作流"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Claude Code 不只是聊天——它能通过工具（Tools） 直接操作你的电脑：读文件、改代码、运行命令、搜索内容。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 工具系统：Claude Code 的"手"

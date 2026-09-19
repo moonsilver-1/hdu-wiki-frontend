@@ -1,9 +1,9 @@
 ---
 title: "Vault 目录结构设计"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "├── 1-Projects/      → 有截止日期的项目"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 常见结构方案

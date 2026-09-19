@@ -1,9 +1,9 @@
 ---
 title: "Canvas 白板"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "1. 右键文件列表 → New canvas"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Canvas** 是 Obsidian 内置的无限画布功能，可以在一个可视化空间中自由摆放笔记、图片、文本和链接。

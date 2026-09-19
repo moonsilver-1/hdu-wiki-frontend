@@ -1,9 +1,9 @@
 ---
 title: "沙箱与审批"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "workspace-write 的”工作区”包括当前目录和 /tmp 之类的临时目录，但工作区内的 .git、.agents、.codex 三个目录始终只读，防止 Codex 改掉自己的配置或破坏版本库。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Codex 的权限模型由两个正交的开关组成：

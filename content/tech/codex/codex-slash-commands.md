@@ -1,9 +1,9 @@
 ---
 title: "斜杠命令与快捷键"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "/theme、/statusline、/title、/keymap、/vim、/raw、/ide、/pets。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 交互界面里以 `/` 开头的是斜杠命令。任务运行中输入斜杠命令后按 `Tab` 可以排队到下一轮。

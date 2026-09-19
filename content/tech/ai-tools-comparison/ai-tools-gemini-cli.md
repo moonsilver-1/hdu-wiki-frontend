@@ -1,9 +1,9 @@
 ---
 title: "Gemini CLI 与 Antigravity CLI"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "截至 2026-06-28，Gemini CLI 已经不再适合作为个人用户的新装首选。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Gemini CLI** 曾经是 Google 推出的开源终端 AI 编程代理，主打 Gemini 模型、长上下文和 Google Search 集成。

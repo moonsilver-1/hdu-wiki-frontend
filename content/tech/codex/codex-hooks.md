@@ -1,9 +1,9 @@
 ---
 title: "Hooks"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* ~/.codex/hooks.json 或 ~/.codex/config.toml 里的 [hooks]"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 Hooks 让你在 Codex 的关键时刻自动跑脚本：会话开始时注入上下文、工具调用前拦截危险命令、每轮结束后自动格式化、任务停止时决定要不要继续。Codex 的 Hooks 在 2026-05 转正（GA），默认开启。

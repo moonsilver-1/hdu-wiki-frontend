@@ -1,9 +1,9 @@
 ---
 title: "多 Agent 并行"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "├── 子 Agent A — 搜索所有 API 路由"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 洛洛有一次让 Claude Code 帮我看一个陌生项目，问它"这个项目的前端、后端、数据库分别是怎么组织的"。

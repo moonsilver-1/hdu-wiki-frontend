@@ -1,9 +1,9 @@
 ---
 title: "AGENTS.md 最佳实践"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "Codex 每次启动会构建一条”指令链”："
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 `AGENTS.md` 是给 Codex 看的项目说明书，作用相当于 Claude Code 的 `CLAUDE.md`。它不是 Codex 私有格式——`agents.md` 是一个跨工具的开放约定，Cursor、Gemini CLI 等也读它，所以一份文件多处受益。

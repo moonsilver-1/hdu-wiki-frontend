@@ -1,9 +1,9 @@
 ---
 title: "实用技巧"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "先 AGENTS.md，再 Skill / Plugin，再 MCP，最后才是子代理。每一层都比上一层贵，别一上来就全开。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 ## 1. 官方推荐的搭建顺序

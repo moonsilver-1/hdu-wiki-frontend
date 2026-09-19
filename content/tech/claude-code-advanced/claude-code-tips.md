@@ -1,9 +1,9 @@
 ---
 title: "实用技巧"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "CLAUDE.md 是你和 Claude 的”约定书”。写清楚项目规范，Claude 就会严格遵守："
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 这是 Claude Code 这个板块的最后一篇。

@@ -1,9 +1,9 @@
 ---
 title: "Dataview 数据查询"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "社区插件搜索 ”Dataview” → 安装 → 启用。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **Dataview** 是 Obsidian 最强大的插件之一，让你用类似 SQL 的语法查询笔记，生成动态列表和表格。

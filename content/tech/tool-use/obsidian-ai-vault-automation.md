@@ -1,9 +1,9 @@
 ---
 title: "AI 自动化管理 Vault"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "不需要写代码。直接在 Claude Code 中用自然语言描述任务，Claude 会用内置工具完成。"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 当 Vault 笔记数量达到几百上千条时，手动管理变得不现实。Claude Code 可以帮你自动化这些重复性工作。

@@ -1,9 +1,9 @@
 ---
 title: "IDE、Cloud、GitHub 与手机"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 扩展 ID：openai.chatgpt（VS Code Marketplace 发布者 openai）"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 除了 CLI 和桌面 App，Codex 还有四类入口。它们共用同一个 ChatGPT 账号和同一套 `AGENTS.md`。

@@ -1,9 +1,9 @@
 ---
 title: "PKM 工作流"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "↑                    |"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 **PKM（Personal Knowledge Management，个人知识管理）** 不只是记笔记，而是一个从**捕获**到**输出**的完整循环。

@@ -1,9 +1,9 @@
 ---
 title: "代码审查"
 date: "2026-09-20"
-author: "洛洛"
+author: "默子, 洛洛"
 excerpt: "* 对比基线分支（比如当前分支 vs main）"
-tags: ["luoluo", "迁移"]
+tags: ["洛洛", "转载"]
 ---
 
 代码审查是 Codex 打磨得最成熟的工作流之一，本地和 GitHub 两侧都有入口。
