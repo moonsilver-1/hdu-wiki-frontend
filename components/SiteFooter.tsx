@@ -18,6 +18,13 @@ export default function SiteFooter() {
         <div className="footer-links">
           <Link href="/community/how-to-join-us">参与共建</Link>
           <a
+            href="https://luoluo.help"
+            target="_blank"
+            rel="noreferrer"
+          >
+            由 luoluo.help 赞助
+          </a>
+          <a
             href="https://github.com/moonsilver-1/hdu-wiki-frontend"
             target="_blank"
             rel="noreferrer"

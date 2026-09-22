@@ -209,6 +209,13 @@ function AskDialog({
             <Send aria-hidden="true" size={16} />
           </button>
         </form>
+        <p className="ask-dialog-sponsor">
+          AI 问答由{" "}
+          <a href="https://luoluo.help" target="_blank" rel="noreferrer">
+            luoluo.help
+          </a>{" "}
+          赞助支持
+        </p>
       </div>
     </div>
   );

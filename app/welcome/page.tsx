@@ -30,8 +30,17 @@ export default function WelcomePage() {
 
   // 站内目的地（如 HDU Wiki）走客户端路由；挂载时预取 wiki 首页，点过去不整页重载
   function goTo(href: string) {
-    if (href.startsWith("/")) router.push(href);
-    else window.location.assign(href);
+    if (href.startsWith("/")) {
+      router.push(href);
+      // 兜底：客户端路由依赖 RSC 请求，弱网/拦截下可能静默失败；
+      // 2.5 秒后仍停留在本页则退化为整页跳转，保证快链必达。
+      // （跳转成功后组件卸载，cleanup 会清掉这个定时器，不会误触发）
+      timers.current.push(setTimeout(() => {
+        if (window.location.pathname !== href) window.location.assign(href);
+      }, 2500));
+    } else {
+      window.location.assign(href);
+    }
   }
 
   useEffect(() => {

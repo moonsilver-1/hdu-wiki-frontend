@@ -1,8 +1,9 @@
 import { searchArticles } from "@/lib/search";
 
 // 「问小羊」AI 问答的后端逻辑：站内检索 + 可配置的 OpenAI 兼容模型调用。
-// 模型环境变量未配置时优雅降级为"相关文章推荐"，TokenDance 接入信息
-// 到位后只需设置 CHAT_API_URL / CHAT_API_KEY / CHAT_MODEL 即可切换为真实模型。
+// 当前接入千问 MaaS（compatible-mode），通过 CHAT_API_URL / CHAT_API_KEY /
+// CHAT_MODEL 配置（见 .env.local，线上在 Vercel 环境变量设置，勿提交 key）；
+// 未配置或调用失败时优雅降级为"相关文章推荐"。
 
 export interface ChatSource {
   title: string;
@@ -50,7 +51,7 @@ function fallbackAnswer(question: string, sources: ChatSource[]): string {
     return "小羊暂时没有找到和这个问题相关的文章。换个说法试试，或者去「投稿」页把你的经验分享给大家～";
   }
   const lines = sources.map((s, i) => `${i + 1}. 《${s.title}》`).join("\n");
-  return `小羊在 wiki 里找到了几篇可能帮到你的文章：\n${lines}\n\n（AI 智能问答正在接入中，以上为站内检索结果）`;
+  return `小羊在 wiki 里找到了几篇可能帮到你的文章：\n${lines}\n\n（AI 暂时开小差了，以上为站内检索结果）`;
 }
 
 async function askModel(

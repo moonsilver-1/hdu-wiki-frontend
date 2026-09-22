@@ -5466,6 +5466,26 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
   border-radius: 999px;
   color: var(--on-accent);
   background: linear-gradient(120deg, #8b46f6, #d04ae0);
+
+/* 问小羊：赞助露出 */
+.ask-dialog-sponsor {
+  margin: 0;
+  padding: 4px 16px 10px;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+.ask-dialog-sponsor a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ask-dialog-sponsor a:hover {
+  color: var(--primary);
+}
+
   cursor: pointer;
   transition: opacity 150ms ease, transform 150ms ease;
 }
