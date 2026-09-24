@@ -21,12 +21,59 @@ function getFallbackRatio(index: number, total: number): number {
   return total <= 1 ? 0 : index / (total - 1);
 }
 
+// 自绘平滑滚动：部分环境（系统/浏览器关闭平滑滚动、优化软件干预）下
+// scrollIntoView 的 smooth 会被静默降级为瞬移，这里用 rAF 自己驱动，
+// 保证目录跳转动效稳定可用。仍尊重 prefers-reduced-motion（此时瞬移）。
+let activeScrollAnim: { cancel: () => void } | null = null;
+
+function animateWindowScrollTo(targetTop: number): void {
+  activeScrollAnim?.cancel();
+  const startY = window.scrollY;
+  const delta = targetTop - startY;
+  if (Math.abs(delta) < 2) return;
+  const duration = Math.min(650, Math.max(260, Math.abs(delta) * 0.22));
+  const start = performance.now();
+  let frame = 0;
+  let done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    cancelAnimationFrame(frame);
+    window.removeEventListener("wheel", onInterrupt);
+    window.removeEventListener("touchstart", onInterrupt);
+    if (activeScrollAnim?.cancel === finish) activeScrollAnim = null;
+  }
+  // 用户滚轮/触摸接管时立即交还控制权
+  function onInterrupt() {
+    finish();
+  }
+  activeScrollAnim = { cancel: finish };
+  window.addEventListener("wheel", onInterrupt, { passive: true });
+  window.addEventListener("touchstart", onInterrupt, { passive: true });
+  const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+  const tick = (now: number) => {
+    if (done) return;
+    const t = Math.min(1, (now - start) / duration);
+    window.scrollTo(0, startY + delta * easeOutCubic(t));
+    if (t < 1) frame = requestAnimationFrame(tick);
+    else finish();
+  };
+  frame = requestAnimationFrame(tick);
+}
+
 function scrollToHeading(id: string): void {
   const element = document.getElementById(id);
   if (!element) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  element.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+  // 与 scrollIntoView(block:"start") 对齐：要减去标题的 scroll-margin-top（固定头部偏移）
+  const marginTop = parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+  const target = element.getBoundingClientRect().top + window.scrollY - marginTop;
+  if (reduceMotion) {
+    window.scrollTo(0, target);
+  } else {
+    animateWindowScrollTo(target);
+  }
   window.history.replaceState(null, "", `#${encodeURIComponent(id)}`);
 }
 

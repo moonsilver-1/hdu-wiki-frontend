@@ -50,6 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
+      data-scroll-behavior="smooth"
       className={`${displayFont.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
