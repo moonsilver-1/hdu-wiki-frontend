@@ -303,3 +303,5 @@ scp -P 12345 root@connect.example.com:~/my-project/results.tar.gz ./results.tar.
 ```
 
 将重复步骤固化为脚本，让 Agent 负责生成、解释和迭代脚本，人负责审核权限、数据和费用，具备基础 Linux 概念即可可靠地使用云实例。
+
+实例选型可参阅[《云 GPU 选型指南》](/tech/cloud-gpu-selection-guide)，驱动与框架配置可参阅[《深度学习环境版本关系》](/tech/deep-learning-environment-compatibility)。
