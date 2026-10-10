@@ -1,0 +1,112 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnpm-store/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/.next-live/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+/.claude/
+/.zcode/
+/.agents/
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# agent planning / scratch files (not for publishing)
+task_plan.md
+findings.md
+progress.md
+task.md
+wechat-article/
+
+# editor / IDE 本地配置
+*.code-workspace
+.idea/
+.vscode/
+*.swp
+
+# 临时/草稿文件
+.unspl_*.txt
+*.tmp
+*.bak
+unsplash-*
+
+# 日志
+*.log
+
+# 操作系统
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Welcome preview build outputs
+/.next-welcome/
+/.next-welcome-build/
+
+# 名单含隐私，不入库
+/同学名单.xlsx
+
+# Excel 锁文件
+~$*
+
+# 素材原图备份（本地产物）
+/.welcome-originals/
+
+# 本地草稿与临时产物
+/output/
+/王佳诺学姐*
+/*.mp3
+/*.m4a
+
+# 群收集资料（含隐私，不入库）
+/祝福/
+/*群收集*.xlsx
+~$*
+
+# 本地杂物
+.claude/settings.local.json
+.zcode/
+.unspl_*
+work/
+output/
+*.code-workspace
+findings.md
+progress.md
+task_plan.md
+watcha_oauth2接入文档.md
+hdu-wiki-app-wechat-draft.md
