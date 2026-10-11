@@ -127,6 +127,18 @@ export default function WatchaPage() {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const activePanelData = PANELS.find((p) => p.id === activePanel);
 
+  // 纵向阶梯偏移量（SSR 时给默认值，CSR 后更新为真实值）
+  const [stepY, setStepY] = useState(300);
+
+  useEffect(() => {
+    setStepY(window.innerHeight / 3);
+    function handleResize() {
+      setStepY(window.innerHeight / 3);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     // ========== 1. Lenis 平滑滚动 ==========
     const lenis = new Lenis({
@@ -182,7 +194,6 @@ export default function WatchaPage() {
 
   // 4个页面，间隔 90°
   const panelAngle = 360 / PANELS.length;
-  const stepY = (typeof window !== 'undefined' ? window.innerHeight : 800) / 3;
 
   return (
     <div className="relative text-slate-900">
