@@ -1,0 +1,196 @@
+/* ========== 液态玻璃导航栏（浅色版）========== */
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.6);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.5) 20%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0.5) 80%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ========== 仪表盘风格"观猹"卡片（浅色版）========== */
+
+/* 外层容器：提供光点游走的轨道 */
+.guancha-outer {
+  width: min(90vw, 560px);
+  height: min(70vw, 380px);
+  border-radius: 16px;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #67e0ed 0%, #a4c1f7 50%, #f0e9e2 100%);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(103, 224, 237, 0.25), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 游走光点：沿着外框边缘移动 */
+.guancha-dot {
+  width: 6px;
+  aspect-ratio: 1;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 12px #67e0ed, 0 0 24px rgba(103, 224, 237, 0.8);
+  border-radius: 100px;
+  z-index: 2;
+  right: 10%;
+  top: 10%;
+  animation: moveDot 8s linear infinite;
+}
+
+@keyframes moveDot {
+  0%,
+  100% {
+    top: 10%;
+    right: 10%;
+  }
+  25% {
+    top: 10%;
+    right: calc(100% - 20px);
+  }
+  50% {
+    top: calc(100% - 20px);
+    right: calc(100% - 20px);
+  }
+  75% {
+    top: calc(100% - 20px);
+    right: 10%;
+  }
+}
+
+/* 卡片主体 */
+.guancha-card {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  color: #1a1a2e;
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+/* 扫光光线 */
+.guancha-ray {
+  width: 400px;
+  height: 60px;
+  border-radius: 100px;
+  position: absolute;
+  background-color: #67e0ed;
+  opacity: 0.25;
+  box-shadow: 0 0 60px rgba(103, 224, 237, 0.6);
+  filter: blur(12px);
+  transform-origin: 10%;
+  top: 0%;
+  left: 0;
+  transform: rotate(40deg);
+  animation: raySweep 6s ease-in-out infinite;
+}
+
+@keyframes raySweep {
+  0%,
+  100% {
+    transform: rotate(30deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: rotate(55deg);
+    opacity: 0.35;
+  }
+}
+
+/* 观猹大字 */
+.guancha-text {
+  font-weight: 900;
+  font-size: clamp(4rem, 14vw, 8rem);
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #67e0ed 0%, #a4c1f7 50%, #1a1a2e 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: textShimmer 4s ease-in-out infinite;
+  line-height: 1;
+  filter: drop-shadow(0 2px 12px rgba(103, 224, 237, 0.3));
+}
+
+@keyframes textShimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 副标题 */
+.guancha-subtitle {
+  margin-top: 16px;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  letter-spacing: 0.3em;
+  color: rgba(26, 26, 46, 0.5);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* 装饰线 */
+.guancha-line {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  background-color: rgba(163, 193, 247, 0.3);
+}
+
+.guancha-line.topl {
+  top: 12%;
+  background: linear-gradient(90deg, #67e0ed 0%, rgba(163, 193, 247, 0.3) 70%, transparent 100%);
+}
+
+.guancha-line.bottoml {
+  bottom: 12%;
+  background: linear-gradient(90deg, transparent 0%, rgba(163, 193, 247, 0.3) 30%, #a4c1f7 100%);
+}
+
+.guancha-line.leftl {
+  left: 8%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, #67e0ed 0%, rgba(163, 193, 247, 0.3) 50%, transparent 100%);
+}
+
+.guancha-line.rightl {
+  right: 8%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(163, 193, 247, 0.3) 50%, #a4c1f7 100%);
+}
