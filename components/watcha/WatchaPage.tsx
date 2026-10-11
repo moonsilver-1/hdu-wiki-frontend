@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/scrolltrigger';
 import Lenis from 'lenis';
 import WatchaCanvas from './WatchaCanvas';
 import './watcha.css';
@@ -12,19 +12,17 @@ gsap.registerPlugin(ScrollTrigger);
 /**
  * WatchaPage — 观猹文化墙主页
  *
- * 【核心交互】
- *   1. 旋转木马模式：滚动 → 4 个卡片围绕中心轴旋转切换
- *   2. 点击卡片 → 卡片放大到全屏，进入详情浏览模式
- *   3. 详情模式下：滚动 → 浏览该卡片的详细内容
- *   4. 点击关闭 / ESC → 缩小回到旋转木马
+ * 【核心效果】3D 螺旋式滚动叙事
+ *   4 个卡片围绕中心轴螺旋排列（既有旋转角度，又有纵向偏移）
+ *   向下滚动 → 整体旋转 + 下移 → 新卡片从下方转上来
+ *   卡片大小：默认 1/3 屏，接近正前方时放大到 2/3 屏
  *
- * 【结构】
- *   WatchaCanvas  —  雾效背景
- *   .carousel     —  3D 旋转木马（4 张卡片）
- *   .detail-modal —  详情层（点击后显示，可滚动浏览）
+ * 【交互】
+ *   - 滚动：驱动整体旋转+下移
+ *   - 点击卡片：进入详情页
+ *   - ESC / 关闭按钮：返回旋转木马
  */
 
-// 4 个模块的数据
 const PANELS = [
   {
     id: 'hero',
@@ -33,7 +31,6 @@ const PANELS = [
     subtitle: 'GuanCha · AI 育人生态',
     desc: '观猹学社联合杭州电子科技大学，以 AI 育人空间为载体，把观猹正在做的事、AI 圈的最新动态和可直接上手的 AI 产品带进校园。',
     accent: '#67e0ed',
-    // 详情页内容（用占位符模拟长文本）
     detailContent: {
       sections: [
         { heading: '关于观猹', paragraphs: 3 },
@@ -100,7 +97,6 @@ const PANELS = [
   },
 ];
 
-// 生成占位符文本（Lorem ipsum 风格）
 function generatePlaceholder(count: number): string[] {
   const sentences = [
     '观猹学社致力于构建面向未来的 AI 育人生态，让每一位同学都能在 AI 时代找到自己的位置。',
@@ -120,20 +116,18 @@ function generatePlaceholder(count: number): string[] {
 
 export default function WatchaPage() {
   const cylinderRef = useRef<HTMLDivElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const detailRef = useRef<HTMLDivElement>(null);
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // 当前激活的详情面板（null = 旋转木马模式）
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const activePanelData = PANELS.find((p) => p.id === activePanel);
 
-  // 纵向阶梯偏移量（SSR 时给默认值，CSR 后更新为真实值）
-  const [stepY, setStepY] = useState(300);
+  // 视口高度（SSR 默认值，CSR 后更新）
+  const [vh, setVh] = useState(800);
 
   useEffect(() => {
-    setStepY(window.innerHeight / 3);
+    setVh(window.innerHeight);
     function handleResize() {
-      setStepY(window.innerHeight / 3);
+      setVh(window.innerHeight);
     }
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -152,32 +146,74 @@ export default function WatchaPage() {
     }
     requestAnimationFrame(raf);
 
-    // 同步 GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time: number) => {
       lenis.raf(time * 1000);
     });
     gsap.ticker.lagSmoothing(0);
 
-    // ========== 2. 3D 旋转木马动画 ==========
+    // ========== 2. 滚动驱动：旋转 + 下移 ==========
     const cylinder = cylinderRef.current;
     if (!cylinder) return;
 
+    const vh = window.innerHeight;
+
+    // 整体旋转：滚动进度 0→1 对应 0°→-270°（4个卡片，3次旋转）
+    // 整体下移：滚动进度 0→1 对应 0 → -vh * 4（每个卡片下移一屏距离）
     gsap.to(cylinder, {
       rotateY: -270,
+      y: -vh * 3, // 向下移动 3 屏（4个卡片，起始位置在0，最终停在第4个）
       ease: 'none',
       scrollTrigger: {
         trigger: '.carousel-wrapper',
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 1,
+        scrub: 0.5, // 加一点跟随感
       },
     });
 
-    // ========== 3. 清理 ==========
+    // ========== 3. 每个卡片的缩放 ==========
+    // 思路：监听滚动进度，计算每个卡片距离"正前方"的角度差
+    // 角度差越小，缩放越大（最大 2/3，最小 1/3）
+    // 用 GSAP ticker 每帧更新
+
+    const baseScale = 0.33; // 1/3
+    const maxScale = 0.66;  // 2/3
+
+    function updateScales() {
+      // 获取当前旋转角度（0 到 -270）
+      const currentRotation = gsap.getProperty(cylinder, 'rotateY') as number;
+
+      panelRefs.current.forEach((panel, index) => {
+        if (!panel) return;
+
+        // 卡片的初始角度（0°, 90°, 180°, 270°）
+        const panelAngle = index * 90;
+        // 当前旋转后，卡片相对于正前方(0°)的角度
+        let angleDiff = (panelAngle + currentRotation) % 360;
+        // 归一化到 -180 ~ 180
+        if (angleDiff > 180) angleDiff -= 360;
+        if (angleDiff < -180) angleDiff += 360;
+        // 取绝对值
+        const absDiff = Math.abs(angleDiff);
+
+        // 角度差 0° → scale = maxScale
+        // 角度差 90° → scale = baseScale
+        // 用 cos 曲线做平滑过渡
+        const t = Math.max(0, Math.min(1, absDiff / 90));
+        const scale = baseScale + (maxScale - baseScale) * Math.cos(t * Math.PI / 2);
+
+        gsap.set(panel, { scale });
+      });
+    }
+
+    gsap.ticker.add(updateScales);
+
+    // ========== 4. 清理 ==========
     return () => {
       lenis.destroy();
       ScrollTrigger.getAll().forEach((st) => st.kill());
+      gsap.ticker.remove(updateScales);
     };
   }, []);
 
@@ -192,8 +228,7 @@ export default function WatchaPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activePanel]);
 
-  // 4个页面，间隔 90°
-  const panelAngle = 360 / PANELS.length;
+  const panelAngleStep = 360 / PANELS.length; // 90°
 
   return (
     <div className="relative text-slate-900">
@@ -208,24 +243,25 @@ export default function WatchaPage() {
         <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors">互动</div>
       </nav>
 
-      {/* 旋转木马容器 */}
+      {/* 旋转木马容器 — 高度=500vh，给滚动留出足够空间 */}
       <div
-        ref={carouselRef}
         className="carousel-wrapper relative"
         style={{
-          height: '400vh',
+          height: '500vh',
           opacity: activePanel ? 0 : 1,
           pointerEvents: activePanel ? 'none' : 'auto',
           transition: 'opacity 0.5s ease',
         }}
       >
+        {/* 3D 舞台 */}
         <div
           className="carousel sticky top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center"
           style={{
-            perspective: '1200px',
+            perspective: '1500px',
             perspectiveOrigin: '50% 50%',
           }}
         >
+          {/* 旋转圆柱 — 旋转 + 下移 */}
           <div
             ref={cylinderRef}
             className="cylinder relative"
@@ -237,32 +273,33 @@ export default function WatchaPage() {
             }}
           >
             {PANELS.map((panel, index) => {
-              const angle = index * panelAngle;
-              const yOffset = index * stepY;
+              const angle = index * panelAngleStep;
+              // 每个卡片的纵向偏移：形成螺旋排列
+              const yOffset = -index * vh * 0.66;
 
               return (
                 <div
                   key={panel.id}
+                  ref={(el) => { panelRefs.current[index] = el; }}
                   className="panel absolute left-1/2 top-1/2 flex items-center justify-center cursor-pointer"
                   onClick={() => setActivePanel(panel.id)}
                   style={{
-                    width: '70vw',
-                    maxWidth: '900px',
-                    height: '70vh',
-                    maxHeight: '600px',
+                    width: '40vw',
+                    height: '55vh',
                     transform: `
                       translate(-50%, -50%)
                       translateY(${yOffset}px)
                       rotateY(${angle}deg)
-                      translateZ(400px)
+                      translateZ(350px)
                     `,
                     transformStyle: 'preserve-3d',
                     backfaceVisibility: 'hidden',
+                    transformOrigin: 'center center',
                   }}
                 >
                   {/* 玻璃态卡片 */}
                   <div
-                    className="glass-panel relative w-full h-full rounded-3xl p-12 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-[1.02]"
+                    className="glass-panel relative w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center"
                     style={{
                       background: 'rgba(255, 255, 255, 0.7)',
                       backdropFilter: 'blur(20px)',
@@ -277,17 +314,17 @@ export default function WatchaPage() {
                   >
                     {/* 装饰光 */}
                     <div
-                      className="absolute -top-20 -right-20 w-40 h-40 rounded-full opacity-30 blur-3xl"
+                      className="absolute -top-10 -right-10 w-24 h-24 rounded-full opacity-30 blur-2xl"
                       style={{ backgroundColor: panel.accent }}
                     />
                     <div
-                      className="absolute -bottom-16 -left-16 w-32 h-32 rounded-full opacity-20 blur-3xl"
+                      className="absolute -bottom-8 -left-8 w-20 h-20 rounded-full opacity-20 blur-2xl"
                       style={{ backgroundColor: panel.accent }}
                     />
 
                     {/* 编号 */}
                     <div
-                      className="mb-4 text-sm tracking-[0.3em] uppercase font-medium"
+                      className="mb-3 text-xs tracking-[0.3em] uppercase font-medium"
                       style={{ color: panel.accent }}
                     >
                       {panel.num}
@@ -295,7 +332,7 @@ export default function WatchaPage() {
 
                     {/* 标题 */}
                     <h2
-                      className="mb-4 text-5xl md:text-6xl font-bold"
+                      className="mb-3 text-3xl md:text-4xl font-bold"
                       style={{
                         background: `linear-gradient(135deg, ${panel.accent}, #1a1a2e)`,
                         WebkitBackgroundClip: 'text',
@@ -307,21 +344,21 @@ export default function WatchaPage() {
                     </h2>
 
                     {/* 副标题 */}
-                    <div className="mb-6 text-sm tracking-widest text-slate-500 uppercase">
+                    <div className="mb-4 text-xs tracking-widest text-slate-500 uppercase">
                       {panel.subtitle}
                     </div>
 
                     {/* 描述 */}
-                    <p className="max-w-lg text-base text-slate-600 leading-relaxed">
+                    <p className="max-w-xs text-sm text-slate-600 leading-relaxed">
                       {panel.desc}
                     </p>
 
                     {/* 点击提示 */}
                     <div
-                      className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs tracking-widest uppercase opacity-60"
+                      className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] tracking-widest uppercase opacity-60"
                       style={{ color: panel.accent }}
                     >
-                      ↓ 点击查看详情 ↓
+                      点击查看 →
                     </div>
                   </div>
                 </div>
@@ -331,10 +368,9 @@ export default function WatchaPage() {
         </div>
       </div>
 
-      {/* 详情页层 — 点击卡片后出现 */}
+      {/* 详情页层 */}
       {activePanelData && (
         <div
-          ref={detailRef}
           className="fixed inset-0 z-[100] overflow-y-auto"
           style={{
             background: 'rgba(252, 244, 231, 0.85)',
@@ -343,7 +379,6 @@ export default function WatchaPage() {
             animation: 'fadeIn 0.4s ease',
           }}
         >
-          {/* 关闭按钮 */}
           <button
             onClick={() => setActivePanel(null)}
             className="fixed top-6 right-6 z-10 w-12 h-12 rounded-full flex items-center justify-center text-slate-600 hover:text-slate-900 transition-all hover:scale-110"
@@ -357,9 +392,7 @@ export default function WatchaPage() {
             ✕
           </button>
 
-          {/* 详情内容 */}
           <div className="max-w-3xl mx-auto px-6 py-24">
-            {/* 头部 */}
             <div className="mb-16 text-center">
               <div
                 className="mb-4 text-sm tracking-[0.3em] uppercase font-medium"
@@ -383,16 +416,13 @@ export default function WatchaPage() {
               </div>
             </div>
 
-            {/* 各章节内容 */}
             {activePanelData.detailContent.sections.map((section, idx) => (
               <section key={idx} className="mb-16">
                 <h2
                   className="mb-6 text-2xl font-bold flex items-center gap-4"
                   style={{ color: activePanelData.accent }}
                 >
-                  <span className="text-sm opacity-60">
-                    0{idx + 1}
-                  </span>
+                  <span className="text-sm opacity-60">0{idx + 1}</span>
                   {section.heading}
                 </h2>
                 <div className="space-y-4 text-slate-700 leading-relaxed">
@@ -403,7 +433,6 @@ export default function WatchaPage() {
               </section>
             ))}
 
-            {/* 底部装饰 */}
             <div
               className="mt-20 mb-8 h-px"
               style={{
@@ -417,10 +446,8 @@ export default function WatchaPage() {
         </div>
       )}
 
-      {/* 底部留白 */}
       <div style={{ height: '20vh' }} />
 
-      {/* 全局动画样式 */}
       <style jsx global>{`
         @keyframes fadeIn {
           from {
