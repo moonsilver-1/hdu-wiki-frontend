@@ -219,6 +219,7 @@ export default function WatchaCanvas() {
       ref={containerRef}
       className="fixed inset-0 z-0 pointer-events-none"
       style={{ background: '#fcf4e7' }} // 兜底底色
+      suppressHydrationWarning
     />
   );
 }

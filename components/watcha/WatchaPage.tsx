@@ -371,13 +371,7 @@ export default function WatchaPage() {
       {/* 详情页层 */}
       {activePanelData && (
         <div
-          className="fixed inset-0 z-[100] overflow-y-auto"
-          style={{
-            background: 'rgba(252, 244, 231, 0.85)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            animation: 'fadeIn 0.4s ease',
-          }}
+          className="watcha-detail-enter fixed inset-0 z-[100] overflow-y-auto"
         >
           <button
             onClick={() => setActivePanel(null)}
@@ -447,19 +441,6 @@ export default function WatchaPage() {
       )}
 
       <div style={{ height: '20vh' }} />
-
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-      `}</style>
     </div>
   );
 }
