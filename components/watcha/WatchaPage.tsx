@@ -152,17 +152,40 @@ export default function WatchaPage() {
     });
     gsap.ticker.lagSmoothing(0);
 
-    // ========== 2. 滚动驱动：旋转 + 下移 ==========
+    // ========== 2. 螺旋参数 ==========
     const cylinder = cylinderRef.current;
     if (!cylinder) return;
 
     const vh = window.innerHeight;
+    const SPIRAL_RADIUS = 320;       // 螺旋半径（px）
+    const STEP_Y = vh * 0.32;        // 每个卡片的纵向间距
+    const START_Y_OFFSET = -STEP_Y * 0.6; // 第0个卡片的y偏移（中心偏上）
 
-    // 整体旋转：滚动进度 0→1 对应 0°→-270°（4个卡片，3次旋转）
-    // 整体下移：滚动进度 0→1 对应 0 → -vh * 4（每个卡片下移一屏距离）
+    // ========== 2.1 设置卡片初始位置（螺旋坐标） ==========
+    // 统一由 JS 管理，避免 SSR/CSR 不一致
+    panelRefs.current.forEach((panel, index) => {
+      if (!panel) return;
+      const angle = -index * 90;
+      const angleRad = (angle * Math.PI) / 180;
+      const x = -SPIRAL_RADIUS * Math.sin(angleRad);
+      const yOffset = START_Y_OFFSET + index * STEP_Y;
+      const z = SPIRAL_RADIUS * Math.cos(angleRad);
+
+      gsap.set(panel, {
+        x,
+        y: yOffset,
+        z,
+        xPercent: -50,
+        yPercent: -50,
+      });
+    });
+
+    // ========== 3. 滚动驱动：螺旋旋转 + 上移 ==========
+    // 向下滚动 → cylinder 顺时针旋转 + 向上移动
+    // 最终第4个卡片（index 3）到达正前方中心位置
     gsap.to(cylinder, {
-      rotateY: -270,
-      y: -vh * 3, // 向下移动 3 屏（4个卡片，起始位置在0，最终停在第4个）
+      rotateY: 270, // 顺时针旋转 270°（4个卡片，转3次）
+      y: -STEP_Y * 3, // 向上移动 3 个台阶
       ease: 'none',
       scrollTrigger: {
         trigger: '.carousel-wrapper',
@@ -172,48 +195,51 @@ export default function WatchaPage() {
       },
     });
 
-    // ========== 3. 每个卡片的缩放 ==========
-    // 思路：监听滚动进度，计算每个卡片距离"正前方"的角度差
-    // 角度差越小，缩放越大（最大 2/3，最小 1/3）
-    // 用 GSAP ticker 每帧更新
+    // ========== 4. 每帧更新：广告牌朝向 + 缩放 + 透明度 ==========
+    const baseScale = 0.28;  // 最远卡片缩放
+    const maxScale = 0.68;   // 最近卡片缩放
 
-    const baseScale = 0.33; // 1/3
-    const maxScale = 0.66;  // 2/3
-
-    function updateScales() {
-      // 获取当前旋转角度（0 到 -270）
+    function updateCards() {
       const currentRotation = gsap.getProperty(cylinder, 'rotateY') as number;
 
       panelRefs.current.forEach((panel, index) => {
         if (!panel) return;
 
-        // 卡片的初始角度（0°, 90°, 180°, 270°）
-        const panelAngle = index * 90;
-        // 当前旋转后，卡片相对于正前方(0°)的角度
-        let angleDiff = (panelAngle + currentRotation) % 360;
-        // 归一化到 -180 ~ 180
-        if (angleDiff > 180) angleDiff -= 360;
-        if (angleDiff < -180) angleDiff += 360;
-        // 取绝对值
-        const absDiff = Math.abs(angleDiff);
+        // 卡片初始角度：0°, -90°, -180°, -270°（顺时针螺旋）
+        const angle = -index * 90;
+        // 当前世界角度
+        const worldAngle = angle + currentRotation;
+        const worldAngleRad = (worldAngle * Math.PI) / 180;
 
-        // 角度差 0° → scale = maxScale
-        // 角度差 90° → scale = baseScale
-        // 用 cos 曲线做平滑过渡
-        const t = Math.max(0, Math.min(1, absDiff / 90));
-        const scale = baseScale + (maxScale - baseScale) * Math.cos(t * Math.PI / 2);
+        // 广告牌效果：卡片反向旋转，始终面向观察者
+        gsap.set(panel, { rotateY: -angle - currentRotation });
 
+        // z 位置决定缩放和透明度（z越大越近 → 越大越清晰）
+        const z = SPIRAL_RADIUS * Math.cos(worldAngleRad);
+        const t = (z + SPIRAL_RADIUS) / (2 * SPIRAL_RADIUS); // 0~1，0最远，1最近
+
+        // 缩放：远小近大
+        const scale = baseScale + (maxScale - baseScale) * t;
         gsap.set(panel, { scale });
+
+        // 透明度：远处稍淡，增强纵深感
+        const opacity = 0.35 + 0.65 * t;
+        gsap.set(panel, { opacity });
+
+        // z-index：近的在上层
+        const zIndex = Math.round(t * 100);
+        panel.style.zIndex = String(zIndex);
       });
     }
 
-    gsap.ticker.add(updateScales);
+    gsap.ticker.add(updateCards);
+    updateCards(); // 初始调用一次，防止首帧闪烁
 
-    // ========== 4. 清理 ==========
+    // ========== 5. 清理 ==========
     return () => {
       lenis.destroy();
       ScrollTrigger.getAll().forEach((st) => st.kill());
-      gsap.ticker.remove(updateScales);
+      gsap.ticker.remove(updateCards);
     };
   }, []);
 
@@ -227,8 +253,6 @@ export default function WatchaPage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activePanel]);
-
-  const panelAngleStep = 360 / PANELS.length; // 90°
 
   return (
     <div className="relative text-slate-900">
@@ -273,10 +297,6 @@ export default function WatchaPage() {
             }}
           >
             {PANELS.map((panel, index) => {
-              const angle = index * panelAngleStep;
-              // 每个卡片的纵向偏移：形成螺旋排列
-              const yOffset = -index * vh * 0.66;
-
               return (
                 <div
                   key={panel.id}
@@ -286,14 +306,8 @@ export default function WatchaPage() {
                   style={{
                     width: '40vw',
                     height: '55vh',
-                    transform: `
-                      translate(-50%, -50%)
-                      translateY(${yOffset}px)
-                      rotateY(${angle}deg)
-                      translateZ(350px)
-                    `,
+                    transform: 'translate(-50%, -50%)',
                     transformStyle: 'preserve-3d',
-                    backfaceVisibility: 'hidden',
                     transformOrigin: 'center center',
                   }}
                 >
