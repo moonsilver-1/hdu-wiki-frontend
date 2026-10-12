@@ -158,9 +158,10 @@ export default function WatchaPage() {
     if (!cylinder) return;
 
     const vh = window.innerHeight;
-    const SPIRAL_RADIUS = 360;       // 螺旋半径（px）
-    const STEP_Y = vh * 0.38;        // 每个卡片的纵向间距
-    const START_Y_OFFSET = -STEP_Y * 0.6; // 第0个卡片的y偏移（中心偏上）
+    const vw = window.innerWidth;
+    const SPIRAL_RADIUS = 400;       // 螺旋半径（px），保证侧面可见+3D纵深感
+    const STEP_Y = vw * 0.4 / 3;     // 上下间距 = 卡片宽度的 1/3（40vw ÷ 3）
+    const START_Y_OFFSET = -40;      // 第0个卡片向上偏移修正，确保垂直居中
 
     // ========== 2.1 设置卡片初始位置（圆柱表面） ==========
     // 卡片贴在圆柱表面，正面朝向圆柱外侧（远离中心）
@@ -194,7 +195,7 @@ export default function WatchaPage() {
         trigger: '.carousel-wrapper',
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.5, // 加一点跟随感
+        scrub: true, // 滚动完全同步
       },
     });
 
@@ -285,7 +286,7 @@ export default function WatchaPage() {
       <div
         className="carousel-wrapper relative"
         style={{
-          height: '500vh',
+          height: '600vh',
           opacity: activePanel ? 0 : 1,
           pointerEvents: activePanel ? 'none' : 'auto',
           transition: 'opacity 0.5s ease',
@@ -295,7 +296,7 @@ export default function WatchaPage() {
         <div
           className="carousel sticky top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center"
           style={{
-            perspective: '1500px',
+            perspective: '1400px',
             perspectiveOrigin: '50% 50%',
           }}
         >
@@ -318,8 +319,8 @@ export default function WatchaPage() {
                   className="panel absolute left-1/2 top-1/2 flex items-center justify-center cursor-pointer"
                   onClick={() => setActivePanel(panel.id)}
                   style={{
-                    width: '30vw',
-                    height: '42vh',
+                    width: '40vw',
+                    height: '56vh',
                     transformStyle: 'preserve-3d',
                     transformOrigin: 'center center',
                   }}
