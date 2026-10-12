@@ -63,23 +63,23 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
     }
 
     // === 滚动驱动云层透明度（穿云入雾效果）===
-    // 第一屏（0~100vh）：完全显示
-    // 第二屏（100~200vh）：慢慢淡出到 0
+    // 前两屏（0~200vh）：完全显示，云层厚厚地覆盖
+    // 第三屏（200~300vh）：慢慢淡出到 0，穿云而出
     gsap.to(container, {
       scrollTrigger: {
         trigger: container,
         start: 'top top',
-        end: 'bottom top', // 容器底部到达视口顶部时（滚完 200vh）
+        end: 'bottom top', // 容器底部到达视口顶部时（滚完 300vh）
         scrub: true,
       },
       onUpdate: function () {
         if (!canvas) return;
         const progress = this.progress();
-        // progress 0 → 1 对应滚动 0 → 200vh
-        // 0~50% 时 opacity=1，50%~100% 时 opacity 从 1→0
+        // progress 0 → 1 对应滚动 0 → 300vh
+        // 0~66.7% 时 opacity=1（前两屏完整云层），66.7%~100% 时 opacity 从 1→0
         let opacity = 1;
-        if (progress > 0.5) {
-          opacity = 1 - (progress - 0.5) * 2;
+        if (progress > 2 / 3) {
+          opacity = 1 - (progress - 2 / 3) * 3;
         }
         canvas.style.opacity = String(Math.max(0, opacity));
       },
@@ -109,7 +109,7 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
     <div
       ref={containerRef}
       className="relative w-full overflow-visible"
-      style={{ height: '200vh', background: '#68b8d7' }}
+      style={{ height: '300vh', background: '#68b8d7' }}
     >
       {/* Hero 内容层 — 第一屏居中 */}
       <div className="relative z-[30] flex flex-col items-center justify-center h-screen text-center px-6">
@@ -172,13 +172,13 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
         </button>
       </div>
 
-      {/* 底部渐变过渡 — 覆盖整个第二屏（100vh），云层慢慢消散成雾气 */}
+      {/* 底部渐变过渡 — 覆盖整个第三屏（100vh），云层慢慢消散成雾气 */}
       <div
         className="absolute left-0 right-0 z-[25] pointer-events-none"
         style={{
           bottom: 0,
           height: '100vh',
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(173, 193, 222, 0.15) 25%, rgba(173, 193, 222, 0.4) 50%, rgba(173, 193, 222, 0.7) 75%, rgba(173, 193, 222, 0.95) 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(173, 193, 222, 0.1) 30%, rgba(173, 193, 222, 0.35) 60%, rgba(173, 193, 222, 0.7) 85%, rgba(173, 193, 222, 0.95) 100%)',
         }}
       />
     </div>
