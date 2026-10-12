@@ -3,17 +3,22 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import CLOUDS from 'vanta/dist/vanta.clouds.min';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * CloudsHero — 观猹文化墙顶部 Hero 区
+ * CloudsHero — 观猹文化墙顶部 Hero 区（200vh 加厚云层）
  *
- * 基于 Vanta.js CLOUDS 效果的体积云背景
- * 底部用噪声遮罩 + 多层雾气渐变 + 飘动云朵实现无缝过渡
+ * 结构：
+ *   - 容器：200vh，占据文档流两屏高度
+ *   - Vanta canvas：fixed 全屏，固定在视口
+ *   - 滚动 0~100vh：云层完全显示（第一屏，标题区）
+ *   - 滚动 100~200vh：云层慢慢淡出（第二屏，穿云入雾）
+ *   - 滚动 200vh+：云层完全消失，露出雾效 + 旋转木马
  *
- * 【交互】
- *   - 鼠标移动：云层轻微视差偏移
- *   - 自动缓慢流动
- *   - 向下滚动箭头提示
+ * 底部过渡：飘动云絮 + 雾气粒子 + 渐变，增强穿云感
  */
 
 export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void }) {
@@ -42,11 +47,48 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
       speed: 0.6,               // 速度
     });
 
+    // === 把 Vanta canvas 改成 fixed 全屏，让云层固定在视口 ===
+    const canvas = container.querySelector('canvas');
+    if (canvas) {
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.width = '100vw';
+      canvas.style.height = '100vh';
+      canvas.style.zIndex = '20';
+      canvas.style.pointerEvents = 'none';
+    }
+
+    // === 滚动驱动云层透明度 ===
+    // 第一屏（0~100vh）：完全显示
+    // 第二屏（100~200vh）：慢慢淡出到 0
+    gsap.to(container, {
+      scrollTrigger: {
+        trigger: container,
+        start: 'top top',
+        end: 'bottom top', // 容器底部到达视口顶部时（滚完 200vh）
+        scrub: true,
+      },
+      // 用一个自定义属性控制透明度
+      onUpdate: function () {
+        if (!canvas) return;
+        const progress = this.progress();
+        // progress 0 → 1 对应滚动 0 → 200vh
+        // 我们要：0~50% 时 opacity=1，50%~100% 时 opacity 从 1→0
+        let opacity = 1;
+        if (progress > 0.5) {
+          opacity = 1 - (progress - 0.5) * 2;
+        }
+        canvas.style.opacity = String(Math.max(0, opacity));
+      },
+    });
+
     return () => {
       if (vantaRef.current) {
         vantaRef.current.destroy();
         vantaRef.current = null;
       }
+      ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
 
@@ -64,41 +106,13 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden"
-      style={{ background: '#68b8d7' }}
+      className="relative w-full overflow-visible"
+      style={{ height: '200vh' }}
     >
-      {/* SVG 噪声定义（用于 mask 不规则云边缘） */}
-      <svg width="0" height="0" style={{ position: 'absolute' }}>
-        <defs>
-          <filter id="cloud-noise" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.012"
-              numOctaves="4"
-              seed="2"
-              result="noise"
-            />
-            <feColorMatrix
-              in="noise"
-              type="matrix"
-              values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.7 0"
-              result="softNoise"
-            />
-          </filter>
-          <filter id="cloud-noise-2" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.02"
-              numOctaves="3"
-              seed="5"
-              result="noise"
-            />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* Hero 内容层 */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
+      {/* Hero 内容层 — 第一屏居中，z-index 高于 canvas */}
+      <div
+        className="relative z-[30] flex flex-col items-center justify-center h-screen text-center px-6"
+      >
         {/* 小标签 */}
         <div
           className="mb-6 px-4 py-1.5 rounded-full text-xs tracking-[0.3em] uppercase font-medium"
@@ -158,87 +172,66 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
         </button>
       </div>
 
-      {/* ===== 底部过渡区：云层 → 雾效（多层融合） ===== */}
+      {/* ===== 底部过渡区：第二屏（100vh~200vh）云层消散 ===== */}
 
-      {/* 第 1 层：噪声溶解边缘 — 用 SVG 噪声把云层底部"打碎"成不规则云絮 */}
+      {/* 飘动的云絮 — 大朵漂浮的云，营造穿云感 */}
       <div
-        className="absolute bottom-0 left-0 right-0 z-[15] pointer-events-none"
-        style={{
-          height: '35vh',
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(173, 193, 222, 0.5) 50%, rgba(173, 193, 222, 0.85) 100%)',
-          maskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='4' seed='3'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")`,
-          WebkitMaskImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='4' seed='3'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")`,
-          maskMode: 'luminance',
-          WebkitMaskMode: 'luminance',
-        }}
-      />
-
-      {/* 第 2 层：飘动的云絮 — 几个大的径向渐变模拟漂浮云朵，从云层底部"垂下来" */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-[16] pointer-events-none overflow-hidden"
-        style={{ height: '45vh' }}
+        className="absolute left-0 right-0 z-[25] pointer-events-none overflow-hidden"
+        style={{ bottom: 0, height: '100vh' }}
       >
         {/* 云朵 1 — 左大云 */}
         <div
           className="absolute cloud-float-1"
           style={{
-            left: '-10%',
-            bottom: '10%',
-            width: '45%',
-            height: '60%',
+            left: '-15%',
+            bottom: '25%',
+            width: '50%',
+            height: '45%',
             borderRadius: '50%',
-            background: 'radial-gradient(ellipse at center, rgba(173, 193, 222, 0.7) 0%, rgba(173, 193, 222, 0.3) 40%, transparent 70%)',
-            filter: 'blur(20px)',
+            background: 'radial-gradient(ellipse at center, rgba(173, 193, 222, 0.6) 0%, rgba(173, 193, 222, 0.2) 50%, transparent 78%)',
+            filter: 'blur(30px)',
           }}
         />
         {/* 云朵 2 — 右大云 */}
         <div
           className="absolute cloud-float-2"
           style={{
-            right: '-5%',
-            bottom: '5%',
-            width: '50%',
-            height: '55%',
+            right: '-10%',
+            bottom: '15%',
+            width: '55%',
+            height: '50%',
             borderRadius: '50%',
-            background: 'radial-gradient(ellipse at center, rgba(173, 193, 222, 0.65) 0%, rgba(173, 193, 222, 0.25) 45%, transparent 75%)',
-            filter: 'blur(25px)',
+            background: 'radial-gradient(ellipse at center, rgba(173, 193, 222, 0.55) 0%, rgba(173, 193, 222, 0.15) 55%, transparent 80%)',
+            filter: 'blur(35px)',
           }}
         />
         {/* 云朵 3 — 中间小云 */}
         <div
           className="absolute cloud-float-3"
           style={{
-            left: '30%',
-            bottom: '20%',
-            width: '35%',
-            height: '40%',
+            left: '25%',
+            bottom: '40%',
+            width: '40%',
+            height: '35%',
             borderRadius: '50%',
-            background: 'radial-gradient(ellipse at center, rgba(200, 215, 235, 0.5) 0%, rgba(173, 193, 222, 0.2) 50%, transparent 75%)',
-            filter: 'blur(15px)',
+            background: 'radial-gradient(ellipse at center, rgba(200, 215, 235, 0.4) 0%, rgba(173, 193, 222, 0.1) 60%, transparent 82%)',
+            filter: 'blur(25px)',
           }}
         />
       </div>
 
-      {/* 第 3 层：渐变底色过渡 — 最底部完全过渡到雾效顶部颜色 */}
+      {/* 雾气粒子 — 越往下雾气越浓，穿云入雾 */}
       <div
-        className="absolute bottom-0 left-0 right-0 z-[14] pointer-events-none"
-        style={{
-          height: '55vh',
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(173, 193, 222, 0.1) 25%, rgba(173, 193, 222, 0.4) 55%, rgba(173, 193, 222, 0.8) 85%, rgba(173, 193, 222, 0.95) 100%)',
-        }}
-      />
-
-      {/* 第 4 层：细小雾气粒子 — 营造空气中有雾气的感觉 */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-[17] pointer-events-none overflow-hidden"
-        style={{ height: '40vh' }}
+        className="absolute left-0 right-0 z-[26] pointer-events-none overflow-hidden"
+        style={{ bottom: 0, height: '90vh' }}
       >
-        {[...Array(15)].map((_, i) => {
-          const size = 40 + Math.random() * 80;
+        {[...Array(25)].map((_, i) => {
+          const size = 50 + Math.random() * 120;
           const left = Math.random() * 100;
-          const bottom = Math.random() * 60;
+          const bottom = Math.random() * 90;
           const delay = Math.random() * 5;
-          const duration = 6 + Math.random() * 8;
+          const duration = 7 + Math.random() * 10;
+          const opacity = bottom < 20 ? 0.8 : bottom < 50 ? 0.5 : 0.25;
           return (
             <div
               key={i}
@@ -248,10 +241,11 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
                 bottom: `${bottom}%`,
                 width: `${size}px`,
                 height: `${size * 0.6}px`,
-                background: 'radial-gradient(ellipse, rgba(255, 255, 255, 0.4) 0%, rgba(200, 215, 235, 0.15) 50%, transparent 70%)',
-                filter: 'blur(8px)',
+                background: 'radial-gradient(ellipse, rgba(255, 255, 255, 0.5) 0%, rgba(200, 215, 235, 0.15) 50%, transparent 70%)',
+                filter: 'blur(12px)',
                 animationDelay: `${delay}s`,
                 animationDuration: `${duration}s`,
+                opacity,
               }}
             />
           );
