@@ -213,36 +213,3 @@
     transform: scale(1);
   }
 }
-
-/* ========== 云层 Hero 底部过渡动画 ========== */
-@keyframes cloudFloat1 {
-  0% { transform: translateX(0) translateY(0) scale(1); }
-  100% { transform: translateX(30px) translateY(-15px) scale(1.05); }
-}
-@keyframes cloudFloat2 {
-  0% { transform: translateX(0) translateY(0) scale(1); }
-  100% { transform: translateX(-40px) translateY(-20px) scale(1.08); }
-}
-@keyframes cloudFloat3 {
-  0% { transform: translateX(0) translateY(0) scale(1); }
-  100% { transform: translateX(20px) translateY(-10px) scale(1.03); }
-}
-@keyframes mistFloat {
-  0% { transform: translateY(0) translateX(0); opacity: 0.6; }
-  100% { transform: translateY(-30px) translateX(15px); opacity: 0.2; }
-}
-
-/* 云层飘动 */
-.cloud-float-1 {
-  animation: cloudFloat1 12s ease-in-out infinite alternate;
-}
-.cloud-float-2 {
-  animation: cloudFloat2 15s ease-in-out infinite alternate;
-}
-.cloud-float-3 {
-  animation: cloudFloat3 10s ease-in-out infinite alternate;
-}
-.mist-particle {
-  border-radius: 50%;
-  animation: mistFloat ease-in-out infinite alternate;
-}
