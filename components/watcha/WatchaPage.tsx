@@ -201,18 +201,23 @@ export default function WatchaPage() {
 
     function updateCards() {
       const currentRotation = gsap.getProperty(cylinder, 'rotateY') as number;
+      const currentRotationRad = (currentRotation * Math.PI) / 180;
+
+      // 广告牌旋转：所有卡片统一反向旋转，始终面向观察者
+      const billboardRotation = -currentRotation;
 
       panelRefs.current.forEach((panel, index) => {
         if (!panel) return;
 
-        // 卡片初始角度：0°, -90°, -180°, -270°（顺时针螺旋）
+        // 卡片初始角度（顺时针螺旋）
         const angle = -index * 90;
-        // 当前世界角度
-        const worldAngle = angle + currentRotation;
-        const worldAngleRad = (worldAngle * Math.PI) / 180;
+        const angleRad = (angle * Math.PI) / 180;
 
-        // 广告牌效果：卡片反向旋转，始终面向观察者
-        gsap.set(panel, { rotateY: -angle - currentRotation });
+        // 当前世界角度 = 初始角度 + 圆柱旋转角度
+        const worldAngleRad = angleRad + currentRotationRad;
+
+        // 广告牌效果：统一反向旋转
+        gsap.set(panel, { rotateY: billboardRotation });
 
         // z 位置决定缩放和透明度（z越大越近 → 越大越清晰）
         const z = SPIRAL_RADIUS * Math.cos(worldAngleRad);
