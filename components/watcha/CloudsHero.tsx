@@ -1,155 +1,95 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import CLOUDS from 'vanta/dist/vanta.clouds.min';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * CloudsHero — 多图层视差云效果
+ * CloudsHero — 观猹文化墙顶部 Hero 区（200vh 加厚云层）
  *
- * 设计：
- *   - 5 层云，每层有不同的大小、透明度、移动速度
- *   - 近景云（前景）：大、清晰、移动快
- *   - 远景云（背景）：小、淡、移动慢
- *   - 滚动驱动：云层从上方飘下 → 充满视口 → 从底部散出
+ * 基于 6157a89 简单渐变版 + 穿云入雾效果：
+ *   - 容器：200vh，占据文档流两屏高度
+ *   - Vanta canvas：fixed 全屏，固定在视口
+ *   - 滚动 0~100vh：云层完全显示（第一屏，标题区）
+ *   - 滚动 100~200vh：云层慢慢淡出（第二屏，穿云入雾）
+ *   - 滚动 200vh+：云层完全消失，露出雾效 + 旋转木马
  *
- * 视差速度（相对于滚动速度的比例）：
- *   远景层（层1）：0.3x — 慢，制造深度感
- *   中远景（层2）：0.5x
- *   中景层（层3）：0.7x
- *   中近景（层4）：0.9x
- *   近景层（层5）：1.2x — 快，从眼前飘过
- *
- * 容器高度 400vh：
- *   0~25%    云层从顶部进入
- *   25~75%   云层充满视口（维持2屏）
- *   75~100%  云层从底部散出
+ * 【交互】
+ *   - 鼠标移动：云层轻微视差偏移
+ *   - 自动缓慢流动
+ *   - 向下滚动箭头提示
  */
-
-// 每层云的配置
-const CLOUD_LAYERS = [
-  // 层 1：远景 — 淡、小、慢
-  {
-    speed: 0.3,
-    opacity: 0.4,
-    blur: '60px',
-    clouds: [
-      { left: '10%', top: '20%', size: '40vw', color: 'rgba(255, 255, 255, 0.3)' },
-      { left: '60%', top: '40%', size: '35vw', color: 'rgba(255, 255, 255, 0.25)' },
-      { left: '30%', top: '70%', size: '45vw', color: 'rgba(255, 255, 255, 0.35)' },
-    ],
-  },
-  // 层 2：中远景
-  {
-    speed: 0.5,
-    opacity: 0.55,
-    blur: '45px',
-    clouds: [
-      { left: '-5%', top: '15%', size: '35vw', color: 'rgba(255, 255, 255, 0.4)' },
-      { left: '50%', top: '50%', size: '40vw', color: 'rgba(255, 255, 255, 0.45)' },
-      { left: '20%', top: '75%', size: '38vw', color: 'rgba(255, 255, 255, 0.35)' },
-      { left: '75%', top: '25%', size: '30vw', color: 'rgba(255, 255, 255, 0.4)' },
-    ],
-  },
-  // 层 3：中景
-  {
-    speed: 0.7,
-    opacity: 0.7,
-    blur: '30px',
-    clouds: [
-      { left: '5%', top: '30%', size: '30vw', color: 'rgba(255, 255, 255, 0.5)' },
-      { left: '55%', top: '60%', size: '35vw', color: 'rgba(255, 255, 255, 0.55)' },
-      { left: '25%', top: '10%', size: '28vw', color: 'rgba(255, 255, 255, 0.45)' },
-      { left: '70%', top: '80%', size: '32vw', color: 'rgba(255, 255, 255, 0.5)' },
-    ],
-  },
-  // 层 4：中近景
-  {
-    speed: 0.9,
-    opacity: 0.85,
-    blur: '18px',
-    clouds: [
-      { left: '-10%', top: '45%', size: '28vw', color: 'rgba(255, 255, 255, 0.6)' },
-      { left: '65%', top: '20%', size: '25vw', color: 'rgba(255, 255, 255, 0.65)' },
-      { left: '35%', top: '70%', size: '30vw', color: 'rgba(255, 255, 255, 0.55)' },
-      { left: '85%', top: '55%', size: '22vw', color: 'rgba(255, 255, 255, 0.6)' },
-    ],
-  },
-  // 层 5：近景 — 清晰、大、快
-  {
-    speed: 1.2,
-    opacity: 1.0,
-    blur: '10px',
-    clouds: [
-      { left: '0%', top: '25%', size: '22vw', color: 'rgba(255, 255, 255, 0.75)' },
-      { left: '70%', top: '55%', size: '20vw', color: 'rgba(255, 255, 255, 0.8)' },
-      { left: '40%', top: '85%', size: '25vw', color: 'rgba(255, 255, 255, 0.7)' },
-      { left: '90%', top: '10%', size: '18vw', color: 'rgba(255, 255, 255, 0.75)' },
-    ],
-  },
-];
 
 export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const vantaRef = useRef<any>(null);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const vh = window.innerHeight;
-    const layers = layerRefs.current.filter(Boolean) as HTMLDivElement[];
+    // Vanta.js CLOUDS 效果
+    vantaRef.current = CLOUDS({
+      el: container,
+      THREE: THREE,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      skyColor: 0x68b8d7,       // 天空色彩
+      cloudColor: 0xadc1de,     // 云的颜色
+      cloudShadowColor: 0x183550, // 云的阴影颜色
+      sunColor: 0xff9919,       // 太阳色彩
+      sunGlareColor: 0xff6633,  // 太阳眩光彩色
+      sunlightColor: 0xff9933,  // 阳光色彩
+      speed: 0.6,               // 速度
+    });
 
-    // === 为每层云创建独立的滚动动画（视差效果）===
-    layers.forEach((layer, index) => {
-      const config = CLOUD_LAYERS[index];
-      if (!config) return;
+    // === 把 Vanta canvas 改成 fixed 全屏，让云层固定在视口 ===
+    const canvas = container.querySelector('canvas');
+    if (canvas) {
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.width = '100vw';
+      canvas.style.height = '100vh';
+      canvas.style.zIndex = '20';
+      canvas.style.pointerEvents = 'none';
+    }
 
-      // 初始位置：在视口上方外
-      gsap.set(layer, {
-        yPercent: -100 * config.speed,
-        opacity: 0,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: true,
-        },
-      });
-
-      // 阶段1：云层从顶部飘入（0% → 25%）
-      // 每层按自己的 speed 比例移动
-      tl.to(layer, {
-        yPercent: 0,
-        opacity: config.opacity,
-        duration: 0.25,
-        ease: 'none',
-      });
-
-      // 阶段2：云层停留/飘过（25% → 75%）
-      // 远景几乎不动，近景继续飘
-      tl.to(layer, {
-        yPercent: 50 * (config.speed - 0.3), // 远景移动少，近景移动多
-        opacity: config.opacity,
-        duration: 0.5,
-        ease: 'none',
-      });
-
-      // 阶段3：云层从底部散出（75% → 100%）
-      tl.to(layer, {
-        yPercent: 100 * config.speed + 50,
-        opacity: 0,
-        duration: 0.25,
-        ease: 'none',
-      });
+    // === 滚动驱动云层透明度（穿云入雾效果）===
+    // 前两屏（0~200vh）：完全显示，云层厚厚地覆盖
+    // 第三屏（200~300vh）：慢慢淡出到 0，穿云而出
+    gsap.to(container, {
+      scrollTrigger: {
+        trigger: container,
+        start: 'top top',
+        end: 'bottom top', // 容器底部到达视口顶部时（滚完 300vh）
+        scrub: true,
+      },
+      onUpdate: function () {
+        if (!canvas) return;
+        const progress = this.progress();
+        // progress 0 → 1 对应滚动 0 → 300vh
+        // 0~66.7% 时 opacity=1（前两屏完整云层），66.7%~100% 时 opacity 从 1→0
+        let opacity = 1;
+        if (progress > 2 / 3) {
+          opacity = 1 - (progress - 2 / 3) * 3;
+        }
+        canvas.style.opacity = String(Math.max(0, opacity));
+      },
     });
 
     return () => {
+      if (vantaRef.current) {
+        vantaRef.current.destroy();
+        vantaRef.current = null;
+      }
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
@@ -168,45 +108,10 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
   return (
     <div
       ref={containerRef}
-      className="relative w-full overflow-hidden"
-      style={{
-        height: '400vh',
-        background: 'linear-gradient(to bottom, #68b8d7 0%, #8fc5dd 40%, #adc1de 100%)',
-      }}
+      className="relative w-full overflow-visible"
+      style={{ height: '300vh', background: '#68b8d7' }}
     >
-      {/* ===== 5 层视差云 ===== */}
-      {CLOUD_LAYERS.map((layer, layerIndex) => (
-        <div
-          key={layerIndex}
-          ref={(el) => { layerRefs.current[layerIndex] = el; }}
-          className="absolute left-0 w-full"
-          style={{
-            top: 0,
-            height: '100vh',
-            zIndex: 10 + layerIndex, // 层越高 z-index 越高
-            filter: `blur(${layer.blur})`,
-            pointerEvents: 'none',
-          }}
-        >
-          {/* 每层中的多朵云 */}
-          {layer.clouds.map((cloud, cloudIndex) => (
-            <div
-              key={cloudIndex}
-              className="absolute rounded-full"
-              style={{
-                left: cloud.left,
-                top: cloud.top,
-                width: cloud.size,
-                height: cloud.size,
-                background: `radial-gradient(ellipse at 35% 40%, ${cloud.color} 0%, transparent 65%)`,
-                transform: 'translate(-50%, -50%)',
-              }}
-            />
-          ))}
-        </div>
-      ))}
-
-      {/* ===== Hero 内容层 — 第一屏居中 ===== */}
+      {/* Hero 内容层 — 第一屏居中 */}
       <div className="relative z-[30] flex flex-col items-center justify-center h-screen text-center px-6">
         {/* 小标签 */}
         <div
@@ -267,13 +172,13 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
         </button>
       </div>
 
-      {/* ===== 底部渐变：云层散出时柔和过渡到雾效 ===== */}
+      {/* 底部渐变过渡 — 覆盖整个第三屏（100vh），云层慢慢消散成雾气 */}
       <div
         className="absolute left-0 right-0 z-[25] pointer-events-none"
         style={{
           bottom: 0,
-          height: '15vh',
-          background: 'linear-gradient(to bottom, transparent 0%, rgba(173, 193, 222, 0.4) 40%, rgba(173, 193, 222, 0.8) 80%, rgba(173, 193, 222, 0.95) 100%)',
+          height: '100vh',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(173, 193, 222, 0.1) 30%, rgba(173, 193, 222, 0.35) 60%, rgba(173, 193, 222, 0.7) 85%, rgba(173, 193, 222, 0.95) 100%)',
         }}
       />
     </div>
