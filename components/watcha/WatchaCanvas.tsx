@@ -34,7 +34,8 @@ const fogFragmentShader = `
   uniform float iTime;
 
   uniform float blurFactor;
-  uniform vec3 baseColor;
+  uniform vec3 topColor;       // 顶部颜色（天空色，跟云层衔接）
+  uniform vec3 bottomColor;    // 底部颜色（奶油白）
   uniform vec3 lowlightColor;
   uniform vec3 midtoneColor;
   uniform vec3 highlightColor;
@@ -103,19 +104,23 @@ const fogFragmentShader = `
 
     float f = fbm(st+r);
 
-    color = mix(baseColor,
+    // 垂直渐变底色：顶部天空色 → 底部奶油白
+    // vUv.y 顶部=1，底部=0
+    vec3 gradientBase = mix(bottomColor, topColor, vUv.y);
+
+    color = mix(gradientBase,
                 lowlightColor,
-                clamp((f*f)*4.0,0.0,1.0));
+                clamp((f*f)*4.0,0.0,1.0) * 0.5);
 
     color = mix(color,
                 midtoneColor,
-                clamp(length(q),0.0,1.0));
+                clamp(length(q),0.0,1.0) * 0.4);
 
     color = mix(color,
                 highlightColor,
-                clamp(length(r.x),0.0,1.0));
+                clamp(length(r.x),0.0,1.0) * 0.3);
 
-    vec3 finalColor = mix(baseColor, color, f*f*f+.6*f*f+.5*f);
+    vec3 finalColor = mix(gradientBase, color, f*f*f+.5*f*f+.4*f);
     gl_FragColor = vec4(finalColor,1.0);
   }
 `;
@@ -150,8 +155,10 @@ export default function WatchaCanvas() {
         iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
         iMouse: { value: new THREE.Vector2(0, 0) },
         iTime: { value: 0 },
-        // 用户自定义配色
-        baseColor:      { value: new THREE.Color(0xfcf4e7) }, // 奶油白底
+        // 垂直渐变底色
+        topColor:    { value: new THREE.Color(0xadc1de) }, // 顶部：淡云色（跟云层衔接）
+        bottomColor: { value: new THREE.Color(0xfcf4e7) }, // 底部：奶油白
+        // 雾气配色
         lowlightColor:  { value: new THREE.Color(0xa4c1f7) }, // 淡蓝低光
         midtoneColor:   { value: new THREE.Color(0xf0e9e2) }, // 浅米中调
         highlightColor: { value: new THREE.Color(0x67e0ed) }, // 青色高光

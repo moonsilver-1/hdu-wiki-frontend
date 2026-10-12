@@ -130,11 +130,12 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
         </button>
       </div>
 
-      {/* 底部渐变过渡 — 柔和过渡到下方的雾效区域 */}
+      {/* 底部渐变过渡 — 云层慢慢消散成雾气，跟下方雾效无缝衔接 */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 z-20 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, transparent, rgba(252, 244, 231, 0.8))',
+          height: '50vh',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(173, 193, 222, 0.3) 40%, rgba(173, 193, 222, 0.7) 70%, rgba(173, 193, 222, 0.95) 100%)',
         }}
       />
     </div>
