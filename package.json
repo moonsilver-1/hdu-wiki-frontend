@@ -38,7 +38,8 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "three": "^0.186.1",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "vanta": "^0.5.24"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
