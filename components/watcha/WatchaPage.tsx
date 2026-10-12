@@ -158,34 +158,36 @@ export default function WatchaPage() {
     if (!cylinder) return;
 
     const vh = window.innerHeight;
-    const SPIRAL_RADIUS = 320;       // 螺旋半径（px）
-    const STEP_Y = vh * 0.32;        // 每个卡片的纵向间距
+    const SPIRAL_RADIUS = 360;       // 螺旋半径（px）
+    const STEP_Y = vh * 0.38;        // 每个卡片的纵向间距
     const START_Y_OFFSET = -STEP_Y * 0.6; // 第0个卡片的y偏移（中心偏上）
 
-    // ========== 2.1 设置卡片初始位置（螺旋坐标） ==========
-    // 统一由 JS 管理，避免 SSR/CSR 不一致
+    // ========== 2.1 设置卡片初始位置（圆柱表面） ==========
+    // 卡片贴在圆柱表面，正面朝向圆柱外侧（远离中心）
+    // 注意：transform 顺序很重要 — rotateY 在前 translateZ 在后
+    // （CSS 从右往左应用，所以 translateZ 先执行、rotateY 后执行 = 先移出去再旋转 = 贴在圆柱表面）
+    const cardAngles: number[] = [];
+    const cardYOffsets: number[] = [];
     panelRefs.current.forEach((panel, index) => {
       if (!panel) return;
-      const angle = -index * 90;
-      const angleRad = (angle * Math.PI) / 180;
-      const x = -SPIRAL_RADIUS * Math.sin(angleRad);
+      const angle = index * 90; // 0°, 90°, 180°, 270°
       const yOffset = START_Y_OFFSET + index * STEP_Y;
-      const z = SPIRAL_RADIUS * Math.cos(angleRad);
+      cardAngles[index] = angle;
+      cardYOffsets[index] = yOffset;
 
-      gsap.set(panel, {
-        x,
-        y: yOffset,
-        z,
-        xPercent: -50,
-        yPercent: -50,
-      });
+      panel.style.transform = `
+        translate(-50%, -50%)
+        rotateY(${angle}deg)
+        translateZ(${SPIRAL_RADIUS}px)
+        translateY(${yOffset}px)
+      `;
     });
 
     // ========== 3. 滚动驱动：螺旋旋转 + 上移 ==========
-    // 向下滚动 → cylinder 顺时针旋转 + 向上移动
+    // 向下滚动 → cylinder 逆时针旋转 + 向上移动
     // 最终第4个卡片（index 3）到达正前方中心位置
     gsap.to(cylinder, {
-      rotateY: 270, // 顺时针旋转 270°（4个卡片，转3次）
+      rotateY: -270, // 逆时针旋转 270°（4个卡片，转3次）
       y: -STEP_Y * 3, // 向上移动 3 个台阶
       ease: 'none',
       scrollTrigger: {
@@ -196,41 +198,44 @@ export default function WatchaPage() {
       },
     });
 
-    // ========== 4. 每帧更新：广告牌朝向 + 缩放 + 透明度 ==========
-    const baseScale = 0.28;  // 最远卡片缩放
-    const maxScale = 0.68;   // 最近卡片缩放
+    // ========== 4. 每帧更新：缩放 + 透明度（透视增强） ==========
+    // CSS perspective 已有自然透视，这里额外加一点缩放增强效果
+    const baseScale = 0.85;  // 最远卡片缩放
+    const maxScale = 1.0;    // 最近卡片缩放（原始大小）
 
     function updateCards() {
       const currentRotation = gsap.getProperty(cylinder, 'rotateY') as number;
       const currentRotationRad = (currentRotation * Math.PI) / 180;
 
-      // 广告牌旋转：所有卡片统一反向旋转，始终面向观察者
-      const billboardRotation = -currentRotation;
-
       panelRefs.current.forEach((panel, index) => {
         if (!panel) return;
 
-        // 卡片初始角度（顺时针螺旋）
-        const angle = -index * 90;
+        const angle = cardAngles[index] ?? 0;
+        const yOffset = cardYOffsets[index] ?? 0;
         const angleRad = (angle * Math.PI) / 180;
 
         // 当前世界角度 = 初始角度 + 圆柱旋转角度
         const worldAngleRad = angleRad + currentRotationRad;
 
-        // 广告牌效果：统一反向旋转
-        gsap.set(panel, { rotateY: billboardRotation });
-
         // z 位置决定缩放和透明度（z越大越近 → 越大越清晰）
         const z = SPIRAL_RADIUS * Math.cos(worldAngleRad);
         const t = (z + SPIRAL_RADIUS) / (2 * SPIRAL_RADIUS); // 0~1，0最远，1最近
 
-        // 缩放：远小近大
+        // 缩放：远小近大（增强透视感）
         const scale = baseScale + (maxScale - baseScale) * t;
-        gsap.set(panel, { scale });
 
-        // 透明度：远处稍淡，增强纵深感
-        const opacity = 0.35 + 0.65 * t;
-        gsap.set(panel, { opacity });
+        // 透明度：远处稍淡，背面淡出
+        const opacity = z > 0 ? (0.5 + 0.5 * t) : Math.max(0, 0.15 + 0.35 * (1 + z / SPIRAL_RADIUS));
+
+        // 用完整 transform 确保顺序正确：定位 + 缩放
+        panel.style.transform = `
+          translate(-50%, -50%)
+          rotateY(${angle}deg)
+          translateZ(${SPIRAL_RADIUS}px)
+          translateY(${yOffset}px)
+          scale(${scale})
+        `;
+        panel.style.opacity = String(opacity);
 
         // z-index：近的在上层
         const zIndex = Math.round(t * 100);
@@ -313,9 +318,8 @@ export default function WatchaPage() {
                   className="panel absolute left-1/2 top-1/2 flex items-center justify-center cursor-pointer"
                   onClick={() => setActivePanel(panel.id)}
                   style={{
-                    width: '40vw',
-                    height: '55vh',
-                    transform: 'translate(-50%, -50%)',
+                    width: '30vw',
+                    height: '42vh',
                     transformStyle: 'preserve-3d',
                     transformOrigin: 'center center',
                   }}
