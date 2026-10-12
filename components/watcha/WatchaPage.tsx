@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Lenis from 'lenis';
 import WatchaCanvas from './WatchaCanvas';
 import CloudsHero from './CloudsHero';
+import FogTransition from './FogTransition';
 import './watcha.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -273,6 +274,9 @@ export default function WatchaPage() {
 
       {/* ===== Hero 区：云层背景 + 大标题 ===== */}
       <CloudsHero />
+
+      {/* ===== 雾气过渡页：Vanta FOG + Logo ===== */}
+      <FogTransition />
 
       {/* 导航栏 */}
       <nav className="liquid-glass fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-8 rounded-full px-8 py-3 text-sm font-medium text-slate-700">
