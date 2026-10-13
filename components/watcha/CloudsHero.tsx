@@ -124,12 +124,19 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
             border: '1px solid rgba(255, 255, 255, 0.4)',
           }}
         >
-          观猹学社 × 杭电
+          观猹学社 × 杭州电子科技大学
+        </div>
+
+        {/* Logo 组合 */}
+        <div className="mb-8 flex items-center justify-center gap-6">
+          <img src="/hdu-logo.jpg" alt="杭电校徽" className="h-16 w-16 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(255,255,255,0.6)' }} />
+          <span className="text-3xl" style={{ color: '#fff' }}>×</span>
+          <img src="/watcha-logo.png" alt="观猹 Logo" className="h-16 w-auto object-contain" />
         </div>
 
         {/* 主标题 */}
         <h1
-          className="text-6xl md:text-8xl font-black mb-6 tracking-tight"
+          className="text-6xl md:text-8xl font-black mb-6 tracking-tight text-center px-4"
           style={{
             color: '#fff',
             letterSpacing: '0.05em',
@@ -140,12 +147,12 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
 
         {/* 副标题 */}
         <p
-          className="text-lg md:text-xl font-light max-w-xl leading-relaxed mb-12"
+          className="text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-12 text-center px-4"
           style={{
             color: '#fff',
           }}
         >
-          AI 育人生态 · 精选产品 · 沉浸式互动体验
+          校企共建 AI 育人生态 · 从校园萌芽到产业回流 · 沉浸式互动体验
         </p>
 
         {/* 向下滚动提示 */}

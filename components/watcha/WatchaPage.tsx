@@ -6,7 +6,6 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Lenis from 'lenis';
 import WatchaCanvas from './WatchaCanvas';
 import CloudsHero from './CloudsHero';
-// import BirdsBackground from './BirdsBackground'; // 暂时停用鸟群效果
 import './watcha.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,107 +13,915 @@ gsap.registerPlugin(ScrollTrigger);
 /**
  * WatchaPage — 观猹文化墙主页
  *
- * 【核心效果】3D 螺旋式滚动叙事
- *   4 个卡片围绕中心轴螺旋排列（既有旋转角度，又有纵向偏移）
- *   向下滚动 → 整体旋转 + 下移 → 新卡片从下方转上来
- *   卡片大小：默认 1/3 屏，接近正前方时放大到 2/3 屏
- *
- * 【交互】
- *   - 滚动：驱动整体旋转+下移
- *   - 点击卡片：进入详情页
- *   - ESC / 关闭按钮：返回旋转木马
+ * 4 个板块：
+ *   01 杭电 × 观猹共建 AI 育人生态
+ *   02 玩 AI，上观猹
+ *   03 好用产品馆
+ *   04 互动展区
  */
 
-const PANELS = [
+// ============ 板块一数据：校企发展时间线 ============
+const TIMELINE_EVENTS = [
+  { year: '2020', title: '仲泰入学', desc: '创始人仲泰入学杭电，开始了在这片土地上的学习与探索之路。' },
+  { year: '2021', title: '未央学社成立', desc: '15000+ 社群，辐射全校 3w+ 师生，学业帮扶、答疑活动，成为杭电最具影响力的学习共同体。' },
+  { year: '2023', title: '特工宇宙成立', desc: '学生创业团队"特工宇宙"成立，专注 AI 产品研发与探索。' },
+  { year: '2024', title: '似一科技成立', desc: '从校园走向产业——似一科技成立，正式开启 AI 创业之路。' },
+  { year: '2024-2025', title: '育人基金 · 观猹上线', desc: '设立"AI + 思政"育人基金，捐赠 5 万元支持学生科研赛事创新实践；观猹平台正式上线。' },
+  { year: '2025', title: '特工宇宙国赛金奖', desc: '中国国际大学生创新大赛金奖——从校园实践走向全国舞台。' },
+  { year: '2026', title: '黑客松 · TokenDance · 2020 亿 Token 捐赠', desc: '环球黑客松举办、TokenDance 词元跳动上线、捐赠 2020 亿 Tokens 回流校园、学校领导调研指导。' },
+];
+
+const STORY_CARDS = [
   {
-    id: 'hero',
-    num: '01',
-    title: '观猹',
-    subtitle: 'GuanCha · AI 育人生态',
-    desc: '观猹学社联合杭州电子科技大学，以 AI 育人空间为载体，把观猹正在做的事、AI 圈的最新动态和可直接上手的 AI 产品带进校园。',
-    accent: '#67e0ed',
-    detailContent: {
-      sections: [
-        { heading: '关于观猹', paragraphs: 3 },
-        { heading: '我们的使命', paragraphs: 4 },
-        { heading: '核心理念', paragraphs: 3 },
-        { heading: '发展历程', paragraphs: 5 },
-        { heading: '未来展望', paragraphs: 3 },
-      ],
-    },
+    title: '未央学社：回应真实学习需求',
+    desc: '15000+ 社群，辐射全校 3w+ 师生。学业帮扶、答疑活动、学习资料共享，把散落在校园各处的学习者凝聚成真正的学习共同体。',
+    emoji: '📚',
   },
   {
+    title: '设立"AI + 思政"育人基金',
+    desc: '捐赠 5 万元育人基金，支持学生科研赛事与创新实践，让更多有想法的同学能够大胆试错、勇敢创造。',
+    emoji: '🎓',
+  },
+  {
+    title: '特工宇宙获国赛金奖',
+    desc: '中国国际大学生创新大赛金奖获得者。从校园实践到全国舞台，特工宇宙用实力证明——杭电学子能做最前沿的 AI 产品。',
+    emoji: '🏆',
+  },
+  {
+    title: '2020 亿 Tokens 捐赠',
+    desc: '2020 代表入校年份，每一个 Token 都带着我们的初心。算力资源、实习孵化、AI 教程，全面回流母校。',
+    emoji: '⚡',
+  },
+];
+
+// ============ 板块二数据：观猹生态 ============
+const FIVE_BUSINESSES = [
+  { name: '观猹平台', desc: 'AI 产品的大众点评——发现、评分、讨论、体验，一站式 AI 产品探索社区。' },
+  { name: 'TokenDance 词元跳动', desc: '让 AI 变得可触摸——词元经济与创作激励平台，每一次创造都有价值。' },
+  { name: '猹与猹增长服务', desc: '面向 AI 产品的增长加速器——从冷启动到规模化，陪你跑完整条路。' },
+  { name: '特工宇宙媒体', desc: '聚焦 AI 圈内容生态——产品测评、行业观察、深度专访，做有趣有料的 AI 媒体。' },
+  { name: '环球黑客松', desc: '连接全球 AI 开发者——多站点巡回、48 小时极限创造，把想法变成现实。' },
+];
+
+const PARTNERS = [
+  '杭州电子科技大学',
+  '浙江大学',
+  '阿里巴巴',
+  '百度智能云',
+  '腾讯云',
+  '字节跳动',
+  '华为云',
+  '讯飞星火',
+  '月之暗面',
+  '零一万物',
+];
+
+const KEY_EVENTS = [
+  { time: '2024.06', name: '观猹大会', desc: '首届观猹大会在杭电举办，AI 产品首发与行业分享。' },
+  { time: '2024.09', name: '猹话会', desc: '每月一期的线下沙龙，AI 创业者与学生面对面。' },
+  { time: '2024.11', name: '黑客松 · 杭州站', desc: '48 小时限时创造，100+ 开发者同场竞技。' },
+  { time: '2025.07', name: 'WAIC 世界人工智能大会', desc: '观猹受邀参展，展示校园 AI 育人生态实践。' },
+  { time: '2025.09', name: 'ChinaJoy 互动展区', desc: '学生 AI 产品集体亮相，与 Z 世代用户亲密接触。' },
+  { time: '2026.03', name: '黑客松 · 北京站', desc: '跨城市连线，南北 AI 开发者共创。' },
+];
+
+// ============ 板块三数据：好用产品馆 ============
+type Product = {
+  name: string;
+  slogan: string;
+  desc: string;
+  tags: string[];
+  rating: number;
+  link: string;
+  qrHint: string;
+};
+
+const PRODUCT_CATEGORIES = ['全部', '论文阅读', '备考学习', '办公调研', '代码开发', '动画创作'];
+
+const ALL_PRODUCTS: Product[] = [
+  {
+    name: 'Paper2Galgame',
+    slogan: '把论文读成恋爱游戏',
+    desc: '用 Galgame 形式重新呈现学术论文，让硬核知识也能轻松入门。',
+    tags: ['论文阅读', '趣味学习'],
+    rating: 4.8,
+    link: 'https://watcha.cn',
+    qrHint: '扫码体验 Paper2Galgame',
+  },
+  {
+    name: '佛脚 AI',
+    slogan: '抱对佛脚，考试不慌',
+    desc: 'AI 驱动的智能备考助手，知识点梳理 + 真题训练 + 薄弱点精准打击。',
+    tags: ['备考学习'],
+    rating: 4.6,
+    link: 'https://watcha.cn',
+    qrHint: '扫码体验佛脚 AI',
+  },
+  {
+    name: 'WorkBuddy',
+    slogan: '你的职场 AI 搭子',
+    desc: 'PPT 生成、会议纪要、邮件润色、数据整理——办公全流程效率提升。',
+    tags: ['办公调研'],
+    rating: 4.5,
+    link: 'https://watcha.cn',
+    qrHint: '扫码体验 WorkBuddy',
+  },
+  {
+    name: 'UniFuncs',
+    slogan: '程序员的瑞士军刀',
+    desc: '极简高效的代码工具集，格式化、压缩、转换、加密，一个页面搞定。',
+    tags: ['代码开发'],
+    rating: 4.7,
+    link: 'https://watcha.cn',
+    qrHint: '扫码体验 UniFuncs',
+  },
+  {
+    name: 'ima',
+    slogan: 'AI 图像，想画就画',
+    desc: '文生图、图生图、风格迁移，内置多种模型，零门槛创作专业级图像。',
+    tags: ['动画创作'],
+    rating: 4.4,
+    link: 'https://watcha.cn',
+    qrHint: '扫码体验 ima',
+  },
+  {
+    name: 'Trae',
+    slogan: '懂你的 AI IDE',
+    desc: '字节跳动出品的 AI 代码编辑器，自然语言写代码、全项目级智能重构。',
+    tags: ['代码开发'],
+    rating: 4.9,
+    link: 'https://trae.ai',
+    qrHint: '扫码下载 Trae',
+  },
+  {
+    name: 'OiiOii',
+    slogan: '把日常变成动画',
+    desc: '一句描述生成 2D 动画短片，角色、场景、分镜、配乐全自动。',
+    tags: ['动画创作'],
+    rating: 4.3,
+    link: 'https://watcha.cn',
+    qrHint: '扫码体验 OiiOii',
+  },
+];
+
+// ============ 板块四数据：互动展区 ============
+const VOTE_PRODUCTS = [
+  { id: 1, name: 'Paper2Galgame', desc: '把论文读成恋爱游戏的神奇工具', good: 248, bad: 31 },
+  { id: 2, name: '佛脚 AI', desc: '备考党福音，AI 帮你抓重点', good: 189, bad: 52 },
+  { id: 3, name: 'Trae', desc: '懂你的 AI 代码编辑器', good: 312, bad: 18 },
+  { id: 4, name: 'OiiOii', desc: '一句话生成动画短片', good: 156, bad: 44 },
+];
+
+const QUIZ_QUESTIONS = [
+  {
+    q: '观猹平台的定位是什么？',
+    options: ['AI 产品的大众点评', '电商购物平台', '短视频 App', '在线教育'],
+    answer: 0,
+    explain: '观猹是 AI 产品发现、评分与讨论社区，被誉为"AI 产品的大众点评"。',
+  },
+  {
+    q: '2020 亿 Tokens 捐赠中的"2020"代表什么？',
+    options: ['公司成立年份', '创始人入校年份', '产品发布年份', '融资额（万元）'],
+    answer: 1,
+    explain: '2020 代表创始人入校年份，寓意从校园出发、回报母校。',
+  },
+  {
+    q: '未央学社目前辐射多少师生？',
+    options: ['5000+', '10000+', '30000+', '50000+'],
+    answer: 2,
+    explain: '未央学社拥有 15000+ 社群成员，辐射全校 3w+ 师生。',
+  },
+  {
+    q: '特工宇宙获得过什么国家级奖项？',
+    options: ['ACM 金牌', '互联网+ 金奖', '中国国际大学生创新大赛金奖', '数学建模国一'],
+    answer: 2,
+    explain: '特工宇宙荣获中国国际大学生创新大赛金奖。',
+  },
+  {
+    q: '观猹的五大业务不包括以下哪一项？',
+    options: ['观猹平台', 'TokenDance', 'AI 芯片设计', '环球黑客松'],
+    answer: 2,
+    explain: '观猹五大业务：观猹平台、TokenDance、猹与猹增长、特工宇宙媒体、环球黑客松。',
+  },
+];
+
+const STAR_WATCHERS = [
+  { name: '悟鸣 AI', tag: 'AI 独立开发者', quote: 'AI 时代，每个人都可以成为造物主。', intro: '从校园黑客到独立开发者，悟鸣 AI 在 Agent 领域持续探索。' },
+  { name: '小明同学', tag: '产品经理', quote: '好的 AI 产品，应该让最普通的用户也能感受到魔法。', intro: '前大厂 PM，现在用产品思维让 AI 更懂用户。' },
+  { name: 'GoodTime', tag: '全栈工程师', quote: '代码是我的语言，AI 让我说得更快更远。', intro: '从竞赛选手到 AI 创业者，相信技术改变世界。' },
+];
+
+// ============ 板块卡片数据 ============
+const PANELS = [
+  {
     id: 'timeline',
-    num: '02',
+    num: '01',
     title: '杭电 × 观猹',
     subtitle: 'AI 育人生态共建',
-    desc: '未央学社成立 · 育人基金设立 · 特工宇宙获金奖 · 捐赠2020亿Tokens · 领导调研',
+    desc: '从校园萌芽 → 创业成长 → 资源反哺母校 · 完整时间线叙事',
+    accent: '#67e0ed',
+  },
+  {
+    id: 'ecosystem',
+    num: '02',
+    title: '玩 AI，上观猹',
+    subtitle: 'AI 产品的大众点评',
+    desc: '观猹平台 · TokenDance · 猹与猹 · 特工宇宙 · 环球黑客松',
     accent: '#a4c1f7',
-    detailContent: {
-      sections: [
-        { heading: '未央学社成立', paragraphs: 2 },
-        { heading: '育人基金设立', paragraphs: 3 },
-        { heading: '特工宇宙获金奖', paragraphs: 3 },
-        { heading: '捐赠 2020 亿 Tokens', paragraphs: 2 },
-        { heading: '领导调研指导', paragraphs: 3 },
-        { heading: '未来合作规划', paragraphs: 4 },
-      ],
-    },
   },
   {
     id: 'products',
     num: '03',
     title: '好用产品馆',
-    subtitle: '7 款精选 AI 产品',
-    desc: 'Paper2Galgame · 佛脚AI · WorkBuddy · U深研 · ima · Trae · OiiOii',
+    subtitle: '校园场景精选 AI 工具',
+    desc: '论文阅读 · 备考学习 · 办公调研 · 代码开发 · 动画创作',
     accent: '#f472b6',
-    detailContent: {
-      sections: [
-        { heading: 'Paper2Galgame', paragraphs: 2 },
-        { heading: '佛脚 AI', paragraphs: 3 },
-        { heading: 'WorkBuddy', paragraphs: 2 },
-        { heading: 'U 深研', paragraphs: 3 },
-        { heading: 'ima', paragraphs: 2 },
-        { heading: 'Trae', paragraphs: 3 },
-        { heading: 'OiiOii', paragraphs: 2 },
-      ],
-    },
   },
   {
     id: 'interactive',
     num: '04',
     title: '互动展区',
-    subtitle: '沉浸式体验',
-    desc: '产品集合墙 · Good/Bad评分墙 · 答题站 · 名片墙 · Token领取',
-    accent: '#67e0ed',
-    detailContent: {
-      sections: [
-        { heading: '产品集合墙', paragraphs: 2 },
-        { heading: 'Good / Bad 评分墙', paragraphs: 3 },
-        { heading: '答题站', paragraphs: 2 },
-        { heading: '名片墙', paragraphs: 2 },
-        { heading: 'Token 领取', paragraphs: 3 },
-      ],
-    },
+    subtitle: '参与体验，共建 AI 社区',
+    desc: 'Good/Bad 评分 · 答题站 · 名片墙 · Token 补给',
+    accent: '#ffb38a',
   },
 ];
 
-function generatePlaceholder(count: number): string[] {
-  const sentences = [
-    '观猹学社致力于构建面向未来的 AI 育人生态，让每一位同学都能在 AI 时代找到自己的位置。',
-    '我们相信，AI 不只是工具，更是一种全新的思维方式和创造力的延伸。',
-    '通过与杭州电子科技大学的深度合作，我们将前沿的 AI 技术带入校园，让更多人受益。',
-    '从基础学习到实战项目，从社区交流到职业发展，观猹为每一位学习者提供全方位的支持。',
-    '在这里，你不仅能学到技术，更能找到志同道合的伙伴，一起探索 AI 的无限可能。',
-    '我们的产品和服务覆盖学习、工作、创作等多个场景，让 AI 真正融入日常。',
-    '每一次互动、每一个问题、每一份创意，都是我们前进的动力。',
-  ];
-  const result: string[] = [];
-  for (let i = 0; i < count; i++) {
-    result.push(sentences[i % sentences.length]);
-  }
-  return result;
+// ============ 公共组件 ============
+
+function DetailHeader({ num, title, subtitle, accent }: { num: string; title: string; subtitle: string; accent: string }) {
+  return (
+    <div className="mb-12 text-center">
+      <div className="mb-4 text-sm tracking-[0.3em] uppercase font-medium" style={{ color: accent }}>
+        {num}
+      </div>
+      <h1
+        className="mb-4 text-4xl md:text-5xl font-bold leading-tight"
+        style={{
+          background: `linear-gradient(135deg, ${accent}, #1a1a2e)`,
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}
+      >
+        {title}
+      </h1>
+      <div className="text-sm tracking-widest text-slate-500 uppercase">{subtitle}</div>
+    </div>
+  );
 }
+
+function CloseButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="fixed top-6 right-6 z-[200] w-12 h-12 rounded-full flex items-center justify-center text-slate-600 hover:text-slate-900 transition-all hover:scale-110"
+      style={{
+        background: 'rgba(255, 255, 255, 0.7)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.9)',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.06)',
+      }}
+      aria-label="关闭"
+    >
+      ✕
+    </button>
+  );
+}
+
+// ============ 板块一详情：校企发展时间线 ============
+
+function TimelineDetail({ accent }: { accent: string }) {
+  const [activeEvent, setActiveEvent] = useState<number | null>(null);
+
+  return (
+    <div>
+      {/* Banner */}
+      <div
+        className="mb-10 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden"
+        style={{
+          background: `linear-gradient(135deg, ${accent}18, #a4c1f718, #f0e9e218)`,
+          border: `1px solid ${accent}40`,
+        }}
+      >
+        <div className="mb-3 text-xs tracking-[0.3em] font-medium" style={{ color: accent }}>校企共建 · 故事从这里开始</div>
+        <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3">杭电 × 观猹共建 AI 育人生态</h2>
+        <p className="text-slate-600 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+          从校园学习共同体走向 AI 创业，把创业资源回流母校 —— 这是一个关于青春、勇气和反哺的故事。
+        </p>
+      </div>
+
+      {/* 横向时间线 */}
+      <div className="mb-10">
+        <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          关键发展时间线
+        </h3>
+        <div className="relative overflow-x-auto pb-4">
+          <div className="flex gap-4 md:gap-6 min-w-max px-2">
+            {TIMELINE_EVENTS.map((ev, i) => (
+              <div
+                key={i}
+                onClick={() => setActiveEvent(activeEvent === i ? null : i)}
+                className={`cursor-pointer shrink-0 w-56 rounded-2xl p-5 border-2 transition-all ${
+                  activeEvent === i ? 'scale-[1.02] shadow-lg' : 'hover:shadow-md'
+                }`}
+                style={{
+                  background: activeEvent === i ? `${accent}20` : 'rgba(255,255,255,0.85)',
+                  borderColor: activeEvent === i ? accent : 'rgba(0,0,0,0.06)',
+                }}
+              >
+                <div className="text-xs font-bold tracking-wider mb-1" style={{ color: accent }}>{ev.year}</div>
+                <div className="text-base font-bold text-slate-800 mb-2 leading-snug">{ev.title}</div>
+                <div className="text-xs text-slate-500 leading-relaxed line-clamp-3">{ev.desc}</div>
+                {activeEvent === i && (
+                  <div className="mt-3 pt-3 border-t border-slate-200 text-sm text-slate-700 leading-relaxed">
+                    {ev.desc}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 text-xs text-slate-400 text-center">← 横向滑动 / 点击节点查看详情 →</div>
+        </div>
+      </div>
+
+      {/* 四大故事卡片 */}
+      <div className="mb-10">
+        <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          四个值得记住的故事
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {STORY_CARDS.map((card, i) => (
+            <div
+              key={i}
+              className="rounded-2xl p-6 border transition-all hover:shadow-md"
+              style={{
+                background: 'rgba(255,255,255,0.85)',
+                borderColor: 'rgba(0,0,0,0.06)',
+              }}
+            >
+              <div className="flex items-start gap-4">
+                <div className="text-3xl shrink-0">{card.emoji}</div>
+                <div>
+                  <h4 className="text-base font-bold text-slate-800 mb-2 leading-snug">{card.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">{card.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 调研纪实 */}
+      <div
+        className="rounded-2xl p-6 md:p-8"
+        style={{
+          background: `linear-gradient(135deg, ${accent}15, #f0e9e220)`,
+          border: `1px dashed ${accent}60`,
+        }}
+      >
+        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+          <span>🏫</span> 高校 × 中学 × 青年创业团队
+        </h3>
+        <p className="text-sm md:text-base text-slate-600 leading-relaxed">
+          学校领导调研交流、中学 - 高校 - 青年创业团队协同探索 AI 教育新范式。
+          从中学的 AI 启蒙课程，到高校的专业学习路径，再到创业团队的产业实践——
+          我们正在搭建一条完整的 AI 人才培养链条。
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ============ 板块二详情：观猹生态 ============
+
+function EcosystemDetail({ accent }: { accent: string }) {
+  return (
+    <div>
+      {/* 平台简介 */}
+      <div
+        className="mb-8 rounded-3xl p-8 md:p-10 grid md:grid-cols-5 gap-8 items-center"
+        style={{
+          background: 'rgba(255,255,255,0.85)',
+          border: `1px solid ${accent}40`,
+        }}
+      >
+        <div className="md:col-span-3">
+          <div className="mb-2 text-xs font-bold tracking-wider" style={{ color: accent }}>PLATFORM</div>
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-4">玩 AI，上观猹</h2>
+          <p className="text-slate-600 leading-relaxed mb-4">
+            观猹是 AI 产品的大众点评——发现、体验、评分、讨论，一站式 AI 产品探索社区。
+            我们也是杭州 AI 五小凤之一，获得央媒报道与头部资本背书。
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://watcha.cn"
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded-full text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+              style={{ background: accent }}
+            >
+              官网 watcha.cn（国内）
+            </a>
+            <a
+              href="https://watcha.ai"
+              target="_blank"
+              rel="noreferrer"
+              className="px-4 py-2 rounded-full text-sm font-semibold transition-transform hover:-translate-y-0.5"
+              style={{ background: `${accent}20`, color: '#1a1a2e', border: `1px solid ${accent}` }}
+            >
+              watcha.ai（全球）
+            </a>
+          </div>
+        </div>
+        <div className="md:col-span-2 flex flex-col items-center gap-4">
+          <img src="/watcha-logo-new.jpg" alt="观猹 Logo" className="h-28 object-contain rounded-xl" />
+          <div className="text-center text-sm text-slate-500">扫码访问官网 ↗</div>
+        </div>
+      </div>
+
+      {/* 五大业务 */}
+      <div className="mb-10">
+        <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          五大业务矩阵
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {FIVE_BUSINESSES.map((b, i) => (
+            <div
+              key={i}
+              className="rounded-2xl p-5 border transition-all hover:-translate-y-0.5 hover:shadow-md"
+              style={{
+                background: 'rgba(255,255,255,0.85)',
+                borderColor: 'rgba(0,0,0,0.06)',
+              }}
+            >
+              <div className="text-xs font-bold mb-2" style={{ color: accent }}>0{i + 1}</div>
+              <h4 className="text-base font-bold text-slate-800 mb-2">{b.name}</h4>
+              <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{b.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 合作伙伴 */}
+      <div className="mb-10">
+        <h3 className="text-xl font-bold text-slate-800 mb-5 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          合作伙伴 & 生态伙伴
+        </h3>
+        <div className="rounded-2xl p-5 overflow-hidden" style={{ background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(0,0,0,0.06)' }}>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {PARTNERS.map((p, i) => (
+              <div
+                key={i}
+                className="shrink-0 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700"
+                style={{ background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.06)' }}
+              >
+                {p}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 活动时间轴 */}
+      <div className="mb-6">
+        <h3 className="text-xl font-bold text-slate-800 mb-5 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          重点活动回顾
+        </h3>
+        <div className="space-y-3">
+          {KEY_EVENTS.map((ev, i) => (
+            <div
+              key={i}
+              className="flex gap-4 rounded-xl p-4"
+              style={{ background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(0,0,0,0.06)' }}
+            >
+              <div className="shrink-0 w-20 text-xs font-bold text-center pt-1" style={{ color: accent }}>{ev.time}</div>
+              <div className="flex-1">
+                <div className="text-sm font-bold text-slate-800 mb-1">{ev.name}</div>
+                <div className="text-xs text-slate-500 leading-relaxed">{ev.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <a
+            href="https://watcha.cn"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+            style={{ background: accent }}
+          >
+            前往观猹查看更多行业动态 →
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============ 板块三详情：好用产品馆 ============
+
+function ProductsDetail({ accent }: { accent: string }) {
+  const [cat, setCat] = useState('全部');
+
+  const filtered = cat === '全部' ? ALL_PRODUCTS : ALL_PRODUCTS.filter((p) => p.tags.includes(cat));
+
+  return (
+    <div>
+      {/* 筛选 */}
+      <div className="mb-8">
+        <div className="flex flex-wrap gap-2 justify-center">
+          {PRODUCT_CATEGORIES.map((c) => (
+            <button
+              key={c}
+              onClick={() => setCat(c)}
+              className="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
+              style={
+                cat === c
+                  ? { background: accent, color: '#fff' }
+                  : { background: 'rgba(255,255,255,0.85)', color: '#1a1a2e', border: '1px solid rgba(0,0,0,0.1)' }
+              }
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 产品卡片网格 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filtered.map((p, i) => (
+          <div
+            key={i}
+            className="rounded-2xl overflow-hidden border transition-all hover:-translate-y-1 hover:shadow-lg"
+            style={{ background: 'rgba(255,255,255,0.9)', borderColor: 'rgba(0,0,0,0.06)' }}
+          >
+            {/* 头部 */}
+            <div className="p-5 pb-3">
+              <div className="flex items-start gap-3 mb-3">
+                <div
+                  className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-lg font-black"
+                  style={{ background: `${accent}20`, color: accent }}
+                >
+                  {p.name.charAt(0)}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-base font-bold text-slate-800 leading-tight">{p.name}</div>
+                  <div className="text-xs text-slate-500 italic mt-0.5 truncate">{p.slogan}</div>
+                </div>
+              </div>
+
+              {/* 简介 */}
+              <p className="text-xs md:text-sm text-slate-600 leading-relaxed mb-3">{p.desc}</p>
+
+              {/* 标签 */}
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {p.tags.map((t, j) => (
+                  <span key={j} className="px-2 py-0.5 rounded-md text-[11px] font-medium" style={{ background: `${accent}18`, color: accent }}>
+                    #{t}
+                  </span>
+                ))}
+              </div>
+
+              {/* 评分 */}
+              <div className="flex items-center gap-1 text-xs text-slate-500">
+                <span style={{ color: '#f59e0b' }}>★</span>
+                <span className="font-bold text-slate-700">{p.rating.toFixed(1)}</span>
+                <span>· 观猹平台评分</span>
+              </div>
+            </div>
+
+            {/* 底部二维码 + 链接 */}
+            <div
+              className="px-5 py-4 border-t flex items-center justify-between gap-3"
+              style={{ borderColor: 'rgba(0,0,0,0.06)', background: `${accent}08` }}
+            >
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-semibold text-slate-700 truncate">{p.qrHint}</div>
+                <div className="text-[11px] text-slate-400 truncate mt-0.5">{p.link}</div>
+              </div>
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noreferrer"
+                className="shrink-0 px-3 py-1.5 rounded-full text-xs font-bold text-white transition-transform hover:scale-105"
+                style={{ background: accent }}
+              >
+                立即体验 →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6 text-center text-xs text-slate-400">
+        💡 产品库支持后台定期新增 / 替换，与线下文化墙同步月度更新
+      </div>
+    </div>
+  );
+}
+
+// ============ 板块四详情：互动展区 ============
+
+function InteractiveDetail({ accent }: { accent: string }) {
+  const [votes, setVotes] = useState(VOTE_PRODUCTS);
+  const [voteMap, setVoteMap] = useState<Record<number, 'good' | 'bad'>>({});
+  const [quizIdx, setQuizIdx] = useState(0);
+  const [selected, setSelected] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState(false);
+  const [score, setScore] = useState(0);
+  const [quizDone, setQuizDone] = useState(false);
+
+  const handleVote = (pid: number, type: 'good' | 'bad') => {
+    if (voteMap[pid]) return; // 已投过
+    setVoteMap((m) => ({ ...m, [pid]: type }));
+    setVotes((vs) =>
+      vs.map((v) => (v.id === pid ? { ...v, good: v.good + (type === 'good' ? 1 : 0), bad: v.bad + (type === 'bad' ? 1 : 0) } : v))
+    );
+  };
+
+  const handleQuizSubmit = () => {
+    if (selected === null) return;
+    const correct = selected === QUIZ_QUESTIONS[quizIdx].answer;
+    if (correct) setScore((s) => s + 1);
+    setShowResult(true);
+  };
+
+  const handleQuizNext = () => {
+    if (quizIdx + 1 >= QUIZ_QUESTIONS.length) {
+      setQuizDone(true);
+    } else {
+      setQuizIdx(quizIdx + 1);
+      setSelected(null);
+      setShowResult(false);
+    }
+  };
+
+  const resetQuiz = () => {
+    setQuizIdx(0);
+    setSelected(null);
+    setShowResult(false);
+    setScore(0);
+    setQuizDone(false);
+  };
+
+  return (
+    <div className="space-y-10">
+      {/* Good / Bad 评分墙 */}
+      <div>
+        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          01 · Good / Bad 评分墙
+        </h3>
+        <p className="text-xs md:text-sm text-slate-500 mb-5">
+          每月更新参评产品 · 投票结果生成《杭电学生 AI 产品口碑档案》存档 · 体验产品后再参与投票 🎯
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {votes.map((v) => {
+            const total = v.good + v.bad;
+            const goodPct = Math.round((v.good / total) * 100);
+            const myVote = voteMap[v.id];
+            return (
+              <div
+                key={v.id}
+                className="rounded-2xl p-5 border"
+                style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <div
+                    className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm"
+                    style={{ background: `${accent}20`, color: accent }}
+                  >
+                    {v.name.charAt(0)}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-bold text-slate-800">{v.name}</div>
+                    <div className="text-xs text-slate-500 mt-0.5">{v.desc}</div>
+                  </div>
+                </div>
+
+                {/* 进度条 */}
+                <div className="h-2.5 rounded-full overflow-hidden flex mb-3 bg-slate-100">
+                  <div className="h-full transition-all" style={{ width: `${goodPct}%`, background: '#ef4444' }} />
+                  <div className="h-full flex-1 transition-all" style={{ background: '#10b981' }} />
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-slate-500 mb-4">
+                  <span>GOOD {v.good} ({goodPct}%)</span>
+                  <span>BAD {v.bad} ({100 - goodPct}%)</span>
+                </div>
+
+                {/* 投票按钮 */}
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleVote(v.id, 'good')}
+                    disabled={!!myVote}
+                    className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${
+                      myVote === 'good' ? 'text-white' : myVote ? 'text-slate-400' : 'hover:-translate-y-0.5'
+                    }`}
+                    style={{
+                      background: myVote === 'good' ? '#ef4444' : myVote ? '#f1f5f9' : '#fee2e2',
+                      color: myVote === 'good' ? '#fff' : myVote ? '#94a3b8' : '#ef4444',
+                      cursor: myVote ? 'default' : 'pointer',
+                    }}
+                  >
+                    👍 GOOD {myVote === 'good' ? '· 已投' : ''}
+                  </button>
+                  <button
+                    onClick={() => handleVote(v.id, 'bad')}
+                    disabled={!!myVote}
+                    className={`flex-1 py-2 rounded-xl text-sm font-bold transition-all ${
+                      myVote === 'bad' ? 'text-white' : myVote ? 'text-slate-400' : 'hover:-translate-y-0.5'
+                    }`}
+                    style={{
+                      background: myVote === 'bad' ? '#10b981' : myVote ? '#f1f5f9' : '#d1fae5',
+                      color: myVote === 'bad' ? '#fff' : myVote ? '#94a3b8' : '#10b981',
+                      cursor: myVote ? 'default' : 'pointer',
+                    }}
+                  >
+                    👎 BAD {myVote === 'bad' ? '· 已投' : ''}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 答题站 */}
+      <div>
+        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          02 · 观猹学社答题站
+        </h3>
+        <div
+          className="rounded-2xl p-6 md:p-8"
+          style={{ background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(0,0,0,0.06)' }}
+        >
+          {!quizDone ? (
+            <>
+              <div className="text-xs text-slate-400 mb-2">进度 {quizIdx + 1} / {QUIZ_QUESTIONS.length}</div>
+              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-5">
+                <div
+                  className="h-full transition-all rounded-full"
+                  style={{ width: `${((quizIdx + (showResult ? 1 : 0)) / QUIZ_QUESTIONS.length) * 100}%`, background: accent }}
+                />
+              </div>
+              <div className="text-base md:text-lg font-bold text-slate-800 mb-5">{QUIZ_QUESTIONS[quizIdx].q}</div>
+
+              <div className="space-y-2 mb-5">
+                {QUIZ_QUESTIONS[quizIdx].options.map((opt, i) => {
+                  const isSelected = selected === i;
+                  const isCorrect = showResult && i === QUIZ_QUESTIONS[quizIdx].answer;
+                  const isWrong = showResult && isSelected && i !== QUIZ_QUESTIONS[quizIdx].answer;
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => !showResult && setSelected(i)}
+                      disabled={showResult}
+                      className="w-full text-left px-4 py-3 rounded-xl text-sm transition-all border"
+                      style={{
+                        background: isCorrect
+                          ? '#d1fae5'
+                          : isWrong
+                            ? '#fee2e2'
+                            : isSelected
+                              ? `${accent}20`
+                              : 'rgba(255,255,255,0.9)',
+                        borderColor: isCorrect ? '#10b981' : isWrong ? '#ef4444' : isSelected ? accent : 'rgba(0,0,0,0.08)',
+                        color: isWrong ? '#dc2626' : isCorrect ? '#059669' : '#1a1a2e',
+                      }}
+                    >
+                      <span className="font-bold mr-2">{String.fromCharCode(65 + i)}.</span>
+                      {opt}
+                      {isCorrect && <span className="ml-2">✓</span>}
+                      {isWrong && <span className="ml-2">✗</span>}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {showResult && (
+                <div className="rounded-xl p-4 text-sm text-slate-600 mb-4" style={{ background: `${accent}12` }}>
+                  <span className="font-bold" style={{ color: accent }}>📖 解析：</span> {QUIZ_QUESTIONS[quizIdx].explain}
+                </div>
+              )}
+
+              <div className="flex gap-3 justify-end">
+                {!showResult ? (
+                  <button
+                    onClick={handleQuizSubmit}
+                    disabled={selected === null}
+                    className="px-6 py-2.5 rounded-full text-sm font-bold text-white transition-transform"
+                    style={{ background: selected === null ? '#cbd5e1' : accent, cursor: selected === null ? 'not-allowed' : 'pointer' }}
+                  >
+                    提交答案
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleQuizNext}
+                    className="px-6 py-2.5 rounded-full text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+                    style={{ background: accent }}
+                  >
+                    {quizIdx + 1 >= QUIZ_QUESTIONS.length ? '查看结果' : '下一题 →'}
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-6">
+              <div className="text-5xl mb-4">🎉</div>
+              <div className="text-2xl font-bold text-slate-800 mb-2">答题完成！</div>
+              <div className="text-sm text-slate-500 mb-1">你答对了</div>
+              <div className="text-4xl font-black mb-1" style={{ color: accent }}>{score} / {QUIZ_QUESTIONS.length}</div>
+              <div className="text-xs text-slate-400 mb-5">🎁 完成答题可获取 Token 相关权益指引</div>
+              <button
+                onClick={resetQuiz}
+                className="px-5 py-2 rounded-full text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                style={{ background: accent }}
+              >
+                再玩一次
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 金牌观猹员名片墙 */}
+      <div>
+        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          03 · 金牌观猹员名片墙
+        </h3>
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          {STAR_WATCHERS.map((sw, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-64 rounded-2xl p-5 border transition-all hover:shadow-md"
+              style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white"
+                  style={{ background: `linear-gradient(135deg, ${accent}, #a4c1f7)` }}
+                >
+                  {sw.name.charAt(0)}
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-slate-800">{sw.name}</div>
+                  <div className="text-xs text-slate-500">{sw.tag}</div>
+                </div>
+              </div>
+              <div className="rounded-xl px-3 py-2.5 text-sm italic text-slate-700 mb-3" style={{ background: `${accent}10` }}>
+                "{sw.quote}"
+              </div>
+              <div className="text-[11px] text-slate-400 leading-relaxed">{sw.intro}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Token 补给站 */}
+      <div>
+        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
+          04 · Token 创作补给站
+        </h3>
+        <div
+          className="rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center"
+          style={{ background: `linear-gradient(135deg, ${accent}18, #a4c1f715)`, border: `1px solid ${accent}50` }}
+        >
+          <div className="flex-1">
+            <div className="text-3xl md:text-4xl font-black mb-3" style={{ color: accent }}>2020 亿 Tokens</div>
+            <p className="text-sm md:text-base text-slate-700 leading-relaxed mb-4">
+              2020 代表入校年份，每一个 Token 都是我们回流母校的承诺。
+              算力资源、实习孵化、AI 教程，全面支持同学的创作与学习。
+            </p>
+            <div className="text-xs text-slate-500">
+              📱 扫码下方二维码 → 查看 Token 领取教程（微信文章）
+            </div>
+          </div>
+          <div
+            className="shrink-0 w-32 h-32 rounded-2xl flex items-center justify-center text-center text-xs text-slate-500 p-3"
+            style={{ background: '#fff', border: `2px dashed ${accent}` }}
+          >
+            <div>
+              <div className="text-3xl mb-1">📷</div>
+              <div>领取教程</div>
+              <div className="mt-1 text-[10px] text-slate-400">微信文章二维码</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============ 主组件 ============
 
 export default function WatchaPage() {
   const cylinderRef = useRef<HTMLDivElement>(null);
@@ -123,7 +930,6 @@ export default function WatchaPage() {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const activePanelData = PANELS.find((p) => p.id === activePanel);
 
-  // 视口高度（SSR 默认值，CSR 后更新）
   const [vh, setVh] = useState(800);
 
   useEffect(() => {
@@ -136,7 +942,6 @@ export default function WatchaPage() {
   }, []);
 
   useEffect(() => {
-    // ========== 1. Lenis 平滑滚动 ==========
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -154,25 +959,19 @@ export default function WatchaPage() {
     });
     gsap.ticker.lagSmoothing(0);
 
-    // ========== 2. 螺旋参数 ==========
     const cylinder = cylinderRef.current;
     if (!cylinder) return;
 
-    const vh = window.innerHeight;
     const vw = window.innerWidth;
-    const SPIRAL_RADIUS = 400;       // 螺旋半径（px），保证侧面可见+3D纵深感
-    const STEP_Y = vw * 0.4 / 3;     // 上下间距 = 卡片宽度的 1/3（40vw ÷ 3）
-    const START_Y_OFFSET = 50;        // 卡片正对时的Y偏移：第1张不贴导航栏，最后1张底部不被裁
+    const SPIRAL_RADIUS = 400;
+    const STEP_Y = (vw * 0.4) / 3;
+    const START_Y_OFFSET = 50;
 
-    // ========== 2.1 设置卡片初始位置（圆柱表面） ==========
-    // 卡片贴在圆柱表面，正面朝向圆柱外侧（远离中心）
-    // 注意：transform 顺序很重要 — rotateY 在前 translateZ 在后
-    // （CSS 从右往左应用，所以 translateZ 先执行、rotateY 后执行 = 先移出去再旋转 = 贴在圆柱表面）
     const cardAngles: number[] = [];
     const cardYOffsets: number[] = [];
     panelRefs.current.forEach((panel, index) => {
       if (!panel) return;
-      const angle = index * 90; // 0°, 90°, 180°, 270°
+      const angle = index * 90;
       const yOffset = START_Y_OFFSET + index * STEP_Y;
       cardAngles[index] = angle;
       cardYOffsets[index] = yOffset;
@@ -185,25 +984,20 @@ export default function WatchaPage() {
       `;
     });
 
-    // ========== 3. 滚动驱动：螺旋旋转 + 上移 ==========
-    // 向下滚动 → cylinder 逆时针旋转 + 向上移动
-    // 最终第4个卡片（index 3）到达正前方中心位置
     gsap.to(cylinder, {
-      rotateY: -270, // 逆时针旋转 270°（4个卡片，转3次）
-      y: -STEP_Y * 3, // 向上移动 3 个台阶
+      rotateY: -270,
+      y: -STEP_Y * 3,
       ease: 'none',
       scrollTrigger: {
         trigger: '.carousel-wrapper',
         start: 'top top',
         end: 'bottom bottom',
-        scrub: true, // 滚动完全同步
+        scrub: true,
       },
     });
 
-    // ========== 4. 每帧更新：缩放 + 透明度（透视增强） ==========
-    // CSS perspective 已有自然透视，这里额外加一点缩放增强效果
-    const baseScale = 0.85;  // 最远卡片缩放
-    const maxScale = 1.0;    // 最近卡片缩放（原始大小）
+    const baseScale = 0.85;
+    const maxScale = 1.0;
 
     function updateCards() {
       const currentRotation = gsap.getProperty(cylinder, 'rotateY') as number;
@@ -215,21 +1009,13 @@ export default function WatchaPage() {
         const angle = cardAngles[index] ?? 0;
         const yOffset = cardYOffsets[index] ?? 0;
         const angleRad = (angle * Math.PI) / 180;
-
-        // 当前世界角度 = 初始角度 + 圆柱旋转角度
         const worldAngleRad = angleRad + currentRotationRad;
-
-        // z 位置决定缩放和透明度（z越大越近 → 越大越清晰）
         const z = SPIRAL_RADIUS * Math.cos(worldAngleRad);
-        const t = (z + SPIRAL_RADIUS) / (2 * SPIRAL_RADIUS); // 0~1，0最远，1最近
+        const t = (z + SPIRAL_RADIUS) / (2 * SPIRAL_RADIUS);
 
-        // 缩放：远小近大（增强透视感）
         const scale = baseScale + (maxScale - baseScale) * t;
+        const opacity = z > 0 ? 0.5 + 0.5 * t : Math.max(0, 0.15 + 0.35 * (1 + z / SPIRAL_RADIUS));
 
-        // 透明度：远处稍淡，背面淡出
-        const opacity = z > 0 ? (0.5 + 0.5 * t) : Math.max(0, 0.15 + 0.35 * (1 + z / SPIRAL_RADIUS));
-
-        // 用完整 transform 确保顺序正确：定位 + 缩放
         panel.style.transform = `
           translate(-50%, -50%)
           rotateY(${angle}deg)
@@ -238,17 +1024,14 @@ export default function WatchaPage() {
           scale(${scale})
         `;
         panel.style.opacity = String(opacity);
-
-        // z-index：近的在上层
         const zIndex = Math.round(t * 100);
         panel.style.zIndex = String(zIndex);
       });
     }
 
     gsap.ticker.add(updateCards);
-    updateCards(); // 初始调用一次，防止首帧闪烁
+    updateCards();
 
-    // ========== 5. 清理 ==========
     return () => {
       lenis.destroy();
       ScrollTrigger.getAll().forEach((st) => st.kill());
@@ -256,7 +1039,6 @@ export default function WatchaPage() {
     };
   }, []);
 
-  // ESC 关闭详情
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape' && activePanel) {
@@ -269,21 +1051,18 @@ export default function WatchaPage() {
 
   return (
     <div className="relative text-slate-900">
-      {/* 雾效背景（fixed 全屏，在 Hero 滚走后可见） */}
       <WatchaCanvas />
 
-      {/* ===== Hero 区：云层背景 + 大标题 ===== */}
       <CloudsHero />
 
-      {/* 导航栏 */}
-      <nav className="liquid-glass fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-8 rounded-full px-8 py-3 text-sm font-medium text-slate-700">
-        <div className="font-bold text-slate-900">观猹学社</div>
-        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors">生态</div>
-        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors">产品</div>
-        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors">互动</div>
+      <nav className="liquid-glass fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-6 rounded-full px-7 py-2.5 text-sm font-medium text-slate-700">
+        <div className="font-bold text-slate-900">观猹文化墙</div>
+        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('timeline')}>校企共建</div>
+        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('ecosystem')}>观猹生态</div>
+        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('products')}>产品馆</div>
+        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('interactive')}>互动</div>
       </nav>
 
-      {/* 旋转木马容器 — 高度=500vh，给滚动留出足够空间 */}
       <div
         className="carousel-wrapper relative"
         style={{
@@ -293,15 +1072,10 @@ export default function WatchaPage() {
           transition: 'opacity 0.5s ease',
         }}
       >
-        {/* 3D 舞台 */}
         <div
           className="carousel sticky top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center"
-          style={{
-            perspective: '1400px',
-            perspectiveOrigin: '50% 50%',
-          }}
+          style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}
         >
-          {/* 旋转圆柱 — 旋转 + 下移 */}
           <div
             ref={cylinderRef}
             className="cylinder relative"
@@ -312,165 +1086,107 @@ export default function WatchaPage() {
               willChange: 'transform',
             }}
           >
-            {PANELS.map((panel, index) => {
-              return (
+            {PANELS.map((panel, index) => (
+              <div
+                key={panel.id}
+                ref={(el) => { panelRefs.current[index] = el; }}
+                className="panel absolute left-1/2 top-1/2 flex items-center justify-center cursor-pointer"
+                onClick={() => setActivePanel(panel.id)}
+                style={{
+                  width: '40vw',
+                  height: '56vh',
+                  transformStyle: 'preserve-3d',
+                  transformOrigin: 'center center',
+                }}
+              >
                 <div
-                  key={panel.id}
-                  ref={(el) => { panelRefs.current[index] = el; }}
-                  className="panel absolute left-1/2 top-1/2 flex items-center justify-center cursor-pointer"
-                  onClick={() => setActivePanel(panel.id)}
+                  className="glass-panel relative w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center"
                   style={{
-                    width: '40vw',
-                    height: '56vh',
-                    transformStyle: 'preserve-3d',
-                    transformOrigin: 'center center',
+                    background: 'rgba(255, 255, 255, 0.72)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.85)',
+                    boxShadow: `
+                      0 8px 32px rgba(103, 224, 237, 0.15),
+                      0 2px 8px rgba(0, 0, 0, 0.04),
+                      inset 0 1px 1px rgba(255, 255, 255, 0.9)
+                    `,
                   }}
                 >
-                  {/* 玻璃态卡片 */}
                   <div
-                    className="glass-panel relative w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center"
+                    className="absolute -top-10 -right-10 w-24 h-24 rounded-full opacity-30 blur-2xl"
+                    style={{ backgroundColor: panel.accent }}
+                  />
+                  <div
+                    className="absolute -bottom-8 -left-8 w-20 h-20 rounded-full opacity-20 blur-2xl"
+                    style={{ backgroundColor: panel.accent }}
+                  />
+
+                  <div className="mb-3 text-xs tracking-[0.3em] uppercase font-medium" style={{ color: panel.accent }}>
+                    {panel.num}
+                  </div>
+
+                  <h2
+                    className="mb-3 text-3xl md:text-4xl font-bold px-2"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.7)',
-                      backdropFilter: 'blur(20px)',
-                      WebkitBackdropFilter: 'blur(20px)',
-                      border: '1px solid rgba(255, 255, 255, 0.8)',
-                      boxShadow: `
-                        0 8px 32px rgba(103, 224, 237, 0.15),
-                        0 2px 8px rgba(0, 0, 0, 0.04),
-                        inset 0 1px 1px rgba(255, 255, 255, 0.9)
-                      `,
+                      background: `linear-gradient(135deg, ${panel.accent}, #1a1a2e)`,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
                     }}
                   >
-                    {/* 装饰光 */}
-                    <div
-                      className="absolute -top-10 -right-10 w-24 h-24 rounded-full opacity-30 blur-2xl"
-                      style={{ backgroundColor: panel.accent }}
-                    />
-                    <div
-                      className="absolute -bottom-8 -left-8 w-20 h-20 rounded-full opacity-20 blur-2xl"
-                      style={{ backgroundColor: panel.accent }}
-                    />
+                    {panel.title}
+                  </h2>
 
-                    {/* 编号 */}
-                    <div
-                      className="mb-3 text-xs tracking-[0.3em] uppercase font-medium"
-                      style={{ color: panel.accent }}
-                    >
-                      {panel.num}
-                    </div>
+                  <div className="mb-4 text-xs tracking-widest text-slate-500 uppercase">
+                    {panel.subtitle}
+                  </div>
 
-                    {/* 标题 */}
-                    <h2
-                      className="mb-3 text-3xl md:text-4xl font-bold"
-                      style={{
-                        background: `linear-gradient(135deg, ${panel.accent}, #1a1a2e)`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                      }}
-                    >
-                      {panel.title}
-                    </h2>
+                  <p className="max-w-xs text-sm text-slate-600 leading-relaxed">
+                    {panel.desc}
+                  </p>
 
-                    {/* 副标题 */}
-                    <div className="mb-4 text-xs tracking-widest text-slate-500 uppercase">
-                      {panel.subtitle}
-                    </div>
-
-                    {/* 描述 */}
-                    <p className="max-w-xs text-sm text-slate-600 leading-relaxed">
-                      {panel.desc}
-                    </p>
-
-                    {/* 点击提示 */}
-                    <div
-                      className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] tracking-widest uppercase opacity-60"
-                      style={{ color: panel.accent }}
-                    >
-                      点击查看 →
-                    </div>
+                  <div
+                    className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] tracking-widest uppercase opacity-60"
+                    style={{ color: panel.accent }}
+                  >
+                    点击查看 →
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* 详情页层 */}
       {activePanelData && (
-        <div
-          className="watcha-detail-enter fixed inset-0 z-[100] overflow-y-auto"
-        >
-          <button
-            onClick={() => setActivePanel(null)}
-            className="fixed top-6 right-6 z-10 w-12 h-12 rounded-full flex items-center justify-center text-slate-600 hover:text-slate-900 transition-all hover:scale-110"
-            style={{
-              background: 'rgba(255, 255, 255, 0.6)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.8)',
-              boxShadow: '0 2px 12px rgba(0, 0, 0, 0.06)',
-            }}
-          >
-            ✕
-          </button>
+        <div className="watcha-detail-enter fixed inset-0 z-[100] overflow-y-auto">
+          <CloseButton onClick={() => setActivePanel(null)} />
 
-          <div className="max-w-3xl mx-auto px-6 py-24">
-            <div className="mb-16 text-center">
-              <div
-                className="mb-4 text-sm tracking-[0.3em] uppercase font-medium"
-                style={{ color: activePanelData.accent }}
-              >
-                {activePanelData.num}
-              </div>
-              <h1
-                className="mb-4 text-6xl md:text-7xl font-bold"
-                style={{
-                  background: `linear-gradient(135deg, ${activePanelData.accent}, #1a1a2e)`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                {activePanelData.title}
-              </h1>
-              <div className="text-sm tracking-widest text-slate-500 uppercase">
-                {activePanelData.subtitle}
-              </div>
-            </div>
+          <div className="max-w-4xl mx-auto px-5 md:px-6 py-20">
+            <DetailHeader
+              num={activePanelData.num}
+              title={activePanelData.title}
+              subtitle={activePanelData.subtitle}
+              accent={activePanelData.accent}
+            />
 
-            {activePanelData.detailContent.sections.map((section, idx) => (
-              <section key={idx} className="mb-16">
-                <h2
-                  className="mb-6 text-2xl font-bold flex items-center gap-4"
-                  style={{ color: activePanelData.accent }}
-                >
-                  <span className="text-sm opacity-60">0{idx + 1}</span>
-                  {section.heading}
-                </h2>
-                <div className="space-y-4 text-slate-700 leading-relaxed">
-                  {generatePlaceholder(section.paragraphs).map((text, pIdx) => (
-                    <p key={pIdx}>{text}</p>
-                  ))}
-                </div>
-              </section>
-            ))}
+            {activePanel === 'timeline' && <TimelineDetail accent={activePanelData.accent} />}
+            {activePanel === 'ecosystem' && <EcosystemDetail accent={activePanelData.accent} />}
+            {activePanel === 'products' && <ProductsDetail accent={activePanelData.accent} />}
+            {activePanel === 'interactive' && <InteractiveDetail accent={activePanelData.accent} />}
 
             <div
-              className="mt-20 mb-8 h-px"
-              style={{
-                background: `linear-gradient(90deg, transparent, ${activePanelData.accent}, transparent)`,
-              }}
+              className="mt-16 mb-6 h-px"
+              style={{ background: `linear-gradient(90deg, transparent, ${activePanelData.accent}, transparent)` }}
             />
             <div className="text-center text-sm text-slate-400 mb-12">
-              观猹学社 · AI 育人生态
+              观猹学社 · AI 育人生态 · 杭电 × 观猹
             </div>
           </div>
         </div>
       )}
-
-      {/* 最底部：鸟类区域 */}
-      {/* <BirdsBackground /> */}
     </div>
   );
 }
