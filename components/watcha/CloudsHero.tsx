@@ -41,13 +41,15 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
       gyroControls: false,
       minHeight: 200.0,
       minWidth: 200.0,
-      skyColor: 0x68b8d7,       // 天空色彩
-      cloudColor: 0xadc1de,     // 云的颜色
-      cloudShadowColor: 0x183550, // 云的阴影颜色
-      sunColor: 0xff9919,       // 太阳色彩
-      sunGlareColor: 0xff6633,  // 太阳眩光彩色
-      sunlightColor: 0xff9933,  // 阳光色彩
-      speed: 0.6,               // 速度
+      // 以下参数均为 Vanta.js CLOUDS 默认值
+      skyColor: 0x68b8d7,
+      cloudColor: 0xadc1de,
+      cloudShadowColor: 0x183550,
+      sunColor: 0xff9919,
+      sunGlareColor: 0xff6633,
+      sunlightColor: 0xff9933,
+      scale: 3.0,
+      speed: 1.0,
     });
 
     // === 把 Vanta canvas 改成 fixed 全屏，让云层固定在视口 ===
@@ -117,11 +119,9 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
         <div
           className="mb-6 px-4 py-1.5 rounded-full text-xs tracking-[0.3em] uppercase font-medium"
           style={{
-            background: 'rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(255, 255, 255, 0.2)',
             color: '#fff',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            textShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.4)',
           }}
         >
           观猹学社 × 杭电
@@ -132,10 +132,6 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
           className="text-6xl md:text-8xl font-black mb-6 tracking-tight"
           style={{
             color: '#fff',
-            textShadow: `
-              0 2px 20px rgba(104, 184, 215, 0.4),
-              0 8px 32px rgba(24, 53, 80, 0.2)
-            `,
             letterSpacing: '0.05em',
           }}
         >
@@ -146,8 +142,7 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
         <p
           className="text-lg md:text-xl font-light max-w-xl leading-relaxed mb-12"
           style={{
-            color: 'rgba(255, 255, 255, 0.9)',
-            textShadow: '0 1px 8px rgba(24, 53, 80, 0.15)',
+            color: '#fff',
           }}
         >
           AI 育人生态 · 精选产品 · 沉浸式互动体验

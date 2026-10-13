@@ -1,14 +1,12 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# AGENTS 工作规范
 
-# This is NOT the Next.js you know
+## 规则
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+1. **每次更改代码或改进，需要创建对应的 git commit**
+   - 提交信息格式：`type: 简短描述`
+   - 例：`feat: 新增云层Hero着陆页`、`fix: 修复卡片垂直居中`
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
-
-# 工作规范
-
-1. 每一次更改都需要创建对应的 git commit。
-2. 每一次编写或更新相关测试，交付给用户前都需要保证测试通过。
+2. **每一次编写或更新，交付给用户前，要保证测试通过**
+   - Chrome 浏览器验证功能正常
+   - 控制台无红色报错
+   - 核心交互流畅

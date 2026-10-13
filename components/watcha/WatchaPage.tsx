@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Lenis from 'lenis';
 import WatchaCanvas from './WatchaCanvas';
 import CloudsHero from './CloudsHero';
+// import BirdsBackground from './BirdsBackground'; // 暂时停用鸟群效果
 import './watcha.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -161,7 +162,7 @@ export default function WatchaPage() {
     const vw = window.innerWidth;
     const SPIRAL_RADIUS = 400;       // 螺旋半径（px），保证侧面可见+3D纵深感
     const STEP_Y = vw * 0.4 / 3;     // 上下间距 = 卡片宽度的 1/3（40vw ÷ 3）
-    const START_Y_OFFSET = -40;      // 第0个卡片向上偏移修正，确保垂直居中
+    const START_Y_OFFSET = 50;        // 卡片正对时的Y偏移：第1张不贴导航栏，最后1张底部不被裁
 
     // ========== 2.1 设置卡片初始位置（圆柱表面） ==========
     // 卡片贴在圆柱表面，正面朝向圆柱外侧（远离中心）
@@ -468,7 +469,8 @@ export default function WatchaPage() {
         </div>
       )}
 
-      <div style={{ height: '20vh' }} />
+      {/* 最底部：鸟类区域 */}
+      {/* <BirdsBackground /> */}
     </div>
   );
 }
