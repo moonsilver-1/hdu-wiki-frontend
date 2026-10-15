@@ -231,20 +231,23 @@ const HACKATHON_SITES = [
   },
 ];
 
-const PARTNER_LOGOS = [
-  '/images/logos/image.png', '/images/logos/image-2.png', '/images/logos/image-3.png', '/images/logos/image-4.png',
-  '/images/logos/image-5.png', '/images/logos/image-6.png', '/images/logos/image-7.png', '/images/logos/image-8.png',
-  '/images/logos/image-9.png', '/images/logos/image-10.png', '/images/logos/image-11.png', '/images/logos/image-12.png',
-  '/images/logos/image-13.png', '/images/logos/image-14.png', '/images/logos/image-15.png', '/images/logos/image-16.png',
-  '/images/logos/image-17.png', '/images/logos/组 18.svg', '/images/logos/组 19.svg', '/images/logos/组 22.svg',
+const PARTNER_LOGO_ROWS = [
+  // 第一行
+  ['/images/logos/image.png', '/images/logos/image-2.png', '/images/logos/image-3.png', '/images/logos/image-4.png', '/images/logos/image-5.png', '/images/logos/image-6.png'],
+  // 第二行
+  ['/images/logos/image-7.png', '/images/logos/image-8.png', '/images/logos/image-9.png', '/images/logos/image-10.png', '/images/logos/image-11.png'],
+  // 第三行
+  ['/images/logos/image-13.png', '/images/logos/image-14.png', '/images/logos/组 18.svg', '/images/logos/组 19.svg', '/images/logos/image-15.png', '/images/logos/image-16.png'],
+  // 第四行
+  ['/images/logos/image-17.png', '/images/logos/组 20.svg', '/images/logos/组 21.svg', '/images/logos/组 22.svg'],
 ];
 
 const PARTNER_GROUPS = [
   { name: '投资机构', items: '红杉中国 · 华兴资本 · 真格基金 · 奇绩创坛 · 蓝驰创投 · Monolith · 五源资本' },
-  { name: '社区伙伴', items: '知乎 · 小红书 · FounderPark · 魔搭社区 · WaytoAGI · Datawhale' },
-  { name: '高校伙伴', items: '清华大学 · 北京大学 · 浙江大学 · 新加坡国立大学 · 哈佛大学' },
   { name: '企业伙伴', items: '字节跳动 · 阿里巴巴 · 蚂蚁集团 · 腾讯 · 谷歌 · 百度 · MiniMax · 智谱 · 月之暗面' },
+  { name: '社区伙伴', items: '知乎 · 小红书 · FounderPark · 魔搭社区 · WaytoAGI · Datawhale' },
   { name: '行业伙伴', items: '浦发银行 · 迅雷 · 京东 · 莫高设计 · 猿辅导 · 美团 · 蓝盒子' },
+  { name: '高校伙伴', items: '清华大学 · 北京大学 · 浙江大学 · 新加坡国立大学 · 哈佛大学' },
   { name: '技术峰会', items: 'WAIC 世界人工智能大会 · Google Cloud Next · 全球开发者先锋大会' },
 ];
 
@@ -270,38 +273,51 @@ const KEY_EVENTS = [
 ];
 
 // ============ 板块三数据：好用产品馆 ============
-type Product = { name: string; slogan: string; desc: string; tags: string[]; rating: number; link: string; qrHint: string };
-const PRODUCT_CATEGORIES = ['全部', '论文阅读', '备考学习', '办公调研', '代码开发', '动画创作'];
+type Product = { name: string; slogan: string; desc: string; tags: string[]; rating: number; link: string; qrHint: string; logo: string; order: string };
+const PRODUCT_CATEGORIES = ['全部'];
 const ALL_PRODUCTS: Product[] = [
-  { name: 'Paper2Galgame', slogan: '把论文读成恋爱游戏', desc: '用 Galgame 形式重新呈现学术论文，让硬核知识也能轻松入门。', tags: ['论文阅读', '趣味学习'], rating: 4.8, link: 'https://watcha.cn', qrHint: '扫码体验 Paper2Galgame' },
-  { name: '佛脚 AI', slogan: '抱对佛脚，考试不慌', desc: 'AI 驱动的智能备考助手，知识点梳理 + 真题训练 + 薄弱点精准打击。', tags: ['备考学习'], rating: 4.6, link: 'https://watcha.cn', qrHint: '扫码体验佛脚 AI' },
-  { name: 'WorkBuddy', slogan: '你的职场 AI 搭子', desc: 'PPT 生成、会议纪要、邮件润色、数据整理——办公全流程效率提升。', tags: ['办公调研'], rating: 4.5, link: 'https://watcha.cn', qrHint: '扫码体验 WorkBuddy' },
-  { name: 'UniFuncs', slogan: '程序员的瑞士军刀', desc: '极简高效的代码工具集，格式化、压缩、转换、加密，一个页面搞定。', tags: ['代码开发'], rating: 4.7, link: 'https://watcha.cn', qrHint: '扫码体验 UniFuncs' },
-  { name: 'ima', slogan: 'AI 图像，想画就画', desc: '文生图、图生图、风格迁移，内置多种模型，零门槛创作专业级图像。', tags: ['动画创作'], rating: 4.4, link: 'https://watcha.cn', qrHint: '扫码体验 ima' },
-  { name: 'Trae', slogan: '懂你的 AI IDE', desc: '字节跳动出品的 AI 代码编辑器，自然语言写代码、全项目级智能重构。', tags: ['代码开发'], rating: 4.9, link: 'https://trae.ai', qrHint: '扫码下载 Trae' },
-  { name: 'OiiOii', slogan: '把日常变成动画', desc: '一句描述生成 2D 动画短片，角色、场景、分镜、配乐全自动。', tags: ['动画创作'], rating: 4.3, link: 'https://watcha.cn', qrHint: '扫码体验 OiiOii' },
+  { order: '01', name: 'Paper2Galgame', slogan: '"前辈！开学我们一起读 paper 吧"', desc: '把论文或课件转成互动式视觉小说（Galgame），通过剧情化讲解和知识点提炼，帮助用户快速掌握核心内容。', tags: ['论文阅读', '课堂展示', '跨学科入门'], rating: 4.8, link: 'https://watcha.cn/products/paper2galgame', qrHint: '扫码体验 Paper2Galgame', logo: '/images/Paper2Galgame logo.png' },
+  { order: '02', name: '佛脚 AI', slogan: '"让天下没有难过的考试，让学习变得更简单！"', desc: '一站式 AI 备考伙伴，支持拆解学习计划、解析 PDF/PPT/音视频、生成模拟题，覆盖"学—测—评—导—疏"全流程。', tags: ['考试备考', '资料解析', '错题复盘'], rating: 4.6, link: 'https://watcha.cn/products/cram-ai', qrHint: '扫码体验佛脚 AI', logo: '/images/佛脚 AI logo.png' },
+  { order: '03', name: 'WorkBuddy', slogan: '"2026 年了，真的有人桌面上没有办公 Agent 吗"', desc: 'AI 原生桌面智能体工作台，用自然语言驱动多 Agents 并行处理文件、调研和业务数据。', tags: ['数据处理', '竞品调研', '材料整理'], rating: 4.5, link: 'https://watcha.cn/products/workbuddy', qrHint: '扫码体验 WorkBuddy', logo: '/images/WorkBuddy logo.png' },
+  { order: '04', name: 'U 深研 / UniFuncs', slogan: '"写过论文、计划书、文章的就知道这产品多重要"', desc: '深度研究产品，采用动态规划与边搜边推技术，支持实时搜索、深度阅读，高效萃取关键信息。', tags: ['深度调研', '论文写作', '项目立项'], rating: 4.7, link: 'https://watcha.cn/products/unifuncs', qrHint: '扫码体验 U 深研', logo: '/images/U 深研 logo.png' },
+  { order: '05', name: 'ima', slogan: '"入社会第一课，学会沉淀经验，再打磨能力"', desc: '以知识库为核心的 AI 工作台，支持多模态资料解读、全网与知识库问答、主题写作与润色。', tags: ['知识沉淀', '资料解读', '协作学习'], rating: 4.4, link: 'https://watcha.cn/products/ima', qrHint: '扫码体验 ima', logo: '/images/ima logo.png' },
+  { order: '06', name: 'Trae', slogan: '"vibecoding 的第一步，可以在这里"', desc: 'AI 原生开发与工作平台，支持 IDE 与 Work 双形态，SOLO 智能体可自动完成需求理解、编码、测试与预览。', tags: ['代码生成', '项目开发', '极速原型'], rating: 4.9, link: 'https://watcha.cn/products/43', qrHint: '扫码下载 Trae', logo: '/images/Trae logo.png' },
+  { order: '07', name: 'OiiOii', slogan: '"你爱看的 AI 漫剧多半是在 oiioii 出生的"', desc: '专注动画创作的 AI Agent，内置多角色创作团队，支持从创意、脚本、分镜到图片、视频和 MV 的协同生成。', tags: ['动画创作', '漫剧生成'], rating: 4.3, link: 'https://watcha.cn/products/oiioii', qrHint: '扫码体验 OiiOii', logo: '/images/OiiOii logo.png' },
 ];
 
 // ============ 板块四数据：互动展区 ============
-const VOTE_PRODUCTS = [
-  { id: 1, name: 'Paper2Galgame', desc: '把论文读成恋爱游戏的神奇工具', good: 248, bad: 31 },
-  { id: 2, name: '佛脚 AI', desc: '备考党福音，AI 帮你抓重点', good: 189, bad: 52 },
-  { id: 3, name: 'Trae', desc: '懂你的 AI 代码编辑器', good: 312, bad: 18 },
-  { id: 4, name: 'OiiOii', desc: '一句话生成动画短片', good: 156, bad: 44 },
+type VoteProduct = { id: number; name: string; desc: string; logo: string; good: number; bad: number };
+const VOTE_PRODUCTS: VoteProduct[] = [
+  { id: 1, name: 'Paper2Galgame', desc: '把论文或课件转成互动式视觉小说，剧情化讲解帮你快速掌握核心内容。', logo: '/images/Paper2Galgame logo.png', good: 248, bad: 31 },
+  { id: 2, name: '佛脚 AI', desc: '一站式 AI 备考伙伴，覆盖"学—测—评—导—疏"全流程。', logo: '/images/佛脚 AI logo.png', good: 189, bad: 52 },
+  { id: 3, name: 'WorkBuddy', desc: 'AI 原生桌面智能体工作台，多 Agents 并行处理文件、调研和业务数据。', logo: '/images/WorkBuddy logo.png', good: 205, bad: 38 },
+  { id: 4, name: 'U 深研 / UniFuncs', desc: '深度研究产品，动态规划 + 边搜边推，实时搜索深度阅读。', logo: '/images/U 深研 logo.png', good: 176, bad: 42 },
+  { id: 5, name: 'ima', desc: '以知识库为核心的 AI 工作台，多模态资料解读 + 全网问答 + 主题写作。', logo: '/images/ima logo.png', good: 168, bad: 45 },
+  { id: 6, name: 'Trae', desc: 'AI 原生开发与工作平台，SOLO 智能体自动完成需求→编码→测试→预览。', logo: '/images/Trae logo.png', good: 312, bad: 18 },
+  { id: 7, name: 'OiiOii', desc: '专注动画创作的 AI Agent，从创意到 MV 协同生成。', logo: '/images/OiiOii logo.png', good: 156, bad: 44 },
 ];
 
-const QUIZ_QUESTIONS = [
-  { q: '观猹平台的定位是什么？', options: ['AI 产品的大众点评', '电商购物平台', '短视频 App', '在线教育'], answer: 0, explain: '观猹是 AI 产品发现、评分与讨论社区，被誉为"AI 产品的大众点评"。' },
-  { q: '2020 亿 Tokens 捐赠中的"2020"代表什么？', options: ['公司成立年份', '创始人入校年份', '产品发布年份', '融资额（万元）'], answer: 1, explain: '2020 代表创始人入校年份，寓意从校园出发、回报母校。' },
-  { q: '未央学社目前辐射多少师生？', options: ['5000+', '10000+', '30000+', '50000+'], answer: 2, explain: '未央学社拥有 15000+ 社群成员，辐射全校 3w+ 师生。' },
-  { q: '特工宇宙获得过什么国家级奖项？', options: ['ACM 金牌', '互联网+ 金奖', '中国国际大学生创新大赛金奖', '数学建模国一'], answer: 2, explain: '特工宇宙荣获中国国际大学生创新大赛金奖。' },
-  { q: '观猹的五大业务不包括以下哪一项？', options: ['观猹平台', 'TokenDance', 'AI 芯片设计', '环球黑客松'], answer: 2, explain: '观猹五大业务：观猹平台、TokenDance、猹与猹增长、特工宇宙媒体、环球黑客松。' },
-];
+const COURSE_URL = 'https://study.watcha.cn/';
 
 const STAR_WATCHERS = [
-  { name: '悟鸣 AI', tag: 'AI 独立开发者', quote: 'AI 时代，每个人都可以成为造物主。', intro: '从校园黑客到独立开发者，悟鸣 AI 在 Agent 领域持续探索。' },
-  { name: '小明同学', tag: '产品经理', quote: '好的 AI 产品，应该让最普通的用户也能感受到魔法。', intro: '前大厂 PM，现在用产品思维让 AI 更懂用户。' },
-  { name: 'GoodTime', tag: '全栈工程师', quote: '代码是我的语言，AI 让我说得更快更远。', intro: '从竞赛选手到 AI 创业者，相信技术改变世界。' },
+  {
+    name: '悟鸣AI', handle: '@wuming', avatar: '/images/悟鸣AI.png',
+    intro: '金牌观猹员；浙江省人工智能专家服务团专家，前蚂蚁集团 Agent 工程师，长期关注 AI Agent、产品实测与 AI 教育。',
+    quotes: ['"希望自己的一点经验，能够帮助到更多人少走弯路。"', '"参加比赛先看评分标准，先完成再完美。"'],
+    link: 'https://watcha.cn/@wuming?tab=posts',
+  },
+  {
+    name: '观猹员小明同学', handle: '@xiaoming', avatar: '/images/小明同学.png',
+    intro: '金牌观猹员；自称"一枚氪学家、Token 大富翁"，持续输出真实、直接、有态度的产品体验。',
+    quotes: ['"想夸就夸，想喷就喷。"', '"不欢迎说得好听，欢迎说得够硬。"'],
+    link: 'https://watcha.cn/@10000076',
+  },
+  {
+    name: 'GoodTime', handle: '', avatar: '/images/GoodTime.png',
+    intro: '金牌观猹员、金牌助教；全栈开发者、AI 讲师与社区主理人，关注产品实测、开发者社区和高校 AI 实践。',
+    quotes: ['"不情绪化输出，只给带解决方案的批评。"', '"产品团队是需要真话的。"'],
+    link: 'https://watcha.cn/discuss/10226',
+  },
 ];
 
 // ============ 板块卡片数据 ============
@@ -488,28 +504,10 @@ function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBus
       {/* 合作伙伴 Logo 墙 */}
       <div className="mb-10">
         <h3 className="text-xl font-bold text-slate-800 mb-5 flex items-center gap-3">
-          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />合作伙伴 & 生态伙伴
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />生态合作伙伴与行业背书
         </h3>
-        <div className="rounded-2xl p-5 md:p-7" style={{ background: `linear-gradient(135deg, ${accent}22, #a4c1f722)`, border: `1px solid ${accent}40` }}>
-          <p className="text-center text-xs md:text-sm text-slate-600 mb-5">
-            从头部投资机构到国内主流 AI 大厂，观猹已建立覆盖投资、技术、内容、社区的全方位生态合作网络
-          </p>
-          <div className="flex flex-wrap gap-2.5 justify-center">
-            {PARTNER_LOGOS.map((src, i) => (
-              <div key={i} className="h-14 w-32 md:h-16 md:w-36 rounded-xl bg-white flex items-center justify-center p-2.5 transition-transform hover:-translate-y-0.5"
-                style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-                <img src={src} alt={`合作伙伴 ${i + 1}`} className="max-w-full max-h-full object-contain" />
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 pt-5 border-t" style={{ borderColor: `${accent}30` }}>
-            {PARTNER_GROUPS.map((g) => (
-              <div key={g.name}>
-                <div className="text-xs font-bold mb-1" style={{ color: accent }}>{g.name}</div>
-                <div className="text-[11px] text-slate-500 leading-relaxed">{g.items}</div>
-              </div>
-            ))}
-          </div>
+        <div className="rounded-2xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+          <img src="/images/生态合作伙伴与行业背书.png" alt="生态合作伙伴与行业背书" className="w-full h-auto block" />
         </div>
       </div>
 
@@ -699,30 +697,27 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
 // ============ 板块三详情：好用产品馆 ============
 
 function ProductsDetail({ accent }: { accent: string }) {
-  const [cat, setCat] = useState('全部');
-  const filtered = cat === '全部' ? ALL_PRODUCTS : ALL_PRODUCTS.filter((p) => p.tags.includes(cat));
+  const filtered = ALL_PRODUCTS;
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap gap-2 justify-center">
-        {PRODUCT_CATEGORIES.map((c) => (
-          <button key={c} onClick={() => setCat(c)} className="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
-            style={cat === c ? { background: accent, color: '#fff' } : { background: 'rgba(255,255,255,0.85)', color: '#1a1a2e', border: '1px solid rgba(0,0,0,0.1)' }}>{c}</button>
-        ))}
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((p, i) => (
           <div key={i} className="rounded-2xl overflow-hidden border transition-all hover:-translate-y-1 hover:shadow-lg"
             style={{ background: 'rgba(255,255,255,0.9)', borderColor: 'rgba(0,0,0,0.06)' }}>
             <div className="p-5 pb-3">
               <div className="flex items-start gap-3 mb-3">
-                <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-lg font-black" style={{ background: `${accent}20`, color: accent }}>{p.name.charAt(0)}</div>
-                <div className="min-w-0">
+                <div className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden" style={{ background: `${accent}15` }}>
+                  <img src={p.logo} alt={p.name} className="w-full h-full object-contain p-1.5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline gap-2 mb-0.5">
+                    <span className="text-[10px] tracking-widest font-bold" style={{ color: accent }}>精选工具 {p.order}</span>
+                  </div>
                   <div className="text-base font-bold text-slate-800 leading-tight">{p.name}</div>
-                  <div className="text-xs text-slate-500 italic mt-0.5 truncate">{p.slogan}</div>
                 </div>
               </div>
+              <div className="text-xs md:text-sm italic text-slate-500 mb-2 leading-relaxed">{p.slogan}</div>
               <p className="text-xs md:text-sm text-slate-600 leading-relaxed mb-3">{p.desc}</p>
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {p.tags.map((t, j) => (
@@ -753,32 +748,14 @@ function ProductsDetail({ accent }: { accent: string }) {
 // ============ 板块四详情：互动展区 ============
 
 function InteractiveDetail({ accent }: { accent: string }) {
-  const [votes, setVotes] = useState(VOTE_PRODUCTS);
+  const [votes, setVotes] = useState<VoteProduct[]>(VOTE_PRODUCTS);
   const [voteMap, setVoteMap] = useState<Record<number, 'good' | 'bad'>>({});
-  const [quizIdx, setQuizIdx] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
-  const [quizDone, setQuizDone] = useState(false);
 
   const handleVote = (pid: number, type: 'good' | 'bad') => {
     if (voteMap[pid]) return;
     setVoteMap((m) => ({ ...m, [pid]: type }));
     setVotes((vs) => vs.map((v) => v.id === pid ? { ...v, good: v.good + (type === 'good' ? 1 : 0), bad: v.bad + (type === 'bad' ? 1 : 0) } : v));
   };
-
-  const handleQuizSubmit = () => {
-    if (selected === null) return;
-    if (selected === QUIZ_QUESTIONS[quizIdx].answer) setScore((s) => s + 1);
-    setShowResult(true);
-  };
-
-  const handleQuizNext = () => {
-    if (quizIdx + 1 >= QUIZ_QUESTIONS.length) setQuizDone(true);
-    else { setQuizIdx(quizIdx + 1); setSelected(null); setShowResult(false); }
-  };
-
-  const resetQuiz = () => { setQuizIdx(0); setSelected(null); setShowResult(false); setScore(0); setQuizDone(false); };
 
   return (
     <div className="space-y-10">
@@ -795,7 +772,9 @@ function InteractiveDetail({ accent }: { accent: string }) {
             return (
               <div key={v.id} className="rounded-2xl p-5 border" style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm" style={{ background: `${accent}20`, color: accent }}>{v.name.charAt(0)}</div>
+                  <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden" style={{ background: `${accent}15` }}>
+                    <img src={v.logo} alt={v.name} className="w-full h-full object-contain p-1.5" />
+                  </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-sm font-bold text-slate-800">{v.name}</div>
                     <div className="text-xs text-slate-500 mt-0.5">{v.desc}</div>
@@ -831,62 +810,10 @@ function InteractiveDetail({ accent }: { accent: string }) {
 
       <div>
         <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
-          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />02 · 观猹学社答题站
+          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />02 · 课程
         </h3>
-        <div className="rounded-2xl p-6 md:p-8" style={{ background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(0,0,0,0.06)' }}>
-          {!quizDone ? (
-            <>
-              <div className="text-xs text-slate-400 mb-2">进度 {quizIdx + 1} / {QUIZ_QUESTIONS.length}</div>
-              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-5">
-                <div className="h-full transition-all rounded-full" style={{ width: `${((quizIdx + (showResult ? 1 : 0)) / QUIZ_QUESTIONS.length) * 100}%`, background: accent }} />
-              </div>
-              <div className="text-base md:text-lg font-bold text-slate-800 mb-5">{QUIZ_QUESTIONS[quizIdx].q}</div>
-              <div className="space-y-2 mb-5">
-                {QUIZ_QUESTIONS[quizIdx].options.map((opt, i) => {
-                  const isSelected = selected === i;
-                  const isCorrect = showResult && i === QUIZ_QUESTIONS[quizIdx].answer;
-                  const isWrong = showResult && isSelected && i !== QUIZ_QUESTIONS[quizIdx].answer;
-                  return (
-                    <button key={i} onClick={() => !showResult && setSelected(i)} disabled={showResult}
-                      className="w-full text-left px-4 py-3 rounded-xl text-sm transition-all border"
-                      style={{
-                        background: isCorrect ? '#d1fae5' : isWrong ? '#fee2e2' : isSelected ? `${accent}20` : 'rgba(255,255,255,0.9)',
-                        borderColor: isCorrect ? '#10b981' : isWrong ? '#ef4444' : isSelected ? accent : 'rgba(0,0,0,0.08)',
-                        color: isWrong ? '#dc2626' : isCorrect ? '#059669' : '#1a1a2e',
-                      }}>
-                      <span className="font-bold mr-2">{String.fromCharCode(65 + i)}.</span>{opt}
-                      {isCorrect && <span className="ml-2">✓</span>}
-                      {isWrong && <span className="ml-2">✗</span>}
-                    </button>
-                  );
-                })}
-              </div>
-              {showResult && (
-                <div className="rounded-xl p-4 text-sm text-slate-600 mb-4" style={{ background: `${accent}12` }}>
-                  <span className="font-bold" style={{ color: accent }}>📖 解析：</span> {QUIZ_QUESTIONS[quizIdx].explain}
-                </div>
-              )}
-              <div className="flex gap-3 justify-end">
-                {!showResult ? (
-                  <button onClick={handleQuizSubmit} disabled={selected === null} className="px-6 py-2.5 rounded-full text-sm font-bold text-white transition-transform"
-                    style={{ background: selected === null ? '#cbd5e1' : accent, cursor: selected === null ? 'not-allowed' : 'pointer' }}>提交答案</button>
-                ) : (
-                  <button onClick={handleQuizNext} className="px-6 py-2.5 rounded-full text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
-                    style={{ background: accent }}>{quizIdx + 1 >= QUIZ_QUESTIONS.length ? '查看结果' : '下一题 →'}</button>
-                )}
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-6">
-              <div className="text-5xl mb-4">🎉</div>
-              <div className="text-2xl font-bold text-slate-800 mb-2">答题完成！</div>
-              <div className="text-sm text-slate-500 mb-1">你答对了</div>
-              <div className="text-4xl font-black mb-1" style={{ color: accent }}>{score} / {QUIZ_QUESTIONS.length}</div>
-              <div className="text-xs text-slate-400 mb-5">🎁 完成答题可获取 Token 相关权益指引</div>
-              <button onClick={resetQuiz} className="px-5 py-2 rounded-full text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-                style={{ background: accent }}>再玩一次</button>
-            </div>
-          )}
+        <div className="rounded-2xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+          <iframe src={COURSE_URL} title="观猹学社课程" className="w-full" style={{ height: '560px', border: '0' }} />
         </div>
       </div>
 
@@ -894,45 +821,31 @@ function InteractiveDetail({ accent }: { accent: string }) {
         <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
           <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />03 · 金牌观猹员名片墙
         </h3>
-        <div className="flex gap-4 overflow-x-auto pb-2" data-lenis-prevent>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {STAR_WATCHERS.map((sw, i) => (
-            <div key={i} className="shrink-0 w-64 rounded-2xl p-5 border transition-all hover:shadow-md"
+            <div key={i} className="rounded-2xl p-5 border transition-all hover:shadow-md"
               style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white" style={{ background: `linear-gradient(135deg, ${accent}, #a4c1f7)` }}>{sw.name.charAt(0)}</div>
-                <div>
-                  <div className="text-sm font-bold text-slate-800">{sw.name}</div>
-                  <div className="text-xs text-slate-500">{sw.tag}</div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="shrink-0 w-16 h-16 rounded-full flex items-center justify-center font-black text-white text-xl" style={{ background: `linear-gradient(135deg, ${accent}, #a4c1f7)` }}>{sw.name.charAt(0)}</div>
+                <div className="min-w-0">
+                  <div className="text-sm font-bold text-slate-800 leading-tight">{sw.name}</div>
+                  {sw.handle && <div className="text-xs text-slate-400 mt-0.5">{sw.handle}</div>}
                 </div>
               </div>
-              <div className="rounded-xl px-3 py-2.5 text-sm italic text-slate-700 mb-3" style={{ background: `${accent}10` }}>"{sw.quote}"</div>
-              <div className="text-[11px] text-slate-400 leading-relaxed">{sw.intro}</div>
+              <p className="text-xs text-slate-600 leading-relaxed mb-4">{sw.intro}</p>
+              <div className="space-y-2 mb-4">
+                {sw.quotes.map((q, j) => (
+                  <div key={j} className="rounded-xl px-3 py-2 text-xs italic text-slate-700" style={{ background: `${accent}10` }}>{q}</div>
+                ))}
+              </div>
+              <a href={sw.link} target="_blank" rel="noreferrer" className="inline-block text-xs font-semibold transition-opacity hover:opacity-70 break-all" style={{ color: accent }}>
+                🔗 {sw.link}
+              </a>
+              <div className="mt-3 rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
+                <img src={sw.avatar} alt={sw.name} className="w-full h-auto block" />
+              </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
-          <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />04 · Token 创作补给站
-        </h3>
-        <div className="rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center"
-          style={{ background: `linear-gradient(135deg, ${accent}18, #a4c1f715)`, border: `1px solid ${accent}50` }}>
-          <div className="flex-1">
-            <div className="text-3xl md:text-4xl font-black mb-3" style={{ color: accent }}>2020 亿 Tokens</div>
-            <p className="text-sm md:text-base text-slate-700 leading-relaxed mb-4">
-              2020 代表入校年份，每一个 Token 都是我们回流母校的承诺。算力资源、实习孵化、AI 教程，全面支持同学的创作与学习。
-            </p>
-            <div className="text-xs text-slate-500">📱 扫码下方二维码 → 查看 Token 领取教程（微信文章）</div>
-          </div>
-          <div className="shrink-0 w-32 h-32 rounded-2xl flex items-center justify-center text-center text-xs text-slate-500 p-3"
-            style={{ background: '#fff', border: `2px dashed ${accent}` }}>
-            <div>
-              <div className="text-3xl mb-1">📷</div>
-              <div>领取教程</div>
-              <div className="mt-1 text-[10px] text-slate-400">微信文章二维码</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
