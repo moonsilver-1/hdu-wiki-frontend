@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Lenis from 'lenis';
 import WatchaCanvas from './WatchaCanvas';
 import CloudsHero from './CloudsHero';
+import BirdsBackground from './BirdsBackground';
+import VantaClouds from './VantaClouds';
 import './watcha.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -1055,6 +1057,29 @@ export default function WatchaPage() {
           </div>
         </div>
       </div>
+
+      {/* 最底部：鸟群区域
+          - relative z-10 + 同色底色：盖住 fixed 全屏的雾效背景（z-0）
+          - vanta canvas 背景 alpha 0.8，容器垫同色 #96b3e1 保证视觉为纯色
+          - sticky 钉住 + 150vh 容器：鸟群滚入后钉在视口，页面到底时视口始终被鸟群占满，
+            避免滚过鸟类区域后底部露出一条雾效 */}
+      <section className="relative z-10" style={{ height: '150vh', background: '#96b3e1' }}>
+        <div className="sticky top-0 h-screen">
+          <BirdsBackground />
+          {/* 顶部云层：叠加在鸟群 canvas 之上，底部 mask 渐变透明，
+              鸟向上飞入云层区域被云遮住，视觉上消失在云里 */}
+          <div
+            className="absolute top-0 left-0 right-0 z-10 pointer-events-none"
+            style={{
+              height: '55vh',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+            }}
+          >
+            <VantaClouds />
+          </div>
+        </div>
+      </section>
 
       {/* 主详情页层 */}
       {activePanelData && (

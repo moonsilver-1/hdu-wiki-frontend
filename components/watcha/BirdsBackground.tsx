@@ -6,30 +6,26 @@ import * as THREE from 'three';
 /**
  * BirdsBackground — 页面最底部的鸟类区域（Vanta.js BIRDS）
  *
- * 占据一屏高度，作为页面结尾的装饰
- * 参数按截图中的默认值：
- *   backgroundColor: 深蓝
- *   color1: 蓝色
- *   color2: 红色
- *   quantity: 5
- *   birdSize: 0.5
- *   wingSpan: 40
- *   speedLimit: 5
+ * 占据一屏高度，作为页面结尾的装饰。
+ * 配色：淡蓝背景 + 红/青双色鸟群（方差梯度）
  *
- * 【兼容处理】
- * 1. three.js r125+ 移除了 PlaneBufferGeometry 等旧 API，
- *    创建带别名的 THREE 副本传给 Vanta。
- * 2. Vanta.js BIRDS 的 GPGPU 模式（GPU 计算鸟群）
- *    与新版 three.js 有兼容性问题。
- *    通过在模块加载前伪造移动端 UA，强制使用 CPU 计算模式。
- *    mobileCheck() 在模块顶层执行，所以必须在 import 前改 UA。
- * 3. Vanta BIRDS 默认使用白色雾效，会把彩色的鸟"洗白"，
- *    初始化后将雾色改为与背景一致的深蓝色。
+ * 【兼容性处理】
+ * 1. three.js r125+ 移除了 PlaneBufferGeometry，在 THREE 副本上加别名指向 PlaneGeometry。
+ * 2. three.js r152+ 移除了 THREE.VertexColors 常量（vertexColors 变为 boolean），
+ *    在 THREE 副本上加 `VertexColors = true` 别名。
+ * 3. Vanta BIRDS 的 GPGPU 模式 shader 颜色为 0.2 灰底 + 深度衰减（官方注释 "Fake colors for now"），
+ *    通过在模块加载前伪造移动端 UA（mobileCheck 在模块顶层执行），强制走 CPU 模式：
+ *    CPU 模式用 MeshBasicMaterial + 顶点色，颜色由 color1/color2 经 getNewCol() 计算。
+ * 4. vanta CPU 模式填充顶点色时用 c.attributes.position.length，但 THREE BufferAttribute
+ *    只有 .count 没有 .length → color attribute 为空 → 鸟渲染成纯黑。
+ *    初始化后手动给每只鸟的几何体填充顶点色修复。
  */
 
 function createThreeWithLegacy() {
   const THREE_Legacy: any = { ...THREE };
   THREE_Legacy.PlaneBufferGeometry = THREE.PlaneGeometry;
+  // 关键修复：r152+ 移除了 VertexColors 常量，Vanta 用它做 vertexColors 参数
+  THREE_Legacy.VertexColors = true;
   return THREE_Legacy;
 }
 
@@ -71,16 +67,17 @@ export default function BirdsBackground() {
         mouseControls: true,
         touchControls: true,
         gyroControls: false,
-        minHeight: 200.0,
-        minWidth: 200.0,
         scale: 1.0,
         scaleMobile: 1.0,
-        backgroundColor: 0x07192F,
-        color1: 0x0000FF,
-        color2: 0xFF0000,
+        // 配色（按设计稿参数面板）
+        backgroundColor: 0x96b3e1, // 淡蓝背景
+        backgroundAlpha: 0.8,
+        color1: 0xff0000,          // 红色
+        color2: 0x00d1ff,          // 青色
         colorMode: 'varianceGradient',
-        birdSize: 0.5,
-        wingSpan: 40,
+        // 其余参数沿用面板值（即默认值）
+        birdSize: 1,
+        wingSpan: 30,
         speedLimit: 5,
         separation: 20,
         alignment: 20,
@@ -88,12 +85,35 @@ export default function BirdsBackground() {
         quantity: 5,
       });
 
-      // 修复：Vanta BIRDS 默认自带白色雾效，会把彩色的鸟"洗白"
-      // 把雾的范围拉远 + 颜色改成深蓝，让鸟群在纯深蓝背景上清晰飞行
-      if (vantaRef.current.fog) {
-        vantaRef.current.fog.far = 5000;
-        vantaRef.current.fog.color.setHex(0x07192F);
-      }
+      // 关键修复：vanta CPU 模式填充顶点色时用 c.attributes.position.length，
+      // 但 THREE BufferAttribute 只有 .count 没有 .length → color attribute 为空 → 鸟渲染成纯黑。
+      // 初始化后手动给每只鸟的几何体填充顶点色，并强制材质重编译 shader
+      // （vanta 创建材质时 vertexColors 依赖 T.VertexColors 别名，需 needsUpdate 让 shader 带上 USE_COLOR）。
+      const fixColors = () => {
+        const vv = vantaRef.current;
+        if (!vv || !Array.isArray(vv.birds) || typeof vv.getNewCol !== 'function') return;
+        vv.birds.forEach((bird: any, idx: number) => {
+          const geo = bird.geometry;
+          const posAttr = geo?.attributes?.position;
+          if (!posAttr) return;
+          const count = posAttr.count;
+          const colors = new Float32Array(count * 3);
+          const col = vv.getNewCol(idx / vv.birds.length);
+          for (let j = 0; j < count; j++) {
+            colors[j * 3] = col.r;
+            colors[j * 3 + 1] = col.g;
+            colors[j * 3 + 2] = col.b;
+          }
+          geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+          if (bird.material) {
+            bird.material.vertexColors = true;
+            bird.material.needsUpdate = true;
+          }
+        });
+      };
+      requestAnimationFrame(() => setTimeout(fixColors, 0));
+    }).catch(() => {
+      // vanta birds 加载失败时静默降级：仅显示纯色背景
     });
 
     return () => {

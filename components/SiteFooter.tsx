@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 
 export default function SiteFooter() {
   const pathname = usePathname();
-  if (pathname?.startsWith("/welcome")) return null;
+  // /watcha 观猹文化墙为全屏沉浸式页面，底部以鸟群区域收尾，不显示主站页脚
+  if (pathname?.startsWith("/welcome") || pathname?.startsWith("/watcha")) return null;
 
   return (
     <footer className="site-footer">
