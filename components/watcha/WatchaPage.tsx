@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
@@ -358,7 +358,7 @@ function ImageGallery({ images, accent }: { images: string[]; accent: string }) 
         const name = decodeURIComponent(src.split('/').pop() || '').replace(/\.[^.]+$/, '');
         return (
           <figure key={i} className="rounded-xl overflow-hidden border" style={{ borderColor: `${accent}40`, background: '#fff' }}>
-            <img src={src} alt={name} className="w-full h-52 object-cover" />
+            <img src={src} alt={name} className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
             <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>
               {name}
             </figcaption>
@@ -419,7 +419,7 @@ function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; 
               style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
               <div className="relative h-44 overflow-hidden" style={{ background: `${accent}15` }}>
                 {card.images[0] ? (
-                  <img src={card.images[0]} alt="" className="w-full h-full object-cover" />
+                  <img src={card.images[0]} alt="" className="w-full h-full object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-6xl">{card.emoji}</div>
                 )}
@@ -507,7 +507,7 @@ function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBus
           <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />生态合作伙伴与行业背书
         </h3>
         <div className="rounded-2xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
-          <img src="/images/生态合作伙伴与行业背书.png" alt="生态合作伙伴与行业背书" className="w-full h-auto block" />
+          <img src="/images/生态合作伙伴与行业背书.png" alt="生态合作伙伴与行业背书" className="w-full h-auto block cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
         </div>
       </div>
 
@@ -533,7 +533,7 @@ function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBus
                   const name = decodeURIComponent(src.split('/').pop() || '').replace(/\.[^.]+$/, '');
                   return (
                     <figure key={j} className="flex-1 min-w-0 rounded-lg overflow-hidden border bg-white" style={{ borderColor: `${accent}30` }}>
-                      <img src={src} alt={name} className="w-full h-24 object-cover" />
+                      <img src={src} alt={name} className="w-full h-24 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
                       <figcaption className="px-2 py-1 text-[10px] text-slate-500 text-center truncate" style={{ borderTop: `1px solid ${accent}20` }}>{name}</figcaption>
                     </figure>
                   );
@@ -577,7 +577,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
         {businessId === 'platform' && (
           <>
             <figure className="rounded-2xl overflow-hidden border mb-8 bg-white" style={bordered}>
-              <img src="/images/平台核心能力.png" alt="平台核心能力" className="w-full object-contain" />
+              <img src="/images/平台核心能力.png" alt="平台核心能力" className="w-full object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
             </figure>
             <div className="text-center mb-8">
               <h3 className="text-2xl md:text-3xl font-bold" style={{ color: accent }}>五大核心板块</h3>
@@ -586,7 +586,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               {PLATFORM_SHOTS.slice(0, 2).map((src) => (
                 <figure key={src} className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                  <img src={src} alt={shotName(src)} className="w-full h-48 object-cover" />
+                  <img src={src} alt={shotName(src)} className="w-full h-48 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
                   <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>{shotName(src)}</figcaption>
                 </figure>
               ))}
@@ -594,7 +594,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {PLATFORM_SHOTS.slice(2).map((src) => (
                 <figure key={src} className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                  <img src={src} alt={shotName(src)} className="w-full h-36 object-cover" />
+                  <img src={src} alt={shotName(src)} className="w-full h-36 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
                   <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>{shotName(src)}</figcaption>
                 </figure>
               ))}
@@ -626,11 +626,11 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
             <h4 className="text-lg font-bold text-slate-800 mb-4">TokenDance 核心功能实拍：</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                <img src="/images/TokenDance 官网｜统一模型网关与多协议兼容.png" alt="TokenDance 核心功能实拍" className="w-full h-52 object-cover" />
+                <img src="/images/TokenDance 官网｜统一模型网关与多协议兼容.png" alt="TokenDance 核心功能实拍" className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
                 <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>TokenDance 核心功能实拍</figcaption>
               </figure>
               <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                <img src="/images/平台能力｜智能路由、统一计费与容错降级.png" alt="平台能力｜智能路由、统一计费与容错降级" className="w-full h-52 object-cover" />
+                <img src="/images/平台能力｜智能路由、统一计费与容错降级.png" alt="平台能力｜智能路由、统一计费与容错降级" className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
                 <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>平台能力｜智能路由、统一计费与容错降级</figcaption>
               </figure>
             </div>
@@ -649,7 +649,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
               ))}
             </div>
             <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-              <img src="/images/签约.png" alt="签约" className="w-full object-contain" />
+              <img src="/images/签约.png" alt="签约" className="w-full object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
               <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>签约</figcaption>
             </figure>
           </>
@@ -668,7 +668,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
               ))}
             </div>
             <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-              <img src="/images/知识号见面会.jpg" alt="知识号见面会" className="w-full h-64 object-cover" />
+              <img src="/images/知识号见面会.jpg" alt="知识号见面会" className="w-full h-auto object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
               <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>知识号见面会</figcaption>
             </figure>
           </>
@@ -842,7 +842,7 @@ function InteractiveDetail({ accent }: { accent: string }) {
                 🔗 {sw.link}
               </a>
               <div className="mt-3 rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
-                <img src={sw.avatar} alt={sw.name} className="w-full h-auto block" />
+                <img src={sw.avatar} alt={sw.name} className="w-full h-auto block cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
               </div>
             </div>
           ))}
@@ -908,7 +908,14 @@ export default function WatchaPage() {
   const [activeStoryId, setActiveStoryId] = useState<string | null>(null);
   const [showVisitDetail, setShowVisitDetail] = useState(false);
   const [activeBusiness, setActiveBusiness] = useState<string | null>(null);
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const activeStory = STORY_CARDS.find((s) => s.id === activeStoryId) || null;
+
+  // 全局图片预览：让子组件里的 img 能触发主组件的预览层
+  useEffect(() => {
+    (window as unknown as { __previewImage?: (src: string) => void }).__previewImage = (src: string) => setPreviewSrc(src);
+    return () => { delete (window as unknown as { __previewImage?: (src: string) => void }).__previewImage; };
+  }, []);
 
   const [vh, setVh] = useState(800);
 
@@ -996,6 +1003,7 @@ export default function WatchaPage() {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
+        if (previewSrc) { setPreviewSrc(null); return; }
         if (activeBusiness) { setActiveBusiness(null); return; }
         if (showVisitDetail) { setShowVisitDetail(false); return; }
         if (activeStoryId) { setActiveStoryId(null); return; }
@@ -1091,6 +1099,14 @@ export default function WatchaPage() {
       {/* 业务详情子弹窗（板块二五大业务） */}
       {activePanel === 'ecosystem' && activePanelData && (
         <BusinessDetailPanel businessId={activeBusiness} accent={activePanelData.accent} onClose={() => setActiveBusiness(null)} />
+      )}
+
+      {/* 图片全屏预览层 */}
+      {previewSrc && (
+        <div className="fixed inset-0 z-[200] bg-black/85 flex items-center justify-center p-4 cursor-zoom-out" onClick={() => setPreviewSrc(null)}>
+          <img src={previewSrc} alt="预览" className="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
+          <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 text-white text-xl flex items-center justify-center hover:bg-white/40 transition" onClick={() => setPreviewSrc(null)}>✕</button>
+        </div>
       )}
     </div>
   );
