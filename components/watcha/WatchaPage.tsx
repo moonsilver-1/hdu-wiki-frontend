@@ -20,21 +20,47 @@ gsap.registerPlugin(ScrollTrigger);
  *   04 互动展区
  */
 
+// ============ 滚动辅助：详情弹层纵向滚动（阻止 Lenis / 背景页面滚动） ============
+const bindVerticalScroll = (node: HTMLDivElement | null) => {
+  if (!node) return;
+  node.addEventListener('wheel', (e) => {
+    e.stopPropagation();
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // 横向滚轮交给原生处理
+    e.preventDefault();
+    const atTop = node.scrollTop <= 0;
+    const atBottom = node.scrollTop + node.clientHeight >= node.scrollHeight - 1;
+    if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) return;
+    node.scrollTop += e.deltaY;
+  }, { passive: false });
+};
+
+// ============ 滚动辅助：横向滚动容器（滚轮纵向 → 横向滑动，到边缘后回落为纵向） ============
+const bindHorizontalScroll = (node: HTMLDivElement | null) => {
+  if (!node) return;
+  node.addEventListener('wheel', (e) => {
+    e.stopPropagation();
+    const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    const atStart = node.scrollLeft <= 0;
+    const atEnd = node.scrollLeft + node.clientWidth >= node.scrollWidth - 1;
+    if ((d < 0 && atStart) || (d > 0 && atEnd)) return; // 到边缘 → 冒泡给外层详情页纵向滚动
+    e.preventDefault();
+    node.scrollLeft += d;
+  }, { passive: false });
+};
+
 // ============ 板块一数据：校企发展时间线 ============
-type TimelineEvent = { year: string; title: string; desc: string; images?: string[] };
+type TimelineEvent = { year: string; title: string; desc: string };
 
 const TIMELINE_EVENTS: TimelineEvent[] = [
   {
     year: '2020 年 9 月',
     title: '仲泰入学',
     desc: '仲泰进入杭州电子科技大学卓越学院人工智能专业，开启在杭电的校园学习与 AI 实践。',
-    images: ['/images/仲泰与指导老师李甫.png'],
   },
   {
     year: '2021 年',
     title: '未央学社成立',
     desc: '针对高数、线代、概率论和专业课程中的学习困难，未央学社成立，在校内推进资料共享、课程答疑以及各类学习活动。',
-    images: ['/images/未央学社 Integration Bee 积分赛.png', '/images/青年 AI 互学成长共同体.png'],
   },
   {
     year: '2023 年 10 月',
@@ -45,13 +71,11 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     year: '2024 年 5 月 21 日',
     title: '似一科技成立',
     desc: '团队以公司化方式进一步深耕 AI Agent，开展内容研究、产品研发和解决方案实践，推动行业观察与技术探索走向项目落地。',
-    images: ['/images/产学研协同与校企合作成果展示.png'],
   },
   {
     year: '2025 年初',
     title: '捐赠育人基金',
     desc: '团队向母校捐赠 5 万元，设立"AI+思政"育人基金，支持学生参与 AI 活动、科研探索和创新赛事。',
-    images: ['/images/捐赠育人基金.jpg'],
   },
   {
     year: '2025 年 7 月 16 日',
@@ -62,13 +86,11 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     year: '2025 年',
     title: '特工宇宙项目获金奖',
     desc: '"特工宇宙——领先级 AI Agent 开发平台与全链路解决方案供应商"项目获得中国国际大学生创新大赛（2025）金奖。',
-    images: ['/images/中国国际大学生创新大赛（2025）金奖证书.jpg', '/images/特工宇宙项目路演现场.png'],
   },
   {
     year: '2026 年 1 月',
     title: '环球黑客松',
     desc: '环球黑客松 Global Hackathon Tour 杭州站与上海站相继落地，两站均获得央视主动报道。',
-    images: ['/images/杭州黑客松活动现场.jpg'],
   },
   {
     year: '2026 年 3 月',
@@ -89,14 +111,13 @@ const TIMELINE_EVENTS: TimelineEvent[] = [
     year: '2026 年 5 月',
     title: '捐赠 2020 亿 Tokens',
     desc: '支持学生体验 Agent 产品，开展 AI 学习、项目开发和创新实践，让创业资源持续回流校园。',
-    images: ['/images/杭电 × 观猹 2020 亿 Tokens 捐赠活动.jpg'],
   },
 ];
 
 const STORY_CARDS = [
   {
     id: 'weiyang',
-    title: '未央学社：回应真实学习需求',
+    title: '成立未央学社：回应真实学习需求',
     emoji: '📚',
     intro: '15000+ 社群，辐射全校 3w+ 师生。学业帮扶、答疑活动、学习资料共享，把散落在校园各处的学习者凝聚成真正的学习共同体。',
     paragraphs: [
@@ -104,11 +125,11 @@ const STORY_CARDS = [
       '从零到一，从十几人到 15000+ 社群，未央学社成了杭电最大的学习共同体之一。资料共享、积分赛、高数辅导讲座……只要是能帮同学把学习这件事变得更轻松的事，学社都愿意尝试。',
       '团队邀请过百万粉丝博主李天意为杭电学生开展高数辅导，组织 Integration Bee 积分赛让严肃的数学比拼也能有趣起来。学习不该只是一个人的事，它可以是一群人一起发光。',
     ],
-    images: ['/images/未央学社 Integration Bee 积分赛.png', '/images/青年 AI 互学成长共同体.png'],
+    images: ['/images/未央学社 Integration Bee 积分赛.png', '/images/邀请百万粉丝博主李天意为杭电学生开展高数辅导.png', '/images/杭州黑客松活动现场.jpg'],
   },
   {
     id: 'fund',
-    title: '设立"AI + 思政"育人基金',
+    title: '设立育人基金：支持学生创新实践',
     emoji: '🎓',
     intro: '捐赠 5 万元育人基金，支持学生科研赛事与创新实践，让更多有想法的同学能够大胆试错、勇敢创造。',
     paragraphs: [
@@ -116,11 +137,11 @@ const STORY_CARDS = [
       '这笔基金专门用来支持杭电学生参与 AI 相关的活动、科研探索和创新赛事。团队希望，每一位对 AI 感兴趣的同学都能找到一个让想法落地的出口。',
       '捐赠不只是钱的事，更是一种承诺：我们从校园走出来，就一定要把资源带回校园。',
     ],
-    images: ['/images/捐赠育人基金.jpg'],
+    images: ['/images/仲泰与指导老师李甫.png', '/images/捐赠育人基金.jpg'],
   },
   {
     id: 'teagent',
-    title: '特工宇宙获国赛金奖',
+    title: '特工宇宙获金奖：推动校园实践走向创业',
     emoji: '🏆',
     intro: '中国国际大学生创新大赛金奖获得者。从校园实践到全国舞台，特工宇宙用实力证明——杭电学子能做最前沿的 AI 产品。',
     paragraphs: [
@@ -128,11 +149,11 @@ const STORY_CARDS = [
       '这个奖项的背后，是十余位 00 后组成的创业团队在 AI Agent 方向上的持续深耕。从内容研究到技术探索、从产品原型到企业解决方案，他们用实际成果回应了市场与业界的期待。',
       '对杭电来说，这不仅仅是一枚奖牌——它证明：学生团队完全有能力把课堂上学到的知识，变成真正领先的产品与平台。',
     ],
-    images: ['/images/中国国际大学生创新大赛（2025）金奖证书.jpg', '/images/特工宇宙项目路演现场.png'],
+    images: ['/images/特工宇宙项目路演现场.png', '/images/产学研协同与校企合作成果展示.png', '/images/中国国际大学生创新大赛（2025）金奖证书.jpg'],
   },
   {
     id: 'tokens',
-    title: '2020 亿 Tokens 捐赠：让 AI 资源持续回流',
+    title: '捐赠 2020 亿 Tokens：让 AI 资源持续回流',
     emoji: '⚡',
     intro: '2026 年 5 月，团队向杭电捐赠 2020 亿 Tokens，支持学生尝试 Agent 产品，开展学习、项目开发和创新实践。',
     paragraphs: [
@@ -140,7 +161,7 @@ const STORY_CARDS = [
       '除 Token 补助外，团队还将提供实习校招、项目孵化、赛事承办和前沿教程等支持。',
       '过去从校园开始的经历，正在转化为今天更多学生可以使用的 AI 学习和实践机会。',
     ],
-    images: ['/images/杭电 × 观猹 2020 亿 Tokens 捐赠活动.jpg'],
+    images: ['/images/杭电 × 观猹 2020 亿 Tokens 捐赠活动.jpg', '/images/杭电 × 观猹 2020 亿 Tokens 捐赠活动.jpeg', '/images/青年 AI 互学成长共同体.png'],
   },
 ];
 
@@ -154,23 +175,98 @@ const VISIT_DETAIL = {
 };
 
 // ============ 板块二数据：观猹生态 ============
-const FIVE_BUSINESSES = [
-  { name: '观猹平台', desc: 'AI 产品的大众点评——发现、评分、讨论、体验，一站式 AI 产品探索社区。' },
-  { name: 'TokenDance 词元跳动', desc: '让 AI 变得可触摸——词元经济与创作激励平台，每一次创造都有价值。' },
-  { name: '猹与猹增长服务', desc: '面向 AI 产品的增长加速器——从冷启动到规模化，陪你跑完整条路。' },
-  { name: '特工宇宙媒体', desc: '聚焦 AI 圈内容生态——产品测评、行业观察、深度专访，做有趣有料的 AI 媒体。' },
-  { name: '环球黑客松', desc: '连接全球 AI 开发者——多站点巡回、48 小时极限创造，把想法变成现实。' },
+type Business = { id: string; name: string; desc: string; logo: string; logoExtra?: string };
+
+const BUSINESSES: Business[] = [
+  { id: 'platform', name: '观猹平台', desc: 'AI 产品的大众点评——发现、评分、讨论、体验，一站式 AI 产品探索社区。', logo: '/images/观猹logo.jpg', logoExtra: '/images/观猹文字logo.png' },
+  { id: 'tokendance', name: 'TokenDance 词元跳动', desc: 'AI 产品增长服务与 MCN，围绕策划、品牌营销与商业增长，为 AI 产品提供从发掘、孵化到推广的全周期服务。', logo: '/images/TokenDance 词元跳动logo.png' },
+  { id: 'chacha', name: '猹与猹增长服务', desc: 'AI 产品增长服务与 MCN，围绕策划、品牌营销与商业增长，为 AI 产品提供从发掘、孵化到推广的全周期服务。', logo: '/images/猹与猹logo.png' },
+  { id: 'teagentmedia', name: '特工宇宙媒体', desc: '国内头部科技账号，首个聚焦智能体领域的 AI 科技媒体，致力于打造 AI 垂直媒体矩阵，广泛覆盖 AI 从业者与内容者。', logo: '/images/特工宇宙 AgentUniverse.png' },
+  { id: 'hackathon', name: '环球黑客松', desc: '观猹旗下黑客松品牌，布局全球，致力于让值得尝试的创意落地生长，让每一份认真与热爱都得到回应。', logo: '/images/156.jpg' },
 ];
 
-const PARTNERS = ['杭州电子科技大学', '浙江大学', '阿里巴巴', '百度智能云', '腾讯云', '字节跳动', '华为云', '讯飞星火', '月之暗面', '零一万物'];
+const PLATFORM_SHOTS = [
+  '/images/观猹首页｜热门产品、榜单与活动推荐.png',
+  '/images/产品详情页｜真实评分、猹评与创作者说.png',
+  '/images/瓜棚｜瓜子积分兑换实物周边与邀请码.png',
+  '/images/猹馆｜AI动态与案例分享社区.png',
+  '/images/排行榜｜热议周榜、口碑飙升榜、活跃用户榜.png',
+];
+
+const TOKEN_DANCE_ABILITIES = [
+  { key: '全', title: '全｜模型品类全', points: ['覆盖对话、生图、视频、语音、多模态、Web Search 等能力。', '多协议原生兼容，常用模型与工具 API 一站直连。'] },
+  { key: '快', title: '快｜模型接入快', points: ['热门新模型力争 T+0、T+1 同步上线。', 'Playground 开箱即用，无需写代码即可选模型、调参数、测效果。'] },
+  { key: '稳', title: '稳｜调用服务稳', points: ['聚合多个供应商端点，智能选择稳定、低价的调用线路。', '支持自动容错、故障切换和模型降级，也可自主设置路由规则。'] },
+  { key: '省', title: '省｜调用成本省', points: ['同等稳定性下，自动选择价格更低的端点。', '不定期的福利发放，另有折扣、兑换券及各类活动 Token 赞助支持。'] },
+];
+
+const CHACHA_SERVICES = [
+  { title: 'Orchestration丨策划统筹', desc: '品牌定位、产品叙事、市场方案与活动落地' },
+  { title: 'Marketing丨品牌营销', desc: '内容传播、媒体合作、活动营销与社群资源' },
+  { title: 'Growth丨商业增长', desc: '产品冷启动、种子用户、增长路径与资源对接' },
+];
+
+const TEAGENT_MEDIA_BLOCKS = [
+  { title: '科技媒体', desc: '面向 AI 从业者、开发者与内容创作者，持续输出 AI Agent 领域内容，连接国内外科技企业、AI 独角兽与社区伙伴。' },
+  { title: 'Agent 研发', desc: '截至 2025 年 2 月，已合作 200+ 个 Agent 开发落地项目；围绕具体场景与需求定制开发 Agent，并结合科技媒体与社区资源，支持产品推广和冷启动。' },
+  { title: '行业研究', desc: '持续发布季度性 AI 行业研究报告，覆盖 10+ 个 AI 领域、100+ 家 AI 企业、1000+ 位 AI 人物和 10000+ 个 AI 事件，为 AI 企业、人才与投资者提供行业信息。' },
+  { title: '知识共学', desc: '建设覆盖 AI Agent、AI 产品、商业应用等方向的垂直知识库，并通过线上线下技术沙龙、Workshop 等形式，促进知识分享与项目合作。' },
+];
+
+const HACKATHON_SITES = [
+  {
+    title: '杭州站｜从创意到原型',
+    desc: '2026 年 1 月 16—18 日，环球黑客松首站在杭州云谷中心举行。活动通过高强度开发、作品路演、产品展示与现场投票，推动参与者把想法快速转化为可运行、可验证的 AI 原型。',
+    images: ['/images/环球黑客松 TOUR 2026·杭州站活动现场.jpg', '/images/环球黑客松 TOUR 2026·杭州站活动现场2.png'],
+  },
+  {
+    title: '上海站｜OPC 极限挑战',
+    desc: '2026 年 3 月 27—28 日，观猹、特工宇宙与浦发银行在全球开发者先锋大会期间联合举办环球黑客松·上海站 OPC 极限挑战赛，围绕 OpenClaw 开展极限开发、现场路演与产品验证。',
+    images: ['/images/环球黑客松·上海站 OPC 极限挑战赛活动现场.jpg', '/images/环球黑客松·上海站 OPC 极限挑战赛活动现场2.jpg'],
+  },
+  {
+    title: '伦敦站｜首次走向海外',
+    desc: '2026 年 4 月 18—19 日，环球黑客松伦敦站在伦敦大学学院举行，这是环球黑客松首次海外落地。活动设置 AI 与媒体创作、包容性城市和 Agent 工作流等方向，连接来自不同背景的开发者、创作者与社区伙伴。',
+    images: ['/images/伦敦站｜首次走向海外.png', '/images/伦敦站｜首次走向海外2.png', '/images/伦敦站｜首次走向海外3.jpg'],
+  },
+];
+
+const PARTNER_LOGOS = [
+  '/images/logos/image.png', '/images/logos/image-2.png', '/images/logos/image-3.png', '/images/logos/image-4.png',
+  '/images/logos/image-5.png', '/images/logos/image-6.png', '/images/logos/image-7.png', '/images/logos/image-8.png',
+  '/images/logos/image-9.png', '/images/logos/image-10.png', '/images/logos/image-11.png', '/images/logos/image-12.png',
+  '/images/logos/image-13.png', '/images/logos/image-14.png', '/images/logos/image-15.png', '/images/logos/image-16.png',
+  '/images/logos/image-17.png', '/images/logos/组 18.svg', '/images/logos/组 19.svg', '/images/logos/组 22.svg',
+];
+
+const PARTNER_GROUPS = [
+  { name: '投资机构', items: '红杉中国 · 华兴资本 · 真格基金 · 奇绩创坛 · 蓝驰创投 · Monolith · 五源资本' },
+  { name: '社区伙伴', items: '知乎 · 小红书 · FounderPark · 魔搭社区 · WaytoAGI · Datawhale' },
+  { name: '高校伙伴', items: '清华大学 · 北京大学 · 浙江大学 · 新加坡国立大学 · 哈佛大学' },
+  { name: '企业伙伴', items: '字节跳动 · 阿里巴巴 · 蚂蚁集团 · 腾讯 · 谷歌 · 百度 · MiniMax · 智谱 · 月之暗面' },
+  { name: '行业伙伴', items: '浦发银行 · 迅雷 · 京东 · 莫高设计 · 猿辅导 · 美团 · 蓝盒子' },
+  { name: '技术峰会', items: 'WAIC 世界人工智能大会 · Google Cloud Next · 全球开发者先锋大会' },
+];
 
 const KEY_EVENTS = [
-  { time: '2024.06', name: '观猹大会', desc: '首届观猹大会在杭电举办，AI 产品首发与行业分享。' },
-  { time: '2024.09', name: '猹话会', desc: '每月一期的线下沙龙，AI 创业者与学生面对面。' },
-  { time: '2024.11', name: '黑客松 · 杭州站', desc: '48 小时限时创造，100+ 开发者同场竞技。' },
-  { time: '2025.07', name: 'WAIC 世界人工智能大会', desc: '观猹受邀参展，展示校园 AI 育人生态实践。' },
-  { time: '2025.09', name: 'ChinaJoy 互动展区', desc: '学生 AI 产品集体亮相，与 Z 世代用户亲密接触。' },
-  { time: '2026.03', name: '黑客松 · 北京站', desc: '跨城市连线，南北 AI 开发者共创。' },
+  { name: '第一届观猹大会', desc: '2025 年 7 月 16 日在北京 Blue Note 举办，是观猹首次发布会与线下大会，围绕 Build in Public、AI 产品发布、真实用户反馈和产品观猹员计划展开分享。', images: ['/images/第一届观猹大会.png'] },
+  { name: '全球首届猹话会', desc: '观猹上线百日后的社区线下聚会，面向产品观猹员、AI 创业者与爱好者，围绕产品体验、创业实践与社区连接展开交流。', images: ['/images/全球首届猹话会.jpg'] },
+  { name: 'AI 创业者 Demo Day', desc: '2025 年 11 月 8 日由华兴资本与观猹在上海联合举办，15 家创业公司围绕 AI Agent、AI 硬件/具身智能和 AI Infra 展示项目，并与投资人与产业伙伴交流。', images: ['/images/AI 创业者 Demo Day.jpg'] },
+  { name: '环球黑客松 TOUR 2026·杭州站', desc: '2026 年 1 月 16—18 日由观猹与魔搭社区在杭州云谷中心联合主办，以"见证创造发生"为主题，通过沉浸开发、作品路演、产品摆摊和观众投票支持 AI 创作者。', images: ['/images/环球黑客松 TOUR 2026·杭州站.jpg'] },
+  { name: 'OpenClaw 猹话会 001', desc: '观猹、特工宇宙与红杉中国联合发起的 OpenClaw 线下活动，现场设置安装指导与实战分享，帮助参与者完成部署、交流使用经验并体验 Vibe Coding 对战。', images: ['/images/OpenClaw 猹话会 001.jpg'] },
+  { name: 'OpenClaw 猹话会 002·龙虾家长会', desc: '2026 年 3 月 22 日在南京举办，由观猹与魔搭社区合作，围绕 OpenClaw 的科学使用、成本控制、进阶玩法与商业化路径展开分享，并设产品展示与互动交流。', images: ['/images/OpenClaw 猹话会 002·龙虾家长会.jpg', '/images/北京大学创新创业学院活动合影.jpg'] },
+  { name: 'OpenClaw 猹话会 003·北大站', desc: '2026 年 3 月 22 日在北京大学举办，由北大学生创新学社、观猹与红杉中国主办，聚焦 OpenClaw 权限管控、数据隔离、操作审计、安装配置与实战避坑。', images: ['/images/OpenClaw 猹话会 003·北大站.jpg', '/images/高校 AI 分享现场｜活动待确认.jpg'] },
+  { name: '环球黑客松 OPC 极限挑战赛·上海站', desc: '2026 年 3 月 27—28 日在全球开发者先锋大会期间举办，由观猹、特工宇宙与浦发银行联合推出，以 OPC 为核心开展 OpenClaw 极限开发、现场路演与产品验证。', images: ['/images/环球黑客松 OPC 极限挑战赛·上海站.jpg'] },
+  { name: '观猹 × 知乎｜2026 新知青年大会分论坛', desc: '2026 年 5 月 16 日在北京 798 艺术区举行的观猹分论坛，以"当 AI 也开始用 APP——Agent 基础设施的新机会"为主题，讨论 TPD、CLI/API、MCP 与 Skill 等新范式。', images: ['/images/观猹 × 知乎｜2026 新知青年大会分论坛.jpg'] },
+  { name: '谁能成为百万博主·第一赛季决赛', desc: '面向 AI 内容创作者的 30 天账号成长赛事，参赛者从零运营 AI 主题账号，获得闭门课程、工具与投流支持，最终于 5 月 18 日线下路演，现场 PK 创作成果。', images: ['/images/谁能成为百万博主·第一赛季决赛.jpg'] },
+  { name: '猹话会 / 环球黑客松', desc: '线下活动、开发者连接、产品展示与行业交流场景。', images: ['/images/OpenClaw 猹话会活动现场.jpg', '/images/环球黑客松 TOUR 2026·杭州站.jpg'] },
+  { name: 'WAIC 官方合作｜AI 产品吐槽大会', desc: '2026 年 7 月。观猹与 WAIC 开展官方合作，在上海设置 AI 产品体验、评价与吐槽交流场景，并邀请观猹旗下达人参与探展，以真实用户反馈连接产品、开发者和行业观众。', images: ['/images/观猹 × WAIC 活动现场.jpg', '/images/观猹 × TokenDance 联合展位.jpg'] },
+  { name: 'ChinaJoy 观猹展台', desc: '2026 年 7 月。观猹携 AI 产品体验与大众点评互动进入 ChinaJoy，通过现场扫码、产品展示、猹评互动和品牌联动，让更多年轻用户近距离了解和体验 AI 产品。', images: ['/images/ChinaJoy.jpg'] },
+  { name: '观猹 × 杭州中国动漫博物馆', desc: '2026 年 8 月 15 日。观猹在杭州中国动漫博物馆开展联合展示与交流活动，结合逛展、主题分享和限定联名 Token 卡领取，将 AI 产品体验、内容交流与年轻文化场景连接起来。', images: ['/images/观猹 × 杭州中国动漫博物馆联合展示.jpg'] },
+  { name: 'Happy Qwensday × 观猹｜AI 调酒师活动', desc: '2026 年。观猹与 Happy Qwensday 联动打造 AI 调酒师主题体验，设置现场 Vibe Coding、AI 调酒互动和作品收录入口，以轻量、社交化的方式让参与者体验 AI 创作。', images: ['/images/Happy Qwensday × 观猹 AI 调酒师活动.jpg', '/images/AI 调酒师主题物料.jpg'] },
+  { name: '亚马逊云科技 × 观猹｜AI 主题交流', desc: '2026 年。观猹与亚马逊云科技联合开展 AI 主题分享与交流，通过产品实践、行业案例和现场讨论，促进开发者、企业和 AI 从业者之间的连接。', images: ['/images/亚马逊云科技 × 观猹 AI 主题交流现场.jpg', '/images/亚马逊云科技 AI 主题交流现场.jpg'] },
+  { name: '银行｜Token 礼品卡合作', desc: '观猹与浦发银行开展 Token 礼品卡合作，将大模型算力转化为可领取、可赠送的实体卡产品，拓展 AI 能力在金融服务与用户礼赠场景中的应用。', images: ['/images/Token 词元礼品传播画面.jpg'] },
+  { name: '观猹 × 京东｜AI 硬件创新大赛 / 路演', desc: '观猹参与京东 AI 硬件创新大赛及相关路演，通过产品展示、现场点评和展位互动，连接 AI 硬件团队与真实用户反馈。', images: ['/images/观猹 × 京东.jpg'] },
 ];
 
 // ============ 板块三数据：好用产品馆 ============
@@ -241,12 +337,18 @@ function CloseButton({ onClick, top = 'top-6' }: { onClick: () => void; top?: st
 
 function ImageGallery({ images, accent }: { images: string[]; accent: string }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5">
-      {images.map((src, i) => (
-        <figure key={i} className="rounded-xl overflow-hidden border" style={{ borderColor: `${accent}40`, background: '#fff' }}>
-          <img src={src} alt="" className="w-full h-52 object-cover" />
-        </figure>
-      ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+      {images.map((src, i) => {
+        const name = decodeURIComponent(src.split('/').pop() || '').replace(/\.[^.]+$/, '');
+        return (
+          <figure key={i} className="rounded-xl overflow-hidden border" style={{ borderColor: `${accent}40`, background: '#fff' }}>
+            <img src={src} alt={name} className="w-full h-52 object-cover" />
+            <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>
+              {name}
+            </figcaption>
+          </figure>
+        );
+      })}
     </div>
   );
 }
@@ -254,8 +356,6 @@ function ImageGallery({ images, accent }: { images: string[]; accent: string }) 
 // ============ 板块一详情：校企发展时间线 ============
 
 function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; onOpenStory: (id: string) => void; onOpenVisit: () => void }) {
-  const [activeEvent, setActiveEvent] = useState<number | null>(null);
-
   return (
     <div>
       <div className="mb-8 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden"
@@ -272,34 +372,22 @@ function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; 
           <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />
           关键发展时间线
         </h3>
-        <div className="relative overflow-x-auto pb-2" data-lenis-prevent>
+        <div className="relative overflow-x-auto pb-2" ref={bindHorizontalScroll} data-lenis-prevent>
           <div className="flex gap-4 md:gap-5 min-w-max px-2">
             {TIMELINE_EVENTS.map((ev, i) => (
               <div key={i}
-                onClick={() => setActiveEvent(activeEvent === i ? null : i)}
-                className={`cursor-pointer shrink-0 w-60 rounded-2xl p-5 border-2 transition-all ${activeEvent === i ? 'scale-[1.02] shadow-lg' : 'hover:shadow-md'}`}
+                className="shrink-0 w-64 rounded-2xl p-5 border-2 transition-all hover:shadow-md"
                 style={{
-                  background: activeEvent === i ? `${accent}20` : 'rgba(255,255,255,0.85)',
-                  borderColor: activeEvent === i ? accent : 'rgba(0,0,0,0.06)',
+                  background: 'rgba(255,255,255,0.85)',
+                  borderColor: 'rgba(0,0,0,0.06)',
                 }}>
                 <div className="text-xs font-bold tracking-wider mb-1" style={{ color: accent }}>{ev.year}</div>
                 <div className="text-base font-bold text-slate-800 mb-2 leading-snug">{ev.title}</div>
-                <div className="text-xs text-slate-500 leading-relaxed line-clamp-3">{ev.desc}</div>
-                {ev.images && ev.images.length > 0 && (
-                  <div className="mt-3 rounded-lg overflow-hidden">
-                    <img src={ev.images[0]} alt="" className="w-full h-24 object-cover" />
-                  </div>
-                )}
-                {activeEvent === i && (
-                  <div className="mt-3 pt-3 border-t border-slate-200">
-                    <div className="text-sm text-slate-700 leading-relaxed mb-3">{ev.desc}</div>
-                    {ev.images && <ImageGallery images={ev.images} accent={accent} />}
-                  </div>
-                )}
+                <div className="text-xs text-slate-500 leading-relaxed">{ev.desc}</div>
               </div>
             ))}
           </div>
-          <div className="mt-3 text-xs text-slate-400 text-center">← 横向滑动 / 点击节点查看详情 →</div>
+          <div className="mt-3 text-xs text-slate-400 text-center">← 鼠标悬停于此区域，滚动滚轮即可横向浏览 →</div>
         </div>
       </div>
 
@@ -334,9 +422,9 @@ function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; 
       <button onClick={onOpenVisit}
         className="text-left w-full rounded-2xl p-6 md:p-8 transition-all hover:shadow-lg hover:-translate-y-0.5"
         style={{ background: `linear-gradient(135deg, ${accent}15, #f0e9e220)`, border: `1px dashed ${accent}60` }}>
-        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2"><span>🏫</span> 高校 × 中学 × 青年创业团队</h3>
+        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2"><span>🏫</span> 杭电、学军中学领导莅临调研：共话 AI 赋能教育</h3>
         <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-          杭电、学军中学领导莅临观猹调研交流 · 连接中学 - 高校 - 青年创业团队 · 打开 AI 教育真实场景
+          7 月 10 日 · 杭电党委书记王尧祥、党委副书记钱波，学军中学党委书记杨凯锋一行莅临观猹调研交流 · 连接中学 - 高校 - 青年创业团队
         </p>
         <div className="mt-4 text-xs font-semibold" style={{ color: accent }}>点击查看调研详情 →</div>
       </button>
@@ -346,7 +434,7 @@ function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; 
 
 // ============ 板块二详情：观猹生态 ============
 
-function EcosystemDetail({ accent }: { accent: string }) {
+function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBusiness: (id: string) => void }) {
   return (
     <div>
       <div className="mb-8 rounded-3xl p-8 md:p-10 grid md:grid-cols-5 gap-8 items-center"
@@ -369,48 +457,89 @@ function EcosystemDetail({ accent }: { accent: string }) {
         </div>
       </div>
 
+      {/* 五大业务：横向条状，自上而下，点击进入详情 */}
       <div className="mb-10">
         <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
           <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />五大业务矩阵
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {FIVE_BUSINESSES.map((b, i) => (
-            <div key={i} className="rounded-2xl p-5 border transition-all hover:-translate-y-0.5 hover:shadow-md"
+        <div className="space-y-3">
+          {BUSINESSES.map((b) => (
+            <button key={b.id} onClick={() => onOpenBusiness(b.id)}
+              className="w-full flex items-center gap-4 md:gap-5 rounded-2xl p-4 md:p-5 border text-left transition-all hover:shadow-lg hover:-translate-y-0.5"
               style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
-              <div className="text-xs font-bold mb-2" style={{ color: accent }}>0{i + 1}</div>
-              <h4 className="text-base font-bold text-slate-800 mb-2">{b.name}</h4>
-              <p className="text-xs md:text-sm text-slate-600 leading-relaxed">{b.desc}</p>
-            </div>
+              <div className="shrink-0 w-20 h-16 rounded-xl bg-white border flex items-center justify-center overflow-hidden p-1.5" style={{ borderColor: `${accent}35` }}>
+                <img src={b.logo} alt={b.name} className="max-w-full max-h-full object-contain" />
+              </div>
+              {b.logoExtra && (
+                <div className="shrink-0 hidden sm:flex w-28 h-16 rounded-xl bg-white border items-center justify-center overflow-hidden p-1.5" style={{ borderColor: `${accent}35` }}>
+                  <img src={b.logoExtra} alt={`${b.name}文字标`} className="max-w-full max-h-full object-contain" />
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="text-base font-bold text-slate-800">{b.name}</div>
+                <p className="text-xs md:text-sm text-slate-500 leading-relaxed mt-1">{b.desc}</p>
+              </div>
+              <div className="shrink-0 text-xs font-semibold whitespace-nowrap" style={{ color: accent }}>点击进入 →</div>
+            </button>
           ))}
         </div>
       </div>
 
+      {/* 合作伙伴 Logo 墙 */}
       <div className="mb-10">
         <h3 className="text-xl font-bold text-slate-800 mb-5 flex items-center gap-3">
           <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />合作伙伴 & 生态伙伴
         </h3>
-        <div className="rounded-2xl p-5 overflow-hidden" style={{ background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(0,0,0,0.06)' }}>
-          <div className="flex gap-3 overflow-x-auto pb-2" data-lenis-prevent>
-            {PARTNERS.map((p, i) => (
-              <div key={i} className="shrink-0 px-4 py-3 rounded-xl text-sm font-semibold text-slate-700"
-                style={{ background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.06)' }}>{p}</div>
+        <div className="rounded-2xl p-5 md:p-7" style={{ background: `linear-gradient(135deg, ${accent}22, #a4c1f722)`, border: `1px solid ${accent}40` }}>
+          <p className="text-center text-xs md:text-sm text-slate-600 mb-5">
+            从头部投资机构到国内主流 AI 大厂，观猹已建立覆盖投资、技术、内容、社区的全方位生态合作网络
+          </p>
+          <div className="flex flex-wrap gap-2.5 justify-center">
+            {PARTNER_LOGOS.map((src, i) => (
+              <div key={i} className="h-14 w-32 md:h-16 md:w-36 rounded-xl bg-white flex items-center justify-center p-2.5 transition-transform hover:-translate-y-0.5"
+                style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+                <img src={src} alt={`合作伙伴 ${i + 1}`} className="max-w-full max-h-full object-contain" />
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4 pt-5 border-t" style={{ borderColor: `${accent}30` }}>
+            {PARTNER_GROUPS.map((g) => (
+              <div key={g.name}>
+                <div className="text-xs font-bold mb-1" style={{ color: accent }}>{g.name}</div>
+                <div className="text-[11px] text-slate-500 leading-relaxed">{g.items}</div>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
+      {/* 重点活动回顾：活动名 | 简介 | 图片 三列式 */}
       <div className="mb-6">
         <h3 className="text-xl font-bold text-slate-800 mb-5 flex items-center gap-3">
           <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />重点活动回顾
         </h3>
-        <div className="space-y-3">
+        <div className="rounded-2xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.08)' }}>
+          <div className="hidden md:grid grid-cols-[190px_1fr_250px] gap-5 px-5 py-3 text-sm font-bold text-slate-700"
+            style={{ background: 'rgba(0,0,0,0.035)' }}>
+            <div>活动名</div>
+            <div>简介</div>
+            <div>图片</div>
+          </div>
           {KEY_EVENTS.map((ev, i) => (
-            <div key={i} className="flex gap-4 rounded-xl p-4"
-              style={{ background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(0,0,0,0.06)' }}>
-              <div className="shrink-0 w-20 text-xs font-bold text-center pt-1" style={{ color: accent }}>{ev.time}</div>
-              <div className="flex-1">
-                <div className="text-sm font-bold text-slate-800 mb-1">{ev.name}</div>
-                <div className="text-xs text-slate-500 leading-relaxed">{ev.desc}</div>
+            <div key={i} className="grid md:grid-cols-[190px_1fr_250px] gap-3 md:gap-5 px-5 py-4 border-t"
+              style={{ borderColor: 'rgba(0,0,0,0.06)', background: i % 2 === 0 ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.6)' }}>
+              <div className="text-sm font-bold text-slate-800 leading-snug">{ev.name}</div>
+              <div className="text-xs md:text-sm text-slate-600 leading-relaxed">{ev.desc}</div>
+              <div className="flex sm:flex-row md:flex-col flex-col gap-2">
+                {ev.images.map((src, j) => {
+                  const name = decodeURIComponent(src.split('/').pop() || '').replace(/\.[^.]+$/, '');
+                  return (
+                    <figure key={j} className="flex-1 min-w-0 rounded-lg overflow-hidden border bg-white" style={{ borderColor: `${accent}30` }}>
+                      <img src={src} alt={name} className="w-full h-24 object-cover" />
+                      <figcaption className="px-2 py-1 text-[10px] text-slate-500 text-center truncate" style={{ borderTop: `1px solid ${accent}20` }}>{name}</figcaption>
+                    </figure>
+                  );
+                })}
               </div>
             </div>
           ))}
@@ -418,6 +547,150 @@ function EcosystemDetail({ accent }: { accent: string }) {
         <div className="mt-6 text-center">
           <a href="https://watcha.cn" target="_blank" rel="noreferrer" className="inline-block px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-transform hover:-translate-y-0.5" style={{ background: accent }}>前往观猹查看更多行业动态 →</a>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ============ 板块二业务详情子弹窗 ============
+
+function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: string | null; accent: string; onClose: () => void }) {
+  if (!businessId) return null;
+  const business = BUSINESSES.find((b) => b.id === businessId);
+  if (!business) return null;
+
+  const shotName = (src: string) => decodeURIComponent(src.split('/').pop() || '').replace(/\.[^.]+$/, '');
+  const bordered = { borderColor: `${accent}35` };
+
+  return (
+    <div className="watcha-detail-enter fixed inset-0 z-[130] overflow-y-auto" data-lenis-prevent ref={bindVerticalScroll}>
+      <CloseButton onClick={onClose} top="top-24" />
+      <div className="max-w-4xl mx-auto px-5 md:px-6 py-20">
+        {/* 头部：logo + 名称 + 简介 */}
+        <div className="text-center mb-8">
+          <div className="mx-auto mb-4 w-28 h-20 rounded-2xl bg-white border flex items-center justify-center p-2" style={bordered}>
+            <img src={business.logo} alt={business.name} className="max-w-full max-h-full object-contain" />
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3">{business.name}</h2>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">{business.desc}</p>
+        </div>
+
+        {/* 观猹平台详情 */}
+        {businessId === 'platform' && (
+          <>
+            <figure className="rounded-2xl overflow-hidden border mb-8 bg-white" style={bordered}>
+              <img src="/images/平台核心能力.png" alt="平台核心能力" className="w-full object-contain" />
+            </figure>
+            <div className="text-center mb-8">
+              <h3 className="text-2xl md:text-3xl font-bold" style={{ color: accent }}>五大核心板块</h3>
+            </div>
+            <h4 className="text-lg font-bold text-slate-800 mb-4">观猹平台核心功能实拍：</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              {PLATFORM_SHOTS.slice(0, 2).map((src) => (
+                <figure key={src} className="rounded-xl overflow-hidden border bg-white" style={bordered}>
+                  <img src={src} alt={shotName(src)} className="w-full h-48 object-cover" />
+                  <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>{shotName(src)}</figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {PLATFORM_SHOTS.slice(2).map((src) => (
+                <figure key={src} className="rounded-xl overflow-hidden border bg-white" style={bordered}>
+                  <img src={src} alt={shotName(src)} className="w-full h-36 object-cover" />
+                  <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>{shotName(src)}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* TokenDance 详情 */}
+        {businessId === 'tokendance' && (
+          <>
+            <h3 className="text-2xl font-bold text-center mb-6" style={{ color: accent }}>四大核心能力</h3>
+            <div className="space-y-3 mb-10">
+              {TOKEN_DANCE_ABILITIES.map((a) => (
+                <div key={a.key} className="rounded-2xl p-5 border" style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center font-black text-white shrink-0" style={{ background: accent }}>{a.key}</div>
+                    <div className="text-base font-bold text-slate-800">{a.title}</div>
+                  </div>
+                  <ul className="space-y-1">
+                    {a.points.map((p, i) => (
+                      <li key={i} className="text-sm text-slate-600 leading-relaxed flex gap-2">
+                        <span className="shrink-0" style={{ color: accent }}>•</span>{p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <h4 className="text-lg font-bold text-slate-800 mb-4">TokenDance 核心功能实拍：</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
+                <img src="/images/TokenDance 官网｜统一模型网关与多协议兼容.png" alt="TokenDance 核心功能实拍" className="w-full h-52 object-cover" />
+                <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>TokenDance 核心功能实拍</figcaption>
+              </figure>
+              <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
+                <img src="/images/平台能力｜智能路由、统一计费与容错降级.png" alt="平台能力｜智能路由、统一计费与容错降级" className="w-full h-52 object-cover" />
+                <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>平台能力｜智能路由、统一计费与容错降级</figcaption>
+              </figure>
+            </div>
+          </>
+        )}
+
+        {/* 猹与猹详情 */}
+        {businessId === 'chacha' && (
+          <>
+            <div className="space-y-3 mb-8">
+              {CHACHA_SERVICES.map((s) => (
+                <div key={s.title} className="rounded-2xl p-5 border" style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
+                  <div className="text-base font-bold text-slate-800 mb-1">{s.title}</div>
+                  <div className="text-sm text-slate-600 leading-relaxed">{s.desc}</div>
+                </div>
+              ))}
+            </div>
+            <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
+              <img src="/images/签约.png" alt="签约" className="w-full object-contain" />
+              <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>签约</figcaption>
+            </figure>
+          </>
+        )}
+
+        {/* 特工宇宙媒体详情 */}
+        {businessId === 'teagentmedia' && (
+          <>
+            <h3 className="text-2xl font-bold text-center mb-6" style={{ color: accent }}>特工宇宙业务内容</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              {TEAGENT_MEDIA_BLOCKS.map((s) => (
+                <div key={s.title} className="rounded-2xl p-5 border" style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
+                  <div className="text-base font-bold mb-2" style={{ color: accent }}>{s.title}</div>
+                  <p className="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+            <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
+              <img src="/images/知识号见面会.jpg" alt="知识号见面会" className="w-full h-64 object-cover" />
+              <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>知识号见面会</figcaption>
+            </figure>
+          </>
+        )}
+
+        {/* 环球黑客松详情 */}
+        {businessId === 'hackathon' && (
+          <>
+            <h3 className="text-xl md:text-2xl font-bold text-center mb-8" style={{ color: accent }}>环球黑客松代表站点与媒体关注：</h3>
+            <div className="space-y-9">
+              {HACKATHON_SITES.map((site) => (
+                <div key={site.title}>
+                  <h4 className="text-lg font-bold text-slate-800 mb-2">{site.title}</h4>
+                  <p className="text-sm text-slate-600 leading-relaxed mb-4">{site.desc}</p>
+                  <ImageGallery images={site.images} accent={accent} />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -671,7 +944,7 @@ function InteractiveDetail({ accent }: { accent: string }) {
 function StoryDetailPanel({ story, accent, onClose }: { story: typeof STORY_CARDS[number] | null; accent: string; onClose: () => void }) {
   if (!story) return null;
   return (
-    <div className="watcha-detail-enter fixed inset-0 z-[120] overflow-y-auto" data-lenis-prevent>
+    <div className="watcha-detail-enter fixed inset-0 z-[120] overflow-y-auto" data-lenis-prevent ref={bindVerticalScroll}>
       <CloseButton onClick={onClose} top="top-24" />
       <div className="max-w-3xl mx-auto px-5 md:px-6 py-20">
         <div className="text-center mb-8">
@@ -692,12 +965,12 @@ function StoryDetailPanel({ story, accent, onClose }: { story: typeof STORY_CARD
 
 function VisitDetailPanel({ accent, onClose }: { accent: string; onClose: () => void }) {
   return (
-    <div className="watcha-detail-enter fixed inset-0 z-[120] overflow-y-auto" data-lenis-prevent>
+    <div className="watcha-detail-enter fixed inset-0 z-[120] overflow-y-auto" data-lenis-prevent ref={bindVerticalScroll}>
       <CloseButton onClick={onClose} top="top-24" />
       <div className="max-w-3xl mx-auto px-5 md:px-6 py-20">
         <div className="text-center mb-8">
           <div className="text-5xl mb-4">🏫</div>
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3">高校 × 中学 × 青年创业团队</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3 leading-snug">杭电、学军中学领导莅临调研：共话 AI 赋能教育</h2>
           <div className="text-xs tracking-[0.3em] font-medium" style={{ color: accent }}>调研纪实 · 7 月 10 日</div>
         </div>
         <p className="text-sm md:text-base text-slate-700 leading-relaxed mb-5 font-medium">{VISIT_DETAIL.lead}</p>
@@ -721,6 +994,7 @@ export default function WatchaPage() {
   const activePanelData = PANELS.find((p) => p.id === activePanel);
   const [activeStoryId, setActiveStoryId] = useState<string | null>(null);
   const [showVisitDetail, setShowVisitDetail] = useState(false);
+  const [activeBusiness, setActiveBusiness] = useState<string | null>(null);
   const activeStory = STORY_CARDS.find((s) => s.id === activeStoryId) || null;
 
   const [vh, setVh] = useState(800);
@@ -794,16 +1068,22 @@ export default function WatchaPage() {
     };
   }, []);
 
-  // 详情弹窗打开/关闭时停止/恢复 Lenis，让详情面板原生滚动生效
+  // 详情弹窗打开/关闭时：停止 Lenis 并锁定窗口原生滚动，让弹层内部独立滚动
   useEffect(() => {
     const hasOverlay = activePanel || activeStoryId || showVisitDetail;
-    if (hasOverlay) lenisRef.current?.stop();
-    else lenisRef.current?.start();
-  }, [activePanel, activeStoryId, showVisitDetail]);
+    if (hasOverlay) {
+      lenisRef.current?.stop();
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      lenisRef.current?.start();
+      document.documentElement.style.overflow = '';
+    }
+  }, [activePanel, activeStoryId, showVisitDetail, activeBusiness]);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
+        if (activeBusiness) { setActiveBusiness(null); return; }
         if (showVisitDetail) { setShowVisitDetail(false); return; }
         if (activeStoryId) { setActiveStoryId(null); return; }
         if (activePanel) { setActivePanel(null); }
@@ -811,7 +1091,7 @@ export default function WatchaPage() {
     }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activePanel, activeStoryId, showVisitDetail]);
+  }, [activePanel, activeStoryId, showVisitDetail, activeBusiness]);
 
   return (
     <div className="relative text-slate-900">
@@ -864,7 +1144,7 @@ export default function WatchaPage() {
 
       {/* 主详情页层 */}
       {activePanelData && (
-        <div className="watcha-detail-enter fixed inset-0 z-[100] overflow-y-auto" data-lenis-prevent>
+        <div className="watcha-detail-enter fixed inset-0 z-[100] overflow-y-auto" data-lenis-prevent ref={bindVerticalScroll}>
           <CloseButton onClick={() => setActivePanel(null)} />
 
           <div className="max-w-4xl mx-auto px-5 md:px-6 py-20">
@@ -875,7 +1155,7 @@ export default function WatchaPage() {
                 onOpenStory={(id) => setActiveStoryId(id)}
                 onOpenVisit={() => setShowVisitDetail(true)} />
             )}
-            {activePanel === 'ecosystem' && <EcosystemDetail accent={activePanelData.accent} />}
+            {activePanel === 'ecosystem' && <EcosystemDetail accent={activePanelData.accent} onOpenBusiness={(id) => setActiveBusiness(id)} />}
             {activePanel === 'products' && <ProductsDetail accent={activePanelData.accent} />}
             {activePanel === 'interactive' && <InteractiveDetail accent={activePanelData.accent} />}
 
@@ -893,6 +1173,11 @@ export default function WatchaPage() {
       {/* 调研子弹窗 */}
       {activePanel === 'timeline' && activePanelData && showVisitDetail && (
         <VisitDetailPanel accent={activePanelData.accent} onClose={() => setShowVisitDetail(false)} />
+      )}
+
+      {/* 业务详情子弹窗（板块二五大业务） */}
+      {activePanel === 'ecosystem' && activePanelData && (
+        <BusinessDetailPanel businessId={activeBusiness} accent={activePanelData.accent} onClose={() => setActiveBusiness(null)} />
       )}
     </div>
   );
