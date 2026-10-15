@@ -118,7 +118,6 @@ const STORY_CARDS = [
   {
     id: 'weiyang',
     title: '成立未央学社：回应真实学习需求',
-    emoji: '📚',
     intro: '15000+ 社群，辐射全校 3w+ 师生。学业帮扶、答疑活动、学习资料共享，把散落在校园各处的学习者凝聚成真正的学习共同体。',
     paragraphs: [
       '未央学社的诞生，源于一群学生最真实的学习困惑——高数、线代、概率论以及专业课程，上课听不太懂、课后没人问、资料找不到。于是有人把课堂笔记整理成文档、有人拉群做每日答疑、有人组织线下刷题。',
@@ -130,7 +129,6 @@ const STORY_CARDS = [
   {
     id: 'fund',
     title: '设立育人基金：支持学生创新实践',
-    emoji: '🎓',
     intro: '捐赠 5 万元育人基金，支持学生科研赛事与创新实践，让更多有想法的同学能够大胆试错、勇敢创造。',
     paragraphs: [
       '2025 年初，团队向母校捐赠 5 万元，设立"AI + 思政"育人基金。',
@@ -142,7 +140,6 @@ const STORY_CARDS = [
   {
     id: 'teagent',
     title: '特工宇宙获金奖：推动校园实践走向创业',
-    emoji: '🏆',
     intro: '中国国际大学生创新大赛金奖获得者。从校园实践到全国舞台，特工宇宙用实力证明——杭电学子能做最前沿的 AI 产品。',
     paragraphs: [
       '中国国际大学生创新大赛（2025）上，"特工宇宙——领先级 AI Agent 开发平台与全链路解决方案供应商"项目获得全国金奖。',
@@ -154,7 +151,6 @@ const STORY_CARDS = [
   {
     id: 'tokens',
     title: '捐赠 2020 亿 Tokens：让 AI 资源持续回流',
-    emoji: '⚡',
     intro: '2026 年 5 月，团队向杭电捐赠 2020 亿 Tokens，支持学生尝试 Agent 产品，开展学习、项目开发和创新实践。',
     paragraphs: [
       '"2020"对应团队成员进入杭电、开启大学生活的年份。这份捐赠不只是提供一项资源，也希望让学生从了解 AI，进一步走向使用 AI、做出作品、完成项目。',
@@ -421,9 +417,8 @@ function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; 
                 {card.images[0] ? (
                   <img src={card.images[0]} alt="" className="w-full h-full object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); (window as any).__previewImage?.(e.currentTarget.src); }} />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-6xl">{card.emoji}</div>
+                  <div className="w-full h-full flex items-center justify-center" style={{ background: `${accent}15` }} />
                 )}
-                <div className="absolute top-3 left-3 text-3xl drop-shadow">{card.emoji}</div>
               </div>
               <div className="p-5">
                 <h4 className="text-base font-bold text-slate-800 mb-2 leading-snug">{card.title}</h4>
@@ -438,7 +433,7 @@ function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; 
       <button onClick={onOpenVisit}
         className="text-left w-full rounded-2xl p-6 md:p-8 transition-all hover:shadow-lg hover:-translate-y-0.5"
         style={{ background: `linear-gradient(135deg, ${accent}15, #f0e9e220)`, border: `1px dashed ${accent}60` }}>
-        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2"><span>🏫</span> 杭电、学军中学领导莅临调研：共话 AI 赋能教育</h3>
+        <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">杭电、学军中学领导莅临调研：共话 AI 赋能教育</h3>
         <p className="text-sm md:text-base text-slate-600 leading-relaxed">
           7 月 10 日 · 杭电党委书记王尧祥、党委副书记钱波，学军中学党委书记杨凯锋一行莅临观猹调研交流 · 连接中学 - 高校 - 青年创业团队
         </p>
@@ -861,7 +856,6 @@ function StoryDetailPanel({ story, accent, onClose }: { story: typeof STORY_CARD
       <CloseButton onClick={onClose} top="top-24" />
       <div className="max-w-3xl mx-auto px-5 md:px-6 py-20">
         <div className="text-center mb-8">
-          <div className="text-5xl mb-4">{story.emoji}</div>
           <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3 leading-snug">{story.title}</h2>
           <p className="text-sm md:text-base text-slate-600 leading-relaxed">{story.intro}</p>
         </div>
@@ -882,7 +876,6 @@ function VisitDetailPanel({ accent, onClose }: { accent: string; onClose: () => 
       <CloseButton onClick={onClose} top="top-24" />
       <div className="max-w-3xl mx-auto px-5 md:px-6 py-20">
         <div className="text-center mb-8">
-          <div className="text-5xl mb-4">🏫</div>
           <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3 leading-snug">杭电、学军中学领导莅临调研：共话 AI 赋能教育</h2>
           <div className="text-xs tracking-[0.3em] font-medium" style={{ color: accent }}>调研纪实 · 7 月 10 日</div>
         </div>
