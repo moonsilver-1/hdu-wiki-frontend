@@ -1078,6 +1078,16 @@ export default function WatchaPage() {
           }}
         >
           <BirdsBackground />
+          {/* 中央落款：落地页同款 logo 组合 + 白色小字（位于 sticky 垂直中心，
+              在顶部 30vh mask 渐隐区之下，不受遮罩影响） */}
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
+            <div className="mb-6 flex items-center justify-center gap-6">
+              <img src="/hdu-logo.jpg" alt="杭电校徽" className="h-16 w-16 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(255,255,255,0.6)' }} />
+              <span className="text-3xl text-white">×</span>
+              <img src="/watcha-logo.png" alt="观猹 Logo" className="h-16 w-auto object-contain" />
+            </div>
+            <p className="text-sm text-white/90 tracking-[0.35em] pl-[0.35em]">始于此方，行至远方</p>
+          </div>
         </div>
       </section>
 
