@@ -7,7 +7,6 @@ import Lenis from 'lenis';
 import WatchaCanvas from './WatchaCanvas';
 import CloudsHero from './CloudsHero';
 import BirdsBackground from './BirdsBackground';
-import VantaClouds from './VantaClouds';
 import './watcha.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -937,7 +936,7 @@ export default function WatchaPage() {
     const vw = window.innerWidth;
     const SPIRAL_RADIUS = 400;
     const STEP_Y = (vw * 0.4) / 3;
-    const START_Y_OFFSET = 50;
+    const START_Y_OFFSET = 30;
 
     const cardAngles: number[] = [];
     const cardYOffsets: number[] = [];
@@ -1033,7 +1032,7 @@ export default function WatchaPage() {
                 ref={(el) => { panelRefs.current[index] = el; }}
                 className="panel absolute left-1/2 top-1/2 flex items-center justify-center cursor-pointer"
                 onClick={() => setActivePanel(panel.id)}
-                style={{ width: '40vw', height: '56vh', transformStyle: 'preserve-3d', transformOrigin: 'center center' }}>
+                style={{ width: '40vw', height: '50vh', transformStyle: 'preserve-3d', transformOrigin: 'center center' }}>
                 <div className="glass-panel relative w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center"
                   style={{
                     background: 'rgba(255, 255, 255, 0.72)',
@@ -1059,25 +1058,26 @@ export default function WatchaPage() {
       </div>
 
       {/* 最底部：鸟群区域
-          - relative z-10 + 同色底色：盖住 fixed 全屏的雾效背景（z-0）
-          - vanta canvas 背景 alpha 0.8，容器垫同色 #96b3e1 保证视觉为纯色
+          - relative z-10：盖住 fixed 全屏的雾效背景（z-0）
+          - 顶部 45vh 背景由透明渐变到 #96b3e1：滚入时与上方雾效柔和衔接，无生硬分界线
           - sticky 钉住 + 150vh 容器：鸟群滚入后钉在视口，页面到底时视口始终被鸟群占满，
-            避免滚过鸟类区域后底部露出一条雾效 */}
-      <section className="relative z-10" style={{ height: '150vh', background: '#96b3e1' }}>
-        <div className="sticky top-0 h-screen">
+            避免滚过鸟类区域后底部露出一条雾效
+          - sticky 顶部 30vh mask 渐隐：鸟向上飞入顶部区域逐渐隐没 */}
+      <section
+        className="relative z-10"
+        style={{
+          height: '150vh',
+          background: 'linear-gradient(to bottom, transparent 0%, #96b3e1 45vh, #96b3e1 100%)',
+        }}
+      >
+        <div
+          className="sticky top-0 h-screen"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 30vh, black 100%)',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 30vh, black 100%)',
+          }}
+        >
           <BirdsBackground />
-          {/* 顶部云层：叠加在鸟群 canvas 之上，底部 mask 渐变透明，
-              鸟向上飞入云层区域被云遮住，视觉上消失在云里 */}
-          <div
-            className="absolute top-0 left-0 right-0 z-10 pointer-events-none"
-            style={{
-              height: '55vh',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-            }}
-          >
-            <VantaClouds />
-          </div>
         </div>
       </section>
 
