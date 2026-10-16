@@ -67,8 +67,10 @@ export default function BirdsBackground() {
         mouseControls: true,
         touchControls: true,
         gyroControls: false,
-        scale: 1.0,
-        scaleMobile: 1.0,
+        // scale 是渲染分辨率除数（pixelRatio = DPR/scale），值越大越省性能但越模糊。
+        // CPU 模式的鸟群本身已很吃 CPU，这里同样取 2.0 折中。
+        scale: 2.0,
+        scaleMobile: 2.0,
         // 配色（按设计稿参数面板）
         backgroundColor: 0x96b3e1, // 淡蓝背景
         backgroundAlpha: 0.8,

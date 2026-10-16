@@ -48,9 +48,10 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
       sunColor: 0xff9919,
       sunGlareColor: 0xff6633,
       sunlightColor: 0xff9933,
-      // vanta 的 scale 是渲染分辨率除数（pixelRatio = DPR/scale），默认 3 即 1/3
-      // 分辨率渲染后拉伸放大，云层会模糊。设为 1 全分辨率渲染保证清晰。
-      scale: 1.0,
+      // vanta 的 scale 是渲染分辨率除数（pixelRatio = DPR/scale），值越大分辨率越低、越省性能但越模糊。
+      // 默认 3 = 1/3 分辨率（糊），1 = 全分辨率（清晰但吃满 GPU）。
+      // 页面同时跑雾效 shader + CLOUDS + BIRDS 三个全屏 WebGL，取 2.0 折中：清晰度可接受，GPU 负载降为 1/4。
+      scale: 2.0,
       scaleMobile: 2.0,
       speed: 1.0,
     });
