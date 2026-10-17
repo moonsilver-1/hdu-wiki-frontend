@@ -121,18 +121,20 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
       <div className="relative z-[30] flex flex-col items-center justify-center h-screen text-center px-6">
         {/* 小标签 */}
         <div
-          className="mb-6 px-4 py-1.5 rounded-full text-xs tracking-[0.3em] uppercase font-medium"
+          className="wc-focus-in-expand wc-anim-delay-1 mb-6 px-4 py-1.5 rounded-full text-xs uppercase font-medium"
           style={{
             background: 'rgba(255, 255, 255, 0.2)',
             color: '#fff',
             border: '1px solid rgba(255, 255, 255, 0.4)',
+            letterSpacing: '0.3em',
+            ['--wc-target-tracking' as string]: '0.3em',
           }}
         >
           观猹学社 × 杭州电子科技大学
         </div>
 
         {/* Logo 组合 */}
-        <div className="mb-8 flex items-center justify-center gap-6">
+        <div className="wc-focus-in-expand-img wc-anim-delay-2 mb-8 flex items-center justify-center gap-6">
           <img src="/hdu-logo.jpg" alt="杭电校徽" className="h-16 w-16 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(255,255,255,0.6)' }} />
           <span className="text-3xl" style={{ color: '#fff' }}>×</span>
           <img src="/watcha-logo.png" alt="观猹 Logo" className="h-16 w-auto object-contain" />
@@ -140,10 +142,11 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
 
         {/* 主标题 */}
         <h1
-          className="text-6xl md:text-8xl font-black mb-6 tracking-tight text-center px-4"
+          className="wc-focus-in-expand wc-anim-delay-3 text-6xl md:text-8xl font-black mb-6 text-center px-4"
           style={{
             color: '#fff',
             letterSpacing: '0.05em',
+            ['--wc-target-tracking' as string]: '0.05em',
           }}
         >
           观猹文化墙
@@ -151,9 +154,11 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
 
         {/* 副标题 */}
         <p
-          className="text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-12 text-center px-4"
+          className="wc-focus-in-expand wc-anim-delay-4 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-12 text-center px-4"
           style={{
             color: '#fff',
+            letterSpacing: 'normal',
+            ['--wc-target-tracking' as string]: '0',
           }}
         >
           校企共建 AI 育人生态 · 从校园萌芽到产业回流 · 沉浸式互动体验
@@ -165,16 +170,18 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
           className="group absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
           style={{ color: 'rgba(255, 255, 255, 0.8)' }}
         >
-          <span className="text-xs tracking-[0.3em] uppercase">向下探索</span>
-          <div
-            className="w-6 h-10 rounded-full border-2 flex justify-center pt-2"
-            style={{ borderColor: 'rgba(255, 255, 255, 0.6)' }}
-          >
-            <div
-              className="w-1 h-2 rounded-full animate-bounce"
-              style={{ background: 'rgba(255, 255, 255, 0.8)' }}
-            />
-          </div>
+          <span className="wc-focus-in-expand-img wc-anim-delay-5 flex flex-col items-center gap-2">
+            <span className="text-xs tracking-[0.3em] uppercase">向下探索</span>
+            <span
+              className="w-6 h-10 rounded-full border-2 flex justify-center pt-2"
+              style={{ borderColor: 'rgba(255, 255, 255, 0.6)' }}
+            >
+              <span
+                className="w-1 h-2 rounded-full animate-bounce block"
+                style={{ background: 'rgba(255, 255, 255, 0.8)' }}
+              />
+            </span>
+          </span>
         </button>
       </div>
 

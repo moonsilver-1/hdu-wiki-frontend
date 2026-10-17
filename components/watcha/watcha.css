@@ -1,3 +1,55 @@
+/* ========== 落地页入场：聚焦扩展（Animista focus-in-expand，FreeBSD）========== */
+
+/* 文字版：字间距从 -0.5em 收拢状态展开 + 模糊聚焦 */
+@keyframes wc-focus-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    letter-spacing: var(--wc-target-tracking, 0.05em);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.wc-focus-in-expand {
+  animation: wc-focus-in-expand 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* 图片/Logo 版：放大聚焦（无 letter-spacing） */
+@keyframes wc-focus-in-expand-img {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.wc-focus-in-expand-img {
+  animation: wc-focus-in-expand-img 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* 入场延迟编排 */
+.wc-anim-delay-1 { animation-delay: 0.1s; }
+.wc-anim-delay-2 { animation-delay: 0.25s; }
+.wc-anim-delay-3 { animation-delay: 0.45s; }
+.wc-anim-delay-4 { animation-delay: 0.65s; }
+.wc-anim-delay-5 { animation-delay: 0.9s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wc-focus-in-expand,
+  .wc-focus-in-expand-img {
+    animation: none;
+  }
+}
+
 /* ========== 液态玻璃导航栏（浅色版）========== */
 
 /* ========== 导航链接悬停光边 ========== */
