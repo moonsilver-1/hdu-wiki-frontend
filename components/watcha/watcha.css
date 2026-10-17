@@ -195,6 +195,12 @@
   background: linear-gradient(180deg, transparent 0%, rgba(163, 193, 247, 0.3) 50%, #a4c1f7 100%);
 }
 
+/* ========== 玻璃卡片：磁吸效果 GPU 合成层 ========== */
+
+.glass-panel {
+  will-change: transform;
+}
+
 /* ========== 详情页淡入动画 ========== */
 .watcha-detail-enter {
   background: rgba(252, 244, 231, 0.85);
