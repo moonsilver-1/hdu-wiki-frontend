@@ -907,6 +907,68 @@ export default function WatchaPage() {
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const activeStory = STORY_CARDS.find((s) => s.id === activeStoryId) || null;
 
+  // ============ 气球入场：从底部依次弹性升起 ============
+
+  useEffect(() => {
+    const layer = document.querySelector<HTMLElement>('.wc-balloon-layer');
+    if (!layer) return;
+
+    const accents = ['#67e0ed', '#a4c1f7', '#f472b6', '#ffb38a'];
+    const balloons: HTMLElement[] = [];
+
+    for (let i = 0; i < 8; i++) {
+      const balloon = document.createElement('div');
+      balloon.className = 'wc-balloon';
+
+      const size = 40 + Math.random() * 50; // 40-90px
+      const color = accents[i % accents.length];
+
+      // 避开中央 40%（卡片区域），气球分布在左右两侧
+      let left: number;
+      if (i % 2 === 0) {
+        left = 5 + Math.random() * 20; // 左侧 5-25%
+      } else {
+        left = 75 + Math.random() * 20; // 右侧 75-95%
+      }
+      const top = 15 + Math.random() * 60; // 15-75% 高度
+
+      balloon.style.cssText = `
+        width: ${size}px;
+        height: ${size * 1.2}px;
+        left: ${left}%;
+        top: ${top}%;
+        background: ${color};
+        animation-delay: ${-Math.random() * 3}s;
+        opacity: 0;
+      `;
+
+      const shine = document.createElement('div');
+      shine.className = 'wc-balloon-shine';
+      balloon.appendChild(shine);
+
+      layer.appendChild(balloon);
+      balloons.push(balloon);
+    }
+
+    // 依次弹性升起
+    balloons.forEach((balloon, i) => {
+      gsap.fromTo(balloon,
+        { y: window.innerHeight, opacity: 0 },
+        {
+          y: 0,
+          opacity: 0.35,
+          duration: 2.5,
+          delay: 0.3 + i * 0.4,
+          ease: 'elastic.out(1, 0.5)',
+        }
+      );
+    });
+
+    return () => {
+      balloons.forEach(b => b.remove());
+    };
+  }, []);
+
   // ============ 磁吸效果：卡片向鼠标轻微偏移，离开弹回 ============
 
   // SVG 水波滤镜 ID（避免与页面其他 SVG 冲突）
@@ -1122,6 +1184,7 @@ export default function WatchaPage() {
         <div className="carousel sticky top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center"
           onPointerMove={handleCarouselPointerMove}
           style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}>
+          <div className="wc-balloon-layer" />
           <div className="wc-ripple-layer" />
           <div ref={cylinderRef} className="cylinder relative"
             style={{ width: '100%', height: '100%', transformStyle: 'preserve-3d', willChange: 'transform', zIndex: 1 }}>
