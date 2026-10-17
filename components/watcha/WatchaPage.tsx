@@ -937,7 +937,7 @@ export default function WatchaPage() {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    if (last && now - last.t < 80 && Math.hypot(x - last.x, y - last.y) < 40) return;
+    if (last && now - last.t < 200 && Math.hypot(x - last.x, y - last.y) < 60) return;
     (container as unknown as { _lastRipple?: { x: number; y: number; t: number } })._lastRipple = { x, y, t: now };
     spawnRipple(x, y, container);
   }
