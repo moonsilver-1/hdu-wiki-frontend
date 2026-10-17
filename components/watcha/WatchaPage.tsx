@@ -915,12 +915,15 @@ export default function WatchaPage() {
 
     const N = 8;
     const balloons: HTMLElement[] = [];
+    // 白色为主，掺少量淡蓝色气球
+    const COLORS = ['#ffffff', '#ffffff', '#ffffff', '#cfe3fd', '#dbeafe'];
 
     for (let i = 0; i < N; i++) {
       const balloon = document.createElement('div');
       balloon.className = 'wc-balloon';
 
       const size = 40 + Math.random() * 50; // 40-90px
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
 
       // 均匀分布在整个页面宽度（5-95%），加 ±3% 随机抖动避免过于规整
       const left = 5 + (i / N) * 90 + (Math.random() * 6 - 3);
@@ -930,8 +933,8 @@ export default function WatchaPage() {
         height: ${size * 1.2}px;
         left: ${left}%;
         top: 0;
-        background: #ffffff;
-        --balloon-color: #ffffff;
+        background: ${color};
+        --balloon-color: ${color};
         opacity: 0.85;
       `;
 
