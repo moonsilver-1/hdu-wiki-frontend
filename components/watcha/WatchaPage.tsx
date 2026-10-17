@@ -908,6 +908,45 @@ export default function WatchaPage() {
 
   // ============ 磁吸效果：卡片向鼠标轻微偏移，离开弹回 ============
 
+  // SVG 水波滤镜 ID（避免与页面其他 SVG 冲突）
+  const RIPPLE_FILTER_ID = 'wc-water-ripple';
+
+  function spawnRipple(x: number, y: number, container: HTMLElement) {
+    const ripple = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    ripple.setAttribute('class', 'wc-ripple-svg');
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    ripple.innerHTML = `
+      <g filter="url(#${RIPPLE_FILTER_ID})">
+        <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(103,224,237,0.35)" stroke-width="1.5" />
+        <circle cx="100" cy="100" r="65" fill="none" stroke="rgba(164,193,247,0.25)" stroke-width="1" />
+        <circle cx="100" cy="100" r="45" fill="none" stroke="rgba(244,114,182,0.15)" stroke-width="1" />
+        <circle cx="100" cy="100" r="25" fill="none" stroke="rgba(255,179,138,0.1)" stroke-width="1" />
+      </g>
+    `;
+    container.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 1200);
+  }
+
+  function handleWaterRipple(e: ReactPointerEvent<HTMLDivElement>) {
+    const container = e.currentTarget.querySelector<HTMLElement>('.wc-ripple-layer');
+    if (!container) return;
+    // 节流：与上次涟漪距离太近则跳过
+    const last = (container as unknown as { _lastRipple?: { x: number; y: number; t: number } })._lastRipple;
+    const now = Date.now();
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (last && now - last.t < 80 && Math.hypot(x - last.x, y - last.y) < 40) return;
+    (container as unknown as { _lastRipple?: { x: number; y: number; t: number } })._lastRipple = { x, y, t: now };
+    spawnRipple(x, y, container);
+  }
+
+  function handleCarouselPointerMove(e: ReactPointerEvent<HTMLDivElement>) {
+    handleCarouselGlow(e);
+    handleWaterRipple(e);
+  }
+
   function handleMagneticMove(e: ReactPointerEvent<HTMLDivElement>) {
     const glassPanel = e.currentTarget.querySelector<HTMLElement>('.glass-panel');
     if (!glassPanel) return;
@@ -1046,6 +1085,17 @@ export default function WatchaPage() {
 
   return (
     <div className="relative text-slate-900">
+      {/* 隐藏的 SVG 水波滤镜定义 */}
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <filter id={RIPPLE_FILTER_ID} x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="2" result="turbulence" seed="3">
+              <animate attributeName="baseFrequency" dur="8s" values="0.015;0.025;0.015" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="12" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
       <WatchaCanvas />
       <CloudsHero />
 
@@ -1060,8 +1110,9 @@ export default function WatchaPage() {
       <div className="carousel-wrapper relative"
         style={{ height: '600vh', opacity: activePanel ? 0 : 1, pointerEvents: activePanel ? 'none' : 'auto', transition: 'opacity 0.5s ease' }}>
         <div className="carousel sticky top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center"
-          onPointerMove={handleCarouselGlow}
+          onPointerMove={handleCarouselPointerMove}
           style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}>
+          <div className="wc-ripple-layer" />
           <div ref={cylinderRef} className="cylinder relative"
             style={{ width: '100%', height: '100%', transformStyle: 'preserve-3d', willChange: 'transform', zIndex: 1 }}>
             {PANELS.map((panel, index) => (

@@ -271,6 +271,39 @@
   opacity: 1;
 }
 
+/* ========== 水波涟漪：鼠标跟随扩散圆环 ========== */
+
+.wc-ripple-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.wc-ripple-svg {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%) scale(0.3);
+  animation: wc-ripple-expand 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes wc-ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
 /* ========== 卡片悬停顶边光晕 ========== */
 
 .glass-panel::after {
