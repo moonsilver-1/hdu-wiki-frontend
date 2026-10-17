@@ -1,5 +1,36 @@
 /* ========== 液态玻璃导航栏（浅色版）========== */
 
+/* ========== 导航链接悬停光边 ========== */
+
+.nav-glow-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav-glow-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 2px;
+  background: var(--glow-color, #67e0ed);
+  border-radius: 2px;
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.35s ease,
+              box-shadow 0.35s ease;
+  pointer-events: none;
+}
+
+.nav-glow-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+  box-shadow: 0 0 6px var(--glow-color, #67e0ed),
+              0 0 16px var(--glow-color, #67e0ed);
+}
+
 .liquid-glass {
   background: rgba(255, 255, 255, 0.6);
   background-blend-mode: luminosity;
@@ -238,6 +269,29 @@
 
 .panel:hover .glass-panel::before {
   opacity: 1;
+}
+
+/* ========== 卡片悬停顶边光晕 ========== */
+
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--card-accent, #67e0ed), transparent);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.4s ease, box-shadow 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.panel:hover .glass-panel::after {
+  opacity: 1;
+  box-shadow: 0 0 10px var(--card-accent, #67e0ed),
+              0 0 25px var(--card-accent, #67e0ed);
 }
 
 /* ========== 详情页淡入动画 ========== */

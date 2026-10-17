@@ -1051,10 +1051,10 @@ export default function WatchaPage() {
 
       <nav className="liquid-glass fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-6 rounded-full px-7 py-2.5 text-sm font-medium text-slate-700">
         <div className="font-bold text-slate-900">观猹文化墙</div>
-        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('timeline')}>校企共建</div>
-        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('ecosystem')}>观猹生态</div>
-        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('products')}>产品馆</div>
-        <div className="text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" onClick={() => setActivePanel('interactive')}>互动</div>
+        <div className="nav-glow-link text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" style={{ '--glow-color': '#67e0ed' } as CSSProperties} onClick={() => setActivePanel('timeline')}>校企共建</div>
+        <div className="nav-glow-link text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" style={{ '--glow-color': '#a4c1f7' } as CSSProperties} onClick={() => setActivePanel('ecosystem')}>观猹生态</div>
+        <div className="nav-glow-link text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" style={{ '--glow-color': '#f472b6' } as CSSProperties} onClick={() => setActivePanel('products')}>产品馆</div>
+        <div className="nav-glow-link text-slate-500 hover:text-slate-900 cursor-pointer transition-colors" style={{ '--glow-color': '#ffb38a' } as CSSProperties} onClick={() => setActivePanel('interactive')}>互动</div>
       </nav>
 
       <div className="carousel-wrapper relative"
