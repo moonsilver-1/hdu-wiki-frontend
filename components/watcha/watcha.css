@@ -357,6 +357,10 @@
   will-change: transform;
   box-shadow: inset -6px -6px 14px rgba(120, 150, 200, 0.18),
               0 6px 18px rgba(120, 150, 200, 0.15);
+  /* 可拖拽交互（层容器是 pointer-events:none，单个气球打开） */
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
 }
 
 .wc-balloon::before {

@@ -946,26 +946,85 @@ export default function WatchaPage() {
       balloons.push(balloon);
     }
 
-    // 线性匀速缓慢升起：从层底部（屏外）→ 顶部（屏外），repeat -1 自动循环。
-    // 负延迟错开初始进度，保证任意时刻都有气球分布在不同高度。
+    // 递归式上升循环：升到顶 → 回到底部重新开始。
+    // 不用 repeat:-1 是为了拖拽松手后能从当前位置接着升。
     const layerH = layer.clientHeight || window.innerHeight;
-    const tweens = balloons.map((balloon, i) => {
+    const riseTweens = new Map<HTMLElement, gsap.core.Tween>();
+
+    const startRise = (balloon: HTMLElement, fromY: number) => {
       const h = balloon.offsetHeight;
-      const duration = 22 + Math.random() * 8; // 22-30s 飘过一屏
-      return gsap.fromTo(balloon,
-        { y: layerH + h },
-        {
-          y: -h,
-          duration,
-          ease: 'none',
-          repeat: -1,
-          delay: -(i / N) * duration,
-        }
-      );
+      const total = layerH + 2 * h; // 全程距离（屏底→屏顶）
+      const target = -h;
+      const duration = 26 * ((fromY - target) / total); // 按剩余距离等比缩短
+      const tween = gsap.to(balloon, {
+        y: target,
+        duration,
+        ease: 'none',
+        onComplete: () => {
+          if (!balloon.isConnected) return;
+          gsap.set(balloon, { y: layerH + h, x: 0 });
+          riseTweens.set(balloon, startRise(balloon, layerH + h));
+        },
+      });
+      riseTweens.set(balloon, tween);
+      return tween;
+    };
+
+    // 初始：负向错开起始高度，任意时刻气球分布在不同高度
+    balloons.forEach((balloon, i) => {
+      const h = balloon.offsetHeight;
+      const total = layerH + 2 * h;
+      const fromY = layerH + h - (i / N) * total;
+      gsap.set(balloon, { y: fromY });
+      startRise(balloon, fromY);
+    });
+
+    // 交互：可拖拽，松手后水平弹性回原位、从当前高度继续上升
+    const dragCleanups = balloons.map((balloon) => {
+      let dragging = false;
+      let startX = 0, startY = 0, baseX = 0, baseY = 0;
+
+      const onDown = (e: PointerEvent) => {
+        dragging = true;
+        riseTweens.get(balloon)?.pause();
+        startX = e.clientX; startY = e.clientY;
+        baseX = Number(gsap.getProperty(balloon, 'x'));
+        baseY = Number(gsap.getProperty(balloon, 'y'));
+        balloon.setPointerCapture(e.pointerId);
+        balloon.style.cursor = 'grabbing';
+      };
+      const onMove = (e: PointerEvent) => {
+        if (!dragging) return;
+        gsap.set(balloon, {
+          x: baseX + (e.clientX - startX),
+          y: baseY + (e.clientY - startY),
+        });
+      };
+      const onUp = () => {
+        if (!dragging) return;
+        dragging = false;
+        balloon.style.cursor = 'grab';
+        // 水平弹回原列；垂直从当前位置继续上升
+        gsap.to(balloon, { x: 0, duration: 1.2, ease: 'elastic.out(1, 0.5)' });
+        riseTweens.get(balloon)?.kill();
+        startRise(balloon, Number(gsap.getProperty(balloon, 'y')));
+      };
+
+      balloon.addEventListener('pointerdown', onDown);
+      balloon.addEventListener('pointermove', onMove);
+      balloon.addEventListener('pointerup', onUp);
+      balloon.addEventListener('pointercancel', onUp);
+      return () => {
+        balloon.removeEventListener('pointerdown', onDown);
+        balloon.removeEventListener('pointermove', onMove);
+        balloon.removeEventListener('pointerup', onUp);
+        balloon.removeEventListener('pointercancel', onUp);
+      };
     });
 
     return () => {
-      tweens.forEach(t => t.kill());
+      dragCleanups.forEach(fn => fn());
+      riseTweens.forEach(t => t.kill());
       balloons.forEach(b => b.remove());
     };
   }, []);
