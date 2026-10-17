@@ -913,7 +913,6 @@ export default function WatchaPage() {
     const layer = document.querySelector<HTMLElement>('.wc-balloon-layer');
     if (!layer) return;
 
-    const accents = ['#67e0ed', '#a4c1f7', '#f472b6', '#ffb38a'];
     const balloons: HTMLElement[] = [];
 
     for (let i = 0; i < 8; i++) {
@@ -921,7 +920,6 @@ export default function WatchaPage() {
       balloon.className = 'wc-balloon';
 
       const size = 40 + Math.random() * 50; // 40-90px
-      const color = accents[i % accents.length];
 
       // 避开中央 40%（卡片区域），气球分布在左右两侧
       let left: number;
@@ -937,8 +935,8 @@ export default function WatchaPage() {
         height: ${size * 1.2}px;
         left: ${left}%;
         top: ${top}%;
-        background: ${color};
-        animation-delay: ${-Math.random() * 3}s;
+        background: #ffffff;
+        --balloon-color: #ffffff;
         opacity: 0;
       `;
 
@@ -950,21 +948,45 @@ export default function WatchaPage() {
       balloons.push(balloon);
     }
 
-    // 依次弹性升起
-    balloons.forEach((balloon, i) => {
-      gsap.fromTo(balloon,
-        { y: window.innerHeight, opacity: 0 },
-        {
-          y: 0,
-          opacity: 0.35,
-          duration: 2.5,
-          delay: 0.3 + i * 0.4,
-          ease: 'elastic.out(1, 0.5)',
-        }
-      );
+    // 初始位置：视口下方（滚入木马区前藏好）
+    gsap.set(balloons, { y: window.innerHeight, opacity: 0 });
+
+    // 滚入木马区时依次弹性升起；滚回上方则重置，再次进入可重播
+    const st = ScrollTrigger.create({
+      trigger: '.carousel-wrapper',
+      start: 'top 80%',
+      onEnter: () => {
+        balloons.forEach((balloon, i) => {
+          gsap.to(balloon, {
+            y: 0,
+            opacity: 0.85,
+            duration: 2.5,
+            delay: 0.3 + i * 0.4,
+            ease: 'elastic.out(1, 0.5)',
+            overwrite: true,
+            onComplete: () => {
+              // 升起结束后进入轻微上下漂浮
+              gsap.to(balloon, {
+                y: -10 - Math.random() * 8,
+                duration: 1.6 + Math.random() * 1.2,
+                yoyo: true,
+                repeat: -1,
+                ease: 'sine.inOut',
+              });
+            },
+          });
+        });
+      },
+      onLeaveBack: () => {
+        balloons.forEach((balloon) => {
+          gsap.killTweensOf(balloon);
+          gsap.set(balloon, { y: window.innerHeight, opacity: 0 });
+        });
+      },
     });
 
     return () => {
+      st.kill();
       balloons.forEach(b => b.remove());
     };
   }, []);

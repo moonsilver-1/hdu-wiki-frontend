@@ -351,8 +351,9 @@
 .wc-balloon {
   position: absolute;
   border-radius: 80% 80% 80% 80%;
-  animation: wc-balloon-float 3s ease-in-out infinite;
   will-change: transform;
+  box-shadow: inset -6px -6px 14px rgba(120, 150, 200, 0.18),
+              0 6px 18px rgba(120, 150, 200, 0.15);
 }
 
 .wc-balloon::before {
@@ -373,7 +374,7 @@
   transform: translateX(-50%);
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 6px solid;
+  border-bottom: 6px solid var(--balloon-color, #fff);
 }
 
 .wc-balloon .wc-balloon-shine {
@@ -381,11 +382,6 @@
   inset: 0;
   border-radius: inherit;
   background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
-}
-
-@keyframes wc-balloon-float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-0.5rem) rotate(1deg); }
 }
 
 /* ========== 水波涟漪：鼠标跟随扩散圆环 ========== */
