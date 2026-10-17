@@ -922,13 +922,8 @@ export default function WatchaPage() {
 
       const size = 40 + Math.random() * 50; // 40-90px
 
-      // 避开中央 40%（卡片区域），气球分布在左右两侧
-      let left: number;
-      if (i % 2 === 0) {
-        left = 5 + Math.random() * 20; // 左侧 5-25%
-      } else {
-        left = 75 + Math.random() * 20; // 右侧 75-95%
-      }
+      // 均匀分布在整个页面宽度（5-95%），加 ±3% 随机抖动避免过于规整
+      const left = 5 + (i / N) * 90 + (Math.random() * 6 - 3);
 
       balloon.style.cssText = `
         width: ${size}px;
@@ -1201,10 +1196,11 @@ export default function WatchaPage() {
                 style={{ width: '40vw', height: '50vh', transformStyle: 'preserve-3d', transformOrigin: 'center center' }}>
                 <div className="glass-panel relative w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.72)',
+                    // 背景不透明度调高（0.72→0.9）：气球全宽分布后会从卡片背后飘过，挡住以防干扰文字
+                    background: 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.85)',
+                    border: '1px solid rgba(255, 255, 255, 0.95)',
                     boxShadow: '0 8px 32px rgba(103, 224, 237, 0.15), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
                     '--card-accent': panel.accent,
                   } as CSSProperties}>
