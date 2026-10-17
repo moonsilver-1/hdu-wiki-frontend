@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import type { PointerEvent as ReactPointerEvent } from 'react';
+import type { PointerEvent as ReactPointerEvent, CSSProperties } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Lenis from 'lenis';
@@ -912,17 +912,33 @@ export default function WatchaPage() {
     const glassPanel = e.currentTarget.querySelector<HTMLElement>('.glass-panel');
     if (!glassPanel) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const offsetX = (e.clientX - rect.left - rect.width / 2) * 0.18;
-    const offsetY = (e.clientY - rect.top - rect.height / 2) * 0.18;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // 磁吸偏移
+    const offsetX = (mouseX - rect.width / 2) * 0.18;
+    const offsetY = (mouseY - rect.height / 2) * 0.18;
     const clampedX = Math.max(-9, Math.min(9, offsetX));
     const clampedY = Math.max(-9, Math.min(9, offsetY));
     gsap.to(glassPanel, { x: clampedX, y: clampedY, scale: 1.02, duration: 0.6, ease: 'power3.out' });
+
+    // 追光：更新 CSS 变量驱动光斑位置
+    glassPanel.style.setProperty('--mx', `${mouseX}px`);
+    glassPanel.style.setProperty('--my', `${mouseY}px`);
   }
 
   function handleMagneticLeave(e: ReactPointerEvent<HTMLDivElement>) {
     const glassPanel = e.currentTarget.querySelector<HTMLElement>('.glass-panel');
     if (!glassPanel) return;
     gsap.to(glassPanel, { x: 0, y: 0, scale: 1, duration: 1.8, ease: 'elastic.out(1, 0.35)' });
+  }
+
+  // 区域级追光：整个木马区背景跟随鼠标的柔光
+  function handleCarouselGlow(e: ReactPointerEvent<HTMLDivElement>) {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty('--gx', `${e.clientX - rect.left}px`);
+    el.style.setProperty('--gy', `${e.clientY - rect.top}px`);
   }
 
   // 全局图片预览：让子组件里的 img 能触发主组件的预览层
@@ -1044,9 +1060,10 @@ export default function WatchaPage() {
       <div className="carousel-wrapper relative"
         style={{ height: '600vh', opacity: activePanel ? 0 : 1, pointerEvents: activePanel ? 'none' : 'auto', transition: 'opacity 0.5s ease' }}>
         <div className="carousel sticky top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center"
+          onPointerMove={handleCarouselGlow}
           style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}>
           <div ref={cylinderRef} className="cylinder relative"
-            style={{ width: '100%', height: '100%', transformStyle: 'preserve-3d', willChange: 'transform' }}>
+            style={{ width: '100%', height: '100%', transformStyle: 'preserve-3d', willChange: 'transform', zIndex: 1 }}>
             {PANELS.map((panel, index) => (
               <div key={panel.id}
                 ref={(el) => { panelRefs.current[index] = el; }}
@@ -1062,7 +1079,8 @@ export default function WatchaPage() {
                     WebkitBackdropFilter: 'blur(20px)',
                     border: '1px solid rgba(255, 255, 255, 0.85)',
                     boxShadow: '0 8px 32px rgba(103, 224, 237, 0.15), 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
-                  }}>
+                    '--card-accent': panel.accent,
+                  } as CSSProperties}>
                   <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full opacity-30 blur-2xl" style={{ backgroundColor: panel.accent }} />
                   <div className="absolute -bottom-8 -left-8 w-20 h-20 rounded-full opacity-20 blur-2xl" style={{ backgroundColor: panel.accent }} />
                   <div className="mb-3 text-xs tracking-[0.3em] uppercase font-medium" style={{ color: panel.accent }}>{panel.num}</div>
