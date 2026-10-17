@@ -914,15 +914,15 @@ export default function WatchaPage() {
     const rect = e.currentTarget.getBoundingClientRect();
     const offsetX = (e.clientX - rect.left - rect.width / 2) * 0.18;
     const offsetY = (e.clientY - rect.top - rect.height / 2) * 0.18;
-    const clampedX = Math.max(-18, Math.min(18, offsetX));
-    const clampedY = Math.max(-18, Math.min(18, offsetY));
+    const clampedX = Math.max(-9, Math.min(9, offsetX));
+    const clampedY = Math.max(-9, Math.min(9, offsetY));
     gsap.to(glassPanel, { x: clampedX, y: clampedY, scale: 1.02, duration: 0.6, ease: 'power3.out' });
   }
 
   function handleMagneticLeave(e: ReactPointerEvent<HTMLDivElement>) {
     const glassPanel = e.currentTarget.querySelector<HTMLElement>('.glass-panel');
     if (!glassPanel) return;
-    gsap.to(glassPanel, { x: 0, y: 0, scale: 1, duration: 0.9, ease: 'elastic.out(1, 0.35)' });
+    gsap.to(glassPanel, { x: 0, y: 0, scale: 1, duration: 1.8, ease: 'elastic.out(1, 0.35)' });
   }
 
   // 全局图片预览：让子组件里的 img 能触发主组件的预览层
