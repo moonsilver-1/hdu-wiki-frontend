@@ -930,7 +930,7 @@ export default function WatchaPage() {
   function handleMagneticLeave(e: ReactPointerEvent<HTMLDivElement>) {
     const glassPanel = e.currentTarget.querySelector<HTMLElement>('.glass-panel');
     if (!glassPanel) return;
-    gsap.to(glassPanel, { x: 0, y: 0, scale: 1, duration: 1.8, ease: 'elastic.out(1, 0.35)' });
+    gsap.to(glassPanel, { x: 0, y: 0, scale: 1, duration: 1.2, ease: 'power3.out' });
   }
 
   // 区域级追光：整个木马区背景跟随鼠标的柔光

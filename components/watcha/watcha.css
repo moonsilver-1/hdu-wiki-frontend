@@ -26,9 +26,9 @@
 
 .nav-glow-link:hover::after {
   transform: translateX(-50%) scaleX(1);
-  opacity: 1;
-  box-shadow: 0 0 6px var(--glow-color, #67e0ed),
-              0 0 16px var(--glow-color, #67e0ed);
+  opacity: 0.5;
+  box-shadow: 0 0 3px var(--glow-color, #67e0ed),
+              0 0 8px var(--glow-color, #67e0ed);
 }
 
 .liquid-glass {
@@ -289,9 +289,9 @@
 }
 
 .panel:hover .glass-panel::after {
-  opacity: 1;
-  box-shadow: 0 0 10px var(--card-accent, #67e0ed),
-              0 0 25px var(--card-accent, #67e0ed);
+  opacity: 0.4;
+  box-shadow: 0 0 5px var(--card-accent, #67e0ed),
+              0 0 12px var(--card-accent, #67e0ed);
 }
 
 /* ========== 详情页淡入动画 ========== */
