@@ -979,51 +979,24 @@ export default function WatchaPage() {
       startRise(balloon, fromY);
     });
 
-    // 交互：可拖拽，松手后水平弹性回原位、从当前高度继续上升
-    const dragCleanups = balloons.map((balloon) => {
-      let dragging = false;
-      let startX = 0, startY = 0, baseX = 0, baseY = 0;
-
-      const onDown = (e: PointerEvent) => {
-        dragging = true;
-        riseTweens.get(balloon)?.pause();
-        startX = e.clientX; startY = e.clientY;
-        baseX = Number(gsap.getProperty(balloon, 'x'));
-        baseY = Number(gsap.getProperty(balloon, 'y'));
-        balloon.setPointerCapture(e.pointerId);
-        balloon.style.cursor = 'grabbing';
+    // 交互：鼠标靠近时气球往旁边闪开（不弹回，停在新位置继续上升）
+    const dodgeCleanups = balloons.map((balloon) => {
+      const onEnter = (e: PointerEvent) => {
+        const rect = balloon.getBoundingClientRect();
+        const balloonCx = rect.left + rect.width / 2;
+        // 往远离鼠标的一侧闪避
+        const dir = e.clientX < balloonCx ? 1 : -1;
+        const currentX = Number(gsap.getProperty(balloon, 'x'));
+        // 钳制在 ±240px 内，防止多次闪避飞出屏幕
+        const targetX = Math.max(-240, Math.min(240, currentX + dir * (80 + Math.random() * 60)));
+        gsap.to(balloon, { x: targetX, duration: 0.8, ease: 'power2.out', overwrite: 'auto' });
       };
-      const onMove = (e: PointerEvent) => {
-        if (!dragging) return;
-        gsap.set(balloon, {
-          x: baseX + (e.clientX - startX),
-          y: baseY + (e.clientY - startY),
-        });
-      };
-      const onUp = () => {
-        if (!dragging) return;
-        dragging = false;
-        balloon.style.cursor = 'grab';
-        // 水平弹回原列；垂直从当前位置继续上升
-        gsap.to(balloon, { x: 0, duration: 1.2, ease: 'elastic.out(1, 0.5)' });
-        riseTweens.get(balloon)?.kill();
-        startRise(balloon, Number(gsap.getProperty(balloon, 'y')));
-      };
-
-      balloon.addEventListener('pointerdown', onDown);
-      balloon.addEventListener('pointermove', onMove);
-      balloon.addEventListener('pointerup', onUp);
-      balloon.addEventListener('pointercancel', onUp);
-      return () => {
-        balloon.removeEventListener('pointerdown', onDown);
-        balloon.removeEventListener('pointermove', onMove);
-        balloon.removeEventListener('pointerup', onUp);
-        balloon.removeEventListener('pointercancel', onUp);
-      };
+      balloon.addEventListener('pointerenter', onEnter);
+      return () => balloon.removeEventListener('pointerenter', onEnter);
     });
 
     return () => {
-      dragCleanups.forEach(fn => fn());
+      dodgeCleanups.forEach(fn => fn());
       riseTweens.forEach(t => t.kill());
       balloons.forEach(b => b.remove());
     };
