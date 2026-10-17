@@ -907,15 +907,16 @@ export default function WatchaPage() {
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const activeStory = STORY_CARDS.find((s) => s.id === activeStoryId) || null;
 
-  // ============ 气球入场：从底部依次弹性升起 ============
+  // ============ 气球：无限循环缓慢升起，飞出顶部后回到屏底重新升起 ============
 
   useEffect(() => {
     const layer = document.querySelector<HTMLElement>('.wc-balloon-layer');
     if (!layer) return;
 
+    const N = 8;
     const balloons: HTMLElement[] = [];
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < N; i++) {
       const balloon = document.createElement('div');
       balloon.className = 'wc-balloon';
 
@@ -928,16 +929,15 @@ export default function WatchaPage() {
       } else {
         left = 75 + Math.random() * 20; // 右侧 75-95%
       }
-      const top = 15 + Math.random() * 60; // 15-75% 高度
 
       balloon.style.cssText = `
         width: ${size}px;
         height: ${size * 1.2}px;
         left: ${left}%;
-        top: ${top}%;
+        top: 0;
         background: #ffffff;
         --balloon-color: #ffffff;
-        opacity: 0;
+        opacity: 0.85;
       `;
 
       const shine = document.createElement('div');
@@ -948,45 +948,26 @@ export default function WatchaPage() {
       balloons.push(balloon);
     }
 
-    // 初始位置：视口下方（滚入木马区前藏好）
-    gsap.set(balloons, { y: window.innerHeight, opacity: 0 });
-
-    // 滚入木马区时依次弹性升起；滚回上方则重置，再次进入可重播
-    const st = ScrollTrigger.create({
-      trigger: '.carousel-wrapper',
-      start: 'top 80%',
-      onEnter: () => {
-        balloons.forEach((balloon, i) => {
-          gsap.to(balloon, {
-            y: 0,
-            opacity: 0.85,
-            duration: 2.5,
-            delay: 0.3 + i * 0.4,
-            ease: 'elastic.out(1, 0.5)',
-            overwrite: true,
-            onComplete: () => {
-              // 升起结束后进入轻微上下漂浮
-              gsap.to(balloon, {
-                y: -10 - Math.random() * 8,
-                duration: 1.6 + Math.random() * 1.2,
-                yoyo: true,
-                repeat: -1,
-                ease: 'sine.inOut',
-              });
-            },
-          });
-        });
-      },
-      onLeaveBack: () => {
-        balloons.forEach((balloon) => {
-          gsap.killTweensOf(balloon);
-          gsap.set(balloon, { y: window.innerHeight, opacity: 0 });
-        });
-      },
+    // 线性匀速缓慢升起：从层底部（屏外）→ 顶部（屏外），repeat -1 自动循环。
+    // 负延迟错开初始进度，保证任意时刻都有气球分布在不同高度。
+    const layerH = layer.clientHeight || window.innerHeight;
+    const tweens = balloons.map((balloon, i) => {
+      const h = balloon.offsetHeight;
+      const duration = 22 + Math.random() * 8; // 22-30s 飘过一屏
+      return gsap.fromTo(balloon,
+        { y: layerH + h },
+        {
+          y: -h,
+          duration,
+          ease: 'none',
+          repeat: -1,
+          delay: -(i / N) * duration,
+        }
+      );
     });
 
     return () => {
-      st.kill();
+      tweens.forEach(t => t.kill());
       balloons.forEach(b => b.remove());
     };
   }, []);
