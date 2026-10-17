@@ -323,6 +323,21 @@
   opacity: 1;
 }
 
+/* ========== 四面墙：景深聚焦层（filter 只在此层，外壳保 3D）========== */
+
+.wc-card-focus {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  will-change: transform, filter;
+  transform-origin: center center;
+}
+
 /* ========== 水波涟漪：鼠标跟随扩散圆环 ========== */
 
 .wc-ripple-layer {

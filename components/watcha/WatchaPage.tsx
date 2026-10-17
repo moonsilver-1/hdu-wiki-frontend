@@ -896,6 +896,7 @@ function VisitDetailPanel({ accent, onClose }: { accent: string; onClose: () => 
 export default function WatchaPage() {
   const cylinderRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardFocusRefs = useRef<(HTMLDivElement | null)[]>([]);
   const lenisRef = useRef<Lenis | null>(null);
 
   const [activePanel, setActivePanel] = useState<string | null>(null);
@@ -1044,6 +1045,15 @@ export default function WatchaPage() {
         panel.style.transform = `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${SPIRAL_RADIUS}px) translateY(${yOffset}px) scale(${scale})`;
         panel.style.opacity = String(opacity);
         panel.style.zIndex = String(Math.round(t * 100));
+
+        // 景深聚焦：侧面/背面卡片内部文字虚化缩小，转正瞬间清晰（filter 只加内层，避免压平 3D）
+        const focus = cardFocusRefs.current[index];
+        if (focus) {
+          const blur = Math.pow(1 - t, 1.5) * 8;
+          const innerScale = 0.92 + 0.08 * t;
+          focus.style.filter = `blur(${blur.toFixed(2)}px)`;
+          focus.style.transform = `scale(${innerScale.toFixed(3)})`;
+        }
       });
     }
     gsap.ticker.add(updateCards);
@@ -1134,13 +1144,15 @@ export default function WatchaPage() {
                   } as CSSProperties}>
                   <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full opacity-30 blur-2xl" style={{ backgroundColor: panel.accent }} />
                   <div className="absolute -bottom-8 -left-8 w-20 h-20 rounded-full opacity-20 blur-2xl" style={{ backgroundColor: panel.accent }} />
-                  <div className="mb-3 text-xs tracking-[0.3em] uppercase font-medium" style={{ color: panel.accent }}>{panel.num}</div>
-                  <h2 className="mb-3 text-3xl md:text-4xl font-bold px-2" style={{
-                    background: `linear-gradient(135deg, ${panel.accent}, #1a1a2e)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                  }}>{panel.title}</h2>
-                  <div className="mb-4 text-xs tracking-widest text-slate-500 uppercase">{panel.subtitle}</div>
-                  <p className="max-w-xs text-sm text-slate-600 leading-relaxed">{panel.desc}</p>
-                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] tracking-widest uppercase opacity-60" style={{ color: panel.accent }}>点击查看 →</div>
+                  <div ref={(el) => { cardFocusRefs.current[index] = el; }} className="wc-card-focus">
+                    <div className="mb-3 text-xs tracking-[0.3em] uppercase font-medium" style={{ color: panel.accent }}>{panel.num}</div>
+                    <h2 className="mb-3 text-3xl md:text-4xl font-bold px-2" style={{
+                      background: `linear-gradient(135deg, ${panel.accent}, #1a1a2e)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+                    }}>{panel.title}</h2>
+                    <div className="mb-4 text-xs tracking-widest text-slate-500 uppercase">{panel.subtitle}</div>
+                    <p className="max-w-xs text-sm text-slate-600 leading-relaxed">{panel.desc}</p>
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] tracking-widest uppercase opacity-60" style={{ color: panel.accent }}>点击查看 →</div>
+                  </div>
                 </div>
               </div>
             ))}
