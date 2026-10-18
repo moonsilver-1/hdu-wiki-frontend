@@ -1,0 +1,465 @@
+/* ========== 落地页入场：聚焦扩展（Animista focus-in-expand，FreeBSD）========== */
+
+/* 文字版：字间距从 -0.5em 收拢状态展开 + 模糊聚焦 */
+@keyframes wc-focus-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    letter-spacing: var(--wc-target-tracking, 0.05em);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.wc-focus-in-expand {
+  animation: wc-focus-in-expand 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* 图片/Logo 版：放大聚焦（无 letter-spacing） */
+@keyframes wc-focus-in-expand-img {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.wc-focus-in-expand-img {
+  animation: wc-focus-in-expand-img 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* 入场延迟编排 */
+.wc-anim-delay-1 { animation-delay: 0.1s; }
+.wc-anim-delay-2 { animation-delay: 0.25s; }
+.wc-anim-delay-3 { animation-delay: 0.45s; }
+.wc-anim-delay-4 { animation-delay: 0.65s; }
+.wc-anim-delay-5 { animation-delay: 0.9s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wc-focus-in-expand,
+  .wc-focus-in-expand-img {
+    animation: none;
+  }
+}
+
+/* ========== 液态玻璃导航栏（浅色版）========== */
+
+/* ========== 导航链接悬停光边 ========== */
+
+.nav-glow-link {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav-glow-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 2px;
+  background: var(--glow-color, #67e0ed);
+  border-radius: 2px;
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.35s ease,
+              box-shadow 0.35s ease;
+  pointer-events: none;
+}
+
+.nav-glow-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 0.5;
+  box-shadow: 0 0 3px var(--glow-color, #67e0ed),
+              0 0 8px var(--glow-color, #67e0ed);
+}
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.6);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.5) 20%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0.5) 80%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ========== 仪表盘风格"观猹"卡片（浅色版）========== */
+
+/* 外层容器：提供光点游走的轨道 */
+.guancha-outer {
+  width: min(90vw, 560px);
+  height: min(70vw, 380px);
+  border-radius: 16px;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #67e0ed 0%, #a4c1f7 50%, #f0e9e2 100%);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(103, 224, 237, 0.25), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 游走光点：沿着外框边缘移动 */
+.guancha-dot {
+  width: 6px;
+  aspect-ratio: 1;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 0 12px #67e0ed, 0 0 24px rgba(103, 224, 237, 0.8);
+  border-radius: 100px;
+  z-index: 2;
+  right: 10%;
+  top: 10%;
+  animation: moveDot 8s linear infinite;
+}
+
+@keyframes moveDot {
+  0%,
+  100% {
+    top: 10%;
+    right: 10%;
+  }
+  25% {
+    top: 10%;
+    right: calc(100% - 20px);
+  }
+  50% {
+    top: calc(100% - 20px);
+    right: calc(100% - 20px);
+  }
+  75% {
+    top: calc(100% - 20px);
+    right: 10%;
+  }
+}
+
+/* 卡片主体 */
+.guancha-card {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+  color: #1a1a2e;
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+/* 扫光光线 */
+.guancha-ray {
+  width: 400px;
+  height: 60px;
+  border-radius: 100px;
+  position: absolute;
+  background-color: #67e0ed;
+  opacity: 0.25;
+  box-shadow: 0 0 60px rgba(103, 224, 237, 0.6);
+  filter: blur(12px);
+  transform-origin: 10%;
+  top: 0%;
+  left: 0;
+  transform: rotate(40deg);
+  animation: raySweep 6s ease-in-out infinite;
+}
+
+@keyframes raySweep {
+  0%,
+  100% {
+    transform: rotate(30deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: rotate(55deg);
+    opacity: 0.35;
+  }
+}
+
+/* 观猹大字 */
+.guancha-text {
+  font-weight: 900;
+  font-size: clamp(4rem, 14vw, 8rem);
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #67e0ed 0%, #a4c1f7 50%, #1a1a2e 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: textShimmer 4s ease-in-out infinite;
+  line-height: 1;
+  filter: drop-shadow(0 2px 12px rgba(103, 224, 237, 0.3));
+}
+
+@keyframes textShimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 副标题 */
+.guancha-subtitle {
+  margin-top: 16px;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  letter-spacing: 0.3em;
+  color: rgba(26, 26, 46, 0.5);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* 装饰线 */
+.guancha-line {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  background-color: rgba(163, 193, 247, 0.3);
+}
+
+.guancha-line.topl {
+  top: 12%;
+  background: linear-gradient(90deg, #67e0ed 0%, rgba(163, 193, 247, 0.3) 70%, transparent 100%);
+}
+
+.guancha-line.bottoml {
+  bottom: 12%;
+  background: linear-gradient(90deg, transparent 0%, rgba(163, 193, 247, 0.3) 30%, #a4c1f7 100%);
+}
+
+.guancha-line.leftl {
+  left: 8%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, #67e0ed 0%, rgba(163, 193, 247, 0.3) 50%, transparent 100%);
+}
+
+.guancha-line.rightl {
+  right: 8%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(163, 193, 247, 0.3) 50%, #a4c1f7 100%);
+}
+
+/* ========== 玻璃卡片：磁吸效果 GPU 合成层 ========== */
+
+.glass-panel {
+  will-change: transform;
+}
+
+/* ========== 区域级追光：木马区背景柔光跟随鼠标 ========== */
+
+.carousel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    900px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.02) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ========== 卡片追光：accent 色光斑跟随鼠标 ========== */
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    500px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--card-accent, #67e0ed) 25%, transparent),
+    color-mix(in srgb, var(--card-accent, #67e0ed) 8%, transparent) 40%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.panel:hover .glass-panel::before {
+  opacity: 1;
+}
+
+/* ========== 四面墙：景深聚焦层（filter 只在此层，外壳保 3D）========== */
+
+.wc-card-focus {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  will-change: transform, filter;
+  transform-origin: center center;
+}
+
+/* ========== 气球：四面墙背景装饰（适配自 CodePen alphardex/bGWYMwg）========== */
+
+.wc-balloon-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  /* 上下边界渐隐遮罩：气球进入/飞出时柔和淡入淡出，不突兀 */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.wc-balloon {
+  position: absolute;
+  border-radius: 80% 80% 80% 80%;
+  will-change: transform;
+  box-shadow: inset -6px -6px 14px rgba(120, 150, 200, 0.18),
+              0 6px 18px rgba(120, 150, 200, 0.15);
+  /* 鼠标靠近闪避交互（层容器是 pointer-events:none，单个气球打开） */
+  pointer-events: auto;
+}
+
+.wc-balloon::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 30px;
+  left: 50%;
+  top: 100%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.wc-balloon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid var(--balloon-color, #fff);
+}
+
+.wc-balloon .wc-balloon-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+}
+
+/* ========== 水波涟漪：鼠标跟随扩散圆环 ========== */
+
+.wc-ripple-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.wc-ripple-svg {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%) scale(0.3);
+  animation: wc-ripple-expand 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes wc-ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* ========== 卡片悬停顶边光晕 ========== */
+
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--card-accent, #67e0ed), transparent);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.4s ease, box-shadow 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.panel:hover .glass-panel::after {
+  opacity: 0.4;
+  box-shadow: 0 0 5px var(--card-accent, #67e0ed),
+              0 0 12px var(--card-accent, #67e0ed);
+}
+
+/* ========== 详情页淡入动画 ========== */
+.watcha-detail-enter {
+  background: rgba(252, 244, 231, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: watchaFadeIn 0.4s ease;
+}
+
+@keyframes watchaFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -301,7 +301,7 @@ export default function WelcomePage() {
   function walkLibraryTo(target: RoomPoint, done?: () => void) {
     cancelAnimationFrame(libFrame.current);
     timers.current.forEach(clearTimeout);
-    timers.current = [];
+    timers.current.splice(0);
     const points = libraryRoute(libPos.current, target);
     let segment = 1;
     const next = () => {
@@ -328,7 +328,7 @@ export default function WelcomePage() {
   function exitLibrary() {
     cancelAnimationFrame(libFrame.current);
     timers.current.forEach(clearTimeout);
-    timers.current = [];
+    timers.current.splice(0);
     setLibrary(false);
   }
 
