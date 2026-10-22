@@ -1,0 +1,102 @@
+[
+  {
+    "id": "001",
+    "category": "常用",
+    "caption": "收到"
+  },
+  {
+    "id": "002",
+    "category": "常用",
+    "caption": "好的"
+  },
+  {
+    "id": "003",
+    "category": "常用",
+    "caption": "来了"
+  },
+  {
+    "id": "007",
+    "category": "常用",
+    "caption": "谢谢"
+  },
+  {
+    "id": "012",
+    "category": "常用",
+    "caption": "加油"
+  },
+  {
+    "id": "013",
+    "category": "常用",
+    "caption": "抱抱"
+  },
+  {
+    "id": "014",
+    "category": "常用",
+    "caption": "晚安"
+  },
+  {
+    "id": "021",
+    "category": "日常",
+    "caption": "吃什么"
+  },
+  {
+    "id": "022",
+    "category": "日常",
+    "caption": "饿了"
+  },
+  {
+    "id": "027",
+    "category": "日常",
+    "caption": "困了"
+  },
+  {
+    "id": "041",
+    "category": "校园",
+    "caption": "赶ddl中"
+  },
+  {
+    "id": "050",
+    "category": "校园",
+    "caption": "早八受害者"
+  },
+  {
+    "id": "061",
+    "category": "抽象",
+    "caption": "你好牛魔"
+  },
+  {
+    "id": "062",
+    "category": "抽象",
+    "caption": "抽象"
+  },
+  {
+    "id": "063",
+    "category": "抽象",
+    "caption": "随便"
+  },
+  {
+    "id": "064",
+    "category": "抽象",
+    "caption": "牛啊牛啊"
+  },
+  {
+    "id": "065",
+    "category": "抽象",
+    "caption": "救命"
+  },
+  {
+    "id": "066",
+    "category": "抽象",
+    "caption": "绷不住了"
+  },
+  {
+    "id": "081",
+    "category": "心情",
+    "caption": "笑死"
+  },
+  {
+    "id": "082",
+    "category": "心情",
+    "caption": "无语"
+  }
+]

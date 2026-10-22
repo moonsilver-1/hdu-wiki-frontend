@@ -16,5 +16,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const authors = getAuthors().map((author) => ({
     url: `${siteUrl}/authors/${encodeURIComponent(author.slug)}`,
   }));
-  return [{ url: siteUrl }, { url: `${siteUrl}/welcome` }, { url: `${siteUrl}/watcha` }, { url: `${siteUrl}/tour` }, ...categories, ...articles, ...authors];
+  return [{ url: siteUrl }, { url: `${siteUrl}/welcome` }, { url: `${siteUrl}/watcha` }, { url: `${siteUrl}/video` }, { url: `${siteUrl}/stickers` }, ...categories, ...articles, ...authors];
 }

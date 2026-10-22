@@ -1,0 +1,290 @@
+{
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "referenceImages": [
+    "reference-characters.png",
+    "reference-eight-stickers.png"
+  ],
+  "items": [
+    {
+      "role": "boy",
+      "id": "001",
+      "caption": "收到",
+      "pose": "半睁眼笑着，两指放在额侧随意敬礼，另一手插兜",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 半睁眼笑着，两指放在额侧随意敬礼，另一手插兜. Exact caption (verbatim, once only): “收到”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "002",
+      "caption": "好的",
+      "pose": "用一只手在脸旁比OK手势，认真点头，歪歪的嘴角",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 用一只手在脸旁比OK手势，认真点头，歪歪的嘴角. Exact caption (verbatim, once only): “好的”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "003",
+      "caption": "来了",
+      "pose": "身体向前跑，书包甩到身后，单手举高打招呼，歪毛向后飘",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 身体向前跑，书包甩到身后，单手举高打招呼，歪毛向后飘. Exact caption (verbatim, once only): “来了”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "007",
+      "caption": "谢谢",
+      "pose": "两手合在胸前，微微鞠躬，眼睛弯弯，真诚轻笑",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 两手合在胸前，微微鞠躬，眼睛弯弯，真诚轻笑. Exact caption (verbatim, once only): “谢谢”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "012",
+      "caption": "加油",
+      "pose": "弓起双手在胸前握拳打气，眼神认真，头顶一小撮火苗感线条",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 弓起双手在胸前握拳打气，眼神认真，头顶一小撮火苗感线条. Exact caption (verbatim, once only): “加油”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "013",
+      "caption": "抱抱",
+      "pose": "笑着张开双臂迎向观众，宽大袖子舒展开，亲近温暖",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 笑着张开双臂迎向观众，宽大袖子舒展开，亲近温暖. Exact caption (verbatim, once only): “抱抱”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "014",
+      "caption": "晚安",
+      "pose": "抱住枕头，身上披一小角被子，闭眼打哈欠，小月牙",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 抱住枕头，身上披一小角被子，闭眼打哈欠，小月牙. Exact caption (verbatim, once only): “晚安”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "021",
+      "caption": "吃什么",
+      "pose": "双手各持一只空碗，纠结盯着，头顶浮着米饭和面条小简笔画",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 双手各持一只空碗，纠结盯着，头顶浮着米饭和面条小简笔画. Exact caption (verbatim, once only): “吃什么”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "022",
+      "caption": "饿了",
+      "pose": "抱着肚子蜷成一团，眼神虚弱，一只空碗扣在膝盖上",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 抱着肚子蜷成一团，眼神虚弱，一只空碗扣在膝盖上. Exact caption (verbatim, once only): “饿了”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "027",
+      "caption": "困了",
+      "pose": "趴在桌沿上把脸埋进交叠袖子，眼皮沉下，一小串Z",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 趴在桌沿上把脸埋进交叠袖子，眼皮沉下，一小串Z. Exact caption (verbatim, once only): “困了”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "041",
+      "caption": "赶ddl中",
+      "pose": "疯狂敲笔记本电脑键盘，手画成速度残影，卷毛炸起，眼袋明显，计时器逼近",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 疯狂敲笔记本电脑键盘，手画成速度残影，卷毛炸起，眼袋明显，计时器逼近. Exact caption (verbatim, once only): “赶ddl中”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "050",
+      "caption": "早八受害者",
+      "pose": "一手拎书一手咖啡，眼袋重，卷毛七歪八扭，站着就要睡着",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 一手拎书一手咖啡，眼袋重，卷毛七歪八扭，站着就要睡着. Exact caption (verbatim, once only): “早八受害者”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "061",
+      "caption": "你好牛魔",
+      "pose": "双手夸张抱拳行礼，眉毛一高一低，嘴角抽动，头顶两个牛角形手势线条但人物无兽角",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 双手夸张抱拳行礼，眉毛一高一低，嘴角抽动，头顶两个牛角形手势线条但人物无兽角. Exact caption (verbatim, once only): “你好牛魔”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "062",
+      "caption": "抽象",
+      "pose": "倒立用头顶地，双腿胡乱扭成不合常理姿态，但人类身体清楚，脸一本正经",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 倒立用头顶地，双腿胡乱扭成不合常理姿态，但人类身体清楚，脸一本正经. Exact caption (verbatim, once only): “抽象”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "063",
+      "caption": "随便",
+      "pose": "歪着嘴耸肩，双手往两侧一摊，身体软成波浪，眼神完全放空",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 歪着嘴耸肩，双手往两侧一摊，身体软成波浪，眼神完全放空. Exact caption (verbatim, once only): “随便”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "064",
+      "caption": "牛啊牛啊",
+      "pose": "双手轮流竖起大拇指，眼睛瞪圆，嘴巴哇状，背后两条夸张喝彩线",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 双手轮流竖起大拇指，眼睛瞪圆，嘴巴哇状，背后两条夸张喝彩线. Exact caption (verbatim, once only): “牛啊牛啊”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "065",
+      "caption": "救命",
+      "pose": "双手抱住乱毛，嘴张成大方块，身体后仰，笔记本滑下",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 双手抱住乱毛，嘴张成大方块，身体后仰，笔记本滑下. Exact caption (verbatim, once only): “救命”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "066",
+      "caption": "绷不住了",
+      "pose": "一只手掩着嘴，肩膀抖个不停，另一手扶膝盖，笑到眼泪一小滴",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 一只手掩着嘴，肩膀抖个不停，另一手扶膝盖，笑到眼泪一小滴. Exact caption (verbatim, once only): “绷不住了”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "081",
+      "caption": "笑死",
+      "pose": "抱肚子笑到翻倒，双脚翘起，卷毛摊开，两滴笑泪",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 抱肚子笑到翻倒，双脚翘起，卷毛摊开，两滴笑泪. Exact caption (verbatim, once only): “笑死”. Keep every character perfectly legible."
+    },
+    {
+      "role": "boy",
+      "id": "082",
+      "caption": "无语",
+      "pose": "面无表情半睁眼，双手垂着，嘴是一条直线，头顶三个省略点",
+      "prompt": "Use case: illustration-story. Create ONE individual square transparent PNG chat sticker, not a sheet. Reference image1 is approved character identity: use ONLY the male 小羊学长, a HUMAN cartoon college boy with cream-white short fluffy curly hair, upward curl, small brown relaxed eyes, sage-green zip hoodie, ivory shirt, gray trousers. Reference image2 is the approved rendering and lettering style. Match his face, hair, clothes and warm brown pencil outlines, subtle watercolor texture. Cute expressive young adult chibi with human ears and hands. No girl, no animal horns/ears/hooves, no 3D or glassy big eyes. Large centered compact pose and a single bold brown handwritten simplified-Chinese caption underneath, white cutline around character and letters. Genuine transparent empty background, clean alpha perimeter, 6% safe margin. All hands and text fully inside canvas. No decorative frame, no watermark, no extra text. Action: 面无表情半睁眼，双手垂着，嘴是一条直线，头顶三个省略点. Exact caption (verbatim, once only): “无语”. Keep every character perfectly legible."
+    },
+    {
+      "role": "girl",
+      "id": "001",
+      "caption": "收到",
+      "pose": "Cheerful tiny salute with one hand at temple and determined raised eyebrows.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Cheerful tiny salute with one hand at temple and determined raised eyebrows. Text (verbatim): “收到”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "002",
+      "caption": "好的",
+      "pose": "Make a clear OK gesture beside her face, warm closed-mouth smile.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Make a clear OK gesture beside her face, warm closed-mouth smile. Text (verbatim): “好的”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "003",
+      "caption": "来了",
+      "pose": "Scampering toward viewer with cardigan sleeves fluttering, slightly breathless grin.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Scampering toward viewer with cardigan sleeves fluttering, slightly breathless grin. Text (verbatim): “来了”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "007",
+      "caption": "谢谢",
+      "pose": "Hold both hands together near chest and bow gratefully with closed smiling eyes.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Hold both hands together near chest and bow gratefully with closed smiling eyes. Text (verbatim): “谢谢”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "012",
+      "caption": "加油",
+      "pose": "Pump one little fist high, brows determined and wide confident grin.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Pump one little fist high, brows determined and wide confident grin. Text (verbatim): “加油”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "013",
+      "caption": "抱抱",
+      "pose": "Open both arms toward viewer for a big warm hug, eyes closed smiling.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Open both arms toward viewer for a big warm hug, eyes closed smiling. Text (verbatim): “抱抱”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "014",
+      "caption": "晚安",
+      "pose": "Wrapped in an ivory blanket, hugging a tiny pillow with eyes closed ready to sleep.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Wrapped in an ivory blanket, hugging a tiny pillow with eyes closed ready to sleep. Text (verbatim): “晚安”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "021",
+      "caption": "吃什么",
+      "pose": "Stare at an empty bowl held in both hands, indecisive pout, food-choice thought doodles are a noodle bowl and riceball without text.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Stare at an empty bowl held in both hands, indecisive pout, food-choice thought doodles are a noodle bowl and riceball without text. Text (verbatim): “吃什么”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "022",
+      "caption": "饿了",
+      "pose": "Slump holding rumbling belly with an exaggerated desperate hungry expression.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Slump holding rumbling belly with an exaggerated desperate hungry expression. Text (verbatim): “饿了”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "027",
+      "caption": "困了",
+      "pose": "Cheek pressed into soft pillow hugged to chest, eyelids almost shut.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Cheek pressed into soft pillow hugged to chest, eyelids almost shut. Text (verbatim): “困了”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "041",
+      "caption": "赶ddl中",
+      "pose": "Frenzied typing on a small laptop, curls flying, eyes focused and hands moving, papers scatter without text.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Frenzied typing on a small laptop, curls flying, eyes focused and hands moving, papers scatter without text. Text (verbatim): “赶ddl中”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "050",
+      "caption": "早八受害者",
+      "pose": "Sleepwalk clutching a book, hairclip tilted, extreme half-closed eyes and tiny dark undereye marks.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Sleepwalk clutching a book, hairclip tilted, extreme half-closed eyes and tiny dark undereye marks. Text (verbatim): “早八受害者”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "061",
+      "caption": "你好牛魔",
+      "pose": "Raise one skeptical eyebrow to absurd height while holding a tiny toy cow in one palm, dry incredulous smile. Her human face stays human.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Raise one skeptical eyebrow to absurd height while holding a tiny toy cow in one palm, dry incredulous smile. Her human face stays human. Text (verbatim): “你好牛魔”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "062",
+      "caption": "抽象",
+      "pose": "Twist torso like a soft silly pretzel while face remains completely deadpan, wildly incongruous pose.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Twist torso like a soft silly pretzel while face remains completely deadpan, wildly incongruous pose. Text (verbatim): “抽象”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "063",
+      "caption": "随便",
+      "pose": "Lazy shrug with one hand flopping like a noodle, bored half-lidded stare.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Lazy shrug with one hand flopping like a noodle, bored half-lidded stare. Text (verbatim): “随便”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "064",
+      "caption": "牛啊牛啊",
+      "pose": "Give two emphatic thumbs-up while leaning far forward with a startled admiring open mouth.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Give two emphatic thumbs-up while leaning far forward with a startled admiring open mouth. Text (verbatim): “牛啊牛啊”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "065",
+      "caption": "救命",
+      "pose": "Palms thrust toward viewer in panic, eyebrows up, messy curls, tiny alarm motion marks.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Palms thrust toward viewer in panic, eyebrows up, messy curls, tiny alarm motion marks. Text (verbatim): “救命”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "066",
+      "caption": "绷不住了",
+      "pose": "Cover mouth trying to suppress laughter, cheeks puffed and tears of laughter at eye corners.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Cover mouth trying to suppress laughter, cheeks puffed and tears of laughter at eye corners. Text (verbatim): “绷不住了”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "081",
+      "caption": "笑死",
+      "pose": "Fold over laughing with both hands on belly, one foot kicked out, eyes squeezed shut.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Fold over laughing with both hands on belly, one foot kicked out, eyes squeezed shut. Text (verbatim): “笑死”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    },
+    {
+      "role": "girl",
+      "id": "082",
+      "caption": "无语",
+      "pose": "Blank half-lidded stare straight at viewer, lips a flat line, shoulders limp.",
+      "prompt": "Use case: illustration-story. Deliver ONE SINGLE Chinese chat sticker on square transparent PNG canvas. Reference image 1 locks the HUMAN girl identity on its right; reference image 2 locks her approved sticker illustration style (bottom row). Only the girl: cream-white fluffy curly bob, little apricot hairclip, small expressive brown eyes, apricot cardigan over ivory shirt, gray-green wide trousers if legs shown. Warm brown hand-drawn outlines, delicate pencil/watercolor texture, cute young adult chibi, human hands and ears. Preserve identity and outfit. No horns, no animal ears, no sheep snout, no other people, no 3D, no huge glossy eyes. Center the large expressive character with clean white sticker cutline around figure and lettering; generous clear transparent margin, no backdrop, no grid, no contact sheet. Action: Blank half-lidded stare straight at viewer, lips a flat line, shoulders limp. Text (verbatim): “无语”. Place this exact caption beneath her, large legible dark-brown hand-lettered simplified Chinese (preserve latin ddl if present), thick white outline. No other writing, logo, watermark or decorative slogans."
+    }
+  ]
+}
