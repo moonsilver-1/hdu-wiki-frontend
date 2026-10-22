@@ -17,6 +17,8 @@ export default function SiteFooter() {
           <span>用 ❤️ 为杭电er 制作 · 杭州电子科技大学校园百科</span>
         </div>
         <div className="footer-links">
+          <Link href="/video" prefetch={false}>网站介绍</Link>
+          <Link href="/stickers" prefetch={false}>小羊表情包</Link>
           <Link href="/community/how-to-join-us">参与共建</Link>
           <a
             href="https://luoluo.help"
