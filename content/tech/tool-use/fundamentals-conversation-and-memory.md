@@ -24,7 +24,7 @@ Claude Code 的对话是按**目录（项目路径）** 隔离的：
 
 所有对话历史存储在本地磁盘：
 
-```
+```text
 ~/.claude/projects/
 └── <项目路径编码>/
     └── <会话ID>.jsonl   # 完整对话记录
@@ -44,7 +44,7 @@ Claude Code 的对话是按**目录（项目路径）** 隔离的：
 
 每次新对话开始，Claude Code 会自动加载：
 
-```
+```text
 ┌─ 系统提示（约 4,000 Token）
 ├─ CLAUDE.md（项目级 + 用户级合并）
 ├─ Auto Memory（MEMORY.md 的前 200 行或前 25KB，先到为准）
@@ -58,7 +58,7 @@ Claude Code 的对话是按**目录（项目路径）** 隔离的：
 
 随着对话进行，上下文逐渐填充：
 
-```
+```text
 系统提示        █████  8%
 CLAUDE.md       ███  5%
 Memory          ██  3%
@@ -205,7 +205,7 @@ CLAUDE.md 可以存在多个位置，Claude 会全部加载并合并：
 
 ### 存储位置
 
-```
+```text
 ~/.claude/projects/<项目ID>/memory/
 ├── MEMORY.md           # 索引文件（前 200 行或 25KB 每次都加载）
 ├── user_preferences.md # 用户偏好
@@ -228,7 +228,7 @@ CLAUDE.md 可以存在多个位置，Claude 会全部加载并合并：
 
 你可以明确告诉 Claude 记住某些信息：
 
-```
+```text
 请记住：这个项目的部署流程是先推到 staging，
 通过 QA 后再合并到 main 触发生产部署。
 ```
@@ -237,7 +237,7 @@ Claude 会创建一条 Memory 记录，下次对话自动加载。
 
 ### 让 Claude 忘记
 
-```
+```text
 请忘记之前关于部署流程的记忆，流程已经变了。
 ```
 
@@ -309,7 +309,7 @@ claude --worktree feature-new
 
 长对话中定期压缩，释放空间：
 
-```
+```text
 /compact
 ```
 
@@ -317,7 +317,7 @@ claude --worktree feature-new
 
 切换到不相关的任务时，清空对话重新开始，而不是在同一个对话里混杂：
 
-```
+```text
 /clear
 ```
 
@@ -329,7 +329,7 @@ claude --worktree feature-new
 
 完成一轮有意义的工作后：
 
-```
+```text
 /rename auth-refactor
 ```
 
@@ -337,7 +337,7 @@ claude --worktree feature-new
 
 ### 5. 检查上下文使用
 
-```
+```text
 /context
 ```
 
@@ -347,7 +347,7 @@ claude --worktree feature-new
 
 ## 一张全景图
 
-```
+```text
 ┌─ 会话开始
 │  ├─ 自动加载：系统提示
 │  ├─ 自动加载：CLAUDE.md（全局 + 项目 + 本地合并）

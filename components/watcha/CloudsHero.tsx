@@ -1,5 +1,6 @@
 'use client';
 
+import WatchaImage from './WatchaImage';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import CLOUDS from 'vanta/dist/vanta.clouds.min';
@@ -88,7 +89,7 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
     // === 滚动驱动云层透明度（穿云入雾效果）===
     // 前两屏（0~200vh）：完全显示，云层厚厚地覆盖
     // 第三屏（200~300vh）：慢慢淡出到 0，穿云而出
-    gsap.to(vantaEl, {
+    const fade = gsap.to(vantaEl, {
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
@@ -112,7 +113,8 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
         vantaRef.current.destroy();
         vantaRef.current = null;
       }
-      ScrollTrigger.getAll().forEach((st) => st.kill());
+      fade.scrollTrigger?.kill();
+      fade.kill();
     };
   }, []);
 
@@ -158,9 +160,9 @@ export default function CloudsHero({ onScrollDown }: { onScrollDown?: () => void
 
         {/* Logo 组合 */}
         <div className="wc-focus-in-expand-img wc-anim-delay-2 mb-8 flex items-center justify-center gap-6">
-          <img src="/hdu-logo.jpg" alt="杭电校徽" className="h-16 w-16 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(255,255,255,0.6)' }} />
+          <WatchaImage sizes="64px" loading="eager" src="/hdu-logo.jpg" alt="杭电校徽" className="h-16 w-16 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(255,255,255,0.6)' }} />
           <span className="text-3xl" style={{ color: '#fff' }}>×</span>
-          <img src="/watcha-logo.png" alt="观猹 Logo" className="h-16 w-auto object-contain" />
+          <WatchaImage sizes="64px" loading="eager" src="/watcha-logo.png" alt="观猹 Logo" className="h-16 w-auto object-contain" />
         </div>
 
         {/* 主标题 */}

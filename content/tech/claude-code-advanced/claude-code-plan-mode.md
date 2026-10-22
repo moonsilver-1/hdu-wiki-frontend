@@ -80,7 +80,7 @@ claude --permission-mode plan
 
 ### 第一步：进入 Plan 模式，描述任务
 
-```
+```text
 帮我重构用户认证模块，从 session-based 改为 JWT
 ```
 
@@ -126,7 +126,7 @@ Claude 会：
 
 你可以对计划提出修改意见：
 
-```
+```text
 还需要考虑 refresh token 机制，以及 token 过期后的自动续签
 ```
 
@@ -138,7 +138,7 @@ Claude 会更新计划。
 
 按 `Shift+Tab` 切换回 `default`、`acceptEdits` 或其他可执行模式：
 
-```
+```text
 按照刚才的计划开始执行
 ```
 

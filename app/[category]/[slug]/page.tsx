@@ -9,7 +9,9 @@ import Toc from "@/components/Toc";
 import SearchHighlight from "@/components/SearchHighlight";
 import ArticleKeyboardNav from "@/components/ArticleKeyboardNav";
 import ArticleComments from "@/components/ArticleComments";
+import ArticleActions from "@/components/ArticleActions";
 import type { Metadata } from "next";
+import { articleStructuredData, serializeJsonLd, SOCIAL_IMAGE } from "@/lib/seo";
 
 export function generateStaticParams() {
   const categories = ["courses", "campus", "tech", "community"];
@@ -53,6 +55,9 @@ export async function generateMetadata({
       publishedTime: article.date || undefined,
       authors: article.author ? [article.author] : undefined,
       tags: article.tags,
+      images: [SOCIAL_IMAGE],
+      siteName: "HDU Wiki",
+      locale: "zh_CN",
     },
   };
 }
@@ -73,6 +78,9 @@ export default async function ArticlePage({
 
   return (
     <div className="site-container content-layout article-layout">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(
+        articleStructuredData(article, splitAuthors(article.author).map((name) => ({ name, slug: getAuthorSlug(name) })), categoryName)
+      ) }} />
       <Sidebar activeCategory={category} activeSlug={decodedSlug} />
       <SidebarExpandButton />
       <main className="article-page-content">
@@ -105,6 +113,7 @@ export default async function ArticlePage({
               </time>
             ) : null}
           </div>
+          <ArticleActions />
         </header>
 
         <article id="article-content" className="wiki-content">

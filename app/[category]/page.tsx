@@ -11,10 +11,10 @@ import {
   type ArticleSeriesNode,
   type ArticleSectionNode,
 } from "@/lib/content";
-import CategoryIcon from "@/components/CategoryIcon";
 import CategoryArticleRow from "@/components/CategoryArticleRow";
 import Sidebar from "@/components/Sidebar";
 import { SidebarExpandButton } from "@/components/SidebarToggle";
+import { SOCIAL_IMAGE } from "@/lib/seo";
 
 const categoryDescriptions: Record<string, string> = {
   courses: "课程笔记、考试经验与学习资源，帮你更清楚地规划学业。",
@@ -34,6 +34,15 @@ export function generateMetadata({
 }): Promise<Metadata> {
   return params.then((resolvedParams) => ({
     title: getCategoryName(resolvedParams.category),
+    description: categoryDescriptions[resolvedParams.category],
+    alternates: { canonical: `/${resolvedParams.category}` },
+    openGraph: {
+      title: getCategoryName(resolvedParams.category),
+      description: categoryDescriptions[resolvedParams.category],
+      url: `/${resolvedParams.category}`,
+      images: [SOCIAL_IMAGE],
+      type: "website",
+    },
   }));
 }
 

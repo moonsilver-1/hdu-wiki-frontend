@@ -34,7 +34,7 @@ Learn how to use Codex by OpenAI. One agent for everywhere you code—included i
 
 ### 用完体验
 
-##### 优点
+#### 优点
 
 - 模型不错，能很流畅的解决比较细小的问题，继承了GPT-5的优点
 

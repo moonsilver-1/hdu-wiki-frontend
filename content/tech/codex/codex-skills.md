@@ -12,7 +12,7 @@ tags: ["洛洛", "转载"]
 
 ## Skill 长什么样
 
-```
+```text
 my-skill/
   SKILL.md            # 必需
   scripts/            # 可选
@@ -67,7 +67,7 @@ enabled = false
 
 Codex 内置了两个"元技能"：
 
-```
+```text
 $skill-creator 帮我把刚才这套发布流程做成 skill
 $skill-installer linear
 ```

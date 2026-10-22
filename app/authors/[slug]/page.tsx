@@ -5,7 +5,8 @@ import type { Metadata } from "next";
 import { getAllArticles, getAuthorProfile, getAuthorSlug, getAuthors, sortArticles, splitAuthors } from "@/lib/content";
 
 function findAuthor(slug: string) {
-  const decodedSlug = decodeURIComponent(slug);
+  let decodedSlug = slug;
+  try { decodedSlug = decodeURIComponent(slug); } catch { return undefined; }
   return getAuthors().find((item) => item.slug === getAuthorSlug(decodedSlug));
 }
 
@@ -16,7 +17,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const author = findAuthor(slug);
-  return { title: author?.name ?? "作者" };
+  return {
+    title: author?.name ?? "作者",
+    ...(author ? {
+      description: `${author.name} 在杭电百科贡献的 ${author.articleCount} 篇文章与作者介绍。`,
+      alternates: { canonical: `/authors/${encodeURIComponent(author.slug)}` },
+      openGraph: { title: author.name, url: `/authors/${encodeURIComponent(author.slug)}`, type: "profile" as const },
+    } : {}),
+  };
 }
 
 export default async function AuthorPage({ params }: { params: Promise<{ slug: string }> }) {

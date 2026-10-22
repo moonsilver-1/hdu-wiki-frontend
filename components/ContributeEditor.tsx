@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
+
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   Bold,
@@ -23,6 +25,7 @@ import {
 } from "lucide-react";
 import { contributeCategories, getContributeCategory } from "@/lib/contribute-meta";
 import { validateSubmissionFields } from "@/lib/content-validation";
+import { prepareSubmissionImages } from "@/lib/editor-images";
 
 // 投稿图片约束（与服务端 lib/contribute.ts 保持一致）。
 const MAX_IMAGES = 9;
@@ -192,7 +195,9 @@ export default function ContributeEditor() {
   const [tags, setTags] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [body, setBody] = useState("");
+  const deferredBody = useDeferredValue(body);
   const [previewHtml, setPreviewHtml] = useState("");
+  const [previewError, setPreviewError] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [result, setResult] = useState<SubmitResponse | null>(null);
@@ -224,13 +229,13 @@ export default function ContributeEditor() {
       author,
       excerpt,
       tags: tags.split(/[,，、]/).map((tag) => tag.trim()).filter(Boolean),
-      body,
+      body: deferredBody,
       date: "2026-08-08",
     });
     return issues.filter((issue) => issue.level === "error").map((issue) => `${issue.message}${issue.hint ? `：${issue.hint}` : ""}`);
-  }, [title, author, category, section, excerpt, tags, body]);
+  }, [title, author, category, section, excerpt, tags, deferredBody]);
 
-  const canSubmit = clientErrors.length === 0 && status !== "submitting";
+  const canSubmit = body === deferredBody && clientErrors.length === 0 && status !== "submitting";
   const slugPreview = title.trim() ? previewSlug(title) : "";
 
   // 正文变化时 debounce 后请求预览（双栏常驻显示）。
@@ -246,17 +251,23 @@ export default function ContributeEditor() {
         body: JSON.stringify({ body }),
         signal: controller.signal,
       })
-        .then((res) => res.json())
+        .then(async (res) => {
+          const data = await res.json() as { html?: string; error?: string };
+          if (!res.ok) throw new Error(data.error ?? "预览失败，请稍后重试");
+          return data;
+        })
         .then((data: { html?: string }) => {
+          if (controller.signal.aborted) return;
           let html = data.html ?? "";
           for (const image of imagesRef.current) {
             html = html.replaceAll(`src="local:${image.id}"`, `src="${image.dataUrl}"`);
           }
           setPreviewHtml(html);
+          setPreviewError("");
         })
         .catch((error) => {
           if (error instanceof Error && error.name !== "AbortError") {
-            console.error("预览失败", error);
+            if (!controller.signal.aborted) setPreviewError(error.message);
           }
         });
     }, 400);
@@ -264,7 +275,7 @@ export default function ContributeEditor() {
       clearTimeout(handle);
       controller.abort();
     };
-  }, [body]);
+  }, [body, images]);
 
   // 点击工具栏按钮：应用格式并恢复光标。
   const handleFormat = useCallback(
@@ -323,6 +334,10 @@ export default function ContributeEditor() {
     setImageNotice("");
     const reader = new FileReader();
     reader.onload = () => {
+      if (imagesRef.current.length >= MAX_IMAGES) {
+        setImageNotice(`最多插入 ${MAX_IMAGES} 张图片`);
+        return;
+      }
       const dataUrl = String(reader.result);
       const id = imageIdRef.current;
       imageIdRef.current += 1;
@@ -332,10 +347,11 @@ export default function ContributeEditor() {
         dataUrl,
         sizeLabel: formatBytes(file.size),
       };
-      setImages((current) => [...current, image]);
+      imagesRef.current = [...imagesRef.current, image];
+      setImages(imagesRef.current);
       const textarea = textareaRef.current;
       if (!textarea) return;
-      const alt = file.name.replace(/\.[a-z0-9]+$/i, "").slice(0, 40) || "配图";
+      const alt = file.name.replace(/\.[a-z0-9]+$/i, "").replace(/[\[\]\\\r\n]/g, "").slice(0, 40) || "配图";
       const newValue = applyFormat(textarea, textarea.value, {
         insert: `![${alt}](local:${id})`,
         block: true,
@@ -348,17 +364,11 @@ export default function ContributeEditor() {
     reader.readAsDataURL(file);
   }, []);
 
-  // 删除图片：同时清掉正文里的占位符，并把它后面的占位索引整体前移。
+  // Keep IDs stable so deleting a middle image cannot point at another image.
   const removeImage = useCallback((id: number) => {
-    setImages((current) => current.filter((image) => image.id !== id));
-    setBody((current) => {
-      let next = current.replace(new RegExp(`!\\[[^\\]]*\\]\\(\\s*local:${id}\\s*\\)`, "g"), "");
-      next = next.replace(/!\[([^\]]*)\]\(\s*local:(\d+)\s*\)/g, (whole, alt: string, indexStr: string) => {
-        const index = Number(indexStr);
-        return index > id ? `![${alt}](local:${index - 1})` : whole;
-      });
-      return next;
-    });
+    imagesRef.current = imagesRef.current.filter((image) => image.id !== id);
+    setImages(imagesRef.current);
+    setBody((current) => current.replace(new RegExp(`!\\[[^\\]]*\\]\\(\\s*local:${id}\\s*\\)`, "g"), ""));
     setImageNotice("");
   }, []);
 
@@ -391,7 +401,7 @@ export default function ContributeEditor() {
           author,
           excerpt,
           tags,
-          body,
+          body: prepareSubmissionImages(body, images).body,
           images: images.map(({ name, dataUrl }) => ({ name, dataUrl })),
         }),
       });
@@ -638,6 +648,7 @@ export default function ContributeEditor() {
               />
             </div>
             <div className="preview-pane">
+              {previewError ? <p role="alert">预览失败：{previewError}。请修改正文后重试。</p> : null}
               <span className="pane-label"><Eye aria-hidden="true" size={14} /> 预览</span>
               <div
                 className="contribute-preview wiki-content"
@@ -657,7 +668,7 @@ export default function ContributeEditor() {
                 <div className="contribute-images-grid">
                   {images.map((image) => (
                     <figure key={image.id} className="contribute-image-card">
-                      <img src={image.dataUrl} alt={image.name} />
+                      <Image src={image.dataUrl} alt={image.name} width={144} height={72} unoptimized />
                       <figcaption>
                         <span title={image.name}>{image.name}</span>
                         <small>{image.sizeLabel}</small>

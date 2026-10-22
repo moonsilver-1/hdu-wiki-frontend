@@ -269,7 +269,7 @@ clawdbot config set channels.feishu.enabled true
 
 ### 安装Python
 
-##### 下载 Python
+#### 下载 Python
 
 - 访问官网：https://www.python.org/downloads/
 
@@ -277,7 +277,7 @@ clawdbot config set channels.feishu.enabled true
 
 - 或者选择特定版本：https://www.python.org/downloads/windows/
 
-##### 运行安装程序
+#### 运行安装程序
 
 1. 双击下载的 .exe 文件
 
@@ -291,7 +291,7 @@ clawdbot config set channels.feishu.enabled true
 
 - Customize installation：自定义安装位置和功能
 
-##### 验证安装
+#### 验证安装
 
 安装完成后，按 Win + R，输入 cmd 打开命令提示符，然后输入：
 
@@ -309,7 +309,7 @@ python --version
 
 ### 安装NodeJs
 
-##### 下载 Node.js
+#### 下载 Node.js
 
 - 官网下载：https://nodejs.org/zh-cn/
 
@@ -319,7 +319,7 @@ python --version
 
 - Current 版本（最新版）：包含最新特性，适合尝鲜
 
-##### 运行安装程序
+#### 运行安装程序
 
 1. 双击下载的 .msi 文件
 
@@ -335,7 +335,7 @@ python --version
 
 - 确保 "Add to PATH" 被选中
 
-##### 验证安装
+#### 验证安装
 
 打开命令提示符（CMD）或 PowerShell，输入：
 
@@ -721,7 +721,7 @@ https://github.com/farion1231/cc-switch
 
 https://docs.openclaw.ai/zh-CN/reference/templates/SOUL
 
-##### 这个文件是什么？
+#### 这个文件是什么？
 
 SOUL.md 是 AI 的“人格与做事原则”。
 它回答的是：你这个助手到底怎么思考、怎么表达、遇到风险怎么处理。
@@ -745,7 +745,7 @@ SOUL.md 是 AI 的“人格与做事原则”。
 比如“重要偏好写入 USER.md，避免会话重置后丢失”。
 ```
 
-##### 案例（创业顾问风格）
+#### 案例（创业顾问风格）
 
 ```text
 ## SOUL.md - 你的灵魂设定
@@ -767,7 +767,7 @@ SOUL.md 是 AI 的“人格与做事原则”。
 - 每次沟通中发现的新偏好，提醒写入 USER.md
 ```
 
-##### 案例（技术搭档风格）
+#### 案例（技术搭档风格）
 
 ```text
 ## SOUL.md - 你的灵魂设定
@@ -810,7 +810,7 @@ IDENTITY.md 是 AI 的“身份名片”。
 建议优先写工作区相对路径，如 avatars/main.png。
 ```
 
-##### 案例（专业商务）
+#### 案例（专业商务）
 
 ```text
 #IDENTITY.md - 我是谁
@@ -822,7 +822,7 @@ IDENTITY.md 是 AI 的“身份名片”。
 - Avatar: avatars/growth.png
 ```
 
-##### 案例（幽默吸睛）
+#### 案例（幽默吸睛）
 
 ```text
 ## IDENTITY.md - 我是谁
@@ -856,7 +856,7 @@ USER.md 是“用户沟通说明书”。
 建议按“关注点、喜欢的输出、禁忌”三类写。
 ```
 
-##### 案例（CEO）
+#### 案例（CEO）
 
 ```text
 ## USER.md - 关于我的用户
@@ -873,7 +873,7 @@ USER.md 是“用户沟通说明书”。
 - 讨厌空话和术语堆砌，每次给3条可执行动作
 ```
 
-##### 案例（技术负责人）
+#### 案例（技术负责人）
 
 ```text
 ## USER.md - 关于我的用户
@@ -890,7 +890,7 @@ USER.md 是“用户沟通说明书”。
 - 讨厌拍脑袋建议和无依据判断
 ```
 
-##### 案例（运营同学）
+#### 案例（运营同学）
 
 ```text
 ## USER.md - 关于我的用户
@@ -909,13 +909,13 @@ USER.md 是“用户沟通说明书”。
 
 ### 六、配置
 
-##### Web 端
+#### Web 端
 
 http://127.0.0.1:18789/agents
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-##### 终端
+#### 终端
 
 - 配置主 Agent
 
@@ -1287,7 +1287,7 @@ openclaw gateway --port 18789 --verbose
 
 ## OpenClaw 对接飞书
 
-#### 创建飞书应用
+### 创建飞书应用
 
 1）登录飞书开放平台，单击“创建企业自建应用”按钮。
 
@@ -1431,7 +1431,7 @@ openclaw gateway --port 18789 --verbose
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 3、安装插件
+### 3、安装插件
 
 依次在终端中执行以下命令：
 
@@ -1477,19 +1477,19 @@ del "%TEMP%\feishu.tgz"
 feishu-plugin-onboard install
 ```
 
-#### 4、重新运行OpenClaw
+### 4、重新运行OpenClaw
 
 ```text
 openclaw gateway run
 ```
 
-#### 5、检测是否成功
+### 5、检测是否成功
 
 运行 openclaw plugins list，ID为 feishu-openclaw-plugin 的 Status 为 loaded ，ID为 feishu 的 Status 为 disabled 则标明已成功启用飞书官方插件。
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 6、订阅机器人长链接接收事件
+### 6、订阅机器人长链接接收事件
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
@@ -1501,7 +1501,7 @@ openclaw gateway run
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 7、飞书 配对
+### 7、飞书 配对
 
 1. 在飞书中向机器人发送任意消息，系统会生成一个配对码（字母+数字组合）；如果历史已安装过飞书插件，可能没有该配对过程。
 
@@ -1511,7 +1511,7 @@ openclaw gateway run
 
 1. 在服务器终端执行以下命令完成绑定：openclaw pairing approve feishu <配对码> --notify
 
-#### 8、飞书授权
+### 8、飞书授权
 
 完成上面的配置后，飞书机器人会收到信息
 
@@ -1525,7 +1525,7 @@ openclaw gateway run
 
 > openclaw plugins install @openclaw-china/channels
 
-#### 1、创建企业（有企业的略过）
+### 1、创建企业（有企业的略过）
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
@@ -1545,7 +1545,7 @@ https://open-dev.dingtalk.com/?spm=dd_developers.header.unLogin.openDevBtn&hash=
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 2、创建应用
+### 2、创建应用
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
@@ -1575,7 +1575,7 @@ https://open-dev.dingtalk.com/?spm=dd_developers.header.unLogin.openDevBtn&hash=
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 3、配置权限
+### 3、配置权限
 
 如需使用 AI Card 流式输出，需要在钉钉应用权限中开通：
 
@@ -1591,13 +1591,13 @@ https://open-dev.dingtalk.com/?spm=dd_developers.header.unLogin.openDevBtn&hash=
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 4、OpenClaw和钉钉机器人打通
+### 4、OpenClaw和钉钉机器人打通
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 5、在钉钉中跟OpenClaw聊天
+### 5、在钉钉中跟OpenClaw聊天
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
@@ -1821,7 +1821,7 @@ openclaw gateway restart
 
 > openclaw plugins install @openclaw-china/channels
 
-#### 1、创建机器人
+### 1、创建机器人
 
 QQ 开放平台
 
@@ -1849,7 +1849,7 @@ QQ 开放平台
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-#### 2、OpenClaw与 QQ 配置
+### 2、OpenClaw与 QQ 配置
 
 输入命令
 
@@ -1945,13 +1945,13 @@ Agent 会继续完成剩余的配置
 
 ### 将自己的产品 CLI 化
 
-##### CLI-Anything 一行命令，让任意软件接入 OpenClaw、nanobot、Cursor、Claude Code 等 Agent 框架。
+#### CLI-Anything 一行命令，让任意软件接入 OpenClaw、nanobot、Cursor、Claude Code 等 Agent 框架。
 
 [CLI-Anything/README_CN.md at main · HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything/blob/main/README_CN.md)
 
 CLI-Anything: Making ALL Software Agent-Native. Contribute to HKUDS/CLI-Anything development by creating an account on GitHub.
 
-##### OpenCLI 将任何网站、本地 CLI 或 Electron 应用（如 Antigravity）变成命令行工具
+#### OpenCLI 将任何网站、本地 CLI 或 Electron 应用（如 Antigravity）变成命令行工具
 
 [链接](https://github.com/jackwener/opencli/blob/main/README.zh-CN.md)
 

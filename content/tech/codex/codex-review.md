@@ -12,7 +12,7 @@ tags: ["洛洛", "转载"]
 
 在交互界面里：
 
-```
+```text
 /review
 ```
 
@@ -46,7 +46,7 @@ codex review "只检查 SQL 注入和鉴权绕过"
 
 在 PR 评论里：
 
-```
+```text
 @codex review
 @codex review for issues in the database migration
 @codex security review
@@ -76,7 +76,7 @@ Codex 的审查策略是**只报 P0 / P1**，减少噪音；想要更深的安�
 
 审查天然适合并行，因为它是只读的：
 
-```
+```text
 对当前分支相对 main 的改动做审查。为下面每一点各开一个子代理，等全部完成后按点汇总：
 1. 安全 2. 正确性 3. 竞态 4. 测试覆盖 5. 可维护性
 ```

@@ -355,7 +355,7 @@ sequenceDiagram
 | page | int | 否 | 页码（默认1） | 2 |
 | page_size | int | 否 | 每页数量（默认10） | 20 |
 | status | string | 否 | 状态过滤 | active |
-```
+```text
 
 #### 响应参数
 ```markdown
@@ -384,7 +384,7 @@ sequenceDiagram
 | body.status | string | 是 | 用户状态 | active |
 | message | string | 是 | 响应消息 | 获取用户基本信息成功 |
 | success | bool | 是 | 是否成功 | true |
-```
+```text
 
 **注意：** 如果body是对象，需要列出所有子字段，格式为 `body.字段名`
 
@@ -605,7 +605,7 @@ sequenceDiagram
 | page | int | 否 | 页码（默认1） | 2 |
 | page_size | int | 否 | 每页数量（默认10） | 20 |
 | status | string | 否 | 状态过滤 | active |
-```
+```text
 
 #### 响应参数
 ```markdown
@@ -634,7 +634,7 @@ sequenceDiagram
 | body.status | string | 是 | 用户状态 | active |
 | message | string | 是 | 响应消息 | 获取用户基本信息成功 |
 | success | bool | 是 | 是否成功 | true |
-```
+```text
 
 **注意：** 如果body是对象，需要列出所有子字段，格式为 `body.字段名`
 ```

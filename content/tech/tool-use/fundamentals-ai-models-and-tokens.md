@@ -45,7 +45,7 @@ Claude Code 背后是 Anthropic 公司开发的 Claude 模型家族。具体可�
 
 在 Claude Code 中切换模型：
 
-```
+```text
 /model opus    # 切到 Opus
 /model sonnet  # 切到 Sonnet
 /model haiku   # 切到 Haiku
@@ -75,7 +75,7 @@ LLM 不是按字母或汉字处理文本的，而是按 Token。一个 Token 大
 
 **实际影响**：
 
-```
+```text
 英文: "Fix the login bug" ≈ 5 Token
 中文: "修复登录 bug" ≈ 8 Token
 ```
@@ -145,7 +145,7 @@ Claude Code 有自动管理机制：
 
 **示例**：
 
-```
+```text
 压缩前：对话历史占 120,000 Token
 压缩后：摘要占 30,000 Token
 释放：90,000 Token 可继续使用
@@ -155,13 +155,13 @@ Claude Code 有自动管理机制：
 
 你可以主动触发：
 
-```
+```text
 /compact
 ```
 
 还可以指定重点：
 
-```
+```text
 /compact 重点保留关于认证模块的改动
 ```
 
@@ -336,7 +336,7 @@ Claude Code 按 Token 计费：
 
 每条新消息都要携带**整个对话历史**：
 
-```
+```text
 第 1 条消息：
   输入 = 系统提示 + CLAUDE.md + 你的问题
   消耗：约 5,000 Token

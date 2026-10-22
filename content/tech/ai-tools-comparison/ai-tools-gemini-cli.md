@@ -114,7 +114,7 @@ cat error.log | gemini "分析这个错误日志"
 
 Google Search 是 Gemini CLI/Google 生态的强项，适合这种问题：
 
-```
+```text
 搜索一下 Next.js 16 的 Server Actions 最新用法
 ```
 

@@ -22,7 +22,7 @@ Claude Code 支持多 Agent 并行架构：主 Agent 派生多个子 Agent（sub
 
 先看图，这张图是全篇最好懂的部分：
 
-```
+```text
 主 Agent
 ├── 子 Agent A — 搜索所有 API 路由
 ├── 子 Agent B — 分析数据库模型
@@ -62,7 +62,7 @@ Claude Code 支持多 Agent 并行架构：主 Agent 派生多个子 Agent（sub
 
 例如，你说：
 
-```
+```text
 帮我分析这个项目的前端架构、后端 API 设计和数据库 schema
 ```
 
@@ -74,7 +74,7 @@ Claude 可能会同时启动 3 个 Explore subagent，分别去搜索前端组�
 
 当然你也可以直接点名，明确要求它并行处理：
 
-```
+```text
 并行做以下事情：
 1. 给 src/utils/ 下所有函数添加 JSDoc
 2. 修复 src/components/ 下的所有 TypeScript 类型错误
@@ -89,7 +89,7 @@ Claude 会启动多个 agent 同时工作。
 
 当多个 subagent 需要**同时写文件**时，推荐用 Git worktree 做隔离，避免多个 agent 改同一份工作区：
 
-```
+```text
 主 Worktree (main)
 ├── Worktree A (agent/feature-a) — Agent A 在这里工作
 ├── Worktree B (agent/fix-b)    — Agent B 在这里工作
@@ -154,7 +154,7 @@ maxTurns: 15
 
 然后在对话中使用：
 
-```
+```text
 用 security-checker agent 扫描整个项目
 ```
 

@@ -16,7 +16,7 @@ tags: ["洛洛", "转载"]
 
 英美澳加高校的学术不端处理，不管叫什么名字，几乎都是同一套：
 
-```
+```text
 ① 发现与报告（教师 / 检测报告 / 监考记录 / 举报）
         ↓
 ② 低层级处理：教师或系、学院层面
@@ -179,7 +179,7 @@ Turnitin 官方自己说不判定不端。首席产品官 Annie Chechitelli 在 
 
 先争取时间与证据，不谈实体、不解释、不承认。
 
-```
+```text
 Subject: Acknowledgement and request for information — [Student ID] / [Course code] / [Assessment name]
 
 Dear [Name / Academic Integrity Officer],
@@ -210,7 +210,7 @@ Yours sincerely,
 
 ### 模板 1：被 AI 检测标记，但确实是自己写的
 
-```
+```text
 Subject: Response to academic integrity allegation — [Student ID] / [Course code] / [Assessment name]
 
 Dear [Panel Chair / Academic Integrity Officer / Dr. Surname],
@@ -301,7 +301,7 @@ OSU 官方量刑页面同样列出「sincere remorse」与「level of cooperatio
 
 反向印证也存在：Newcastle 把「未在调查中诚实或充分配合」列为升级处理层级的独立触发条件。
 
-```
+```text
 Subject: Response and admission — [Student ID] / [Course code] / [Assessment name]
 
 Dear [Panel Chair / Academic Integrity Officer],
@@ -380,7 +380,7 @@ Yours sincerely,
 
 你必须把你的话装进上面某一个篮子里。
 
-```
+```text
 Subject: Appeal — [Student ID] / [Case reference] / decision dated [date]
 
 Dear [Appeal Officer / Secretary to the Appeals Committee],
@@ -534,7 +534,7 @@ Standard 9.6 是关键：
 
 ### 申诉路径与四个时限
 
-```
+```text
 处分决定书送达
    ↓ 10 日内
 ① 校内学生申诉处理委员会（书面申诉）

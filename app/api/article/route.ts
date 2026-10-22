@@ -23,5 +23,5 @@ export async function GET(request: Request) {
     contentHtml: article.contentHtml,
     date: article.date,
     author: article.author,
-  });
+  }, { headers: { "Cache-Control": "public, max-age=60, s-maxage=300, stale-while-revalidate=600" } });
 }

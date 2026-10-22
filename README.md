@@ -18,3 +18,16 @@
 - 🏠 多端工作区：[newsheep2goat](https://github.com/moonsilver-1/newsheep2goat)
 
 ---
+
+## 本地开发与质量检查
+
+使用 Node.js 20.9+ 和项目指定的 pnpm 10.33.2。以 `pnpm-lock.yaml` 为安装依据；仓库中的旧 `package-lock.json` 尚未与现有依赖同步，不用于 CI 安装。
+
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+提交前运行 `pnpm check`，依次执行内容规范检查、全部 Markdown 渲染检查、回归测试、ESLint 和生产构建。单独检查类型可运行 `pnpm typecheck`；生产预览使用 `pnpm build` 和 `pnpm start`。
+
+文章格式与投稿要求见 [CONTRIBUTING.md](CONTRIBUTING.md)。本轮修复、验证结果及后续上线验收项见 [质量改进记录](docs/quality-improvements.md)。

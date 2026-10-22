@@ -6,6 +6,7 @@ import "katex/dist/katex.min.css";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
 import ThemeProvider from "@/components/ThemeProvider";
+import { SITE_URL, SOCIAL_IMAGE } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +27,13 @@ const displayFont = Baloo_2({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.hdu-wiki.cn"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "HDU Wiki - 杭电百科",
     template: "%s - HDU Wiki",
   },
   description: "杭州电子科技大学校园百科，涵盖课程、校园生活、技术、社团等内容",
+  twitter: { card: "summary", images: [SOCIAL_IMAGE.url] },
   openGraph: {
     type: "website",
     siteName: "HDU Wiki",
@@ -39,6 +41,7 @@ export const metadata: Metadata = {
     title: "HDU Wiki - 杭电百科",
     description: "杭州电子科技大学校园百科，涵盖课程、校园生活、技术、社团等内容",
     url: "/",
+    images: [SOCIAL_IMAGE],
   },
 };
 

@@ -7,6 +7,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Vim Mode - HDU Wiki",
+  robots: { index: false, follow: true },
 };
 
 export default function VimLayout({

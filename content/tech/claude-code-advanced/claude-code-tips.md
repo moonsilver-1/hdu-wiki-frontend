@@ -75,7 +75,7 @@ Claude Code 的默认模型会随账号、订阅和官方版本变化。进入�
 
 Claude Code 可以读取截图和图片：
 
-```
+```text
 看一下 screenshot.png，告诉我这个 UI 有什么问题
 ```
 

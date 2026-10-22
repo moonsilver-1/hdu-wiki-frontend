@@ -33,7 +33,7 @@ git remote add origin https://github.com/yourname/my-vault.git
 
 ### 3. 创建 .gitignore
 
-```
+```text
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 .obsidian/plugins/*/data.json

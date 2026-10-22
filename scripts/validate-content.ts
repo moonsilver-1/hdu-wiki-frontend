@@ -136,7 +136,7 @@ for (const [section, volumes] of Object.entries(courseVolumes)) {
 }
 
 for (const issue of issues) {
-  const location = issue.file;
+  const location = `${issue.file}${issue.line ? `:${issue.line}` : ""}`;
   const level = issue.level.toUpperCase();
   console.log(`${level} ${location} [${issue.code}] ${issue.message}${issue.hint ? ` — ${issue.hint}` : ""}`);
 }
@@ -144,4 +144,4 @@ for (const issue of issues) {
 const errors = issues.filter((issue) => issue.level === "error");
 const warnings = issues.filter((issue) => issue.level === "warning");
 console.log(`\n内容校验：${markdownFiles.length} 篇正文，${errors.length} errors，${warnings.length} warnings`);
-if (errors.length) process.exitCode = 1;
+if (errors.length || (warnings.length && process.argv.includes("--strict"))) process.exitCode = 1;

@@ -15,7 +15,7 @@ tags: ["Kiro","Windsurf","AugmentCode","Qoder","Antigravity","AI编程"]
 
 ### Kiro 是什么？
 
-##### Bring structure to AI coding with spec-driven development
+#### Bring structure to AI coding with spec-driven development
 
 规范驱动型的AI编程工具
 

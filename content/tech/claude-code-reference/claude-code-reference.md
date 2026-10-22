@@ -26,7 +26,7 @@ completely using Claude Code.
 
 自二月份实验性推出以来，我一直是 Claude Code 的忠实用户，并赢得了 Anthropic x Forum Ventures 黑客马拉松大赛。
 
-#### Skills and Commands
+### Skills and Commands
 技能和指令
 
 Skills operate like rules, constricted to certain scopes and workflows. They're shorthand to prompts when you need to execute a particular workflow.
@@ -73,7 +73,7 @@ bash
   security-review/       # Checklist-based skill
 ```
 
-#### Hooks
+### Hooks
 钩子
 
 Hooks are trigger-based automations that fire on specific events. Unlike skills, they're constricted to tool calls and lifecycle events.
@@ -129,7 +129,7 @@ Example of what feedback you get in Claude Code, while running a PostToolUse hoo
 Pro tip: Use the `hookify` plugin to create hooks conversationally instead of writing JSON manually. Run /hookify and describe what you want.
 专业提示： 使用 `hookify` 插件可以以对话方式创建钩子，而无需手动编写 JSON 代码。运行 `/hookify` 命令并描述您的需求。
 
-#### Subagents
+### Subagents
 次级代理商
 
 Subagents are processes your orchestrator (main Claude) can delegate tasks to with limited scopes. They can run in background or foreground, freeing up context for the main agent.
@@ -161,7 +161,7 @@ Configure allowed tools, MCPs, and permissions per subagent for proper scoping.
 
 为每个子代理配置允许的工具、MCP 和权限，以实现正确的范围界定。
 
-#### Rules and Memory
+### Rules and Memory
 规则与记忆
 
 Your `.rules` folder holds `.md` files with best practices Claude should ALWAYS follow. Two approaches:
@@ -214,7 +214,7 @@ Example rules:
 - Never commit console.logs
 永远不要提交 console.log 文件。
 
-#### MCPs (Model Context Protocol)
+### MCPs (Model Context Protocol)
 MCP（模型上下文协议）
 
 MCPs connect Claude to external services directly. Not a replacement for APIs - it's a prompt-driven wrapper around them, allowing more flexibility in navigating information.
@@ -248,7 +248,7 @@ using /plugins to navigate to MCPs to see which ones are currently installed and
 Rule of thumb: Have 20-30 MCPs in config, but keep under 10 enabled / under 80 tools active.
 经验法则： 配置中保留 20-30 个 MCP，但启用的 MCP 不超过 10 个，激活的 MCP 不超过 80 个。
 
-#### Plugins
+### Plugins
 插件
 
 Plugins package tools for easy installation instead of tedious manual setup. A plugin can be a skill + MCP combined, or hooks/tools bundled together.
@@ -291,7 +291,7 @@ Same warning as MCPs - watch your context window.
 
 与 MCP 相同的警告——请注意上下文窗口。
 
-#### Tips and Tricks
+### Tips and Tricks
 技巧和窍门
 
 Keyboard Shortcuts
@@ -397,7 +397,7 @@ Use sandbox mode for risky operations - Claude runs in restricted environment wi
 
 对于高风险操作，请使用沙盒模式——Claude 将在受限环境中运行，不会影响您的实际系统。（使用 `--dangerously-skip-permissions` 参数可以反其道而行之，让 Claude 自由运行，但如果不小心，这可能会造成破坏。）
 
-#### On Editors
+### On Editors
 关于编辑
 
 While an editor isn't needed it can positively or negatively impact your Claude Code workflow. While Claude Code works from any terminal, pairing it with a capable editor unlocks real-time file tracking, quick navigation, and integrated command execution.
@@ -474,7 +474,7 @@ https://code.claude.com/docs/en/vs-code
 
 https://code.claude.com/docs/en/vs-code
 
-#### My Setup
+### My Setup
 我的配置
 
 Plugins
@@ -652,7 +652,7 @@ markdown
   doc-updater.md       # Keep docs synced
 ```
 
-#### Key Takeaways
+### Key Takeaways
 要点总结
 
 1. Don't overcomplicate - treat configuration like fine-tuning, not architecture
@@ -670,7 +670,7 @@ markdown
 1. Scope your subagents - limited tools = focused execution
 明确你的子代理范围——工具有限=执行更高效。
 
-#### References
+### References
 参考
 
 -

@@ -7,10 +7,13 @@
     "dev": "next dev",
     "build": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\" && next build",
     "start": "next start",
-    "lint": "eslint",
-    "validate:content": "tsx scripts/validate-content.ts",
+    "lint": "eslint --max-warnings=0",
+    "validate:content": "tsx scripts/validate-content.ts --strict",
     "test": "tsx --test \"tests/**/*.test.ts\"",
-    "check": "pnpm validate:content && pnpm test && pnpm lint && pnpm build"
+    "check": "pnpm validate:content && pnpm validate:rendering && pnpm test && pnpm lint && pnpm build",
+    "validate:rendering": "tsx scripts/validate-rendering.ts",
+    "typecheck": "tsc --noEmit",
+    "export:mobile": "tsx scripts/export-mobile.ts"
   },
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",

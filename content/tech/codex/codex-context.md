@@ -10,7 +10,7 @@ Codex 的每次对话都受模型上下文窗口限制。管好上下文，是�
 
 ## 看当前用了多少
 
-```
+```text
 /status
 ```
 
@@ -20,7 +20,7 @@ GPT-5.6 在 Codex 里的上下文窗口按 0.144.6 版本的修正为 272K token
 
 ## 压缩
 
-```
+```text
 /compact
 ```
 
@@ -68,7 +68,7 @@ codex resume --include-non-interactive   # 把 exec 会话也列出来
 
 ## 计划模式
 
-```
+```text
 /plan 把鉴权从 session 迁移到 JWT
 ```
 
@@ -82,7 +82,7 @@ plan_mode_reasoning_effort = "high"
 
 ## 目标模式
 
-```
+```text
 /goal set 让 pnpm test 全部通过并保持 lint 干净
 /goal pause
 /goal resume

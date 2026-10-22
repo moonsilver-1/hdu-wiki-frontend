@@ -1,3 +1,5 @@
+import { validateMarkdownBody } from "./markdown-validation";
+
 export type ValidationLevel = "error" | "warning";
 
 export interface ContentValidationIssue {
@@ -5,6 +7,7 @@ export interface ContentValidationIssue {
   code: string;
   message: string;
   hint?: string;
+  line?: number;
 }
 
 export interface ContentDocumentInput {
@@ -55,40 +58,7 @@ export function validateArticleDocument(input: ContentDocumentInput, options?: {
   if (body.length < 20) issues.push(error("V010", "正文至少 20 字符", "补充可验证的正文内容。"));
   if (body.length > 60_000) issues.push(error("V011", "正文最多 60,000 字符", "拆分成多篇文章或删减重复内容。"));
 
-  let inFence = false;
-  let previousHeadingLevel = 0;
-  let hasH2 = false;
-  for (const line of body.split(/\r?\n/)) {
-    const trimmed = line.trim();
-    if (/^(```|~~~)/.test(trimmed)) {
-      inFence = !inFence;
-      continue;
-    }
-    if (inFence) continue;
-    if (/^\s*#\s+/.test(line)) issues.push(error("V012", "正文禁止 H1", "页面标题由站点模板提供，正文从 H2 开始。"));
-    // 图片白名单：src 只允许 local:N（随投稿上传的图片占位符）、
-    // 站内绝对路径（如 /images/...）或 http(s) 外链，其余（data:、javascript: 等）拒绝；
-    // <img> 标签由下方 raw HTML 规则拦截。
-    for (const match of line.matchAll(/!\[[^\]]*\]\(\s*([^)\s]+)[^)]*\)/g)) {
-      const src = match[1];
-      if (/^(local:\d+|https?:\/\/|\/)/i.test(src)) continue;
-      issues.push(error("V013", "图片链接不受支持", "请上传图片（生成 local: 占位符）、使用站内路径或 https:// 图片链接。"));
-    }
-    const withoutInlineCode = line.replace(/`[^`]*`/g, "");
-    const htmlTag = /<\/?[A-Za-z][A-Za-z0-9-]*(?:\s[^<>]*)?\s*\/?\s*>/;
-    if (htmlTag.test(withoutInlineCode) && !/<https?:\/\/[^>]+>/.test(withoutInlineCode)) issues.push(error("V014", "正文禁止 raw HTML", "改写为标准 Markdown 或代码块。"));
-    if (/\]\(\s*(?:javascript|data|vbscript):/i.test(withoutInlineCode)) {
-      issues.push(error("V017", "正文禁止不安全链接协议", "仅使用 https://、http:// 或站内锚点链接。"));
-    }
-    const heading = /^(#{2,6})\s+/.exec(line);
-    if (heading) {
-      const level = heading[1].length;
-      if (level === 2) hasH2 = true;
-      if (previousHeadingLevel && level > previousHeadingLevel + 1) issues.push(warning("V015", "标题层级跳级", "将标题逐级组织，便于目录和屏幕阅读器理解。"));
-      previousHeadingLevel = level;
-    }
-  }
-  if (body.length >= 20 && !hasH2) issues.push(warning("V016", "正文没有 H2", "长文建议从 H2 开始组织章节。"));
+  issues.push(...validateMarkdownBody(body));
 
   return issues;
 }
@@ -101,7 +71,6 @@ export function validateSubmissionFields(input: ContentDocumentInput & { categor
 }
 
 const error = (code: string, message: string, hint: string): ContentValidationIssue => ({ level: "error", code, message, hint });
-const warning = (code: string, message: string, hint: string): ContentValidationIssue => ({ level: "warning", code, message, hint });
 
 export function hasValidationErrors(issues: ContentValidationIssue[]): boolean {
   return issues.some((issue) => issue.level === "error");
