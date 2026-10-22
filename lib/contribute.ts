@@ -1,3 +1,4 @@
+import { validateMarkdownBody } from "./markdown-validation";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -59,33 +60,10 @@ export interface ValidationResult {
   issues?: ReturnType<typeof validateSubmissionFields>;
 }
 
-// 危险 HTML/脚本模式：正文渲染只允许标准 Markdown，但投稿入口仍主动拒绝
-// 脚本、事件属性，避免未来渲染管线变更时留下 XSS 风险。图片不再一刀切拦截：
-// local:N 占位符随投稿上传，https 外链图片由管理员在 PR 里审核。
-const DANGEROUS_PATTERNS: { regex: RegExp; hint: string }[] = [
-  { regex: /<script[\s>]/i, hint: "正文里检测到 <script> 标签" },
-  { regex: /<iframe[\s>]/i, hint: "正文里检测到 <iframe> 标签" },
-  { regex: /<object[\s>]/i, hint: "正文里检测到 <object> 标签" },
-  { regex: /<embed[\s>]/i, hint: "正文里检测到 <embed> 标签" },
-  { regex: /<img[\s>]/i, hint: "正文里检测到 <img> 标签，请改用 markdown 图片语法 ![]()" },
-  { regex: /on\w+\s*=\s*["'`]/i, hint: "正文里检测到事件属性（如 onclick）" },
-  { regex: /(?:javascript|data|vbscript):\s*\S/i, hint: "正文里检测到不安全链接协议" },
-];
-
-// 把代码块（```...``` 和缩进 4 行的代码）从正文中剔除，只检查剩余文本。
-// 这样允许用户在代码块里讨论/展示这些内容（它们会被转义成文本，不会执行）。
+// Parse Markdown so code examples and reference links follow the same rules as rendering.
 export function containsDangerousHtml(markdown: string): string | null {
-  const withoutCodeBlocks = markdown
-    // 去掉围栏代码块 ```...```（含语言标识）
-    .replace(/```[\s\S]*?```/g, "")
-    // 去掉行内代码 `...`
-    .replace(/`[^`\n]*`/g, "");
-  for (const { regex, hint } of DANGEROUS_PATTERNS) {
-    if (regex.test(withoutCodeBlocks)) {
-      return `${hint}。如需展示代码，请用代码块（\`\`\`）包裹。`;
-    }
-  }
-  return null;
+  const issue = validateMarkdownBody(markdown).find((item) => item.code === "V014" || item.code === "V017");
+  return issue ? `${issue.message}（HTML/script）：${issue.hint}` : null;
 }
 
 // 文件路径护栏：确认路径严格匹配 content/<白名单category>/<白名单section>/<纯ASCII slug>.md，
@@ -169,9 +147,7 @@ export function validateSubmission(input: Partial<ContributeSubmission>): Valida
     return { ok: false, error: first ? `${first.message}${first.hint ? `：${first.hint}` : ""}` : "投稿内容未通过校验", issues };
   }
 
-  // 危险内容拦截：渲染管线开启了原生 HTML，正文里的 <script>/<iframe>/javascript:
-  // 等会被真正执行。这里扫描「代码块外」的危险模式，命中即拒绝。代码块（```）内的
-  // 同类内容会被渲染器转义成文本不执行，所以放行——提示用户把代码放进代码块。
+  // Raw HTML remains disabled; validate links and markup before publication.
   const dangerous = containsDangerousHtml(input.body?.trim() ?? "");
   if (dangerous) return { ok: false, error: dangerous };
 
@@ -474,10 +450,4 @@ function slugOf(filePath: string): string {
   return filePath.split("/").pop()?.replace(/\.md$/, "") ?? "";
 }
 
-// 客户端预览用：对用户输入的正文做与 readMarkdown 一致的预处理，
-// 保证预览渲染结果和合并后正式页一致。
-export function preprocessMarkdown(raw: string): string {
-  return raw
-    .replace(/\r\n/g, "\n")
-    .replace(/(^|[^$])\$\$([^\n$][^$]*?)\$\$(?!\$)/g, (_, pre, body) => `${pre}$$\n${body.trim()}\n$$`);
-}
+export { preprocessMarkdown } from "./markdown";

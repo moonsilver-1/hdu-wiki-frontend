@@ -16,7 +16,7 @@ Claude Code 不只是聊天——它能通过**工具（Tools）** 直接操作�
 
 **1. 精细的权限控制**
 
-```
+```text
 ✅ 允许 Read（读文件）但 ❌ 拒绝 Bash
 ✅ 允许 Bash(pnpm test) 但 ❌ 拒绝 Bash(rm -rf)
 ```
@@ -50,7 +50,7 @@ Claude Code 不只是聊天——它能通过**工具（Tools）** 直接操作�
 
 ### Read（读取文件）
 
-```
+```text
 Read: /Users/mozi/开发/project/src/auth.ts
 ```
 
@@ -61,7 +61,7 @@ Read: /Users/mozi/开发/project/src/auth.ts
 
 ### Write（写入文件）
 
-```
+```text
 Write: /path/to/new-file.ts
 Content: (完整的文件内容)
 ```
@@ -72,7 +72,7 @@ Content: (完整的文件内容)
 
 ### Edit（编辑文件）
 
-```
+```text
 Edit: /path/to/auth.ts
   旧内容: const token = getToken();
   新内容: const token = getToken() || refreshToken();
@@ -84,7 +84,7 @@ Edit: /path/to/auth.ts
 
 ### Bash（运行命令）
 
-```
+```text
 Bash: pnpm build
 ```
 
@@ -94,7 +94,7 @@ Bash: pnpm build
 
 ### Grep（搜索内容）
 
-```
+```text
 Grep: pattern="getToken" path="src/"
 ```
 
@@ -104,7 +104,7 @@ Grep: pattern="getToken" path="src/"
 
 ### Glob（搜索文件名）
 
-```
+```text
 Glob: pattern="src/**/*.tsx"
 ```
 
@@ -114,7 +114,7 @@ Glob: pattern="src/**/*.tsx"
 
 ### WebFetch（抓取网页）
 
-```
+```text
 WebFetch: url="https://docs.example.com/api"
 ```
 
@@ -124,7 +124,7 @@ WebFetch: url="https://docs.example.com/api"
 
 ### WebSearch（网络搜索）
 
-```
+```text
 WebSearch: query="Next.js 16 new features"
 ```
 
@@ -201,7 +201,7 @@ Plan 模式切换到**只读权限**——Claude 可以读文件、运行只读�
 
 ### 典型工作流
 
-```
+```text
 1. 进入 Plan 模式
    → Claude 读代码、运行测试、探索结构
 
@@ -362,7 +362,7 @@ MCP 是一个标准化协议，让 Claude Code 安全地连接**外部工具和�
 
 ### 管理 MCP
 
-```
+```text
 /mcp
 ```
 
@@ -400,7 +400,7 @@ claude mcp add --transport stdio filesystem -- \
 
 在输入框中以 `!` 开头可以直接运行 shell 命令（不经过 Claude）：
 
-```
+```text
 ! pnpm test
 ! git log --oneline -5
 ```
@@ -417,7 +417,7 @@ claude mcp add --transport stdio filesystem -- \
 
 ### 场景：修复一个复杂的认证 bug
 
-```
+```text
 步骤 1：Plan 模式探索
   Shift+Tab × 2（进入 plan 模式）
   "帮我分析 src/auth.ts 里的 token 刷新逻辑，

@@ -84,7 +84,7 @@ Cursor替换的是基础编程。如果程序员还停留在增删改查的思�
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-##### 免费的限制
+#### 免费的限制
 
 - 50次慢速请求完全不够用
 
@@ -273,19 +273,19 @@ https://www.bilibili.com/video/BV1EbdEYwEuL/
 
 ### 三、三种模式同一个问题的对话结果
 
-##### Ask模式（未开启 codebase搜索）
+#### Ask模式（未开启 codebase搜索）
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-##### Ask模式（开启codebase搜索)
+#### Ask模式（开启codebase搜索)
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-##### Manual模式
+#### Manual模式
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-##### Agent模式：
+#### Agent模式：
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
@@ -325,7 +325,7 @@ https://www.bilibili.com/video/BV1zbduYgEBH/
 
 ### 三、拆解可能降智的因素
 
-##### 1）你选择的大模型
+#### 1）你选择的大模型
 
 大模型可以说是版本越大越强，需要区分的是
 
@@ -335,7 +335,7 @@ https://www.bilibili.com/video/BV1zbduYgEBH/
 
 - 其他模型可以按需使用，简单的问题效果差不多
 
-##### 2）你的对话模式
+#### 2）你的对话模式
 
 cursor对话模式分为三种，Ask、Manual、Agent，可以简单区分他们的场景用途
 
@@ -361,11 +361,11 @@ B站
 
 文档：
 
-##### 3）你的账号身份，是普通还是Pro
+#### 3）你的账号身份，是普通还是Pro
 
 可能商业上的考虑，会限制普通身份的使用，免费次数用完了
 
-##### 4）cursor的软件版本
+#### 4）cursor的软件版本
 
 0.45-------> 0.48
 
@@ -381,7 +381,7 @@ B站
 
 不一定
 
-##### 5）对话上下文长度
+#### 5）对话上下文长度
 
 所谓的一次对话是指一个chat窗口。如果你的对话内容过长，可能会导致cursor记忆混乱 从而导致降智。
 
@@ -397,7 +397,7 @@ B站
 
 > 原文此处包含图片，当前版本保留文字说明；请查看原始飞书页面中的图片。
 
-##### 6）最最重要的是你的对话内容
+#### 6）最最重要的是你的对话内容
 
 排除以上 ”静态“ 的设置，唯一不同人不同水平就是对话内容
 
@@ -539,7 +539,7 @@ https://space.bilibili.com/481246113/lists/5518903?type=season
 
 ### 一、前后端开发的两种模式
 
-##### 把前端项目、后端项目放到同一个文件夹中，然后用cursor 打开这个文件夹
+#### 把前端项目、后端项目放到同一个文件夹中，然后用cursor 打开这个文件夹
 
 -project-name
 
@@ -561,7 +561,7 @@ https://space.bilibili.com/481246113/lists/5518903?type=season
 
 2）很容易挤爆上下文，经常要 “新开对话”
 
-##### 把前端项目、后端项目放到不同文件夹中，然后用不同的cursor 打开对应的项目
+#### 把前端项目、后端项目放到不同文件夹中，然后用不同的cursor 打开对应的项目
 
 Front-end
 
@@ -714,7 +714,7 @@ https://github.com/stagewise-io/stagewise
 
 ### 开发流程
 
-##### 第一步：完成通用rules和框架rules编写
+#### 第一步：完成通用rules和框架rules编写
 
 - 通用rules: 对所有cursor对话都适用，核心思想 是你希望cursor每次在对话中将什么信息放到上下文中，希望它每次对话都要记住你的要求是什么
 
@@ -779,7 +779,7 @@ Curated list of awesome Cursor Rules .mdc files. Contribute to sanjeed5/awesome-
 
 这里面非常多框架类的rules可以使用
 
-##### 第二步：初始化项目及创建git,.gitigore
+#### 第二步：初始化项目及创建git,.gitigore
 
 - Git 是用来做版本管理，能很方便的进行代码回滚和查看差异性
 
@@ -803,7 +803,7 @@ A lightweight, customizable Vue UI library for mobile web apps.
 
 Generate context with up-to-date documentation for LLMs and AI code editors
 
-##### 第三步：开发页面
+#### 第三步：开发页面
 
 - 大的原则
 
@@ -1336,7 +1336,7 @@ Yolo模式：[YOLO_MODE]
  *  寻求关键洞见而非表面列举
  *  追求创新思维而非习惯性重复
  *  突破认知限制，调动所有计算资源
-```
+```text
 
 ##### rules文件
 
@@ -1376,7 +1376,7 @@ git --version
 
 显示版本号（如 git version 2.40.1）即成功。
 
-###### macOS 系统
+#### macOS 系统
 
 1. 方法一（推荐）：使用 Homebrew打开终端输入：
 
@@ -1392,7 +1392,7 @@ brew install git
 git --version
 ```
 
-##### 二、配置 Git（Windows/macOS 通用）
+#### 二、配置 Git（Windows/macOS 通用）
 
 首次使用需设置用户名和邮箱（提交代码时显示身份）：
 
@@ -1405,9 +1405,9 @@ git config --global user.email "你的邮箱@example.com"
 
 配置保存在 ~/.gitconfig 文件（可通过 git config --list 查看）。
 
-##### 三、Git 基础使用流程
+#### 三、Git 基础使用流程
 
-###### 场景 1：本地创建仓库并提交代码
+##### 场景 1：本地创建仓库并提交代码
 
 1. 初始化仓库打开终端，进入项目文件夹：
 
@@ -1430,7 +1430,7 @@ git add .              # 注意末尾的“.”
 git commit -m "第一次提交：添加 README 文件"
 ```
 
-###### 场景 2：连接远程仓库（以 GitHub 为例）
+##### 场景 2：连接远程仓库（以 GitHub 为例）
 
 1. 创建远程仓库登录 GitHub → 点击 New repository → 输入仓库名（如 my-app）→ 点击 **Create**。
 
@@ -1448,14 +1448,14 @@ git push -u origin main   # 首次推送需加 `-u`
 
 输入 GitHub 账号密码（或 Personal Access Token）完成推送。
 
-###### 场景 3：克隆远程仓库
+##### 场景 3：克隆远程仓库
 
 ```text
 git clone https://github.com/用户名/仓库名.git
 cd 仓库名  # 进入项目目录
 ```
 
-##### 四、常用命令速查表
+#### 四、常用命令速查表
 
 | 命令 | 作用 |
 | --- | --- |
@@ -1467,7 +1467,7 @@ cd 仓库名  # 进入项目目录
 | git checkout -b 新分支名 | 创建并切换分支 |
 | git reset HEAD~1 | 撤销最近一次提交 |
 
-##### 五、图形化工具推荐（可选）
+#### 五、图形化工具推荐（可选）
 
 - VS Code 内置 Git：支持可视化提交/推送/拉取（新手友好）。
 
@@ -1475,7 +1475,7 @@ cd 仓库名  # 进入项目目录
 
 - Sourcetree：https://www.sourcetreeapp.com（高级功能更全）。
 
-##### 六、避坑指南
+#### 六、避坑指南
 
 1. 提交报错邮箱不匹配检查 git config --global user.email 是否与 GitHub 注册邮箱一致。
 
@@ -1487,7 +1487,7 @@ cd 仓库名  # 进入项目目录
 
 1. 文件未跟踪（Untracked）新文件需先执行 git add 再提交。
 
-##### 总结
+#### 总结
 
 - 安装：按步骤选择关键配置项（尤其 Windows 的 PATH 设置）。
 

@@ -39,7 +39,7 @@ Obsidian 支持嵌套标签：
 
 ### 推荐的标签体系
 
-```
+```text
 #type/         — 笔记类型
   permanent    — 永久笔记
   literature   — 文献笔记

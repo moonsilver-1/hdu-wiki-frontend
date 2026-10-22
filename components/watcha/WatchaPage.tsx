@@ -5,6 +5,7 @@ import type { PointerEvent as ReactPointerEvent, CSSProperties } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Lenis from 'lenis';
+import WatchaImage from './WatchaImage';
 import WatchaCanvas from './WatchaCanvas';
 import CloudsHero from './CloudsHero';
 import BirdsBackground from './BirdsBackground';
@@ -229,26 +230,6 @@ const HACKATHON_SITES = [
   },
 ];
 
-const PARTNER_LOGO_ROWS = [
-  // 第一行
-  ['/images/logos/image.png', '/images/logos/image-2.png', '/images/logos/image-3.png', '/images/logos/image-4.png', '/images/logos/image-5.png', '/images/logos/image-6.png'],
-  // 第二行
-  ['/images/logos/image-7.png', '/images/logos/image-8.png', '/images/logos/image-9.png', '/images/logos/image-10.png', '/images/logos/image-11.png'],
-  // 第三行
-  ['/images/logos/image-13.png', '/images/logos/image-14.png', '/images/logos/组 18.svg', '/images/logos/组 19.svg', '/images/logos/image-15.png', '/images/logos/image-16.png'],
-  // 第四行
-  ['/images/logos/image-17.png', '/images/logos/组 20.svg', '/images/logos/组 21.svg', '/images/logos/组 22.svg'],
-];
-
-const PARTNER_GROUPS = [
-  { name: '投资机构', items: '红杉中国 · 华兴资本 · 真格基金 · 奇绩创坛 · 蓝驰创投 · Monolith · 五源资本' },
-  { name: '企业伙伴', items: '字节跳动 · 阿里巴巴 · 蚂蚁集团 · 腾讯 · 谷歌 · 百度 · MiniMax · 智谱 · 月之暗面' },
-  { name: '社区伙伴', items: '知乎 · 小红书 · FounderPark · 魔搭社区 · WaytoAGI · Datawhale' },
-  { name: '行业伙伴', items: '浦发银行 · 迅雷 · 京东 · 莫高设计 · 猿辅导 · 美团 · 蓝盒子' },
-  { name: '高校伙伴', items: '清华大学 · 北京大学 · 浙江大学 · 新加坡国立大学 · 哈佛大学' },
-  { name: '技术峰会', items: 'WAIC 世界人工智能大会 · Google Cloud Next · 全球开发者先锋大会' },
-];
-
 const KEY_EVENTS = [
   { name: '第一届观猹大会', desc: '2025 年 7 月 16 日在北京 Blue Note 举办，是观猹首次发布会与线下大会，围绕 Build in Public、AI 产品发布、真实用户反馈和产品观猹员计划展开分享。', images: ['/images/第一届观猹大会.png'] },
   { name: '全球首届猹话会', desc: '观猹上线百日后的社区线下聚会，面向产品观猹员、AI 创业者与爱好者，围绕产品体验、创业实践与社区连接展开交流。', images: ['/images/全球首届猹话会.jpg'] },
@@ -272,7 +253,6 @@ const KEY_EVENTS = [
 
 // ============ 板块三数据：好用产品馆 ============
 type Product = { name: string; slogan: string; desc: string; tags: string[]; rating: number; link: string; qrHint: string; logo: string; order: string };
-const PRODUCT_CATEGORIES = ['全部'];
 const ALL_PRODUCTS: Product[] = [
   { order: '01', name: 'Paper2Galgame', slogan: '"前辈！开学我们一起读 paper 吧"', desc: '把论文或课件转成互动式视觉小说（Galgame），通过剧情化讲解和知识点提炼，帮助用户快速掌握核心内容。', tags: ['论文阅读', '课堂展示', '跨学科入门'], rating: 4.8, link: 'https://watcha.cn/products/paper2galgame', qrHint: '扫码体验 Paper2Galgame', logo: '/images/Paper2Galgame logo.png' },
   { order: '02', name: '佛脚 AI', slogan: '"让天下没有难过的考试，让学习变得更简单！"', desc: '一站式 AI 备考伙伴，支持拆解学习计划、解析 PDF/PPT/音视频、生成模拟题，覆盖"学—测—评—导—疏"全流程。', tags: ['考试备考', '资料解析', '错题复盘'], rating: 4.6, link: 'https://watcha.cn/products/cram-ai', qrHint: '扫码体验佛脚 AI', logo: '/images/佛脚 AI logo.png' },
@@ -356,7 +336,7 @@ function ImageGallery({ images, accent }: { images: string[]; accent: string }) 
         const name = decodeURIComponent(src.split('/').pop() || '').replace(/\.[^.]+$/, '');
         return (
           <figure key={i} className="rounded-xl overflow-hidden border" style={{ borderColor: `${accent}40`, background: '#fff' }}>
-            <img src={src} alt={name} className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+            <WatchaImage src={src} alt={name} className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
             <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>
               {name}
             </figcaption>
@@ -417,7 +397,7 @@ function TimelineDetail({ accent, onOpenStory, onOpenVisit }: { accent: string; 
               style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
               <div className="relative h-44 overflow-hidden" style={{ background: `${accent}15` }}>
                 {card.images[0] ? (
-                  <img src={card.images[0]} alt="" className="w-full h-full object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+                  <WatchaImage src={card.images[0]} alt="" className="w-full h-full object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center" style={{ background: `${accent}15` }} />
                 )}
@@ -465,7 +445,7 @@ function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBus
           </div>
         </div>
         <div className="md:col-span-2 flex flex-col items-center gap-4">
-          <img src="/watcha-logo-new.jpg" alt="观猹 Logo" className="h-28 object-contain rounded-xl" />
+          <WatchaImage src="/watcha-logo-new.jpg" alt="观猹 Logo" className="h-28 object-contain rounded-xl" />
           <div className="text-center text-sm text-slate-500">扫码访问官网 ↗</div>
         </div>
       </div>
@@ -481,11 +461,11 @@ function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBus
               className="w-full flex items-center gap-4 md:gap-5 rounded-2xl p-4 md:p-5 border text-left transition-all hover:shadow-lg hover:-translate-y-0.5"
               style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
               <div className="shrink-0 w-20 h-16 rounded-xl bg-white border flex items-center justify-center overflow-hidden p-1.5" style={{ borderColor: `${accent}35` }}>
-                <img src={b.logo} alt={b.name} className="max-w-full max-h-full object-contain" />
+                <WatchaImage src={b.logo} alt={b.name} className="max-w-full max-h-full object-contain" />
               </div>
               {b.logoExtra && (
                 <div className="shrink-0 hidden sm:flex w-28 h-16 rounded-xl bg-white border items-center justify-center overflow-hidden p-1.5" style={{ borderColor: `${accent}35` }}>
-                  <img src={b.logoExtra} alt={`${b.name}文字标`} className="max-w-full max-h-full object-contain" />
+                  <WatchaImage src={b.logoExtra} alt={`${b.name}文字标`} className="max-w-full max-h-full object-contain" />
                 </div>
               )}
               <div className="flex-1 min-w-0">
@@ -504,7 +484,7 @@ function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBus
           <span className="inline-block w-1 h-6 rounded-full" style={{ background: accent }} />生态合作伙伴与行业背书
         </h3>
         <div className="rounded-2xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
-          <img src="/images/生态合作伙伴与行业背书.png" alt="生态合作伙伴与行业背书" className="w-full h-auto block cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+          <WatchaImage src="/images/生态合作伙伴与行业背书.png" alt="生态合作伙伴与行业背书" className="w-full h-auto block cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
         </div>
       </div>
 
@@ -530,7 +510,7 @@ function EcosystemDetail({ accent, onOpenBusiness }: { accent: string; onOpenBus
                   const name = decodeURIComponent(src.split('/').pop() || '').replace(/\.[^.]+$/, '');
                   return (
                     <figure key={j} className="flex-1 min-w-0 rounded-lg overflow-hidden border bg-white" style={{ borderColor: `${accent}30` }}>
-                      <img src={src} alt={name} className="w-full h-24 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+                      <WatchaImage src={src} alt={name} className="w-full h-24 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
                       <figcaption className="px-2 py-1 text-[10px] text-slate-500 text-center truncate" style={{ borderTop: `1px solid ${accent}20` }}>{name}</figcaption>
                     </figure>
                   );
@@ -564,7 +544,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
         {/* 头部：logo + 名称 + 简介 */}
         <div className="text-center mb-8">
           <div className="mx-auto mb-4 w-28 h-20 rounded-2xl bg-white border flex items-center justify-center p-2" style={bordered}>
-            <img src={business.logo} alt={business.name} className="max-w-full max-h-full object-contain" />
+            <WatchaImage src={business.logo} alt={business.name} className="max-w-full max-h-full object-contain" />
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-3">{business.name}</h2>
           <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">{business.desc}</p>
@@ -574,7 +554,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
         {businessId === 'platform' && (
           <>
             <figure className="rounded-2xl overflow-hidden border mb-8 bg-white" style={bordered}>
-              <img src="/images/平台核心能力.png" alt="平台核心能力" className="w-full object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+              <WatchaImage src="/images/平台核心能力.png" alt="平台核心能力" className="w-full object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
             </figure>
             <div className="text-center mb-8">
               <h3 className="text-2xl md:text-3xl font-bold" style={{ color: accent }}>五大核心板块</h3>
@@ -583,7 +563,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               {PLATFORM_SHOTS.slice(0, 2).map((src) => (
                 <figure key={src} className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                  <img src={src} alt={shotName(src)} className="w-full h-48 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+                  <WatchaImage src={src} alt={shotName(src)} className="w-full h-48 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
                   <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>{shotName(src)}</figcaption>
                 </figure>
               ))}
@@ -591,7 +571,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {PLATFORM_SHOTS.slice(2).map((src) => (
                 <figure key={src} className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                  <img src={src} alt={shotName(src)} className="w-full h-36 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+                  <WatchaImage src={src} alt={shotName(src)} className="w-full h-36 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
                   <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>{shotName(src)}</figcaption>
                 </figure>
               ))}
@@ -623,11 +603,11 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
             <h4 className="text-lg font-bold text-slate-800 mb-4">TokenDance 核心功能实拍：</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                <img src="/images/TokenDance 官网｜统一模型网关与多协议兼容.png" alt="TokenDance 核心功能实拍" className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+                <WatchaImage src="/images/TokenDance 官网｜统一模型网关与多协议兼容.png" alt="TokenDance 核心功能实拍" className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
                 <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>TokenDance 核心功能实拍</figcaption>
               </figure>
               <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-                <img src="/images/平台能力｜智能路由、统一计费与容错降级.png" alt="平台能力｜智能路由、统一计费与容错降级" className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+                <WatchaImage src="/images/平台能力｜智能路由、统一计费与容错降级.png" alt="平台能力｜智能路由、统一计费与容错降级" className="w-full h-52 object-cover cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
                 <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>平台能力｜智能路由、统一计费与容错降级</figcaption>
               </figure>
             </div>
@@ -646,7 +626,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
               ))}
             </div>
             <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-              <img src="/images/签约.png" alt="签约" className="w-full object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+              <WatchaImage src="/images/签约.png" alt="签约" className="w-full object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
               <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>签约</figcaption>
             </figure>
           </>
@@ -665,7 +645,7 @@ function BusinessDetailPanel({ businessId, accent, onClose }: { businessId: stri
               ))}
             </div>
             <figure className="rounded-xl overflow-hidden border bg-white" style={bordered}>
-              <img src="/images/知识号见面会.jpg" alt="知识号见面会" className="w-full h-auto object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+              <WatchaImage src="/images/知识号见面会.jpg" alt="知识号见面会" className="w-full h-auto object-contain cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
               <figcaption className="px-3 py-2 text-xs text-slate-600 text-center font-medium" style={{ borderTop: `1px solid ${accent}25` }}>知识号见面会</figcaption>
             </figure>
           </>
@@ -705,7 +685,7 @@ function ProductsDetail({ accent }: { accent: string }) {
             <div className="p-5 pb-3">
               <div className="flex items-start gap-3 mb-3">
                 <div className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden" style={{ background: `${accent}15` }}>
-                  <img src={p.logo} alt={p.name} className="w-full h-full object-contain p-1.5" />
+                  <WatchaImage src={p.logo} alt={p.name} className="w-full h-full object-contain p-1.5" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-baseline gap-2 mb-0.5">
@@ -770,7 +750,7 @@ function InteractiveDetail({ accent }: { accent: string }) {
               <div key={v.id} className="rounded-2xl p-5 border" style={{ background: 'rgba(255,255,255,0.85)', borderColor: 'rgba(0,0,0,0.06)' }}>
                 <div className="flex items-start gap-3 mb-3">
                   <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden" style={{ background: `${accent}15` }}>
-                    <img src={v.logo} alt={v.name} className="w-full h-full object-contain p-1.5" />
+                    <WatchaImage src={v.logo} alt={v.name} className="w-full h-full object-contain p-1.5" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-sm font-bold text-slate-800">{v.name}</div>
@@ -839,7 +819,7 @@ function InteractiveDetail({ accent }: { accent: string }) {
                 🔗 {sw.link}
               </a>
               <div className="mt-3 rounded-xl overflow-hidden border" style={{ borderColor: 'rgba(0,0,0,0.06)' }}>
-                <img src={sw.avatar} alt={sw.name} className="w-full h-auto block cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+                <WatchaImage src={sw.avatar} alt={sw.name} className="w-full h-auto block cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
               </div>
             </div>
           ))}
@@ -1155,7 +1135,7 @@ export default function WatchaPage() {
 
   // 详情弹窗打开/关闭时：停止 Lenis 并锁定窗口原生滚动，让弹层内部独立滚动
   useEffect(() => {
-    const hasOverlay = activePanel || activeStoryId || showVisitDetail;
+    const hasOverlay = activePanel || activeStoryId || showVisitDetail || activeBusiness || previewSrc;
     if (hasOverlay) {
       lenisRef.current?.stop();
       document.documentElement.style.overflow = 'hidden';
@@ -1163,7 +1143,8 @@ export default function WatchaPage() {
       lenisRef.current?.start();
       document.documentElement.style.overflow = '';
     }
-  }, [activePanel, activeStoryId, showVisitDetail, activeBusiness]);
+    return () => { document.documentElement.style.overflow = ''; };
+  }, [activePanel, activeStoryId, showVisitDetail, activeBusiness, previewSrc]);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -1177,7 +1158,7 @@ export default function WatchaPage() {
     }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activePanel, activeStoryId, showVisitDetail, activeBusiness]);
+  }, [activePanel, activeStoryId, showVisitDetail, activeBusiness, previewSrc]);
 
   return (
     <div className="relative text-slate-900">
@@ -1273,9 +1254,9 @@ export default function WatchaPage() {
               在顶部 30vh mask 渐隐区之下，不受遮罩影响） */}
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
             <div className="mb-6 flex items-center justify-center gap-6">
-              <img src="/hdu-logo.jpg" alt="杭电校徽" className="h-16 w-16 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(255,255,255,0.6)' }} />
+              <WatchaImage src="/hdu-logo.jpg" alt="杭电校徽" className="h-16 w-16 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(255,255,255,0.6)' }} />
               <span className="text-3xl text-white">×</span>
-              <img src="/watcha-logo.png" alt="观猹 Logo" className="h-16 w-auto object-contain" />
+              <WatchaImage src="/watcha-logo.png" alt="观猹 Logo" className="h-16 w-auto object-contain" />
             </div>
             <p className="text-sm text-white/90 tracking-[0.35em] pl-[0.35em]">始于此方，行至远方</p>
           </div>
@@ -1323,7 +1304,7 @@ export default function WatchaPage() {
       {/* 图片全屏预览层 */}
       {previewSrc && (
         <div className="fixed inset-0 z-[200] bg-black/85 flex items-center justify-center p-4 cursor-zoom-out" onClick={() => setPreviewSrc(null)}>
-          <img src={previewSrc} alt="预览" className="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.src); }} />
+          <WatchaImage unoptimized src={previewSrc} alt="预览" className="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-zoom-in" onClick={(e) => { e.stopPropagation(); window.__previewImage?.(e.currentTarget.dataset.originalSrc ?? e.currentTarget.src); }} />
           <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 text-white text-xl flex items-center justify-center hover:bg-white/40 transition" onClick={() => setPreviewSrc(null)}>✕</button>
         </div>
       )}

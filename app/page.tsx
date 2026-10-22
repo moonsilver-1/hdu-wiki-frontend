@@ -1,4 +1,7 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 import {
   ArrowRight,
   ArrowUpRight,
@@ -11,6 +14,7 @@ import ArticleList from "@/components/ArticleList";
 import AskBox from "@/components/AskBox";
 import HotChips, { type HotChip } from "@/components/HotChips";
 import WikiMascot, { Sparkle } from "@/components/WikiMascot";
+import tourStyles from "./tour/tour.module.css";
 
 const categoryInfo: Record<string, { desc: string }> = {
   courses: { desc: "课程笔记、考试经验与学习资源" },
@@ -152,6 +156,7 @@ export default async function Home({
             <div><strong>{categories.length}</strong><span>个知识方向</span></div>
             <div><strong>2026</strong><span>持续共建中</span></div>
           </div>
+          <Link href="/tour" className={tourStyles.entry}>用一分钟看看</Link>
         </div>
       </section>
 

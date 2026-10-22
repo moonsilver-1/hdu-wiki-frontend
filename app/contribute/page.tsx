@@ -3,6 +3,8 @@ import ContributeEditor from "@/components/ContributeEditor";
 
 export const metadata: Metadata = {
   title: "投稿",
+  alternates: { canonical: "/contribute" },
+  robots: { index: false, follow: true },
   description: "在网页端直接写一篇 Markdown 投稿，审核通过后发布到 HDU Wiki。",
 };
 

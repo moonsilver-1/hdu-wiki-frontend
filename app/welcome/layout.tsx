@@ -12,6 +12,7 @@ const serifCN = Noto_Serif_SC({
 });
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/welcome" },
   title: {
     absolute: "欢迎来到杭电 · HDU Wiki",
   },

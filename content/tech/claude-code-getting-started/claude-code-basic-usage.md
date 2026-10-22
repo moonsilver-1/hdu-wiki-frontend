@@ -36,7 +36,7 @@ claude
 
 ### 写代码
 
-```
+```text
 帮我写一个用户登录的 API，用 Express + JWT
 ```
 
@@ -46,7 +46,7 @@ Claude 会自动创建文件、安装依赖、写测试。
 
 ### 改 Bug
 
-```
+```text
 这个函数报错了 TypeError: Cannot read property 'map' of undefined，帮我修一下
 ```
 
@@ -56,7 +56,7 @@ Claude 会自动创建文件、安装依赖、写测试。
 
 ### 理解代码
 
-```
+```text
 解释一下 src/lib/auth.ts 这个文件在做什么
 ```
 
@@ -64,13 +64,13 @@ Claude 会自动创建文件、安装依赖、写测试。
 
 ### 重构
 
-```
+```text
 把 src/utils/ 下所有的 var 改成 const/let
 ```
 
 ### 执行命令
 
-```
+```text
 跑一下测试看看有没有挂的
 ```
 
@@ -118,7 +118,7 @@ ddl 战士必备之。
 
 Claude 可以同时读写多个文件。比如：
 
-```
+```text
 帮我创建一个完整的 CRUD API，包括路由、控制器和数据库模型
 ```
 

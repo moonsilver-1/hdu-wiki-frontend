@@ -47,7 +47,7 @@ tags: ["洛洛", "转载"]
 
 ## 在 Obsidian 中的目录结构
 
-```
+```text
 Vault/
 ├── 1-Projects/
 │   ├── 2026-04 产品发布/
@@ -69,7 +69,7 @@ Vault/
 
 ### 按可执行性排序
 
-```
+```text
 Projects > Areas > Resources > Archive
          ↑                           ↑
      最可执行的                  最不可执行的
@@ -84,7 +84,7 @@ Projects > Areas > Resources > Archive
 
 笔记会在四类之间**流动**：
 
-```
+```text
 Resource（学到一个新框架）
     → Project（用这个框架做项目）
         → Archive（项目完成）

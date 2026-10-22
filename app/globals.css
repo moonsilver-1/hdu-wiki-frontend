@@ -1905,6 +1905,7 @@ input:focus-visible {
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
 }
@@ -1939,6 +1940,7 @@ input:focus-visible {
 
 .article-page-content {
   max-width: 780px;
+  width: 100%;
 }
 
 .breadcrumb {
@@ -3023,6 +3025,8 @@ input:focus-visible {
 /* Wiki article content */
 .wiki-content {
   max-width: 760px;
+  min-width: 0;
+  overflow-wrap: anywhere;
   padding-top: 38px;
   color: var(--foreground);
   font-size: 16px;
@@ -3032,7 +3036,9 @@ input:focus-visible {
 .wiki-content h1,
 .wiki-content h2,
 .wiki-content h3,
-.wiki-content h4 {
+.wiki-content h4,
+.wiki-content h5,
+.wiki-content h6 {
   scroll-margin-top: 92px;
   color: var(--foreground);
   font-weight: 720;
@@ -3064,6 +3070,12 @@ input:focus-visible {
   margin: 1.8rem 0 0.65rem;
   font-size: 1.08rem;
   line-height: 1.5;
+}
+
+.wiki-content h5,
+.wiki-content h6 {
+  margin: 1.5rem 0 0.6rem;
+  font-size: 1rem;
 }
 
 .wiki-content h1:first-child,
@@ -3198,6 +3210,11 @@ input:focus-visible {
   font-weight: 680;
 }
 
+.wiki-content [align="center"] { text-align: center; }
+.wiki-content [align="right"] { text-align: right; }
+.wiki-content .contains-task-list { list-style: none; padding-left: 0; }
+.wiki-content .task-list-item input { margin-right: 0.5rem; }
+
 .wiki-content tr:nth-child(even) {
   background: color-mix(in srgb, var(--surface-muted) 55%, transparent);
 }
@@ -3268,6 +3285,15 @@ input:focus-visible {
 /* 行内公式（$...$）略大但不破坏文字行距 */
 .wiki-content .katex {
   font-size: 1.12em;
+}
+
+.wiki-content :not(.katex-display) > .katex {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
+  padding-block: 0.12em;
 }
 
 /* Search highlight */
@@ -3718,6 +3744,7 @@ mark.search-highlight.search-highlight-fade {
   }
 
   .footer-inner {
+    display: flex;
     min-height: 110px;
     align-items: flex-start;
     flex-direction: column;
@@ -5497,4 +5524,36 @@ html[data-sidebar="hidden"] .article-page-content .wiki-content {
 .ask-dialog-send:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Keep primary controls reachable on narrow phones; downloads and sign-in
+   remain available in the mobile menu. */
+@media (max-width: 680px) {
+  .header-inner { grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+  .header-actions { gap: 6px; }
+  .header-actions > .watcha-login,
+  .header-actions > .user-chip,
+  .header-actions > a[download],
+  .header-actions > a[aria-label="下载桌面版"] { display: none; }
+}
+
+.article-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; font-size: 12px; }
+.article-actions button { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; }
+.article-actions button:hover { background: var(--primary-light); }
+.article-actions button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.article-actions [role="status"] { color: var(--muted); }
+@media print {
+  :root, .dark { --background: #fff; --foreground: #111; --surface: #fff; --surface-muted: #f5f5f5; --surface-raised: #fff; --muted: #444; --border: #ccc; --primary: #222; }
+  .site-header, .wiki-sidebar, .toc-sidebar, .sidebar-expand, .site-footer,
+  .article-actions, .article-pagination, .article-comments-toggle,
+  .article-comment-popover, .article-comment-compose, .article-comment-toggle { display: none !important; }
+  .article-layout { display: block !important; width: 100%; }
+  .article-page-content, .wiki-content { max-width: none; width: 100%; margin: 0; padding: 0; }
+  .article-header { padding-bottom: 16px; }
+  .wiki-content pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .wiki-content table { display: table; font-size: 10pt; }
+  .wiki-content th, .wiki-content td { min-width: 0; }
+  .wiki-content h2, .wiki-content h3 { break-after: avoid; }
+  .wiki-content img, .wiki-content pre, .wiki-content tr { break-inside: avoid; }
+  .wiki-content a { color: inherit; }
 }

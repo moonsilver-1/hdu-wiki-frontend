@@ -69,7 +69,7 @@ tags: ["洛洛", "转载"]
 
 每个 commit 包含：
 
-```
+```text
 Commit: abc123def
 作者: Alice <alice@example.com>
 时间: 2026-04-08 15:30:00
@@ -107,7 +107,7 @@ Commit: abc123def
 
 想象一棵树。主干（`main`）是项目的正式版本。当你想尝试新功能但不想搞乱主干，就从上面长出一根枝条（branch）。在枝条上自由试验，完成后再并回主干。
 
-```
+```text
 main:          ●——●——●——●——●——●  （正式版，应该是稳定的）
                     ╲          ╱
 feature/login:      ●——●——●——●  （新功能，可以随意试验）
@@ -143,7 +143,7 @@ git merge feature/login     # 把分支合并回当前分支
 
 ### 三个区域
 
-```
+```text
 工作目录              暂存区              仓库
 (Working Directory)  (Staging Area)     (Repository)
 
@@ -176,7 +176,7 @@ git status
 
 输出示例：
 
-```
+```text
 Changes to be committed:        # 已暂存，准备 commit 的
   modified: src/auth.ts
 
@@ -238,7 +238,7 @@ Claude Code 也会尊重 `.gitignore`，不会提交被忽略的文件。
 
 你的电脑上有本地仓库，GitHub 上有远程仓库。它们需要同步：
 
-```
+```text
 你的电脑                    GitHub 服务器
 (本地仓库)                  (远程仓库)
   ●—●—●—●               ←── git pull ──  ●—●—●
@@ -308,7 +308,7 @@ Claude Code 可以：
 
 两个人同时修改了同一个文件的同一行代码：
 
-```
+```text
 原始版本:
   const name = "User"
 

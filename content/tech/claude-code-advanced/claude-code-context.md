@@ -34,7 +34,7 @@ Claude Code 的上下文窗口是有限的，具体大小取决于当前模型�
 
 这是最重要的上下文管理工具。
 
-```
+```text
 /compact
 ```
 
@@ -49,11 +49,11 @@ souga，原来它是让模型自己给自己写会议纪要，然后把三小时
 
 ### 自定义压缩重点
 
-```
+```text
 /compact 重点保留关于数据库架构的讨论
 ```
 
-```
+```text
 /compact 只保留最近的代码修改和当前任务目标
 ```
 
@@ -67,7 +67,7 @@ souga，原来它是让模型自己给自己写会议纪要，然后把三小时
 
 完全清空对话历史，从零开始：
 
-```
+```text
 /clear
 ```
 
@@ -91,13 +91,13 @@ souga，原来它是让模型自己给自己写会议纪要，然后把三小时
 
 不要：
 
-```
+```text
 读一下 src/app/layout.tsx
 ```
 
 更好：
 
-```
+```text
 读一下 src/app/layout.tsx 的第 10-30 行
 ```
 
@@ -107,7 +107,7 @@ Claude 的 Read 工具支持 `offset` 和 `limit` 参数，只读取需要的部
 
 不要：
 
-```
+```text
 帮我找找哪里用了 getUserById 这个函数
 ```
 
@@ -115,7 +115,7 @@ Claude 的 Read 工具支持 `offset` 和 `limit` 参数，只读取需要的部
 
 更好：
 
-```
+```text
 搜索代码库中所有调用 getUserById 的地方
 ```
 
@@ -135,7 +135,7 @@ Claude 的 Read 工具支持 `offset` 和 `limit` 参数，只读取需要的部
 
 ### 5. 利用 /btw 做快速提问
 
-```
+```text
 /btw TypeScript 的 satisfies 关键字怎么用？
 ```
 
@@ -158,7 +158,7 @@ Claude Code 界面会显示当前上下文使用情况，输入 `/context` 还�
 
 ## /cost 查看消耗
 
-```
+```text
 /cost
 ```
 

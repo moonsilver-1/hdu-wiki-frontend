@@ -35,7 +35,7 @@ project_root_markers = [".git", ".hg"]     # 设为 [] 则把当前目录当项�
 
 ## 生成脚手架
 
-```
+```text
 /init
 ```
 

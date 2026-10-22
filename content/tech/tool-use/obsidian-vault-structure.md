@@ -10,7 +10,7 @@ tags: ["洛洛", "转载"]
 
 ### 方案一：PARA 结构
 
-```
+```text
 Vault/
 ├── 1-Projects/      → 有截止日期的项目
 ├── 2-Areas/         → 持续关注的领域
@@ -23,7 +23,7 @@ Vault/
 
 ### 方案二：Zettelkasten 结构
 
-```
+```text
 Vault/
 ├── Fleeting/        → 闪念笔记
 ├── Literature/      → 文献笔记
@@ -36,7 +36,7 @@ Vault/
 
 ### 方案三：混合结构（推荐）
 
-```
+```text
 Vault/
 ├── 00-Inbox/        → 未处理的一切
 ├── 01-Daily/        → 日记和周回顾

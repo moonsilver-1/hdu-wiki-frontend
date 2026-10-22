@@ -10,7 +10,7 @@ tags: ["洛洛", "转载"]
 
 Claude Code 的配置像一栋楼，按官方文档分为五层。每层有特定用途，层级越高优先级越高（上面覆盖下面）：
 
-```
+```text
 第 1 层（最高）：企业托管配置（managed-settings.json 等，IT 管理员控制）
     ↓
 第 2 层：命令行参数（claude --settings，只对本次会话）
@@ -30,7 +30,7 @@ Claude Code 的配置像一栋楼，按官方文档分为五层。每层有特�
 
 这是 Claude Code 在你主目录下的配置中心：
 
-```
+```text
 ~/.claude/
 ├── settings.json           # 全局设置（适用于所有项目）
 ├── CLAUDE.md               # 全局项目指南（每次对话都加载）
@@ -83,7 +83,7 @@ Claude Code 的配置像一栋楼，按官方文档分为五层。每层有特�
 
 项目根目录下的 `.claude/` 文件夹存储团队共享的配置：
 
-```
+```text
 项目根目录/.claude/
 ├── settings.json          # 项目级设置（提交到 Git）
 ├── settings.local.json    # 本机私密设置（不提交）
@@ -154,7 +154,7 @@ Claude Code 的模型别名会随官方可用模型更新，不要把团队规�
 
 **1. 在会话中切换**
 
-```
+```text
 /model opus
 ```
 
@@ -199,7 +199,7 @@ Fast Mode **不是简单切换到更弱的模型**。它更像是把当前可用
 
 ### 切换方式
 
-```
+```text
 /fast    # 开启/关闭 Fast Mode
 ```
 
@@ -228,7 +228,7 @@ Fast Mode **不是简单切换到更弱的模型**。它更像是把当前可用
 
 切换方式：
 
-```
+```text
 /effort high
 ```
 
@@ -245,7 +245,7 @@ Fast Mode **不是简单切换到更弱的模型**。它更像是把当前可用
 
 Claude Code 不会改终端本身的配色，但可以选自己的主题：
 
-```
+```text
 /theme
 ```
 
@@ -285,7 +285,7 @@ enabled = true
 
 ### 查看和编辑
 
-```
+```text
 /keybindings
 ```
 
@@ -386,7 +386,7 @@ source ~/.zshrc
 
 ### 配置优先级速查
 
-```
+```text
 企业托管（不可覆盖）
   > 命令行参数 --settings
     > 本机私密 .claude/settings.local.json

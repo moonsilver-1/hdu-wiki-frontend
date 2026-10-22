@@ -117,7 +117,7 @@ cd -                                      # 回到上一个目录
 
 从根目录（`/`）开始的完整地址：
 
-```
+```text
 /Users/mozi/开发/LL001 luoluo-wiki/src/app/page.tsx
 ```
 
@@ -127,7 +127,7 @@ cd -                                      # 回到上一个目录
 
 从当前位置出发的地址：
 
-```
+```text
 ./src/app/page.tsx        # 当前目录下的 src/app/page.tsx
 ../package.json           # 上一级目录的 package.json
 ../../other-project/      # 上两级目录下的 other-project
@@ -182,7 +182,7 @@ env                 # 列出所有环境变量
 
 `.env` 是一个存储环境变量的配置文件，通常放在项目根目录：
 
-```
+```text
 API_BASE_URL=https://api.example.com
 API_KEY=sk-1234567890abcdef
 FEATURE_FLAG=true
@@ -240,7 +240,7 @@ Claude Code 使用你当前 Shell 的环境变量。你在 `.env.local` 里设�
 
 进程之间有"家族关系"：
 
-```
+```text
 终端窗口
 └── Shell 进程（PID 1234）        ← 父进程
     └── Claude Code 进程（PID 5678）  ← 子进程
@@ -354,7 +354,7 @@ Claude Code 运行每个命令后都会检查退出码：
 
 它的值是一串用冒号（`:`）分隔的目录列表：
 
-```
+```text
 /usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin
 ```
 
@@ -370,7 +370,7 @@ Claude Code 运行每个命令后都会检查退出码：
 
 看到这个错误：
 
-```
+```text
 zsh: command not found: pnpm
 ```
 
@@ -404,7 +404,7 @@ Claude Code 继承你 Shell 的 PATH。如果你能在终端里运行某个命�
 
 把所有概念串联起来：
 
-```
+```text
 1. 你打开终端程序（如 iTerm2）
    → 操作系统启动一个 Shell 进程（Zsh）
 

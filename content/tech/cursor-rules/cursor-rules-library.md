@@ -426,23 +426,16 @@ https://github.com/sanjeed5/awesome-cursor-rules-mdc/tree/main/rules-mdc
 
 - Assert: Verify that the code behaved as expected.
 
-> python
-
-> def test_example():
-
-> # Arrange
-
-> data = ...
-
-> expected_result = ...
-
-> # Act
-
-> result = function_under_test(data)
-
-> # Assert
-
-> assert result == expected_result
+```python
+def test_example():
+    # Arrange
+    data = ...
+    expected_result = ...
+    # Act
+    result = function_under_test(data)
+    # Assert
+    assert result == expected_result
+```
 
 > - Fixture factory: Use fixture factories to create reusable test data.
 
@@ -1082,29 +1075,19 @@ project_root/
 
 - Application Factory: Use the application factory pattern to create Flask application instances. This allows for different configurations for different environments (development, testing, production).
 
-python
-
+```python
 def create_app(config_name):
-
-app = Flask(__name__)
-
-app.config.from_object(config[config_name])
-
-config[config_name].init_app(app)
-
-> # Initialize extensions (e.g., db, mail) here
-
-> db.init_app(app)
-
-> mail.init_app(app)
-
-> # Register blueprints
-
-> from .main import main as main_blueprint
-
-> app.register_blueprint(main_blueprint)
-
-> return app
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
+    # Initialize extensions (e.g., db, mail) here
+    db.init_app(app)
+    mail.init_app(app)
+    # Register blueprints
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+    return app
+```
 
 > - Blueprints: Organize application functionality into reusable blueprints.
 
@@ -1448,7 +1431,7 @@ This has fixed just about EVERY SINGLE problem for me with Claude 3.7 in Cursor 
 
 ### Rules内容
 
-```text
+````text
 ## RIPER-5
 
 ### 背景介绍 
@@ -1955,6 +1938,6 @@ Yolo模式：[YOLO_MODE]
  *  寻求关键洞见而非表面列举
  *  追求创新思维而非习惯性重复
  *  突破认知限制，调动所有计算资源
-```
+````
 
 

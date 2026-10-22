@@ -57,9 +57,7 @@ function plainText(markdown: string): string {
     .trim();
 }
 
-function buildState(): SearchState {
-  const files = markdownFiles();
-  const fingerprints = files.map((file) => `${file}:${fs.statSync(file).mtimeMs}`).join("|");
+function buildState(files: string[], fingerprint: string): SearchState {
   const documents: SearchDocument[] = files.map((filePath) => {
     const relative = path.relative(path.join(process.cwd(), "content"), filePath).split(path.sep);
     const parsed = matter(fs.readFileSync(filePath, "utf8"));
@@ -90,13 +88,14 @@ function buildState(): SearchState {
     indexes.excerpt.add(id, document.excerpt);
     indexes.content.add(id, document.content);
   });
-  return { fingerprint: fingerprints, documents, indexes };
+  return { fingerprint, documents, indexes };
 }
 
 function getState(): SearchState {
   if (process.env.NODE_ENV === "production" && state) return state;
-  const next = buildState();
-  if (!state || state.fingerprint !== next.fingerprint) state = next;
+  const files = markdownFiles();
+  const fingerprint = files.map((file) => `${file}:${fs.statSync(file).mtimeMs}`).join("|");
+  if (!state || state.fingerprint !== fingerprint) state = buildState(files, fingerprint);
   return state;
 }
 

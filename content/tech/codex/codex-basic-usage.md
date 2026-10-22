@@ -24,7 +24,7 @@ codex "把 src/utils 里的重复代码抽成公共函数，并补上单元测�
 
 ### 写代码
 
-```
+```text
 帮我写一个用户登录的 API，用 Express + JWT，测试用 Vitest
 ```
 
@@ -32,25 +32,25 @@ Codex 会读项目、创建文件、跑测试。改动在工作区内不需要�
 
 ### 改 Bug
 
-```
+```text
 跑一下 pnpm test，把挂掉的用例修好，改动尽量小
 ```
 
 ### 理解代码
 
-```
+```text
 解释一下 src/lib/search.ts 是怎么和 /api/chat 共享索引的
 ```
 
 ### 重构
 
-```
+```text
 把 src/components 下所有 class 组件改成函数组件，保持行为不变
 ```
 
 ### 执行命令
 
-```
+```text
 看看 git log 最近 10 条，总结一下这周做了什么
 ```
 
@@ -119,7 +119,7 @@ codex --search "查一下 Next.js 16 的 proxy.ts 怎么替代 middleware.ts"
 
 官方最佳实践把 prompt 拆成四要素：**目标、上下文、约束、完成标准**。
 
-```
+```text
 目标：给 /api/chat 加上请求限流
 上下文：Next.js 16，路由在 src/app/api/chat/route.ts，部署在 Vercel
 约束：不要引入 Redis，只用内存计数；不要改动前端

@@ -42,7 +42,7 @@ export default function SearchButton({
         <span>{variant === "hero" ? "搜索文章、课程、生活指南..." : "搜索"}</span>
         {variant === "hero" ? <span className="search-submit">开始探索</span> : null}
       </button>
-      <SearchDialog open={open} onClose={() => setOpen(false)} />
+      {open ? <SearchDialog open onClose={() => setOpen(false)} /> : null}
     </>
   );
 }

@@ -108,7 +108,7 @@ CLAUDE.md 支持多级放置，下表按从通用到具体排列。这些文件�
 
 ### Monorepo 用法
 
-```
+```text
 repo/
 ├── CLAUDE.md           # 全局规范
 ├── packages/

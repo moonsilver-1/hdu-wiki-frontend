@@ -16,7 +16,7 @@ CES（Community Engagement Score，社区互动分）是运营圈流传最广的
 
 ### 1.1 CES 加权公式
 
-```
+```text
 CES = 点赞数 × 1 + 收藏数 × 1 + 评论数 × 4 + 转发数 × 4 + 关注数 × 8
 ```
 

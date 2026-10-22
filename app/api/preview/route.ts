@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { markdownProcessor } from "@/lib/content";
-import { preprocessMarkdown } from "@/lib/contribute";
+import { markdownProcessor, preprocessMarkdown } from "@/lib/markdown";
 import { readJsonBody } from "@/lib/request-body";
 
 const MAX_PREVIEW_MARKDOWN_CHARS = 60_000;
@@ -14,17 +13,17 @@ export async function POST(request: Request) {
   } catch (error) {
     const reason = error instanceof Error ? error.message : "INVALID_JSON";
     if (reason === "REQUEST_TOO_LARGE") {
-      return NextResponse.json({ error: "璇锋眰浣撹秴杩?256 KiB 闄愬埗" }, { status: 413 });
+      return NextResponse.json({ error: "请求体超过 256 KiB 限制" }, { status: 413 });
     }
     if (reason === "UNSUPPORTED_MEDIA_TYPE") {
-      return NextResponse.json({ error: "鍙帴鍙?application/json" }, { status: 415 });
+      return NextResponse.json({ error: "仅接受 application/json" }, { status: 415 });
     }
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
   const markdown = typeof body.body === "string" ? body.body : "";
   if (markdown.length > MAX_PREVIEW_MARKDOWN_CHARS) {
-    return NextResponse.json({ error: "棰勮姝ｆ枃涓嶈兘瓒呰繃 60,000 瀛楃" }, { status: 413 });
+    return NextResponse.json({ error: "预览正文不能超过 60,000 字符" }, { status: 413 });
   }
   if (!markdown.trim()) {
     return NextResponse.json({ html: "" });

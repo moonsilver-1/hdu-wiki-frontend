@@ -1,82 +1,14 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import gfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeHighlight from "rehype-highlight";
 import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
 import rehypeParse from "rehype-parse";
+import { markdownProcessor, preprocessMarkdown, excerptFromMarkdown } from "./markdown";
+export { markdownProcessor } from "./markdown";
 import { cache } from "react";
 import { categoryMap, getSiteSeries, isValidCategory, sectionMap } from "@/lib/site-taxonomy";
 
 const contentDir = path.join(process.cwd(), "content");
-
-function rehypeSafeUrls() {
-  return (tree: unknown) => {
-    const visit = (node: unknown): void => {
-      if (!node || typeof node !== "object") return;
-      const element = node as {
-        type?: string;
-        tagName?: string;
-        properties?: Record<string, unknown>;
-        children?: unknown[];
-      };
-      if (element.type === "element" && element.properties) {
-        for (const property of ["href", "src"]) {
-          const value = element.properties[property];
-          if (typeof value === "string" && /^[\u0000-\u0020]*(?:javascript|data|vbscript):/i.test(value)) {
-            delete element.properties[property];
-          }
-        }
-      }
-      element.children?.forEach(visit);
-    };
-    visit(tree);
-  };
-}
-
-// 文章图片滚动到附近才开始加载，避免长文一次拉满图片造成卡顿。
-function rehypeLazyImages() {
-  return (tree: unknown) => {
-    const visit = (node: unknown): void => {
-      if (!node || typeof node !== "object") return;
-      const element = node as {
-        type?: string;
-        tagName?: string;
-        properties?: Record<string, unknown>;
-        children?: unknown[];
-      };
-      if (element.type === "element" && element.tagName === "img" && element.properties) {
-        element.properties.loading = "lazy";
-        element.properties.decoding = "async";
-      }
-      element.children?.forEach(visit);
-    };
-    visit(tree);
-  };
-}
-
-// Keep the parser configuration in one place so article pages and API consumers
-// produce the same HTML. Math is rendered on the server and is safe to inject
-// because the source is repository-controlled Markdown.
-export const markdownProcessor = unified()
-  .use(remarkParse)
-  .use(gfm)
-  .use(remarkMath, { singleDollarTextMath: true })
-  .use(remarkRehype)
-  .use(rehypeSlug)
-  .use(rehypeAutolinkHeadings, { behavior: "wrap" })
-  .use(rehypeHighlight)
-  .use(rehypeKatex, { throwOnError: false, strict: false })
-  .use(rehypeSafeUrls)
-  .use(rehypeLazyImages)
-  .use(rehypeStringify);
 
 export interface ArticleMeta {
   title: string;
@@ -534,15 +466,25 @@ function extractToc(contentHtml: string): TocItem[] {
   const toc: TocItem[] = [];
   const textOf = (node: unknown): string => {
     if (!node || typeof node !== "object") return "";
-    const candidate = node as { type?: string; value?: string; children?: unknown[] };
+    const candidate = node as { type?: string; tagName?: string; value?: string; properties?: { className?: string[] }; children?: unknown[] };
     if (candidate.type === "text") return candidate.value ?? "";
+    if (candidate.properties?.className?.includes("katex")) {
+      // KaTeX contains both MathML and visual HTML; reading both duplicates the
+      // formula in the TOC. Its annotation contains the original expression.
+      const annotationText = (child: unknown): string => {
+        const item = child as { tagName?: string; children?: unknown[] };
+        if (item.tagName === "annotation") return (item.children ?? []).map(textOf).join("");
+        return (item.children ?? []).map(annotationText).join("");
+      };
+      return annotationText(candidate);
+    }
     return (candidate.children ?? []).map(textOf).join("");
   };
   const visit = (nodes: unknown[]): void => {
     for (const node of nodes) {
       if (!node || typeof node !== "object") continue;
       const heading = node as { tagName?: string; properties?: { id?: string }; children?: unknown[] };
-      const match = /h([23])/.exec(heading.tagName ?? "");
+      const match = /^h([23])$/.exec(heading.tagName ?? "");
       if (match && heading.properties?.id) {
         toc.push({ level: Number(match[1]), id: heading.properties.id, text: textOf(heading) });
       }
@@ -584,22 +526,13 @@ function slugFromFilename(filePath: string): string {
   return base.replace(/^(\d+\.\d+|[A-Z]\.\d+|\d+)-/, "");
 }
 
-// 读取 markdown 并把行尾统一成 LF。
-// 读取 markdown 并做两步预处理，保证行间公式能被 remark-math 正确识别：
-// 1. CRLF → LF：Windows 下文件常是 \r\n，会让 remark-math 认不出 display math。
-// 2. 单行 $$...$$ → 多行：remark-math 6 只认 "$$ 单独成行" 的多行格式，
-//    像 `$$A=U\Sigma V^\top$$` 这种单行写法会被当成行内公式（两个 $），
-//    渲染出来缺少外层 .katex-display，无法居中。这里把单行的 $$...$$
-//    展开成多行 `$$\n...\n$$`，统一交给 remark-math 当 display 处理。
+// Preserve Markdown source; display math normalization belongs to the AST pipeline.
 function readMarkdown(filePath: string): string {
-  return fs
-    .readFileSync(filePath, "utf-8")
-    .replace(/\r\n/g, "\n")
-    .replace(/(^|[^$])\$\$([^\n$][^$]*?)\$\$(?!\$)/g, (_, pre, body) => `${pre}$$\n${body.trim()}\n$$`);
+  return preprocessMarkdown(fs.readFileSync(filePath, "utf-8"));
 }
 
 function getArticleFile(category: string, slug: string): string | null {
-  if (!isValidCategory(category) || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
+  if (!isValidCategory(category) || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(slug)) return null;
   return getMarkdownFiles(path.join(contentDir, category)).find(
     (candidate) => slugFromFilename(candidate) === slug
   ) ?? null;
@@ -617,11 +550,17 @@ function getArticleSection(category: string, filePath: string): string {
 
 export function sortArticles(articles: ArticleMeta[]): ArticleMeta[] {
   return [...articles].sort((articleA, articleB) => {
+    // A total ordering is required: mixing course indices with slug ordering
+    // across sections makes the comparator non-transitive and scrambles chapters.
+    const group = articleA.category.localeCompare(articleB.category) || articleA.section.localeCompare(articleB.section);
+    if (group) return group;
     const placeA = getArticleVolume(articleA.section, articleA.slug);
     const placeB = getArticleVolume(articleB.section, articleB.slug);
     if (placeA && placeB) {
       return placeA.globalIndex - placeB.globalIndex;
     }
+    if (placeA) return -1;
+    if (placeB) return 1;
     return articleA.slug.localeCompare(articleB.slug, "en", { numeric: true });
   });
 }
@@ -847,7 +786,7 @@ async function getArticleUncached(
       : (data.title || slug),
     category: data.category || category,
     tags: normalizeTags(data.tags),
-    excerpt: data.excerpt || "",
+    excerpt: data.excerpt || excerptFromMarkdown(content),
     date: data.date || "",
     author: data.author || "",
     slug,
@@ -899,7 +838,7 @@ export function getArticleMeta(
   if (cached && cached.mtime === mtime) return cached.meta;
 
   const fileContent = readMarkdown(filePath);
-  const { data } = matter(fileContent);
+  const { data, content } = matter(fileContent);
 
   const section = data.section || getArticleSection(category, filePath);
   const placement = getArticleVolume(section, slug);
@@ -909,7 +848,7 @@ export function getArticleMeta(
       : (data.title || slug),
     category: data.category || category,
     tags: normalizeTags(data.tags),
-    excerpt: data.excerpt || "",
+    excerpt: data.excerpt || excerptFromMarkdown(content),
     date: data.date || "",
     author: data.author || "",
     slug,

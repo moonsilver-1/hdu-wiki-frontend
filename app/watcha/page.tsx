@@ -16,6 +16,7 @@ import WatchaClientWrapper from '@/components/watcha/WatchaClientWrapper';
  *   所以 page.tsx（Server Component）只负责引入包装层。
  */
 export const metadata = {
+  alternates: { canonical: '/watcha' },
   title: '观猹文化墙 · 杭电 × 观猹共建 AI 育人生态',
   description:
     '观猹学社与杭州电子科技大学校企共建 AI 育人生态沉浸式互动体验：从校园萌芽到产业回流，好用产品馆、互动展区与生态伙伴一览。',
