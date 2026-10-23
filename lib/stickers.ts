@@ -1,14 +1,23 @@
 import captions from "./sticker-captions.json";
+import packs from "./sticker-packs.json";
 
 export type StickerRole = "boy" | "girl";
 export type StickerRoleFilter = "all" | StickerRole;
 export const STICKER_PAGE_SIZE = 24;
-export const STICKER_PACK_URL = "/stickers/sheep-stickers-40.zip";
-export const STICKER_PACK_SIZE = "68.9 MB";
 export const STICKER_COUNT_PER_ROLE = captions.length;
 export const STICKER_TOTAL = captions.length * 2;
 export const STICKER_ROLES = { boy: "小羊学长", girl: "小羊学姐" } as const;
 export const STICKER_CATEGORIES = ["常用", "日常", "校园", "抽象", "心情"] as const;
+
+export interface StickerPack {
+  role: StickerRole;
+  label: string;
+  url: string;
+  size: string;
+  count: number;
+}
+
+export const STICKER_PACKS = packs as readonly StickerPack[];
 
 export interface Sticker {
   id: string;
