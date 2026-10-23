@@ -127,6 +127,14 @@
   border-top: 1px solid var(--tour-line);
 }
 
+.transcript { margin-top: 24px; border-top: 1px solid var(--tour-line); padding-top: 12px; }
+.transcript summary { cursor: pointer; padding-block: 12px; color: var(--tour-accent); font-size: 14px; }
+.transcript summary:focus-visible { outline: 3px solid var(--tour-accent); outline-offset: 4px; }
+.transcript ol { list-style: none; padding: 0; margin: 16px 0; display: grid; gap: 16px; }
+.transcript li { display: grid; grid-template-columns: 8em 1fr; gap: 16px; font-size: 14px; line-height: 1.8; }
+.transcript strong { color: var(--tour-accent); }
+.transcript p { margin: 0; }
+
 .afterword h2 {
   margin: 0 0 10px;
   font-size: 17px;
@@ -163,6 +171,7 @@
 .entries { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
 
 @media (max-width: 600px) {
+  .transcript li { grid-template-columns: 1fr; gap: 2px; }
   .page { padding: 20px 20px 48px; }
   .heading { margin: 24px 0; }
   .description { font-size: 14px; }

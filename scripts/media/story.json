@@ -1,0 +1,23 @@
+{
+  "title": "一起，成为更好的自己",
+  "voices": {"boy":"zh-CN-YunxiNeural","girl":"zh-CN-XiaoxiaoNeural"},
+  "scenes": [
+    {"chapter":"那时，我们也会不知所措","role":"girl","text":"还记得我们第一次准备分享的时候吗？","boy":"027","girl":"106","setting":"desk","min_duration":4.8},
+    {"chapter":"那时，我们也会不知所措","role":"boy","text":"记得。电脑一报错，我就觉得自己什么都不会。","boy":"121","girl":"106","setting":"desk"},
+    {"chapter":"一句关心，就是开始","role":"girl","text":"怎么啦？卡在哪一步？","boy":"121","girl":"106","setting":"desk"},
+    {"chapter":"一句关心，就是开始","role":"boy","text":"这段代码改了好多遍，还是跑不起来。","boy":"065","girl":"106","setting":"desk"},
+    {"chapter":"有人陪着，就再试一次","role":"girl","text":"没事没事，我们从第一步看。我陪你。","boy":"118","girl":"105","setting":"desk"},
+    {"chapter":"有人陪着，就再试一次","role":"boy","text":"原来是这里！你整理的笔记，救了我。","boy":"109","girl":"123","setting":"notes","screen":"04-article.jpg"},
+    {"chapter":"把经验，接着传下去","role":"girl","text":"也有好多学长学姐的经验。我们一起补完整。","boy":"103","girl":"123","setting":"notes","screen":"01-home.jpg"},
+    {"chapter":"一点点进步，也值得开心","role":"boy","text":"运行成功！今天又学会了一点。","boy":"122","girl":"104","setting":"desk"},
+    {"chapter":"原来，你也有不擅长的事","role":"girl","text":"不过，明天就要上台了。我一紧张，就忘词。","boy":"106","girl":"118","setting":"rehearsal"},
+    {"chapter":"这一次，换我陪你","role":"boy","text":"那这次换我陪你。你讲，我听。我们再练一遍。","boy":"113","girl":"103","setting":"rehearsal"},
+    {"chapter":"这一次，换我陪你","role":"girl","text":"嗯嗯。讲慢一点，把我们怎么做的说清楚。","boy":"103","girl":"103","setting":"rehearsal"},
+    {"chapter":"练习，是为了并肩站在这里","role":"boy","text":"你已经讲得很好了。加油加油，我们一起上。","boy":"104","girl":"109","setting":"rehearsal"},
+    {"chapter":"练习，是为了并肩站在这里","role":"girl","text":"好。谢谢你一直都在。","boy":"113","girl":"007","setting":"rehearsal"},
+    {"chapter":"一起，站上属于我们的舞台","role":"boy","text":"大家好，今天由我们一起分享。","setting":"stage"},
+    {"chapter":"一起，站上属于我们的舞台","role":"girl","text":"我们想把踩过的坑，变成大家少走的弯路。","setting":"stage"},
+    {"chapter":"一起，成为更好的自己","role":"girl","text":"从小羊开始，和朋友一起，成为更好的自己。","setting":"stage","min_duration":7.5},
+    {"chapter":"从 SHEEP 到 GOAT，和朋友一起成长","role":"crowd","text":"GOAT！GOAT！GOAT！","setting":"stage","min_duration":6.75}
+  ]
+}

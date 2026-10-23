@@ -15,9 +15,39 @@
     "caption": "来了"
   },
   {
+    "id": "004",
+    "category": "常用",
+    "caption": "在吗"
+  },
+  {
+    "id": "005",
+    "category": "常用",
+    "caption": "你好"
+  },
+  {
+    "id": "006",
+    "category": "常用",
+    "caption": "拜拜"
+  },
+  {
     "id": "007",
     "category": "常用",
     "caption": "谢谢"
+  },
+  {
+    "id": "008",
+    "category": "常用",
+    "caption": "不客气"
+  },
+  {
+    "id": "009",
+    "category": "常用",
+    "caption": "对不起"
+  },
+  {
+    "id": "010",
+    "category": "常用",
+    "caption": "没事"
   },
   {
     "id": "012",
@@ -98,5 +128,125 @@
     "id": "082",
     "category": "心情",
     "caption": "无语"
+  },
+  {
+    "id": "101",
+    "category": "抽象",
+    "caption": "GOAT"
+  },
+  {
+    "id": "102",
+    "category": "抽象",
+    "caption": "你是GOAT，那我是谁"
+  },
+  {
+    "id": "103",
+    "category": "常用",
+    "caption": "嗯嗯"
+  },
+  {
+    "id": "104",
+    "category": "常用",
+    "caption": "加油加油"
+  },
+  {
+    "id": "105",
+    "category": "常用",
+    "caption": "没事没事"
+  },
+  {
+    "id": "106",
+    "category": "常用",
+    "caption": "怎么啦"
+  },
+  {
+    "id": "107",
+    "category": "抽象",
+    "caption": "你也是GOAT"
+  },
+  {
+    "id": "108",
+    "category": "抽象",
+    "caption": "我是小羊"
+  },
+  {
+    "id": "109",
+    "category": "心情",
+    "caption": "今天也很棒"
+  },
+  {
+    "id": "110",
+    "category": "常用",
+    "caption": "慢慢来"
+  },
+  {
+    "id": "111",
+    "category": "常用",
+    "caption": "摸摸头"
+  },
+  {
+    "id": "112",
+    "category": "日常",
+    "caption": "好梦"
+  },
+  {
+    "id": "113",
+    "category": "常用",
+    "caption": "我在呢"
+  },
+  {
+    "id": "114",
+    "category": "常用",
+    "caption": "贴贴"
+  },
+  {
+    "id": "115",
+    "category": "抽象",
+    "caption": "诶嘿"
+  },
+  {
+    "id": "116",
+    "category": "抽象",
+    "caption": "拿捏"
+  },
+  {
+    "id": "117",
+    "category": "抽象",
+    "caption": "大脑离线"
+  },
+  {
+    "id": "118",
+    "category": "校园",
+    "caption": "正在加载"
+  },
+  {
+    "id": "119",
+    "category": "抽象",
+    "caption": "已老实"
+  },
+  {
+    "id": "120",
+    "category": "心情",
+    "caption": "禁止焦虑"
+  },
+  {
+    "id": "121",
+    "category": "校园",
+    "caption": "代码又炸了"
+  },
+  {
+    "id": "122",
+    "category": "校园",
+    "caption": "运行成功"
+  },
+  {
+    "id": "123",
+    "category": "校园",
+    "caption": "一起学"
+  },
+  {
+    "id": "124",
+    "category": "校园",
+    "caption": "下课啦"
   }
 ]

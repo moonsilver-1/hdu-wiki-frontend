@@ -157,7 +157,7 @@ export default async function Home({
             <div><strong>2026</strong><span>持续共建中</span></div>
           </div>
           <div className={tourStyles.entries}>
-            <Link href="/video" prefetch={false} className={tourStyles.entry}>用一分钟看看</Link>
+            <Link href="/video" prefetch={false} className={tourStyles.entry}>看看学长学姐的小故事</Link>
             <Link href="/stickers" prefetch={false} className={tourStyles.entry}>小羊表情包</Link>
           </div>
         </div>

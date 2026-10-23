@@ -36,7 +36,7 @@ export default function StickerGallery() {
         </div>
         <div className={styles.search}>
           <label htmlFor="sticker-search">找一句话</label>
-          <input id="sticker-search" type="search" placeholder="比如：吃什么、赶 ddl" value={query}
+          <input id="sticker-search" type="search" placeholder="比如：GOAT、加油、晚安" value={query}
             onChange={(event) => { setQuery(event.target.value); setPage(1); }} />
         </div>
       </div>
